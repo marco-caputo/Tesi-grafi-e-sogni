@@ -1,0 +1,69 @@
+\chapter{Introduzione}\label{chap:intro}
+
+Numerosi e ragguardevoli sono stati i traguardi raggiunti dagli strumenti di elaborazione automatica di testi
+scritti sviluppati ed affinati negli ultimi decenni.
+In particolare, la branca dell'intelligenza artificiale dell'elaborazione automatica del linguaggio naturale
+(\textit{Natural Language Processing} o \textit{NLP}) ha
+visto una crescita esponenziale negli ultimi anni, grazie all'impiego di tecniche di deep
+learning e all'incremento della potenza di calcolo a disposizione.
+Tuttavia, nonostante i progressi compiuti circa le capacit\`a, la comprensione del testo scritto rimane un compito
+complesso per i sistemi automatici, che richiedono enormi quantitativi di dati annotati per poter apprendere
+modelli di linguaggio sufficientemente accurati.
+Si pensi che i dataset per l'addestramento di modelli di linguaggio come \textit{GPT-3} si sono rapidamente espansi,
+culminando in dimensioni dell'ordine del trilione di parole~\cite{DBLP:journals/corr/abs-2005-14165}. \newline
+
+D'altra parte, l'applicazione di queste tecniche di analisi automatica di testi scritti o parlati sui sogni hanno
+gi\`a trovato applicazioni in ambito psicologico e psichiatrico, applicando tecniche di NLP su piccoli corpus di testi
+di sogni ~\cite{ALTSZYLER2017178}, mentre la rappresentazione di testi sui sogni attraverso grafi si \`e rivelato
+un'utile strumento a supperto della diagnosi e predizione di disturbi come la schizofrenia o il disturbo
+bipolare ~\cite{mota2014graph,mota2017thought}~. \newline
+
+In questa tesi si discuter\`a di come una struttura di grafi a pi\`u livelli possa essere utilizzata
+per rappresentare e analizzare piccoli dataset di testi provenienti da trascrizioni di sogni e come essa possa essere
+sfruttata per realizzare dei modelli di linguaggio minimali rappresentativi di un particolare sognatore, dimostrando
+come informazioni legate alla semantica delle parole possano essere estrapolate a partire da aspetti sintattici.
+\newline
+
+\section{Motivazione}
+Sebbene gli strumenti di NLP siano stati ampiamente utilizzati per l'analisi sintattica e semantica di testi scritti,
+le motivazioni che spingono alla realizzazione di una struttura dati applicabile alla trasposizione di sogni in
+semplici modelli di linguaggio sono legate al tentativo di individuare i rapporti sintattici e semantici tra parole e
+contesti di parole in relazione alla specifica persona, ovvero allo spazio semantico di un sognatore. \newline
+
+L'estrapolazione di informazioni legate al significato delle parole a partire da aspetti sintattici \`e un
+principio fondamentale della semantica computazionale, noto come \textit{ipotesi distribuzionale}, che si basa sul
+principio per cui il significato di una parola \`e determinato dal suo contesto di utilizzo, e che le parole che
+appaiono nello stesso contesto tendono ad avere significati simili.\newline
+
+Lo spazio semantico di un sognatore pu\`o essere rappresentato, quindi, attraverso una struttura basata su grafi in cui
+i nodi rappresentino le parole o i contesti di parole presenti nei sogni e gli archi siano ricavati dalle relazioni
+sintattiche tra di esse, come l'immediata vicinanza o la co-occorrenza. \newline
+
+Da questa necessit\`a nasce l'idea di realizzare una struttura dati generica per la rappresentazione di una
+gerarchia di grafi a pi\`u livelli, dove ogni livello rappresenti una diversa astrazione del grafo iniziale, e i
+grafi ai livelli inferiori possano essere ottenuti dall'espansione ricorsiva dei nodi ai livelli superiori. \newline
+
+\section{Obiettivi}
+L'obiettivo principale di questa tesi \`e, quindi, proporre una definizione formale della struttura dati astratta del
+\textit{Grafo Muli-Livello} e delle operazioni che possono essere eseguite su di essa, nonch\'e di valutarne
+complessit\`a computazionale e spaziale. \newline
+
+Il secondo obiettivo \`e quello di analizzarne le possibili applicazioni, in particolare per la
+rappresentazione di spazi di parole e contesti in relazione ai sogni trascritti da un determinato sognatore. \newline
+
+\section{Struttura della Tesi}
+
+La tesi \`e strutturata come segue:
+\begin{itemize}
+    \item Nel Capitolo~\ref{chap:background} verranno presentati i concetti di base relativi alla teoria dei grafi,
+    con particolare attenzione agli aspetti legati al partizionamento e agli approcci multilivello esistenti per la
+    risoluzione di problemi di partizionamento su grafi.
+    \item Nel Capitolo~\ref{chap:multilevel} verranno illustrati gli algoritmi per l'individuazione di pattern
+    strutturali in grafi utili per la costruzione di una gerarchia di grafi a pi\`u livelli.
+    \item Nei Capitoli~\ref{chap:multilevel} verr\`a presentata e definita la struttura dati del Grafo Multi-Livello,
+    le operazioni che possono essere eseguite su di essa e i relativi algoritmi
+    \item Nei Capitoli~\ref{chap:applications} verranno discusse le possibili applicazioni del Grafo Multi-Livello,
+    evidenziandone limiti e punti di forza.
+    Particolare attenzione sar\`a rivolta all'ambito della trascrizione dei sogni, e verranno discussi i risultati
+    preliminari ottenuti applicando la struttura dati a dataset di sogni di esempio.
+\end{itemize}

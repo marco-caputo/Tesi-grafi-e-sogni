@@ -1,0 +1,68 @@
+\begin{tikzpicture}[every node/.style={circle, draw, inner sep=2pt}, >={Stealth}]
+
+% Define nodes in the original graph
+\node[fill=blue!20] (a) at (0,0) {a};
+\node[fill=blue!20] (b) at (1,1) {b};
+\node[fill=blue!20] (c) at (2,0) {c};
+\node[fill=blue!20] (d) at (1,-1) {d};
+
+\node[fill=blue!20] (e) at (4,0) {e};
+\node[fill=blue!20] (f) at (5,1) {f};
+\node[fill=blue!20] (g) at (6,0) {g};
+\node[fill=blue!20] (h) at (5,-1) {h};
+
+\node[fill=blue!20] (i) at (8,0) {i};
+\node[fill=blue!20] (j) at (9,1) {j};
+\node[fill=blue!20] (k) at (10,0) {k};
+\node[fill=blue!20] (l) at (9,-1) {l};
+
+% Draw edges in the original graph
+\draw[->] (a) -- (b);
+\draw[->] (b) -- (c);
+\draw[->] (c) -- (d);
+\draw[->] (d) -- (a);
+\draw[->] (a) -- (c);
+\draw[->] (b) -- (d);
+
+\draw[->] (e) -- (f);
+\draw[->] (f) -- (g);
+\draw[->] (g) -- (h);
+\draw[->] (h) -- (e);
+\draw[->] (e) -- (g);
+\draw[->] (f) -- (h);
+
+\draw[->] (i) -- (j);
+\draw[->] (j) -- (k);
+\draw[->] (k) -- (l);
+\draw[->] (l) -- (i);
+\draw[->] (i) -- (k);
+\draw[->] (j) -- (l);
+
+\draw[->] (a) -- (e);
+\draw[->] (b) -- (f);
+\draw[->] (c) -- (g);
+\draw[->] (d) -- (h);
+
+\draw[->] (e) -- (i);
+\draw[->] (f) -- (j);
+\draw[->] (g) -- (k);
+\draw[->] (h) -- (l);
+
+% Draw subsets
+\begin{scope}[on background layer]
+    \node[ellipse, draw=yellow, line width=2pt, fit=(a) (b) (c) (d)] {};
+    \node[ellipse, draw=yellow, line width=2pt, fit=(e) (f) (g) (h)] {};
+    \node[ellipse, draw=yellow, line width=2pt, fit=(i) (j) (k) (l)] {};
+\end{scope}
+
+% Draw condensed graph on the left
+\node[fill=yellow!20, draw=black] (A) at (-2,0) {A};
+\node[fill=yellow!20, draw=black] (B) at (-4,2) {B};
+\node[fill=yellow!20, draw=black] (C) at (-4,-2) {C};
+
+\draw[->, thick] (A) -- (B);
+\draw[->, thick] (A) -- (C);
+\draw[->, thick] (B) -- (C);
+\draw[->, thick] (C) -- (B);
+
+\end{tikzpicture}

@@ -1,0 +1,99 @@
+\documentclass{unicam_thesis}
+\usepackage{breqn}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{3d}
+\usetikzlibrary{positioning}
+\usetikzlibrary{fit}
+\usetikzlibrary{verbatim}
+\usetikzlibrary{shapes}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\tikzset{mynode/.style={draw, thick, circle, size=0.3mm}, myarrow/.style={thick, -Triangle}}
+
+
+\usetikzlibrary{graphs, graphdrawing}
+\usegdlibrary{force, layering, graphs}
+
+\addbibresource{biblio.bib}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    citecolor=black
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TESI DATI FRONTESPIZIO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Sviluppo di una struttura dati per la\\trascrizione e gestione di sogni}
+
+\university{Universit\`a degli Studi di Camerino}%
+\school{Scienze e Tecnologie}%
+\course{Laurea in Informatica (Classe L-31)}%
+
+\author{Marco Caputo}%
+\advisor{Prof.ssa Emanuela Merelli}%
+%\coadvisor{Dott. Michele Russo}%
+\academicyear{2023/2024}%
+\matricola{119136}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FINE DATI FRONTESPIZIO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definizione}[section]
+
+% Customizing the definition environment
+
+\renewenvironment{definition}[1][]
+  {\refstepcounter{definition}\par\medskip
+   \noindent
+   {\bfseries Definizione~\thedefinition \ifstrempty{#1}{}{ (#1)}}
+   \itshape\par\nobreak}
+  {\par\medskip}
+
+\theoremstyle{proposition}
+\newtheorem{proposition}{Proposizione}[section]
+
+\theoremstyle{proof}
+\newtheorem{proof}{Dimostrazione}[theorem]
+
+\graphicspath{Immagini/}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\lstlistoflistings
+\listoffigures
+\listoftables
+
+\input{Introduzione}
+\input{1-GrafiEAppML}
+%\input{Capitolo2}
+%\input{Capitolo7}
+
+
+\appendix
+%\input{schema_elettrico}
+%\input{Appendix1}
+%\input{Appendix2}
+
+% Citazioni nel testo
+~\nocite{*} % Include tutte le voci nel .bib, anche se non citate nel testo
+% Stampa la bibliografia
+\printbibliography
+
+\printindex
+
+%\include{ringraziamenti}
+
+\end{document}

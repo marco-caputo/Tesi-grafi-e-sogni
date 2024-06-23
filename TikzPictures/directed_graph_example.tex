@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+    % Define the nodes
+    \node[mynode] (1) at (0, 0) {$v_1$};
+    \node[mynode] (2) at (2, 2) {$v_2$};
+    \node[mynode] (3) at (4, 0) {$v_3$};
+    \node[mynode] (4) at (2, -2) {$v_4$};
+    \node[mynode] (5) at (6, 2) {$v_5$};
+    \node[mynode] (6) at (8, 0) {$v_6$};
+    \node[mynode] (7) at (6, -2) {$v_7$};
+
+    % Draw the edges
+    \draw[myarrow] (1) -- (2);
+    \draw[myarrow] (2) to[out=180, in=90] (1);
+    \draw[myarrow] (4) to[out=225, in=135, looseness=5] (4); % This edge is a self-loop, corrected below
+    \draw[myarrow] (2) -- (3);
+    \draw[myarrow] (3) -- (4);
+    \draw[myarrow] (3) -- (1);
+    \draw[myarrow] (5) to[out=0, in=90] (6);
+    \draw[myarrow] (6) -- (5);
+\end{tikzpicture}
