@@ -302,7 +302,12 @@ Sebbene l'ingrediente fondamentale per la definizione di un grafo quoziente, ass
 una partizione dei suoi nodi, una relazione di equivalenza sugli stessi sarebbe un parametro equivalente, in quanto
 ogni relazione di equivalenza induce una partizione degli elementi del suo dominio in classi di equivalenza. \newline
 
-%TODO Figura
+\begin{figure}[h]
+    \centering
+    \include{TikzPictures/quotient_graph_example}
+    \caption{Un esempio di grafo quoziente di un grafo orientato}
+    \label{fig:quotient-graph-example} %TODO: Aggiungere testo che descrive il grafo
+\end{figure}
 
 Le relazioni di equivalenza, cos\'{\i} come le partizioni, possono essere comparate tra
 loro secondo il concetto di raffinamento: una relazione di equivalenza $R_1$ si dice \textbf{pi\`u fine}
@@ -327,7 +332,7 @@ Per questo \`e interessante notare che tale concetto di finezza pu\`o essere fac
 Una particolare relazione di equivalenza che ben si presta alla definizione di un grafo quoziente \`e la relazione di
 mutua raggiungibilit\`a tra nodi di un grafo, che ne definisce le componenti fortemente connesse.
 Il grafo quoziente di un grafo rispetto a tale relazione di equivalenza, infatti, prende il nome di
-\textbf{condensazione}, e si dimostra essere un grafo diretto aciclico.
+\textbf{condensazione} (o grafo delle componenti fortemente connesse), e si dimostra essere un grafo diretto aciclico.
 
 \begin{figure}[h]
     \centering
@@ -335,6 +340,15 @@ Il grafo quoziente di un grafo rispetto a tale relazione di equivalenza, infatti
     \caption{Un esempio di condensazione di un grafo orientato}
     \label{fig:condensation-example}
 \end{figure}
+
+In figura~\ref{fig:condensation-example} \`e mostrato un esempio di grafo orientato sulla sinistra, in cui le componenti
+fortemente connesse sono evidenziate in giallo, e al sua condensazione sulla destra. \newline
+Si noti che il grafo condensato, in quanto aciclico, non contiene cicli semplici.
+Se si volesse aggiungere un arco affinch\`e il grafo condensato contenesse un ciclo, ad esempio aggiungendo un arco
+uscente da un nodo nella compoente $C$ e entrante in un nodo nella componente $A$, si otterrebbe una nuova componente
+fortemente connessa data dall'unione delle componenti $A$, $B$ e $C$, ovvero le componenti i cui corrispondenti nodi
+nel grafo condensato sarebbero contentenuti in un ciclo semplice. \newline
+
 
 
 
