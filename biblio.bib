@@ -122,3 +122,65 @@ abstract = {Computer-based dreams content analysis relies on word frequencies wi
   biburl       = {https://dblp.org/rec/journals/corr/abs-2005-14165.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
+
+@inproceedings{10.1145/3448016.3452797,
+author = {Fan, Wenfei and Li, Yuanhao and Liu, Muyang and Lu, Can},
+title = {Making Graphs Compact by Lossless Contraction},
+year = {2021},
+isbn = {9781450383431},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3448016.3452797},
+doi = {10.1145/3448016.3452797},
+abstract = {This paper proposes a scheme to reduce big graphs to small graphs. It contracts obsolete parts, stars, cliques and paths into supernodes. The supernodes carry a synopsis S_Q for each query class Q to abstract key features of the contracted parts for answering queries of Q. The contraction scheme provides a compact graph representation and prioritizes up-to-date data. Better still, it is generic and lossless. We show that the same contracted graph is able to support multiple query classes at the same time, no matter whether their queries are label-based or not, local or non-local. Moreover, existing algorithms for these queries can be readily adapted to compute exact answers by using the synopses when possible, and decontracting the supernodes only when necessary. As a proof of concept, we show how to adapt existing algorithms for subgraph isomorphism, triangle counting and shortest distance to contracted graphs. We also provide an incremental contraction algorithm in response to updates. We experimentally verify that on average, the contraction scheme reduces graphs by 71.2\%, and improves the evaluation of these queries by 1.53, 1.42 and 2.14 times, respectively.},
+booktitle = {Proceedings of the 2021 International Conference on Management of Data},
+pages = {472–484},
+numpages = {13},
+keywords = {graph algorithms, graph contraction, graph data management},
+location = {Virtual Event, China},
+series = {SIGMOD '21}
+}
+
+@article{DBLP:journals/corr/abs-1012-0006,
+  author       = {Peter Sanders and
+                  Christian Schulz},
+  title        = {Engineering Multilevel Graph Partitioning Algorithms},
+  journal      = {CoRR},
+  volume       = {abs/1012.0006},
+  year         = {2010},
+  url          = {http://arxiv.org/abs/1012.0006},
+  eprinttype    = {arXiv},
+  eprint       = {1012.0006},
+  timestamp    = {Mon, 13 Aug 2018 16:47:08 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1012-0006.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+@article{4069239,
+  author={Archambault, Daniel and Munzner, Tamara and Auber, David},
+  journal={IEEE Transactions on Visualization and Computer Graphics},
+  title={TopoLayout: Multilevel Graph Layout by Topological Features},
+  year={2007},
+  volume={13},
+  number={2},
+  pages={305-317},
+  keywords={Computer vision;Clustering algorithms;Topology;Runtime;Data visualization;Computer Society;Tree graphs;Detectors;Information visualization;graphs and networks;graph visualization.},
+  doi={10.1109/TVCG.2007.46}}
+
+@inproceedings{10.1145/224170.224228,
+author = {Hendrickson, Bruce and Leland, Robert},
+title = {A multilevel algorithm for partitioning graphs},
+year = {1995},
+isbn = {0897918169},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/224170.224228},
+doi = {10.1145/224170.224228},
+abstract = {The graph partitioning problem is that of dividing the vertices of a graph into sets of specified sizes such that few edges cross between sets. This NP-complete problem arises in many important scientific and engineering problems. Prominent examples include the decomposition of data structures for parallel computation, the placement of circuit elements and the ordering of sparse matrix computations. We present a multilevel algorithm for graph partitioning in which the graph is approximated by a sequence of increasingly smaller graphs. The smallest graph is then partitioned using a spectral method, and this partition is propagated back through the hierarchy of graphs. A variant of the Kernighan-Lin algorithm is applied periodically to refine the partition. The entire algorithm can be implemented to execute in time proportional to the size of the original graph. Experiments indicate that, relative to other advanced methods, the multilevel algorithm produces high quality partitions at low cost.},
+booktitle = {Proceedings of the 1995 ACM/IEEE Conference on Supercomputing},
+pages = {28–es},
+keywords = {parallel computation, load balancing, graph partitioning, circuit placement},
+location = {San Diego, California, USA},
+series = {Supercomputing '95}
+}

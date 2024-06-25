@@ -168,10 +168,12 @@ La contrazione di archi o di sottoinsiemi di nodi \`e un operazione fondamentale
 si studiano le propriet\`a di un grafo in relazione alla presenza di sottostrutture minori ottenibili attraverso
 rimozione di archi e nodi o contrazioni. \newline
 Queste tecniche di contrazione trovano applicazione in tutti quei casi in cui si vuole semplificare un grafo
-identificando i vertici che possono essere considerati equivalenti in relazione ad una certa propriet\`,
+identificando i vertici che possono essere considerati equivalenti in relazione ad una certa propriet\`a,
 e risultano essere utili in svariati problemi di ottimizzazione e partizionamento di grafi.
-Come vedremo in seguito, un grafo quoziente \`e proprio un grafo ottenuto dalla contrazione di un grafo secondo
-una relazione d'equivalenza definita sui suoi nodi. \newline
+In letteratura, le operazioni di contrazione di grafi sono state utilizzate anche a scopo di compressione di grafi,
+al fine di renderli pi\`u compatti e trattabili con algoritmi di analisi altrimenti troppo costosi,
+individuando schemi di contrazione d'interesse e cercando di evitare perdita di
+informazione~\cite{10.1145/3448016.3452797}. \newline
 
 
 \subsection{Contrazione di archi}\label{subsec:contrazione-di-archi}
@@ -292,13 +294,16 @@ Il grafo quoziente di $G$ rispetto a $P$ \`e il grafo $G' = (V', E')$ dove:
     \begin{itemize}
         \item $V'$ \`e l'insieme quoziente $V/R$, ovvero l'insieme delle classi di equivalenza di $R$ su $V$.
         \item $E' = \{([u]_R, [v]_R) \mid (u, v) \in E\}$, dove $[u]_R$ e $[v]_R$ sono rispettivamente le classi di
-        equivalenza di $u$ e $v$ rispetto a $R$.
+        equivalenza dei nodi $u$ e $v$ rispetto a $R$.
     \end{itemize}
 \end{definition}
 
+La figura~\ref{fig:quotient-graph-example} mostra un esempio di grafo quoziente sulla destra ottenuto a partire dal
+grafo orientato sulla sinistra e una partizione $P = \{A, B, C\}$. \newline
+
 Come evidente dalla definzione, il nome del grafo quoziente \`e dovuto al fatto che la sua struttura \`e
 strettamente legata all'insieme quoziente di una qualche relazione di equivalenza definita sui nodi del grafo.
-Sebbene l'ingrediente fondamentale per la definizione di un grafo quoziente, assieme al grafo di partenza, sia la
+Sebbene, assieme al grafo di partenza, l'ingrediente fondamentale per la definizione di un grafo quoziente sia la
 una partizione dei suoi nodi, una relazione di equivalenza sugli stessi sarebbe un parametro equivalente, in quanto
 ogni relazione di equivalenza induce una partizione degli elementi del suo dominio in classi di equivalenza. \newline
 
@@ -306,7 +311,7 @@ ogni relazione di equivalenza induce una partizione degli elementi del suo domin
     \centering
     \include{TikzPictures/quotient_graph_example}
     \caption{Un esempio di grafo quoziente di un grafo orientato}
-    \label{fig:quotient-graph-example} %TODO: Aggiungere testo che descrive il grafo
+    \label{fig:quotient-graph-example}
 \end{figure}
 
 Le relazioni di equivalenza, cos\'{\i} come le partizioni, possono essere comparate tra
@@ -331,7 +336,7 @@ Per questo \`e interessante notare che tale concetto di finezza pu\`o essere fac
 
 Una particolare relazione di equivalenza che ben si presta alla definizione di un grafo quoziente \`e la relazione di
 mutua raggiungibilit\`a tra nodi di un grafo, che ne definisce le componenti fortemente connesse.
-Il grafo quoziente di un grafo rispetto a tale relazione di equivalenza, infatti, prende il nome di
+Il grafo quoziente di un grafo rispetto a tale relazione di equivalenza prende il nome di
 \textbf{condensazione} (o grafo delle componenti fortemente connesse), e si dimostra essere un grafo diretto aciclico.
 
 \begin{figure}[h]
@@ -343,11 +348,80 @@ Il grafo quoziente di un grafo rispetto a tale relazione di equivalenza, infatti
 
 In figura~\ref{fig:condensation-example} \`e mostrato un esempio di grafo orientato sulla sinistra, in cui le componenti
 fortemente connesse sono evidenziate in giallo, e al sua condensazione sulla destra. \newline
-Si noti che il grafo condensato, in quanto aciclico, non contiene cicli semplici.
+Si noti che il grafo condensato, in quanto aciclico, non contiene cicli semplici. \newline
 Se si volesse aggiungere un arco affinch\`e il grafo condensato contenesse un ciclo, ad esempio aggiungendo un arco
 uscente da un nodo nella compoente $C$ e entrante in un nodo nella componente $A$, si otterrebbe una nuova componente
 fortemente connessa data dall'unione delle componenti $A$, $B$ e $C$, ovvero le componenti i cui corrispondenti nodi
 nel grafo condensato sarebbero contentenuti in un ciclo semplice. \newline
+
+
+\section{Approccio Multi-Livello}\label{sec:approccio-multi-livello}
+In questa sezione verr\`a introdotto il concetto di contrazione a pi\`u livelli di grafi. \newline
+L'idea di base di un approccio multi-livello \`e quella di partire da un grafo di partenza e di applicare
+ripetutamente operazioni di contrazione, ottenendo una sequenza di grafi contratti di dimensione via via minore.
+Sebbene tale approccio sia stato generalmente utilizzato per ridurre la dimensione di un grafo al fine di
+applicare efficientemente algoritmi di partizionamento~\cite{DBLP:journals/corr/abs-1012-0006},
+non mancano esempi di applicazioni in contesti diversi, come quello della visualizzazione di grafi di grandi
+dimensioni~\cite{4069239}. \newline
+
+In ogni caso, lo scopo di un approccio multi-livello \`e quello di costruire una gerarchia di grafi contratti
+che rappresentino la struttura del grafo di partenza, comprimendo in nodi in meta-nodi in accordo a determinate
+caratteristiche di interesse.
+Cos\`{\i} come per la terminologia usata per le partizioni, i grafi risultanti dalle contrazioni sono spesso detti
+grossolani (\textit{coarse}), mentre quelli risultanti dalle decontrazioni sono detti raffinati (\textit{fine}).
+I grafi grossolani, ottenuti ricorsivamente a partire dai grafi pi\`u raffinati, sono quindi da considerarsi
+come rappresentazioni pi\`u astratte di questi ultimi. \newline
+
+\subsection{Partizionamento multilivello di grafi}\label{subsec:partizionamento-multilivello-di-grafi}
+Il \textbf{partizionamento multilivello di grafi} (in inglese \textit{multilevel graph partitioning} o \textit{MGP})
+\`e un approccio euristico per la risoluzione di problemi su grafi in cui si vuole dividere un grafo in un dato numero
+di blocchi che abbiano approssimativamente la stessa dimensione, affinch\`e una certa funzione obiettivo sia
+minimizzata. \newline
+Un esempio di tale problema dalla grande utilit`a pratica \`e quello in cui l'obiettivo del partizionamento \`e quello
+di minimizzare il numero di archi che connettono i blocchi, che trova applicazione in importanti contesti legati
+all'informatica, ad esempio per la decomposizione di strutture dati per la computazione parallela, e all'ingegneria,
+ad esempio per il partizionamento di circuiti integrati. \newline
+
+L'approccio multi-livello, per la prima volta introdotto da Hendrickson e Leland nel
+1995~\cite{Hendrickson:1995:MPG:221253.221279}, si \`e rivelato essere quello di maggior successo per la risoluzione
+di problemi di partizionamento di grafi di grandi dimensioni, in quanto permette di ottenere partizioni di alta
+qualit\`a in tempi ragionevoli, nonostante il problema di partizionamento sia NP-completo per la maggior parte delle
+funzioni obiettivo. \newline
+L'utilit\`a di questa tecnica si basa sull'intuizione per cui una buona partizione ad un livello grossolano della
+gerarchia rimarr\`a tale anche ad un livello pi\`u raffinato, e che, in questo modo, la ricerca di una
+partizione ottimale pu\`o essere effettuata su grafi pi\`u piccoli e pi\`u semplici. \newline
+
+L'approccio multi-livello per la partizione di grafi si articola in tre fasi principali:
+\begin{enumerate}
+    \item \textbf{Fase di contrazione} (\textit{contraction/coarsening phase}):
+    si crea una gerarchia di grafi riducendo iterativamente la dimensione del grafo iniziale.
+    Questo viene fatto comunemente individuando e contraendo coppie di nodi adiacenti, ovvero individuando un
+    sottoinsieme degli archi del grafo da contrarre, $M \subseteq E $ detti \textit{match}.
+    Si noti che la scelta di contrarre coppie di nodi adiacienti porta a grafi grossolani i cui nodi rappresentano
+    sottografi del grafo iniziale densamente connessi.
+    In base allo specifico problema, una determinata funzione di \textit{rating} classifica gli archi individuando
+    quale sottoinsieme degli archi $E$ debba essere assegnato ad $M$ affinch\`e la somma dei \textit{rating} degli in
+    $M$ sia globalmente massimizzata.
+    Si consideri che un nodo gi\`a contratto non pu\`o essere pi\`u coinvolto in un ulteriore \textit{matching}
+    allo stesso livello della gerarchia.
+    \item \textbf{Fase di partizionamento iniziale} (\textit{initial partitioning phase}): quando a seguito delle
+    contazioni il grafo risulta essere di ordine abbastanza piccolo, in relazione ad un qualche threshold,
+    esso pu\`o essere partizionato direttamente con algoritmi costosi, fornendo una partizione inizile sul grafo
+    pi\`u grossolano della gerarchia.
+    \item \textbf{Fase di decontrazione} (\textit{refinement/uncoarsening phase}), i matchings vengono iterativamente
+    decontratti, e i relativi nodi vengono associati a blocchi della partizione del grafo pi\`u grossolano,
+    proiettandola sul grafo pi\`u raffinato.
+    Per fare in modo che la partizione al livello pi\`u grossolano tenga conto delle sotto-strutture ai livelli
+    pi\`u raffinati, un algoritmo di miglioramento locale (\textit{local improvement}) ricolloca i nodi tra i
+    blocchi per migliorare la dimensione del taglio o l'equilibrio delle dimensioni tra i blocchi.
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \include{TikzPictures/mgp}
+    \caption{Schema grafico del partizionamento multilivello}
+    \label{fig:multi-level-graph-partitioning}
+\end{figure}
 
 
 
