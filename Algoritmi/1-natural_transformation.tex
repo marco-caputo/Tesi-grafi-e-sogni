@@ -1,0 +1,18 @@
+\begin{algorithm}[H]
+    \begin{algorithmic}[1]
+        \caption{NATURAL-TRANSFORMATION($H$)}\label{alg:cap1}
+        \State $V$=$\emptyset$
+        \For{ each $x \in W$}
+            \State let $v$ be a super-node such that $f_V(x)=v$
+            \State $v.dec=(\emptyset, \emptyset)$
+            \State $V = V \cup \{v\}$
+        \EndFor
+        \State $E$=$\emptyset$
+        \For{ each $g=(x,y) \in F$}
+            \State let $e$ be a super-edge such that $e=(f_V(x), f_V(y))$
+            \State $e.dec=\emptyset$
+            \State $E=E\cup \{e\}$
+        \EndFor
+        \State \textbf{return} $(V, E)$
+    \end{algorithmic}
+\end{algorithm}

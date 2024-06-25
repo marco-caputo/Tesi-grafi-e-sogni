@@ -1,0 +1,12 @@
+\begin{algorithm}[H]
+    \caption{REACH-DFS($G$, $u$)}\label{alg:reach-dfs}
+    \begin{algorithmic}[1]
+        \If{$Reach[u] == NIL$}
+            \State $Reach[u] \coloneqq FALSE$
+            \For {$v \in G.Adj[u]$}
+                \State REACH-DFS($G$, $v$)
+                \State $Reach[u] \coloneqq Reach[u] \lor Reach[v]$
+            \EndFor
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,18 @@
+\begin{algorithm}[H]
+    \caption{FIND-SUBSETS($T$, $C$)}\label{alg:find-subsets}
+    \begin{algorithmic}[1]
+        \State Let $T_c$ be a new table for counting occurrences of subsets among vertices
+        \For{$v \in C$}
+            \For{$S \in T[v]$}
+                \State $T_c[S] := T_c[S] + 1$
+            \EndFor
+        \EndFor
+        \State $Q := \emptyset$
+        \For {$S \in T_c$}
+            \If{$T_c[S] == |C|$}
+                \State $Q := Q \cup \{S\}$
+            \EndIf
+        \EndFor
+        \State \Return $Q$
+    \end{algorithmic}
+\end{algorithm}

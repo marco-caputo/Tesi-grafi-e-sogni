@@ -1,0 +1,22 @@
+\begin{algorithm}[H]
+    \caption{UPDATE-ADDED-EDGE-SCC($G_i$, $(a, b)$)}\label{alg:add-edge-scc}
+    \begin{algorithmic}[1]
+        \State $u \coloneqq a.supernode$
+        \State $v \coloneqq b.supernode$
+        \If{$u == v$}
+            \State ADD-EDGE-IN-SUPERNODE($u$, $(a, b)$)
+        \Else
+            \State ADD-EDGE-IN-SUPEREDGE($(u, v)$, $(a, b)$)
+            \If{$|dec_E((u, v))| == 1$}
+                \State $Q \coloneqq$ REACH-VISIT($G_i$, $v$, $u$)
+                    \If{$Q \neq \emptyset$}
+                        \For{$w \in Q$}
+                            \State REMOVE-SUBSET($T$, $T[\text{any node in } V_w]$)
+                        \EndFor
+                        \State $C_{new} \coloneqq \bigcup_{w \in Q} V_w$
+                        \State ADD-SUBSET($T$, $C_{new}$)
+                    \EndIf
+            \EndIf
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}

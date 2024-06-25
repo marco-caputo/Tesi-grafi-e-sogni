@@ -1,0 +1,51 @@
+\begin{tikzpicture}
+  [mynode/.style={draw, thick, circle, size=0.3mm},
+    myarrow/.style={thick, -Triangle},
+    ->,shorten >=1pt,auto,node distance=2cm, thick,main node/.style={circle,draw}]
+
+  % Nodes
+  \node[main node] (A) {v$_1$};
+  \node[main node, blue] (B) [right of=A] {v$_2$};
+  \node[main node, blue] (C) [below right of=B] {v$_3$};
+  \node[main node] (D) [below left of=C] {v$_4$};
+
+  % Edges
+  \path[every node/.style={font=\sffamily\small}];
+  \draw[myarrow](A) to node [above] {$e_1$} (B);
+  \draw[myarrow, blue] (B) to node [above, name=e2] {$e_2$} (C);
+  \draw[myarrow](C) to node [above] {$e_3$} (D);
+  \draw[myarrow](B) to node [left] {$e_4$} (D);
+
+  % G_b graph
+  \begin{scope}[shift={(6,1)}]
+  \draw[blue] (0,0) circle (1.5cm);
+  \node[main node] (X) at (-0.5,0.5) {a$_1$};
+  \node[main node] (Y) at (1,0) {a$_2$};
+  \node[main node] (Z) at (0,-1) {a$_3$};
+  \draw[myarrow] (X) -- (Y);
+  \draw[myarrow] (Y) -- (Z);
+  \draw[myarrow] (Z) -- (X);
+  \end{scope}
+
+  % G_c graph
+  \begin{scope}[shift={(8,-2.5)}]
+  \draw[blue] (0,0) circle (1.5cm);
+  \node[main node] (T) at (-0.5,0.5) {a$_4$};
+  \node[main node] (U) at (1,0) {a$_5$};
+  \node[main node] (V) at (0.25,-1) {a$_6$};
+  \node[main node] (W) at (-0.5,-0.5) {a$_7$};
+  \draw[myarrow] (U) -- (T);
+  \draw[myarrow] (U) -- (W);
+  \draw[myarrow] (U) -- (V);
+  \end{scope}
+
+  % edges between graphs
+  \draw[myarrow, blue] (Z) -- (T);
+  \draw[myarrow, blue] (Y) -- (U);
+
+  % Links
+  \draw[dashed, line width=1.5pt, red] (B) to[out=65, in=145] node {$dec_{V}(v_2)$} (4.5,1);
+  \draw[dashed, line width=1.5pt, red] (e2) to[out=0, in=155] node [below] {$dec_{E}(e_2)$} (6.75,-1);
+  \draw[dashed, line width=1.5pt, red] (e2) to[out=0, in=175] (8,-0.7);
+  \draw[dashed, line width=1.5pt, red] (C) to[out=300, in=145] node [below] {$dec_{V}(v_3)$} (6.5,-2);
+\end{tikzpicture}

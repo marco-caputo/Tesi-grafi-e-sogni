@@ -1,0 +1,13 @@
+\begin{algorithm}[H]
+    \caption{UPDATE-ADDED-EDGE-CIRCUIT($G_i$, $(a, b)$)}\label{alg:add-edge-circuit}
+    \begin{algorithmic}[1]
+        \State $u \coloneqq a.supernode$
+        \State $v \coloneqq b.supernode$
+        \If{$u \neq v$}
+            \State ADD-EDGE-IN-SUPEREDGE($(u, v)$, $(a, b)$)
+        \Else
+            \State ADD-EDGE-IN-SUPERNODE($u$, $(a, b)$)
+        \EndIf
+        \State CIRCUIT($b$, $a$, $G_{i-1}$, $\{a\}$)
+    \end{algorithmic}
+\end{algorithm}

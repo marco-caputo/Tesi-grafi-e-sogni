@@ -1,0 +1,9 @@
+\begin{algorithm}[H]
+    \caption{GENERIC-CONTRACTION($G$)}\label{alg:generic-contraction}
+    \begin{algorithmic}[1]
+        \State Let $H$ be a graph obtained from $G$ by a preprocessing procedure
+        \State Let $T$ be a table obtained from $H$ by a generic subset enumerating algorithm
+        \State $J$ = MAKE-CONTRACTIBLE-GRAPH($T$, $G$)
+        \State return $J$
+    \end{algorithmic}
+\end{algorithm}

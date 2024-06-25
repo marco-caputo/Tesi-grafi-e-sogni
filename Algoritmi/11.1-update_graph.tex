@@ -1,0 +1,70 @@
+\begin{algorithm}[H] \scriptsize
+    \caption{UPDATE-GRAPH($G_i$, $T$)}\label{alg:update-graph}
+    \begin{algorithmic}[1]
+        \State Let $T_{old}$ be a new table of nodes-supernodes
+        \State Let $T_{del}$ be a new table of supernodes-set of nodes
+        \For{$a \in T.modified$}
+            \If{$T[a] \notin T'$}
+                \State let $v$ be a new supernode
+                \State ADD-SUPERNODE($G_i$, $v$)
+                \State $T'[T[a]] \coloneqq v$
+            \EndIf
+            \State $T_{old}[a] \coloneqq a.supernode$
+            \If{$a.supernode \notin T_{del}$}
+                \State $T_{del}[a.supernode] \coloneqq \emptyset$
+            \EndIf
+            \State $T_{del}[a.supernode] \coloneqq T_{del}[a.supernode] \cup \{a\}$
+            \State $a.supernode \coloneqq T'[T[a]]$
+            \State $a.supernode.dec \coloneqq a.supernode.dec \cup \{a\}$
+        \EndFor
+        \For{$b \in T.modified$}
+            \For{$(a,b) \in b.inEdges$}
+                \If{$a \notin T_{old}$}
+                    \If{$a.supernode == T_{old}[b]$}
+                        \State REMOVE-EDGE-IN-SUPERNODE($a.supernode$, $(a,b)$)
+                    \Else
+                        \State REMOVE-EDGE-IN-SUPEREDGE($G_i$, $(a.supernode, T_{old}[b])$, $(a,b)$)
+                    \EndIf
+                    \If{$a.supernode == b.supernode$}
+                        \State ADD-EDGE-IN-SUPERNODE($b.supernode$, $(a,b)$)
+                    \Else
+                        \State ADD-EDGE-IN-SUPEREDGE($G_i$, $(a.supernode, b.supernode)$, $(a,b)$)
+                    \EndIf
+                \EndIf
+            \EndFor
+            \For{$(b, c) \in V.outEdges$}
+                \If{$c \in T_{old}$}
+                    \If{$T_{old}[b] == T_{old}[c]$}
+                        \State REMOVE-EDGE-IN-SUPERNODE($T_{old}[b]$, $(b,c)$)
+                    \Else
+                        \State REMOVE-EDGE-IN-SUPEREDGE($G_i$, $(T_{old}[b], T_{old}[c])$, $(b,c)$)
+                    \EndIf
+                    \If{$b.supernode == c.supernode$}
+                        \State ADD-EDGE-IN-SUPERNODE($b.supernode$, $(b,c)$)
+                    \Else
+                        \State ADD-EDGE-IN-SUPEREDGE($G_i$, $(b.supernode, c.supernode)$, $(b,c)$)
+                    \EndIf
+                \Else
+                    \If{$T_{old}[b] == c.supernode$}
+                        \State REMOVE-EDGE-IN-SUPERNODE($c.supernode$, $(b,c)$)
+                    \Else
+                        \State REMOVE-EDGE-IN-SUPEREDGE($G_i$, $(T_{old}[b], c.supernode)$, $(b,c)$)
+                    \EndIf
+                    \If{$b.supernode == c.supernode$}
+                        \State ADD-EDGE-IN-SUPERNODE($b.supernode$, $(b,c)$)
+                    \Else
+                        \State ADD-EDGE-IN-SUPEREDGE($G_i$, $(b.supernode, c.supernode)$, $(b,c)$)
+                    \EndIf
+                \EndIf
+            \EndFor
+        \EndFor
+        \For {$v \in T_{del}$}
+            \For {$a \in T_{del}[v]$}
+                \State $v.dec \coloneqq v.dec \setminus \{a\}$
+            \EndFor
+            \If {$v.dec == \emptyset$}
+                \State REMOVE-SUPERNODE($G_i$, $a.supernode$)
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}

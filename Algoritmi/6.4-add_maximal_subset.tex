@@ -1,0 +1,12 @@
+\begin{algorithm}[H]
+    \caption{ADD-MAXIMAL-SUBSET($T$, $C$)}\label{alg:add-maximal-subset}
+    \begin{algorithmic}[1]
+        \If{$\bigcap_{v \in C}T[v] == \emptyset$}
+            \State $Q :=$ FIND-SUBSETS($T$, $C$)
+            \For {$S \in Q$}
+                \State REMOVE-SUBSET($T$, $S$)
+            \EndFor
+            \State ADD-SUBSET($T$, $C$)
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}

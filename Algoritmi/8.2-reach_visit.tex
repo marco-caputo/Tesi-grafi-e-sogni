@@ -1,0 +1,12 @@
+\begin{algorithm}[H]
+    \caption{REACH-VISIT($G$, $s$, $t$)}\label{alg:reach-visit}
+    \begin{algorithmic}[1]
+        \For {$v \in V$}
+            \State $Reach[v] \coloneqq NIL$
+        \EndFor
+        \State $Reach[t] \coloneqq TRUE$
+        \State REACH-DFS($G$, $s$)
+        \State $Q \coloneqq \{v \in G.V \mid reach[v] == TRUE\}$
+        \State \Return $Q$
+    \end{algorithmic}
+\end{algorithm}

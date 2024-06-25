@@ -1,0 +1,10 @@
+\begin{algorithm}[H]
+    \caption{UNBLOCK($v$)}\label{alg:unblock}
+    \begin{algorithmic}[1]
+        \State $v.blocked \coloneqq false$
+        \For {$w \in v.B$}
+            \State $v.B \coloneqq v.B \setminus \{w\}$
+            \If {$w.blocked$} UNBLOCK($w$) \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}

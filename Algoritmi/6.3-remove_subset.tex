@@ -1,0 +1,9 @@
+\begin{algorithm}[H]
+    \caption{REMOVE-SUBSET($T$, $C$)}\label{alg:rem-subset}
+    \begin{algorithmic}[1]
+        \For{$v\in C$}
+            \State $T[v]:=T[v] \setminus \{C\}$
+            \State $T.modified:=T.modified \cup \{v\}$
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}

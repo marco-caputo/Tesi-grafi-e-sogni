@@ -1,0 +1,16 @@
+\begin{algorithm}[H]
+    \caption{REMOVE-EDGE-IN-SUPEREDGE($G$, $(u, v)$, $(a, b)$)}\label{alg:remove-edge-in-superedge}
+    \begin{algorithmic}[1]
+        \State $(u, v).dec \coloneqq (u, v).dec \setminus \{(a, b)\}$
+        \If{$(u, v).dec == \emptyset$}
+            \State $G.E \coloneqq G.E \setminus \{(u, v)\}$
+            \State $u.outEdges \coloneqq u.outEdges \setminus \{(u, v)\}$
+            \State $v.inEdges \coloneqq v.inEdges \setminus \{(u, v)\}$
+            \If{$(u, v) \notin G.E_+$}
+                \State $G.E^- \coloneqq G.E^- \cup \{(u, v)\}$
+            \Else
+                \State $G.E^+ \coloneqq G.E^+ \setminus \{(u, v)\}$
+            \EndIf
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}

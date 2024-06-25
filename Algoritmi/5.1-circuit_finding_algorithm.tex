@@ -1,0 +1,23 @@
+\begin{algorithm}[H]
+    \caption{CIRCUIT-FINDING-ALGORITHM($G$)}\label{alg:circuit-finding}
+    \begin{algorithmic}[1]
+        \State Let $S$ be a new empty stack
+        \State T = INITIALIZE-TABLE($G.V$)
+        \State $s \coloneqq v_1$
+        \While {$i < n$}
+            \State $K \coloneqq$ strong component with least vertex $v_i$
+            in subgraph of G induced by $\{v_i, v_{i+1}, \ldots, v_n\}$
+            \If {$K.E \neq \emptyset$}
+                \State $s \coloneqq $ $v_i$
+                \For {$u \in K.V$}
+                    \State $u.blocked \coloneqq false$
+                    \State $u.B \coloneqq \emptyset$
+                \EndFor
+                \State CIRCUIT($s, s, K, S$)
+                \State $i \coloneqq i + 1$
+            \Else
+                \State $i \coloneqq n$
+            \EndIf
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}

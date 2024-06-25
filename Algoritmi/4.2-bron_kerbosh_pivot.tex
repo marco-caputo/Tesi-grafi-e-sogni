@@ -1,0 +1,15 @@
+\begin{algorithm}[H]
+    \caption{BRON-KERBOSH-PIVOT($R$, $P$, $X$, $T$)}\label{alg:bk2}
+    \begin{algorithmic}[1]
+        \If {$P\cup X$ $=$ $\emptyset$}
+            \State ADD-SUBSET($T$, $S$) \Comment{$R$ is a maximal clique}
+        \Else
+            \State choose pivot vertex $u\in P\cup X$ with $|P\cap N(u)|$ = $max_{v\in P\cup X}|P\cap N(v)|$
+            \For{$v\in P \setminus N(u)$}
+                \State BRON-KERBOSH-PIVOT($R\cup \{v\},$ $P\cap N(v)$, $X\cap N(v)$)
+                \State $P:=P\setminus \{v\}$
+                \State $X:=X\cup \{v\}$
+            \EndFor
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}

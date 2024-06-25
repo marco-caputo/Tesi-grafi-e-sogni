@@ -1,0 +1,30 @@
+\begin{algorithm}[H]
+    \caption{UPDATE-ADDED-EDGE-CLIQUE($G_{i-1}$, $(a, b)$)}
+    \begin{algorithmic}[1]
+        \State $u$ $\coloneqq$ $a.supernode$
+	\State $v$ $\coloneqq$ $b.supernode$
+	\State $I$ $\coloneqq$ $N(u) \cap N(v)$
+	\State let $Q$ be the set of the maximal cliques in $G_{i-1}[I]$
+    \If{$Q == \emptyset$}
+        \State $Q \coloneqq Q \cup \{\emptyset\}$
+    \EndIf
+	\For{$C\in Q$}
+		\State $C_{new}$ $\coloneqq$ ($\bigcup_{w\in C} V_w$) $\cup$ $\{a, b\}$
+		\State ADD-SUBSET($T$, $C_{new}$)
+	\EndFor
+	\If{$|V_u|$ == $1$}
+		\For{$S \in T[a]$}
+			\If{SUPERNODE-IMAGE($S$ $\setminus$ $\{a\}$) $\subseteq$ $I$}
+				\State REMOVE-SUBSET($T,S$)
+			\EndIf
+		\EndFor
+	\EndIf
+	\If{$|V_v|$ == $1$}
+		\For{$S\in T[b]$}
+			\If{SUPERNODE-IMAGE($S$ $\setminus$ $\{b\}$) $\subseteq$ $I$}
+				\State REMOVE-SUBSET($T,S$)
+			\EndIf
+		\EndFor
+	\EndIf
+    \end{algorithmic}\label{alg:algorithm}
+\end{algorithm}

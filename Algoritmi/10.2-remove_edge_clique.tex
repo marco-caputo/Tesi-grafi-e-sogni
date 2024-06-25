@@ -1,0 +1,17 @@
+\begin{algorithm}[H]
+    \caption{UPDATE-REMOVED-EDGE-CLIQUE($T$, $(a,$ $b)$)}
+    \begin{algorithmic}[1]
+    	\State $R$ $\coloneqq$ $\emptyset$
+    	\For{$C \in (T[a] \cap T[b])$}
+		\State $C_1$ $\coloneqq$ $C - \{a\}$
+		\State $C_2$ $\coloneqq$ $C - \{b\}$
+		\State $R$ $\coloneqq$ $R\cup \{C_1, C_2\}$
+		\State REMOVE-SUBSET($T$, $C$)
+	\EndFor
+	\For{$C \in R$}
+		\If{$\bigcap_{v\in C} T[v]$ $=$ $\emptyset$}
+			\State ADD-SUBSET($T$, $C$)
+		\EndIf
+	\EndFor
+    \end{algorithmic}
+\end{algorithm}

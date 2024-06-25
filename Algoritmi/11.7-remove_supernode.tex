@@ -1,0 +1,11 @@
+\begin{algorithm}[H]
+    \caption{REMOVE-SUPERNODE($G$, $v$)}\label{alg:remove-supernode}
+    \begin{algorithmic}[1]
+        \State $G.V \coloneqq G.V \setminus \{v\}$
+        \If{$v \notin G.V^+$}
+            \State $G.V^- \coloneqq G.V^- \cup \{v\}$
+        \Else
+            \State $G.V^+ \coloneqq G.V^+ \setminus \{v\}$
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}

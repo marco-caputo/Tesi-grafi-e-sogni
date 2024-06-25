@@ -1,0 +1,16 @@
+\begin{algorithm}[H]
+    \caption{ADD-EDGE-IN-SUPEREDGE($G$, $(u, v)$, $(a, b)$)}\label{alg:add-edge-in-superedge}
+    \begin{algorithmic}[1]
+        \If{$(u, v) \notin G.V$}
+            \State $G.E \coloneqq G.E \cup \{(u, v)\}$
+            \State $u.outEdges \coloneqq u.outEdges \cup \{(u, v)\}$
+            \State $v.inEdges \coloneqq v.inEdges \cup \{(u, v)\}$
+            \If{$(u, v) \notin G.E_-$}
+                \State $G.E^+ \coloneqq G.E^+ \cup \{(u, v)\}$
+            \Else
+                \State $G.E^- \coloneqq G.E^- \setminus \{(u, v)\}$
+            \EndIf
+        \EndIf
+        \State $(u, v).dec \coloneqq (u, v).dec \cup \{(a, b)\}$
+    \end{algorithmic}
+\end{algorithm}

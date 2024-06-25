@@ -1,0 +1,19 @@
+\begin{algorithm}[H]
+    \caption{UPDATE-REMOVED-EDGE-CIRCUIT($G_i$, $(a, b)$)}\label{alg:remove-edge-circuit}
+    \begin{algorithmic}[1]
+        \State $u \coloneqq a.supernode$
+        \State $v \coloneqq b.supernode$
+        \If{$u \neq v$}
+            \State REMOVE-EDGE-IN-SUPEREDGE($(u, v)$, $(a, b)$)
+        \Else
+            \State REMOVE-EDGE-IN-SUPERNODE($u$, $(a, b)$)
+        \EndIf
+        \State $I \coloneqq T[a] \cap T[b]$
+        \For{$C \in I$}
+            \State $Q \coloneqq $ CIRCUIT'($a$, $a$, $G_{i-1}[C]$, $\emptyset$)
+            \If{$C \notin Q$}
+                \State REMOVE-SUBSET($T$, $C$)
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,77 @@
+\begin{tikzpicture}
+    [mynode/.style={draw, thick, circle, size=0.3mm},
+    myarrow/.style={thick, -Triangle},
+    ->,shorten >=1pt,auto,node distance=2cm, thick, main node/.style={circle,draw}]
+
+        % Nodes
+        \node[main node,
+          label={[align=center, blue, font=\tiny]above:{$V_{v_1} = \{a_1, a_2\}$}\\{$E_a = \emptyset$}}]
+        (A) {v$_1$};
+        \node[main node,
+        label={[align=center, blue, font=\tiny]above:{$V_{v_2} = \{a_3, a_4, a_5\}$}\\{$E_{v_2} = \{(a_3, a_4),$}\\{$(a_4, a_5), (a_5, a_3)\}$}}]
+        (B) [right of=A] {v$_2$};
+        \node[main node,
+        label={[align=left, blue, font=\tiny]right:{$V_{v_3} = \{a_6, a_7, a_8, a_9\}$}\\{$E_{v_3} = \{(a_7, a_6),(a_7, a_9),$}\\{$(a_7, a_8)\}$}}]
+          (C) [below right of=B] {v$_3$};
+        \node[main node,
+        label={[align=center, blue, font=\tiny]left:{$V_{v_4} = \{a_{10}\}$}\\{$E_{v_4} = \emptyset$}}]
+          (D) [below left of=C] {v$_4$};
+
+        % Edges
+        \path[every node/.style={font=\sffamily\small}];
+        \draw[myarrow](A) to node [above,
+        label={[align=center, blue, font=\tiny]below:{$E_{e_1} = $}\\{$\{(a_2, a_5)\}$}}] {$e_1$} (B);
+        \draw[myarrow](B) to node [above,
+        label={[align=left, blue, font=\tiny]right:{$E_{e_2} = \{(a_5,a_6), (a_4, a_7)\}$}}] {$e_2$} (C);
+        \draw[myarrow](C) to node [below,
+        label={[align=left, blue, font=\tiny]right:{$E_{e_3} =$}\\{$ \{(a_9,a_{10}),$}\\{$ (a_8, a_{10})\}$}}] {$e_3$} (D);
+        \draw[myarrow](B) to node [right, label={[align=right, blue, font=\tiny]left:{$E_{e_4} = \{(a_5,a_{10})\}$}}] {$e_4$} (D);
+
+        % G_b graph
+        \begin{scope}[shift={(8.5,1)}];
+        \draw[blue] (0,0) circle (1.5cm);
+        \node[above, blue] at (0,1.5) {v$_2$};
+        \node[main node] (X) at (-0.5,0.5) {a$_3$};
+        \node[main node] (Y) at (1,0) {a$_4$};
+        \node[main node] (Z) at (0,-1) {a$_5$};
+        \draw[myarrow] (X) -- (Y);
+        \draw[myarrow] (Y) -- (Z);
+        \draw[myarrow] (Z) -- (X);
+        \end{scope}
+
+        % G_c graph
+        \begin{scope}[shift={(10.5,-1.75)}]
+        \draw[blue] (0,0) circle (1.5cm);
+        \node[right, blue] at (1.5,0) {v$_3$};
+        \node[main node] (T) at (-0.5,0.5) {a$_6$};
+        \node[main node] (U) at (1,0) {a$_7$};
+        \node[main node] (V) at (0.25,-1) {a$_8$};
+        \node[main node] (W) at (-0.5,-0.5) {a$_9$};
+        \draw[myarrow] (U) -- (T);
+        \draw[myarrow] (U) -- (W);
+        \draw[myarrow] (U) -- (V);
+        \end{scope}
+
+        % G_a graph
+        \begin{scope}[shift={(5.7, 1)}]
+        \draw[blue] (0,0) circle (1cm);
+        \node[above, blue] at (0,1) {v$_1$};
+        \node[main node] (N) at (0,0.5) {a$_1$};
+        \node[main node] (M) at (0,-0.5) {a$_2$};
+        \end{scope}
+
+        % G_d graph
+        \begin{scope}[shift={(7.5,-2.5)}]
+        \draw[blue] (0,0) circle (0.75cm);
+        \node[left, blue] at (-0.75,0) {v$_4$};
+        \node[main node] (K) at (0,0) {a$_{10}$};
+        \end{scope}
+
+        % edges between graphs
+        \draw[myarrow, blue] (M) -- (Z);
+        \draw[myarrow, blue] (Z) -- (K);
+        \draw[myarrow, blue] (Z) -- (T);
+        \draw[myarrow, blue] (Y) -- (U);
+        \draw[myarrow, blue] (W) -- (K);
+        \draw[myarrow, blue] (V) -- (K);
+\end{tikzpicture}

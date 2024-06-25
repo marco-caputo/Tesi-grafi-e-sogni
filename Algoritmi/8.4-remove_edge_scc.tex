@@ -1,0 +1,23 @@
+\begin{algorithm}[H]
+    \caption{UPDATE-REMOVED-EDGE-SCC($G_i$, $(a, b)$)}\label{alg:remove-edge-scc}
+    \begin{algorithmic}[1]
+        \State $u \coloneqq a.supernode$
+        \State $v \coloneqq b.supernode$
+        \If{$u \neq v$}
+            \State REMOVE-EDGE-IN-SUPEREDGE($(u, v)$, $(a, b)$)
+        \Else
+            \State REMOVE-EDGE-IN-SUPERNODE($u$, $(a, b)$)
+            \State Make a DFS visit in $G_u$ from $a$
+            \State $C \coloneqq $ the set of nodes reachable from $a$
+            \If{$V_u \neq C$}
+                \State Let $H$ be the subgraph of $G_u$ induced by $V_u \setminus C$
+                \State $H' \coloneqq$ COMPONENT-CONTRACT($H$)
+                \State REMOVE-SUBSET($T$, $V_u$)
+                \State ADD-SUBSET($T$, $C$)
+                \For{$S \in \{V_w \mid w \in H'.V\}$}
+                    \State ADD-SUBSET($T$, $S$)
+                \EndFor
+            \EndIf
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,30 @@
+\begin{algorithm}[H]
+    \caption{CIRCUIT($v, s, K, S$)}\label{alg:circuit}
+    \begin{algorithmic}[1]
+        \State $f \coloneqq false$
+        \State $PUSH(S, v)$
+        \State $v.blocked \coloneqq true$
+        \For {$w \in K.adj[s]$}
+            \If {$w == s$}
+                \State ADD-SUBSET($T$, $S$)  \Comment{Stack $S$ followed by $s$ is a simple circuit}
+                \State $f \coloneqq true$
+            \ElsIf {$\lnot w.blocked$}
+            \If {CIRCUIT($w$)} \State $f \coloneqq true$ \EndIf
+            \EndIf
+        \EndFor
+        \If {$f$} UNBLOCK($v$)
+        \Else
+            \For {$w \in K.adj[v]$}
+                \State $w.B \coloneqq w.B \cup \{v\}$
+            \EndFor
+        \EndIf
+        \State $POP(S)$ \Comment{removes $v$ from stack}
+        \State \textbf{return} $f$
+    \end{algorithmic}
+\end{algorithm}
+
+%Al posto dell'output di un circuito:
+%\State Let $C$ be a new simple circuit
+%\For {$u \in S$}
+%    \State $T[u] \coloneqq T[u] \cup \{C\}$
+%\EndFor
