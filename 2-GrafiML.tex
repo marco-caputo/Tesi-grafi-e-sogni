@@ -8,43 +8,78 @@ definire e formalizzare una vera e propria struttura dati astratta che rappresen
 un'entit\`a a s\`e stante.
 In questo capitolo saranno proposte definizioni e propriet\`a di base di una struttura dati per la rappresentazione
 di gerarchie di grafi a pi\`u livelli, in cui sia possibile ottenere informazioni sull'intera struttura gerarchica in
-relazione ai singoli grafi che la compongono.
-In particolare, riprendendo dalla terminologia e dai concetti esistenti in letteratura,si proporranno definizioni
+relazione ai singoli grafi che la compongono, come espandere e contrarre nodi.
+In particolare, riprendendo dalla terminologia e dai concetti esistenti in letteratura, si proporranno definizioni
 orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
 \subsection{Grafo decontraibile}\label{subsec:grafo-decontraibile}
 
-    \paragraph{Definzione 1}(Grafo decontraibile) \newline
-    \textit{Un \textbf{grafo decontraibile} \`e una quadrupla $G = (V, E, dec_V, dec_E)$ dove:
+    A partire dal concetto noto di grafo quoziente e di contrazione, si vuole definire una particolare
+    tipologia di grafi quoziente che, oltre a rappresentare le caratteristiche strutturali ad alto livello
+    dei grafi da cui sono derivati, siano in grado di mantenere l’informazione originale di questi ultimi, ed in
+    che modo essa sia legata alla sua rappresentazione astratta. \newline
+    Nasce cos\`i il concetto di grafo decontraibile, che intuitivamente pu\`o essere considerato come un grafo
+    in cui i nodi sono riconducibili ad un grafo e gli archi ad un insieme di archi tra i nodi dei grafi
+    associati ai nodi coinvolti. \newline
+
+    \paragraph{Definizione}
+
+    \begin{defintion}[Grafo Decontraibile] \newline
+    Un \textbf{grafo decontraibile} \`e una quadrupla $G = (V, E, dec_V, dec_E)$ dove:
         \begin{itemize}
-            \item $V$ \`e un insieme di elementi detti \textit{supernodi};
-            \item $E \subseteq V \times V$ \`e un insieme di coppie ordinate di supernodi, dette \textit{superarchi};
+            \item $V$ \`e un insieme di elementi detti \textbf{supernodi};
+            \item $E \subseteq V \times V$ \`e un insieme di coppie ordinate di supernodi, dette \textbf{superarchi};
             \item $dec_V : V \rightarrow \mathcal{G}_D$ \`e una biezione tale per cui $dec_V(v) = G_v$ \`e
             un grafo decontraibile rappresentato dal supernodo $v$;
             \item $dec_E : E \rightarrow (\mathcal{V} \times \mathcal{V})$ con $\mathcal{V} = \bigcup_{v \in V}\mathcal{V}_v$,
             \`e una biiezione tale per cui $\forall$ $ e = (u, v)$, $dec_E(e) = E_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$ $b \in \mathcal{V}_v\}$
             \`e un insieme di archi rappresentati da $e$.
-        \end{itemize}}
+        \end{itemize}
+    \end{defintion}
 
     Si noti che \`e possibile usare una notazione basata su attributi alternativa a quella delle funzioni per
-    descrivere le propriet\`a caratteristiche di nodi ed archi che rendono tale un grafo decontrabile.\newline
+    descrivere le propriet\`a caratteristiche di nodi ed archi che rendono tale un grafo decontrabile.
+    Tale notazione sar\`a utilizzata in seguito per semplificare la descrizione di algoritmi. \newline
     In particolare, si pu\`o definire un grafo decontraibile come un normale grafo diretto sotto forma di coppia
     $(V, E)$ dove:
     \begin{itemize}
         \item $\forall$ $v \in V,$ \`e definito un attributo $v.dec = G_v$ dove $G_v = (\mathcal{V}_v, \mathcal{E}_v)$ \`e un grafo decontraibile
         rappresentato da $v$, quindi tale per cui $dec_V(v) = v.dec$.
         \item $\forall$ $e=(u, v)$  $\in E$, \`e definito una attributo $e.dec = E_e$ dove
-        $\mathcal{E}_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$ $b \in \mathcal{V}_v\}$ \`e un insieme di archi rappresentati da $e$, quindi tale per cui $dec_E(e) = e.dec$.
+        $\mathcal{E}_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$ $b \in \mathcal{V}_v\}$ \`e un insieme di archi
+        rappresentati da $e$, quindi tale per cui $dec_E(e) = e.dec$.
     \end{itemize}
 
-    Si noti inoltre che, dal momento in cui i grafi decontraibili sono a tutti gli effetti dei grafi, tutte le
-    definizioni date sui grafi standard continuano a valere per i grafi decontraibili.
+    Si noti la natura ricorsiva definizione di grafo decontraibile, per cui se un supernodo $v$ pu\`o essere
+    rappresentato da un grafo decontraibile $G_v$, allora i nodi di $G_v$ saranno a loro volta dei supernodi.
+    Stessa cosa vale per gli archi, che possono essere rappresentati da insiemi di archi tra i nodi dei grafi.
+    La scelta di rendere il grafo decontraibile una struttura ricorsiva, così come la definizione in se stessa,
+    \`e utile alle successive definizoni legate ai grafi multi-livello. \newline
 
-      \begin{figure}[H]
-          \centering
-          \include{TikzPictures/decontractible_graph_example}
-          \label{fig:dec-graph-example}
-      \end{figure}
+    In Figura~\ref{fig:dec-graph-example} \`e mostrato un esempio di grafo decontraibile sulla sinistra, mentre sulla
+    destra sono rappresentati i grafi associati ai supernodi $v_2$ e $v_3$, assieme all'insieme di archi associato
+    al super-arco $e_2$.
+    Si noti che il grafo $dec_V(v_2)$ composto dai nodi $a_1$, $a_2$ e $a_3$, ad esempio, manca degli archi collegati
+    esternamente che definiscono il contesto in cui tale grafo si colloca, e solo uno degli archi incidenti
+    in $v_1$ \`e stato espanso.
+    Questo fornisce una visione parziale dell'informazione contenuta nel grafo decontraibile a sinistra,
+    e per questo si pu\`o dire che il grafo a destra \`e il risultato di un'espansione locale.
+
+    \begin{figure}[H]
+      \centering
+      \include{TikzPictures/decontractible_graph_example}
+      \label{fig:dec-graph-example}
+    \end{figure}
+
+    Inoltre, dal momento in cui i grafi decontraibili sono a tutti gli effetti dei grafi, tutte le
+    definizioni date sui grafi standard continuano ad essere utilizzate in modo equivalente per i grafi decontraibili.
+    Analogamente, un supernodo pu\`o essere considerato come un particolare tipo di nodo, e lo stesso vale per i
+    superarchi.
+    In particolare, il concetto di isomorfismo pu\`o essere esteso ai grafi decontraibili senza particolari modifiche,
+    ignorando l'aspetto \"decontraibile\" di nodi e archi, ovvero le funzioni $dec_V$ e $dec_E$ di entrambi i grafi
+    di cui si vuole valutare l'isomofismo.
+    Potrebbe essere altres\`i utile, indicare un tipo di isomorfismo specifico per i grafi decontraibili, che tenga
+    conto delle funzioni di decontrazione, ma tale definizione non \`e stata ancora formalizzata.
 
     \paragraph{Definzione 2} (Contrazione di un grafo decontraibile) \newline
     \textit{Sia $G = (V, E)$ un grafo decontraibile, il grafo decontraibile

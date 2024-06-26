@@ -39,9 +39,19 @@ Lo spazio semantico di un sognatore pu\`o essere rappresentato, quindi, attraver
 i nodi rappresentino le parole o i contesti di parole presenti nei sogni e gli archi siano ricavati dalle relazioni
 sintattiche tra di esse, come l'immediata vicinanza o la co-occorrenza. \newline
 
-Da questa necessit\`a nasce l'idea di realizzare una struttura dati generica per la rappresentazione di una
+ realizzare una struttura dati generica per la rappresentazione di una
 gerarchia di grafi a pi\`u livelli, dove ogni livello rappresenti una diversa astrazione del grafo iniziale, e i
 grafi ai livelli inferiori possano essere ottenuti dall'espansione ricorsiva dei nodi ai livelli superiori. \newline
+
+Da questa necessit\`a nasce l'idea di definire e realizzare nella maniera pi`u generale possibile una struttura
+gerarchica di grafi a pi`u livelli dove ogni livello rappresenti una diversa astrazione del grafo inziale,
+e i grafi ai livelli inferiori possono essere ottenuti dall’espansione ricorsiva dei nodi ai livelli superiori,
+permettendo espansioni locali o globali.
+Ci`o pu`o essere utile per descrivere caratteristiche strutturali di grafi grandi e sparsi a partire
+dall’individuazione di schemi topologici che siano significativi, che essi siano, ad esempio, cricche, componenti
+fortemente connesse, circuiti, stelle o cammini, e fornire operazioni che permettano di operare ad un determinato
+livello di astrazione nella gerarchia, come ottenere il grafo corrispondente ad un nodo, il calcolo della distanza
+o la modifica della struttura.
 
 \section{Obiettivi}
 L'obiettivo principale di questa tesi \`e, quindi, proporre una definizione formale della struttura dati astratta del
