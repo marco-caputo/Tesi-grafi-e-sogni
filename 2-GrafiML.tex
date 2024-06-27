@@ -78,8 +78,20 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     In particolare, il concetto di isomorfismo pu\`o essere esteso ai grafi decontraibili senza particolari modifiche,
     ignorando l'aspetto \"decontraibile\" di nodi e archi, ovvero le funzioni $dec_V$ e $dec_E$ di entrambi i grafi
     di cui si vuole valutare l'isomofismo.
-    Potrebbe essere altres\`i utile, indicare un tipo di isomorfismo specifico per i grafi decontraibili, che tenga
-    conto delle funzioni di decontrazione, ma tale definizione non \`e stata ancora formalizzata.
+    Potrebbe essere altres\`{\i} utile indicare un tipo di isomorfismo specifico per i grafi decontraibili, che tenga
+    conto delle funzioni di decontrazione, ovvero che imponga un isomorfismo anche tra i grafi risultanti dalle
+    decontrazioni dei singoli nodi, risultando in una forma di isomorfismo pi\`u forte.
+
+    \begin{defintion}[Isomorfismo forte di Grafi Decontraibili] \newline
+        Siano $G = (V, E)$ e $H = (W, F)$ due grafi decontraibili, essi si dicono \textbf{fortemente isomorfi} se
+        esiste una biiezione $f : V \rightarrow W$ tale per cui
+        \begin{itemize}
+            \item $(u, v) \in E$ se e solo se $(f(u), f(v)) \in F$ per ogni $u, v \in V$
+            \item $dec_V(u)$ \`e fortemente isomorfo a $dec_V(f(u))$ per ogni $u \in V$
+            \item
+        \end{itemize}
+
+    \end{defintion}
 
     \paragraph{Definzione 2} (Contrazione di un grafo decontraibile) \newline
     \textit{Sia $G = (V, E)$ un grafo decontraibile, il grafo decontraibile
