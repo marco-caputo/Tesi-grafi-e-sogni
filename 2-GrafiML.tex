@@ -1,4 +1,4 @@
-\usepackage{drftcite}\chapter{Grafi multi-livello}
+\chapter{Grafi multi-livello}
 
 Come si \`e potuto vedere dal contenuto del Capitolo 1, le operazioni di contrazione e la costruzione di
 gerarchie di grafi a pi\`u livelli siano concetti gi\`a ampiamente utilizzati e consolidati nella teoria dei grafi e
@@ -16,50 +16,56 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     A partire dal concetto noto di grafo quoziente e di contrazione, si vuole definire una particolare
     tipologia di grafi quoziente che, oltre a rappresentare le caratteristiche strutturali ad alto livello
-    dei grafi da cui sono derivati, siano in grado di mantenere l’informazione originale di questi ultimi, ed in
+    dei grafi da cui sono derivati, siano in grado di mantenere l'informazione originale di questi ultimi, ed in
     che modo essa sia legata alla sua rappresentazione astratta. \newline
     Nasce cos\`i il concetto di grafo decontraibile, che intuitivamente pu\`o essere considerato come un grafo
     in cui i nodi sono riconducibili ad un grafo e gli archi ad un insieme di archi tra i nodi dei grafi
     associati ai nodi coinvolti. \newline
 
-    \paragraph{Definizione}
-
-    \begin{defintion}[Grafo Decontraibile] \newline
-    Un \textbf{grafo decontraibile} \`e una quadrupla $G = (V, E, dec_V, dec_E)$ dove:
+    \begin{definition}[Grafo Decontraibile]
+        Un \textbf{grafo decontraibile} \`e una quadrupla $G = (V, E, dec_V, dec_E)$ dove:
         \begin{itemize}
             \item $V$ \`e un insieme di elementi detti \textbf{supernodi};
             \item $E \subseteq V \times V$ \`e un insieme di coppie ordinate di supernodi, dette \textbf{superarchi};
-            \item $dec_V : V \rightarrow \mathcal{G}_D$ \`e una biezione tale per cui $dec_V(v) = G_v$ \`e
-            un grafo decontraibile rappresentato dal supernodo $v$;
+            \item $dec_V : V \rightarrow \mathcal{G}_D$ \`e una biiezione tale per cui $dec_V(v) = G_v = (\mathcal{V}_v,
+                \mathcal{E}_v)$ \`e un grafo decontraibile rappresentato dal supernodo $v$;
             \item $dec_E : E \rightarrow (\mathcal{V} \times \mathcal{V})$ con $\mathcal{V} = \bigcup_{v \in V}\mathcal{V}_v$,
-            \`e una biiezione tale per cui $\forall$ $ e = (u, v)$, $dec_E(e) = E_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$ $b \in \mathcal{V}_v\}$
-            \`e un insieme di archi rappresentati da $e$.
+                \`e una biiezione tale per cui $\forall$ $ e = (u, v)$, $dec_E(e) = E_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$
+                $b \in \mathcal{V}_v\}$ \`e un insieme di archi rappresentati dal superarco $e$.
         \end{itemize}
-    \end{defintion}
+    \end{definition}
+
+    Nella definzione, cos\`{i} come d'ora in avanti, si utilizzer\`a la notazione $\mathcal{V}$ e $\mathcal{E}$ per
+    indicare, rispettivamente, insiemi di supernodi e superarchi ottenibili attraverso decontrazioni e, quindi, di
+    livello inferiore rispetto al grafo decontraito di riferimento.
+    Nello specifico, le notazioni $\mathcal{V}_v$ e $\mathcal{E}_v$ saranno utilizzate per indicare, rispettivamente,
+    insiemi di nodi e archi di grafi ottenibili attraverso la decontrazione di un certo supernodo $v$.
+    Nel contesto di un determinato grafo decontraibile, per portare maggiore distinzione si continuer\`a ad utilizzare
+    il termine di nodo ed arco per riferirsi ai supenodi e superarchi di tale livello inferiore. \newline
 
     Si noti che \`e possibile usare una notazione basata su attributi alternativa a quella delle funzioni per
     descrivere le propriet\`a caratteristiche di nodi ed archi che rendono tale un grafo decontrabile.
     Tale notazione sar\`a utilizzata in seguito per semplificare la descrizione di algoritmi. \newline
     In particolare, si pu\`o definire un grafo decontraibile come un normale grafo diretto sotto forma di coppia
     $(V, E)$ dove:
-    \begin{itemize}
+    \begin{itemize}[noitemsep, topsep=0pt, left=0pt, labelsep=5pt]
         \item $\forall$ $v \in V,$ \`e definito un attributo $v.dec = G_v$ dove $G_v = (\mathcal{V}_v, \mathcal{E}_v)$ \`e un grafo decontraibile
-        rappresentato da $v$, quindi tale per cui $dec_V(v) = v.dec$.
+            rappresentato da $v$, quindi tale per cui $dec_V(v) = v.dec$.
         \item $\forall$ $e=(u, v)$  $\in E$, \`e definito una attributo $e.dec = E_e$ dove
-        $\mathcal{E}_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$ $b \in \mathcal{V}_v\}$ \`e un insieme di archi
-        rappresentati da $e$, quindi tale per cui $dec_E(e) = e.dec$.
+            $\mathcal{E}_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$ $b \in \mathcal{V}_v\}$ \`e un insieme di archi
+            rappresentati da $e$, quindi tale per cui $dec_E(e) = e.dec$.
     \end{itemize}
 
-    Si noti la natura ricorsiva definizione di grafo decontraibile, per cui se un supernodo $v$ pu\`o essere
+    Si consideri la natura ricorsiva definizione di grafo decontraibile, per cui se un supernodo $v$ pu\`o essere
     rappresentato da un grafo decontraibile $G_v$, allora i nodi di $G_v$ saranno a loro volta dei supernodi.
     Stessa cosa vale per gli archi, che possono essere rappresentati da insiemi di archi tra i nodi dei grafi.
-    La scelta di rendere il grafo decontraibile una struttura ricorsiva, così come la definizione in se stessa,
+    La scelta di rendere il grafo decontraibile una struttura ricorsiva, cos\`{i} come la definizione in se stessa,
     \`e utile alle successive definizoni legate ai grafi multi-livello. \newline
 
     In Figura~\ref{fig:dec-graph-example} \`e mostrato un esempio di grafo decontraibile sulla sinistra, mentre sulla
     destra sono rappresentati i grafi associati ai supernodi $v_2$ e $v_3$, assieme all'insieme di archi associato
     al super-arco $e_2$.
-    Si noti che il grafo $dec_V(v_2)$ composto dai nodi $a_1$, $a_2$ e $a_3$, ad esempio, manca degli archi collegati
+    Si osservi che il grafo $dec_V(v_2)$ composto dai nodi $a_1$, $a_2$ e $a_3$, ad esempio, manca degli archi collegati
     esternamente che definiscono il contesto in cui tale grafo si colloca, e solo uno degli archi incidenti
     in $v_1$ \`e stato espanso.
     Questo fornisce una visione parziale dell'informazione contenuta nel grafo decontraibile a sinistra,
@@ -78,56 +84,103 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     In particolare, il concetto di isomorfismo pu\`o essere esteso ai grafi decontraibili senza particolari modifiche,
     ignorando l'aspetto \"decontraibile\" di nodi e archi, ovvero le funzioni $dec_V$ e $dec_E$ di entrambi i grafi
     di cui si vuole valutare l'isomofismo.
-    Potrebbe essere altres\`{\i} utile indicare un tipo di isomorfismo specifico per i grafi decontraibili, che tenga
-    conto delle funzioni di decontrazione, ovvero che imponga un isomorfismo anche tra i grafi risultanti dalle
-    decontrazioni dei singoli nodi, risultando in una forma di isomorfismo pi\`u forte.
 
-    \begin{defintion}[Isomorfismo forte di Grafi Decontraibili] \newline
-        Siano $G = (V, E)$ e $H = (W, F)$ due grafi decontraibili, essi si dicono \textbf{fortemente isomorfi} se
-        esiste una biiezione $f : V \rightarrow W$ tale per cui
-        \begin{itemize}
-            \item $(u, v) \in E$ se e solo se $(f(u), f(v)) \in F$ per ogni $u, v \in V$
-            \item $dec_V(u)$ \`e fortemente isomorfo a $dec_V(f(u))$ per ogni $u \in V$
-            \item
-        \end{itemize}
+    % Potrebbe essere altres\`{\i} utile indicare un tipo di isomorfismo specifico per i grafi decontraibili, che tenga
+    % conto delle funzioni di decontrazione, ovvero che imponga un isomorfismo anche tra i grafi risultanti dalle
+    % decontrazioni dei singoli nodi, risultando in una forma di isomorfismo pi\`u forte.
 
-    \end{defintion}
+    % \begin{defintion}[Isomorfismo forte di Grafi Decontraibili] \newline
+    %    Siano $G = (V, E)$ e $H = (W, F)$ due grafi decontraibili, essi si dicono \textbf{fortemente isomorfi} se
+    %     esiste una biiezione $f : V \rightarrow W$ tale per cui
+    %     \begin{itemize}
+    %        \item $(u, v) \in E$ se e solo se $(f(u), f(v)) \in F$ per ogni $u, v \in V$
+    %        \item $dec_V(u)$ \`e fortemente isomorfo a $dec_V(f(u))$ per ogni $u \in V$
+    %        \item
+    %    \end{itemize}
 
-    \paragraph{Definzione 2} (Contrazione di un grafo decontraibile) \newline
-    \textit{Sia $G = (V, E)$ un grafo decontraibile, il grafo decontraibile
+    %\end{defintion}
+
+    \subsection{Contrazioni}\label{subsec:contrazioni}
+    A partire dalla decontrazione, che rappresenta un aspetto intrinseco alla definzione dei grafi decontrabili,
+    la relazione di contrazione \`e quella che, intuitivamente, permette di legare grafi decontraibili nel senso
+    opposto.
+    Se da un lato la decontrazione permette di costruire grafi che rappresentino espansioni locali, con una
+    definizone di contrazione si vogliono stabilire le condizioni che permettono di legare interi grafi decontraibili
+    ad altri che ne forniscano una loro rappresentazione astratta, affinch\`e la tale rappresentazione
+    sia coerente con il concetto di contrazione esistente nella teoria dei grafi.
+
+    \begin{definition}[Contrazione di un Grafo Decontraibile]
+        Sia $G = (V, E)$ un grafo decontraibile, il grafo decontraibile
         $G\mathcal{'} = (\mathfrak{V}, \mathfrak{E})$ \`e una sua \textbf{contrazione} se e solamente se:
-        \begin{enumerate}
-            \item l'insieme $\{V_\alpha \mid \alpha \in \mathfrak{V}$, $dec_\mathfrak{V}(\alpha) = (V_\alpha, E_\alpha)\}$ \`e una partizione di $V$
-            \item l'insieme $\{ E_\alpha \mid \alpha \in \mathfrak{V}$, $dec_\mathfrak{V}(\alpha) = (V_\alpha, E_\alpha)\} \cup \{ dec_\mathfrak{E}(\epsilon) \mid \epsilon \in \mathfrak{E}\}$
-            \`e un ricoprimento di $E$ formato di insiemi due a due disgiunti, con $\emptyset \notin \{dec_E(\epsilon) \mid \epsilon \in \mathfrak{E}\}$.
-        \end{enumerate}}
+            \begin{enumerate}
+                \item l'insieme $\{V_\alpha \mid \alpha \in \mathfrak{V}\}$ \`e una partizione di $V$
+                \item l'insieme $(\{E_\alpha \mid \alpha \in \mathfrak{V}\} \setminus \{ \emptyset \}) \cup
+                    \{ dec_{\mathfrak{E}}(\epsilon) \mid \epsilon \in \mathfrak{E}\}$ \`e una partizione di $E$.
+            \end{enumerate}
+    \end{definition}
 
-    Si noti, quindi, che la contrazione $G'$ del grafo decontraibile $G$ contiene tutte le informazioni
-    necessarie a calcolare $G$.
-    Infatti dalla definizione si ha:
+    Nella definzione, cos\`{i} come d'ora in avanti, si utilizzer\`a la notazione $\mathfrak{V}$ e $\mathfrak{E}$ per
+    indicare, rispettivamente, gli insiemi di supernodi e superarchi di un grafo contratto, e quindi di livello
+    superiore, rispetto al grafo di riferimento.
+
+    \begin{figure}[H]
+          \centering
+          \caption{Esempio di contrazione di un grafo decontraibile.}
+          \label{fig:contraction-example}
+      \end{figure}
+
+    Dalla definizione si evince che le seguenti sono condizioni necessarie affinch\`e un grafo decontraibile $G'$ possa
+    essere una contrazione di un grafo decontraibile $G$:
+    \begin{enumerate}[(i)]
+        \item I nodi di $G'$ devono avere tutti un grafo non vuoto come decontrazione, ovvero $V_\alpha \neq \emptyset$
+        per ogni $\alpha \in \mathfrak{V}$.
+        Infatti se fosse che $V_\alpha = \emptyset$ per qualche $\alpha \in \mathfrak{V}$, allora l'insieme
+        $\{V_\alpha \mid \alpha \in \mathfrak{V}\}$ non costituirebbe una partizione di $V$, in quanto, per definzione,
+        l'insieme vuoto non pu\`o essere incluso in una partizione.
+        \item Gli insiemi di nodi delle decontrazioni dei supernodi in $G'$ devono essere a due a due disgiunti, ovvero
+        non possono esistere nodi a cui corrispondono contemporaneamente due supernodi distinti, in quanto anche in
+        questo caso l'insieme $\{V_\alpha \mid \alpha \in \mathfrak{V}\}$ non costituirebbe una partizione di $V$.
+        \item I superarchi di $G'$ devono avere tutti una decontrazione non vuota.
+        Infatti, se fosse che $dec_\mathfrak{E}(\epsilon) = \emptyset$ per qualche $\epsilon \in \mathfrak{E}$, allora
+        l' insieme $(\{E_\alpha \mid \alpha \in \mathfrak{V}\} \setminus \{ \emptyset \}) \cup
+        \{ dec_{\mathfrak{E}}(\epsilon) \mid \epsilon \in \mathfrak{E}\}$ non costituirebbe una partizione di $E$,
+        analogamente a quanto detto nel primo punto. \newline
+        Si noti che la condizione di disgiunzione tra gli insiemi di archi delle decontrazioni dei superarchi \`e
+        automaticamente soddisfatta dalla definzione di grafo decontraibile e delle decontrazioni dei suoi archi.
+    \end{enumerate}
+
+    E' rilevante notare che, data una contrazione $G'$ del grafo decontraibile $G$, essa contiene tutte le informazioni
+    necessarie a calcolare la struttura di archi e nodi di $G$.
+    Infatti, sia $G' = (\mathfrak{V}, \mathfrak{E})$ una contrazione di $G$, allora dalla definizione si ha:
 
     \begin{equation*}
-        G = (\bigcup_{\alpha \in \mathfrak{V}} V_\alpha , (\bigcup_{\alpha \in \mathfrak{V}} E_\alpha \cup \bigcup_{\epsilon \in \mathfrak{E}} dec_\mathfrak{E}(\epsilon)) )
+        G = (\bigcup_{\alpha \in \mathfrak{V}} V_\alpha ,
+            (\bigcup_{\alpha \in \mathfrak{V}} E_\alpha \cup \bigcup_{\epsilon \in \mathfrak{E}}{dec_{\mathfrak{E}}(\epsilon)}),
+            dev_V, dec_E)
     \end{equation*}
-
-      \begin{figure}[H]
-          \centering
-          \caption{Il grafo decontraibile a sinistra \`e una contrazione del grafo destra.}
-          \label{fig:example2}
-      \end{figure}
 
     Definiamo, inoltre, l'operatore unario $.^D : \mathcal{G}_D \rightarrow \mathcal{G}_D$ come l'operatore di
     \textbf{decontrazione completa} che, dato un grafo decontraibile $G = (V, E)$ restituisce il grafo decontrabile
-    $G^D$ ottenuto dalla decontrazione di tutti i super-nodi e super-archi del grafo in input.
+    $G^D$ ottenuto dalla decontrazione di tutti i supernodi e superarchi del grafo in input.
 
     \begin{equation*}
-        G^D = (\bigcup_{v \in V} V_v , (\bigcup_{v \in V} E_v \cup \bigcup_{e \in E} dec_E(e)) )
+        G^D = (\bigcup_{v \in V} \mathcal{V}_v , (\bigcup_{v \in V} \mathcal{E}_v \cup \bigcup_{e \in E} dec_E(e)),
+        dec_{\mathcal{V}}, dec_{\mathcal{E}})
     \end{equation*}
 
     Una contrazione di un grafo decontraibile $G$, pu\`o quindi essere alternativamente definta come un suo grafo
     quoziente decontrabile $G'$ la cui decontrazione completa $(G')^D$ \`e proprio $G$.
     \newline
-    Si noti che, in generale, un grafo decontraibile $G$ pu\`o essere o meno una contrazione di $G^D$.
+
+    Si noti che, in generale, un grafo decontraibile $G$ pu\`o non essere una contrazione di $G^D$.
+    Questo pu\`o verificarsi unicamente quando $G$ non soddisfa tutte le tre condizioni necessarie presentate in
+    precendenza.
+    Sarebbe, quindi, scorretto dire che un grafo $G'$ \`e una contrazione di $G$ se $(G')^D = G$.
+    In particolare, considerato quanto gi\`a detto, si pu\`o facilmente dimostrare che:
+
+    \begin{equation*}
+        (i), (ii), (iii) \text{ valgono per } G' \land G = (G')^D \quad \Longleftrightarrow \quad G' \text{ \`e una contrazione di } G
+    \end{equation*}
 
 \begin{figure}[H]
     \centering
