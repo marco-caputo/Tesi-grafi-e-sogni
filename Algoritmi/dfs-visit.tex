@@ -1,0 +1,17 @@
+\begin{algorithm}
+    \caption{DFS-VISIT($G$, $u$)}\label{alg:dfs-visit}
+    \begin{algorithmic}[1]
+        \State $u.color \coloneqq$ GRAY
+        \State $time \coloneqq time + 1$
+        \State $u.d \coloneqq time$
+        \For {$v \in G.Adj[u]$}
+            \If {$v.color ==$ WHITE}
+                \State $v.\pi \coloneqq u$
+                \State $DFS-VISIT(G, v)$
+            \EndIf
+        \EndFor
+        \State $u.color \coloneqq$ BLACK
+        \State $time \coloneqq time + 1$
+        \State $u.f \coloneqq time$
+    \end{algorithmic}
+\end{algorithm}

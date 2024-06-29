@@ -27,7 +27,7 @@ L'algoritmo di Kosaraju (anche noto come algoritmo di Kosaraju-Sharir) \`e un al
 delle componenti fortemente connesse di un grafo diretto dalla complessit\`a lineare scoperto nel 1978 da S. Rao
 Kosaraju, ma pubblicato solamente nel 1981 da Micha Sharir, che lo scopri\`o indipendentemente.
 Esso sfrutta il principio per cui le componenti fortemente connesse di un grafo diretto sono le stesse del suo grafo
-trasposto, ovvero il grafo ottenuto invertendo l'orientamento di tutti gli archi.
+trasposto, ovvero il grafo ottenuto invertendo l'orientamento di tutti gli archi. \newline
 
 A seguire alcune utili nozioni preliminari per la comprensione dell'algoritmo:
 
@@ -46,37 +46,115 @@ invertirli, e sarebbe quindi di complessit\`a lineare.
 La visita in profondit\`a di un grafo (in inglese \textit{depth-first search} o \textit{DFS}) \`e un particolare
 algoritmo di visita che, in quanto tale, permette di visitare tutti i nodi di un grafo partendo da un nodo iniziale,
 e di scoprire tutti i nodi raggiungibili da esso.
-Ci\`o viene fatto in modo ricorsivo, visitando un nodo e poi applicando la procedura di visita ricorsivamente
-a tutti i nodi ad esso adiacenti.
+Ci\`o viene fatto in modo ricorsivo: nel corso della visita di un nodo si considerano uno ad uno i nodi ad esso
+adiacenti, e ai nodi non ancora marcati come visitati viene applicata immediatamente la stessa procedura di visita.
 Nel corso dell'algoritmo i nodi vengono colorati in tre colori: bianco, grigio e nero, ad indicare rispettivamente
 che il nodo non \`e stato visitato, che \`e in fase di visita e che \`e stato visitato.
 Questo permette di non incorrere in cicli di visita infiniti nel caso non si stia visitando un grafo aciclico.
-Nel corso dell'algoritmo vengono anche assegnati ai nodi due valori interi: il tempo di scoperta ($d$) e il tempo di
-fine visita ($f$), che permettono di determinare, rispettivamente, l'ordine in cui i nodi vengono scoperti e il tempo
-in cui la visita di un nodo termina.
-Un attributo aggiuntivo, il predecessore, permette di memorizzare il nodo da cui si \`e scoperto il nodo corrente.
+Nel corso dell'algoritmo vengono anche assegnati ai nodi due valori interi: il tempo di scoperta $d$ e il tempo di
+fine visita $f$, che permettono di determinare, rispettivamente, il momento in cui i nodi vengono scoperti e colorati
+di grigio e il tempo in cui la visita di un nodo termina, colorandosi di nero.
+Un attributo aggiuntivo, il predecessore $\pi$, permette di memorizzare il nodo da cui si \`e scoperto il nodo
+corrente e, con esso, di ricostruire il cammino di visita sotto forma di albero, detto albero di visita in profondit\`a.
+
+\input{Algoritmi/dfs}
+\input{Algoritmi/dfs-visit}
+
+La procedura si mantiene in tempo lineare rispetto al numero di nodi e di archi del grafo, in quanto
+ogni nodo viene visitato una sola volta e ogni arco viene esaminato al massimo una volta.
 
 \paragraph{Ordinamento topologico}
 Dato un grafo diretto aciclico $G = (V, E)$, un ordinamento topologico di $G$ \`e una particolare sequenza
 dei suoi nodi $\langle v_1, v_2, \ldots, v_n \rangle$ tale che per ogni arco $(v_i, v_j) \in E$, $i < j$.
 Si noti, quindi, che un ordinamento topologico di un grafo diretto pu\`o esistere solo se il grafo non contiene
 cicli.
+Un ordinamento topologico fornisce una disposizione tale che i nodi raggiungibili da un certo nodo $v_i$ vengano
+disposti dopo di esso, e che i nodi che $v_j$ pu\`o raggiungere vengano disposti dopo di esso.
+
 Una procedura algoritmica per il calcolo di un ordinamento topologico di $G$ pu\`o essere effettuata tramite una
 visita in profondit\`a del grafo, raccogliendo in una lista concatenata i nodi in ordine decrescente di tempo
 di fine visita, man mano che vengono visitati.
-Per via del normale costo di una visita in profondit\`a, la complessit\`a di tale procedura \`e lineare.
+Per via del normale costo di una visita in profondit\`a, la complessit\`a di tale procedura \`e lineare al
+numero di nodi e di archi del grafo \newline
 
+\input{Algoritmi/2.1-kosaraju-algorithm}
 
+Come descritto dallo pseudocodice, l'algoritmo di Kosaraju esegue due visite in profondit\`a, una sul grafo
+originale $G$ e una sul grafo trasposto $G^T$, in cui la seconda visita viene effettuata secondo l'ordinamento
+ottenuto dalla prima.
+Le motivazioni per cui la procedura di visita a riga 3 permette di visitare una componente fortemente
+connessa alla volta per ogni iterazione del ciclo for principale possono essere riassunte dai seguenti punti:
+\begin{itemize}
+    \item La condensazione di $G$ \`e un grafo aciclico, e quindi ammette un ordinamento topologico.
+        Questo vuol dire che se esiste un cammino $u \rightsquigarrow v$ in $G$, con $u$ e $v$ nodi di componenti
+        fortemente connesse distinte, allora di certo non pu\`o esistere un cammino $v \rightsquigarrow u$ in $G$,
+        altrimenti i nodi in entrambe le componenti connesse sarebbero tutti mutualmente raggiungibili tra loro, e
+        costituirebbero una unica componente fortemente connessa.
+    \item Se $C$ e $C'$ sono componenti fortemente connesse di $G$ distinte ed esiste in $G$ un cammino
+        $u \rightsquigarrow v$ con $u \in C$ e $v \in C'$, allora il tempo di fine visita massimo tra i nodi di $C$
+        sar\`a maggiore del tempo di fine visita massimo tra i nodi di $C'$.
+        Infatti, supponendo che venga visitato prima $u$, tutti i nodi raggiungibili da $u$, incluso $v$ e tutti i nodi
+        in $C'$, saranno visitati prima che la visita di $u$ termini.
+        Al contempo, supponendo che venga visitato prima $v$, allora nessun nodo di $C$ verr\`a visitato prima che
+        la visita di $v$ termini, in quanto, come detto nel primo punto, l'esistenza di un cammino
+        $u \rightsquigarrow v$ esculde l'esistenza di un cammino $v \rightsquigarrow u$.
+    \item Considerare i nodi in ordine decrescente di tempo di fine visita permette di visitare prima le componenti
+        fortemente connesse meno \"profonde\", ovvero quelle che non contengono nodi raggiungibili da altre
+        componenti fortemente connesse.
+        In altre parole, le componenti meno profonde sono le prime ad apparire nell'ordinamento topologico della
+        condensazione.
+    \item Invertendo il senso degli archi e visitando prima le componenti fortemente connesse meno profonde in $G$, si
+        garantisce che non si possano raggiungere nodi di altre componenti, ma solo nodi della stessa componente.
+        Invertendo il senso degli archi, infatti, si inverte l'ordinamento topologico della condensazione, visitando
+        prima le compoenenti che si trovano in fondo al nuovo ordinamento.
+\end{itemize}
 
+\begin{figure}
+    \resizebox{!}{4cm}{
+        \centering
+        \input{TikzPictures/kosaraju-example_1}}
+    \label{fig:kozaraju_example_1}
+\end{figure}
 
+\begin{figure}
+    \resizebox{!}{4cm}{
+        \centering
+        \input{TikzPictures/kosaraju_example_2}}
+    \label{fig:kozaraju_example_2}
+    \caption{Esempio di esecuzione dell'algoritmo di Kosaraju su un grafo diretto}
+\end{figure}
+
+In figura~\cite{fig:kozaraju_example_2} sono rappresentate le fasi rilevanti dell'algoritmo di Kozaraju
+applicato al grafo in (a).
+In (b) \`e rappresentato lo stato del grafo al termine della procedura DFS, assieme alla lista dei nodi ordinata
+per tempi di fine visita.
+In (c) il grafo trasposto ottenuto invertendo gli archi del grafo in (a).
+In (d) lo stato del grafo trasposto in (c) al termine della seconda procedura di visita in
+profondit\`a, dove colori dello stesso colore rappresentano nodi appartenenti alla stessa componente fortemente
+connessa fornita in output.
+
+\paragraph{Complessit\`a dell'algoritmo}
+L'algoritmo di Kosaraju ha una complessit\`a temporale di $\Theta(V + E)$, in quanto:
+\begin{itemize}
+    \item A riga 1 viene eseguita una ricerca in profondit\`a tradizionale, quindi con costo $\Theta(|V| + |E|)$.
+    \item A riga 2 viene costruito il grafo trasposto $G^T$ e come gi\`a detto, la sua costruzione pu\`o avvenire in
+    un tempo $\Theta(|V| + |E|)$, iterando prima sull'insieme dei nodi di $G$ e poi sui suoi archi, invertendone
+    l'orientamento.
+    \item L'ordinamento dei nodi di $G^T$ pu\`o essere realizzato nel corso della visita a riga 1 attraverso la
+    costruizione di una lista concatenata, per cui i singoli nodi possono essere aggiunti in testa alla lista nel
+    momento in cui vengono colorati di nero, in tempo costante, per un totale di $\Theta(|V|)$, e non ci sono costi
+    aggiuntivi per la costruzione dell'ordinamento.
+    \item A riga 3 viene eseguita la procedura DFS che corrisponde ad una visita in profondit\`a di $G^T$, quindi
+    sempre di complessit\`a $\Theta(|V| + |E|)$.
+\end{itemize}
+
+\subsection{Condensazione in un grafo decontraibile}\label{subsec:condensazione-grafo-decontraibile}
 
 La procedura segue la logica dell'algoritmo di Kosaraju per l'individuazione delle componenti strettamente connesse
 descritto in [1], effettuando due visite in profondit\`a, una sul grafo originale $G$ e una sul grafo trasposto
-$G^T$, in cui la seconda \`e effettuata secondo l'ordinamento topologico della prima.
+$G^T$, in cui la seconda \`e effettuata secondo l'ordinamento della prima.
 Durante la seconda visita in profondit\`a viene costruito il grafo $G\mathcal{'}$ ottenuto come contrazione del
 grafo decontraibile $G$.
-
-    \input{Algoritmi/2.1-component-contract}
 
     Il seguente algoritmo descrive la seconda visita in profondit\`a, che include la costruzione del grafo
     contratto di $G$. \newline
@@ -96,179 +174,6 @@ grafo decontraibile $G$.
     \input{Algoritmi/2.3-dfs_visit'}
 
     \newpage
-
-    \begin{figure}
-        \resizebox{!}{3.3cm}{
-            \begin{tikzpicture}
-                %comp 1
-                \node[mynode](n1) at (0,0){1};
-                \node[mynode](n2) at (1.2,-1){2};
-                \node[mynode](n3) at (1.2, 1){4};
-                \node[mynode](n4) at (2.4, 0){3};
-                \draw[myarrow](n1)--(n2);
-                \draw[myarrow](n3)--(n1);
-                \draw[myarrow](n4)--(n3);
-                \draw[myarrow](n2)--(n4);
-                %comp 2
-                \node[mynode](n5) at (4,1.2){5};
-                \node[mynode](n6) at (4,0){6};
-                \node[mynode](n7) at (4, -1.2){7};
-                \draw[myarrow](n6) -- (n5);
-                \draw[myarrow](n5) to[out=3,in=3] (n7);
-                \draw[myarrow](n7) -- (n6);
-
-                %comp edges
-                \draw[myarrow](n3) -- (n5);
-                \draw[myarrow](n2) -- (n7);
-                %comp 3
-                \node[mynode](n8) at (6, 2){8};
-                %comp 4
-                \node[mynode](n9) at (8, 2){9};
-                \node[mynode](na) at (8.5, 0){10};
-                \draw[myarrow](n9) -- (n8);
-                \draw[myarrow](na) to[out=3,in=3] (n9);
-                \draw[myarrow](n9) -- (na);
-                \draw[myarrow](n8) -- (n5);
-
-                \node[below=10mm] at (5, -1.2) {(a)};
-            \end{tikzpicture}
-            \begin{tikzpicture}
-                %comp 1
-                \node[mynode, label=above:{$13/20$}, fill=black](n1) at (0,0){\textcolor{white}{1}};
-                \node[mynode, label=above:{$14/19$}, fill=black](n2) at (1.2,-1){\textcolor{white}{2}};
-                \node[mynode, label=above:{$16/17$}, fill=black](n3) at (1.2, 1){\textcolor{white}{4}};
-                \node[mynode, label=above:{$15/18$}, fill=black](n4) at (2.4, 0){\textcolor{white}{3}};
-                \draw[myarrow](n1)--(n2);
-                \draw[myarrow](n3)--(n1);
-                \draw[myarrow](n4)--(n3);
-                \draw[myarrow](n2)--(n4);
-                %comp 2
-                \node[mynode, label=above:{$5/10$}, fill=black](n5) at (4,1.2){\textcolor{white}{5}};
-                \node[mynode, label=right:{$7/8$}, fill=black](n6) at (4,0){\textcolor{white}{6}};
-                \node[mynode, label=below:{$6/9$}, fill=black](n7) at (4, -1.2){\textcolor{white}{7}};
-                \draw[myarrow](n6) -- (n5);
-                \draw[myarrow](n5) to[out=3,in=3] (n7);
-                \draw[myarrow](n7) -- (n6);
-
-                %comp edges
-                \draw[myarrow](n3) -- (n5);
-                \draw[myarrow](n2) -- (n7);
-                %comp 3
-                \node[mynode, label=above:{$4/11$}, fill=black](n8) at (6, 2){\textcolor{white}{8}};
-                %comp 4
-                \node[mynode, label=above:{$1/12$}, fill=black](n9) at (8, 2){\textcolor{white}{9}};
-                \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
-                \draw[myarrow](n9) -- (n8);
-                \draw[myarrow](na) to[out=3,in=3] (n9);
-                \draw[myarrow](n9) -- (na);
-                \draw[myarrow](n8) -- (n5);
-
-                % label for the second graph
-                \node[align=center, xshift=0.5cm, yshift=2.3cm] (label2) {$\langle 1, 2, 3, 4, 9, 8, 5, 7, 6, 10 \rangle$};
-                \node[below=10mm] at (5, -1.2) {(b)};
-            \end{tikzpicture}
-            \label{fig:alg1}}
-    \end{figure}
-
-    \begin{figure}
-        \resizebox{!}{3.9cm}{
-            \begin{tikzpicture}
-                %comp 1
-                \node[mynode](n1) at (0,0){1};
-                \node[mynode](n2) at (1.2,-1){2};
-                \node[mynode](n4) at (1.2, 1){4};
-                \node[mynode](n3) at (2.4, 0){3};
-                \draw[myarrow](n2)--(n1);
-                \draw[myarrow](n1)--(n4);
-                \draw[myarrow](n4)--(n3);
-                \draw[myarrow](n3)--(n2);
-                %comp 2
-                \node[mynode](n5) at (4,1.2){5};
-                \node[mynode](n6) at (4,0){6};
-                \node[mynode](n7) at (4, -1.2){7};
-                \draw[myarrow](n5) -- (n6);
-                \draw[myarrow](n7) to[out=3,in=3] (n5);
-                \draw[myarrow](n6) -- (n7);
-
-                %comp edges
-                \draw[myarrow](n5) -- (n4);
-                \draw[myarrow](n7) -- (n2);
-                %comp 3
-                \node[mynode](n8) at (6, 2){8};
-                %comp 4
-                \node[mynode](n9) at (8, 2){9};
-                \node[mynode](na) at (8.5, 0){10};
-                \draw[myarrow](n8) -- (n9);
-                \draw[myarrow](n9) to[out=3,in=3] (na);
-                \draw[myarrow](na) -- (n9);
-                \draw[myarrow](n5) -- (n8);
-
-                \node[align=center, xshift=0.5cm, yshift=2.3cm] (label2) {$\langle 1, 2, 3, 4, 9, 8, 5, 7, 6, 10 \rangle$};
-                \node[below=10mm] at (5, -1.2) {(c)};
-            \end{tikzpicture}
-            \begin{tikzpicture}
-                %comp 1
-                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n1) at (0,0){\textcolor{white}{1}};
-                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n2) at (1.2,-1){\textcolor{white}{2}};
-                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n4) at (1.2, 1){\textcolor{white}{4}};
-                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n3) at (2.4, 0){\textcolor{white}{3}};
-                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n2)--(n1);
-                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n1)--(n4);
-                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n4)--(n3);
-                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n3)--(n2);
-                %comp 2
-                \node[mynode, fill=red](n5) at (4,1.2){\textcolor{white}{5}};
-                \node[mynode, fill=red](n6) at (4,0){\textcolor{white}{6}};
-                \node[mynode, fill=red](n7) at (4, -1.2){\textcolor{white}{7}};
-                \draw[myarrow, red](n5) -- (n6);
-                \draw[myarrow, red](n7) to[out=3,in=3] (n5);
-                \draw[myarrow, red](n6) -- (n7);
-                %comp edges
-                \draw[myarrow, color={rgb:red,1;blue,2}](n5) -- (n4);
-                \draw[myarrow, color={rgb:red,1;blue,2}](n7) -- (n2);
-                %comp 3
-                \node[mynode, fill=green!50!red](n8) at (6, 2){\textcolor{white}{8}};
-                %comp 4
-                \node[mynode, fill={rgb:red,1;green,2;blue,5}](n9) at (8, 2){\textcolor{white}{9}};
-                \node[mynode, fill={rgb:red,1;green,2;blue,5}](na) at (8.5, 0){\textcolor{white}{10}};
-                \draw[myarrow, color={rgb:red,4;green,1;blue,3}](n8) -- (n9);
-                \draw[myarrow, color={rgb:red,1;green,2;blue,5}](n9) to[out=3,in=3] (na);
-                \draw[myarrow, color={rgb:red,1;green,2;blue,5}](na) -- (n9);
-                \draw[myarrow, color={rgb:red,2;green,1}](n5) -- (n8);
-
-                \node[align=center, xshift=0.5cm, yshift=2.3cm] (label2) {$\langle \rangle$};
-
-                \begin{scope}[shift={(0,-3.2)}]
-                \node[mynode,
-                    label={[align=center]above:{$V_{1\mathcal{'}} = \{1, 4, 3, 2\}$}\\{\tiny$E_{1\mathcal{'}} = \{(4,1), (3, 4), (2, 3), (1, 2)\}$}},
-                    fill={rgb:red,4;green,2;yellow,1}](n1) at (0, 0){\textcolor{white}{$1\mathcal{'}$}};
-                \node[mynode,
-                    label={[align=center]above:{$V_{4\mathcal{'}} = \{5, 6, 7\}$}\\{\tiny$E_{4\mathcal{'}} = \{(6, 5), (7, 6), (5, 7)\}$}},
-                    fill=red](n4) at (3.5, 0){\textcolor{white}{$4\mathcal{'}$}};
-                \node[mynode,
-                    label={[align=center]above:{$V_{3\mathcal{'}} = \{8\}$}\\{\tiny$E_{3\mathcal{'}} = \{\}$}},
-                    fill=green!50!red](n3) at (6.5, 0){\textcolor{white}{$3\mathcal{'}$}};
-                \node[mynode,
-                    label={[align=center]above:{$V_{2\mathcal{'}} = \{9, 10\}$}\\{\tiny$E_{2\mathcal{'}} = \{(10,9), (9, 10)\}$}},
-                    fill={rgb:red,1;green,2;blue,5}](n2) at (9, 0){\textcolor{white}{$2\mathcal{'}$}};
-
-                \draw[myarrow,
-                    color={rgb:red,4;green,1;blue,3}](n2) to node [below]{\tiny$E_{e_1} = \{(9, 8)\}$} (n3);
-                \draw[myarrow,
-                    color={rgb:red,1;blue,2}](n1) to node [below]{\tiny$E_{e_2} = \{(4, 5), (2, 7)\}$} (n4);
-                \draw[myarrow,
-                    color={rgb:red,2;green,1}](n3) to node [below]{\tiny$E_{e_3} = \{(8, 5)\}$} (n4);
-
-                \node[below=10mm] at (5, 0) {(d)};
-                \end{scope}
-            \end{tikzpicture}
-            \label{fig:alg2}}
-        \caption{Rappresentazione delle fasi rilevanti dell'algoritmo COMPONENT-CONTRACTION applicato al grafo in (a).
-        In (b) \`e rappresentato lo stato del grafo al termine della procedura DFS, assieme alla lista dei nodi ordinata
-        per tempi di fine visita (ordinamento topologico). In (c) il grafo trasposto ottenuto invertendo gli archi del
-        grafo in (a). In (d) lo stato del grafo trasposto in (c) al termine della procedura DFS$\mathcal{'}$, assieme al grafo
-        contratto costruito.}
-    \end{figure}
 
     \newpage
     In particolare:

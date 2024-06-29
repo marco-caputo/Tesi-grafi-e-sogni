@@ -1,9 +1,0 @@
-\begin{algorithm}[H]
-    \caption{COMPONENT-CONTRACT($G$)}\label{alg:cap2}
-    \begin{algorithmic}[1]
-        \State call $DFS(G)$ to compute finishing times $u.f$ for each vertex $u$
-        \State compute $G^T$
-        \State $G\mathcal{'} = DFS\mathcal{'}(G^T)$ considering $G.V$ by finishing times in decreasing order
-        \State \textbf{return} $G\mathcal{'} $
-    \end{algorithmic}
-\end{algorithm}

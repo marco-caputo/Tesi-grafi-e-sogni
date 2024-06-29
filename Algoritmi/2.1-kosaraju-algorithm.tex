@@ -1,0 +1,9 @@
+\begin{algorithm}[H]
+    \caption{KOSARAJU-ALGORITHM($G$)}\label{alg:cap2}
+    \begin{algorithmic}[1]
+        \State Esegui $DFS(G)$ per calcolare il tempo di fine visita $u.f$ per ogni nodo $u$ in $G$
+        \State Calcola $G^T$
+        \State Esegui $DFS(G^T)$, considerando $G.V$ in ordine decrescente di tempo di fine visita
+        \State Fornisci in output ogni albero di visita in profondit\`a come componente fortemente connessa di $G$
+    \end{algorithmic}
+\end{algorithm}

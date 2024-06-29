@@ -1,0 +1,14 @@
+\begin{algorithm}
+    \caption{DFS($G$)}\label{alg:dfs}
+    \begin{algorithmic}[1]
+        \For {$v \in G.V$}
+            \State $v.color \coloneq$ WHITE
+            \State $u.\pi \coloneq$ NIL
+        \EndFor
+        \State $time \coloneqq 0$
+        \For{$v \in G.V$}
+            \If {$v.color ==$ WHITE}
+                \State $DFS-VISIT(G, v)$
+            \EndIf
+    \end{algorithmic}
+\end{algorithm}

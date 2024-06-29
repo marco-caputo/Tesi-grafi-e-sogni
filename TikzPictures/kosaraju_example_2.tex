@@ -1,0 +1,68 @@
+\begin{tikzpicture}
+    %comp 1
+    \node[mynode](n1) at (0,0){1};
+    \node[mynode](n2) at (1.2,-1){2};
+    \node[mynode](n4) at (1.2, 1){4};
+    \node[mynode](n3) at (2.4, 0){3};
+    \draw[myarrow](n2)--(n1);
+    \draw[myarrow](n1)--(n4);
+    \draw[myarrow](n4)--(n3);
+    \draw[myarrow](n3)--(n2);
+    %comp 2
+    \node[mynode](n5) at (4,1.2){5};
+    \node[mynode](n6) at (4,0){6};
+    \node[mynode](n7) at (4, -1.2){7};
+    \draw[myarrow](n5) -- (n6);
+    \draw[myarrow](n7) to[out=3,in=3] (n5);
+    \draw[myarrow](n6) -- (n7);
+
+    %comp edges
+    \draw[myarrow](n5) -- (n4);
+    \draw[myarrow](n7) -- (n2);
+    %comp 3
+    \node[mynode](n8) at (6, 2){8};
+    %comp 4
+    \node[mynode](n9) at (8, 2){9};
+    \node[mynode](na) at (8.5, 0){10};
+    \draw[myarrow](n8) -- (n9);
+    \draw[myarrow](n9) to[out=3,in=3] (na);
+    \draw[myarrow](na) -- (n9);
+    \draw[myarrow](n5) -- (n8);
+
+    \node[align=left, xshift=2cm, yshift=2.8cm] (label2) {$\langle 1, 2, 3, 4, 9, 8, 5, 7, 6, 10 \rangle$};
+    \node[below=10mm] at (5, -1.2) {(c)};
+\end{tikzpicture} \quad \quad \quad
+\begin{tikzpicture}
+    %comp 1
+    \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n1) at (0,0){\textcolor{white}{1}};
+    \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n2) at (1.2,-1){\textcolor{white}{2}};
+    \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n4) at (1.2, 1){\textcolor{white}{4}};
+    \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n3) at (2.4, 0){\textcolor{white}{3}};
+    \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n2)--(n1);
+    \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n1)--(n4);
+    \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n4)--(n3);
+    \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n3)--(n2);
+    %comp 2
+    \node[mynode, fill=red](n5) at (4,1.2){\textcolor{white}{5}};
+    \node[mynode, fill=red](n6) at (4,0){\textcolor{white}{6}};
+    \node[mynode, fill=red](n7) at (4, -1.2){\textcolor{white}{7}};
+    \draw[myarrow, red](n5) -- (n6);
+    \draw[myarrow, red](n7) to[out=3,in=3] (n5);
+    \draw[myarrow, red](n6) -- (n7);
+    %comp edges
+    \draw[myarrow, color={rgb:red,1;blue,2}](n5) -- (n4);
+    \draw[myarrow, color={rgb:red,1;blue,2}](n7) -- (n2);
+    %comp 3
+    \node[mynode, fill=green!50!red](n8) at (6, 2){\textcolor{white}{8}};
+    %comp 4
+    \node[mynode, fill={rgb:red,1;green,2;blue,5}](n9) at (8, 2){\textcolor{white}{9}};
+    \node[mynode, fill={rgb:red,1;green,2;blue,5}](na) at (8.5, 0){\textcolor{white}{10}};
+    \draw[myarrow, color={rgb:red,4;green,1;blue,3}](n8) -- (n9);
+    \draw[myarrow, color={rgb:red,1;green,2;blue,5}](n9) to[out=3,in=3] (na);
+    \draw[myarrow, color={rgb:red,1;green,2;blue,5}](na) -- (n9);
+    \draw[myarrow, color={rgb:red,2;green,1}](n5) -- (n8);
+
+    \node[align=left, xshift=0.3cm, yshift=2.8cm] (label2) {$\langle \rangle$};
+
+    \node[below=10mm] at (5, -1.2) {(d)};
+\end{tikzpicture}
