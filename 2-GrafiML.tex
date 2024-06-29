@@ -1,4 +1,4 @@
-\chapter{Grafi multi-livello}
+\chapter{Grafi Multi-livello}
 
 Come si \`e potuto vedere dal contenuto del Capitolo 1, le operazioni di contrazione e la costruzione di
 gerarchie di grafi a pi\`u livelli siano concetti gi\`a ampiamente utilizzati e consolidati nella teoria dei grafi e
@@ -8,17 +8,17 @@ definire e formalizzare una vera e propria struttura dati astratta che rappresen
 un'entit\`a a s\`e stante.
 In questo capitolo saranno proposte definizioni e propriet\`a di base di una struttura dati per la rappresentazione
 di gerarchie di grafi a pi\`u livelli, in cui sia possibile ottenere informazioni sull'intera struttura gerarchica in
-relazione ai singoli grafi che la compongono, come espandere e contrarre nodi.
+relazione ai singoli grafi che la compongono, come attraverso l'espansione e contrazione di nodi.
 In particolare, riprendendo dalla terminologia e dai concetti esistenti in letteratura, si proporranno definizioni
 orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
-\subsection{Grafo decontraibile}\label{subsec:grafo-decontraibile}
+\section{Grafo decontraibile}\label{subsec:grafo-decontraibile}
 
     A partire dal concetto noto di grafo quoziente e di contrazione, si vuole definire una particolare
     tipologia di grafi quoziente che, oltre a rappresentare le caratteristiche strutturali ad alto livello
     dei grafi da cui sono derivati, siano in grado di mantenere l'informazione originale di questi ultimi, ed in
     che modo essa sia legata alla sua rappresentazione astratta. \newline
-    Nasce cos\`i il concetto di grafo decontraibile, che intuitivamente pu\`o essere considerato come un grafo
+    Nasce cos\`{\i} il concetto di grafo decontraibile, che intuitivamente pu\`o essere considerato come un grafo
     in cui i nodi sono riconducibili ad un grafo e gli archi ad un insieme di archi tra i nodi dei grafi
     associati ai nodi coinvolti. \newline
 
@@ -48,9 +48,9 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     Tale notazione sar\`a utilizzata in seguito per semplificare la descrizione di algoritmi. \newline
     In particolare, si pu\`o definire un grafo decontraibile come un normale grafo diretto sotto forma di coppia
     $(V, E)$ dove:
-    \begin{itemize}[noitemsep, topsep=0pt, left=0pt, labelsep=5pt]
-        \item $\forall$ $v \in V,$ \`e definito un attributo $v.dec = G_v$ dove $G_v = (\mathcal{V}_v, \mathcal{E}_v)$ \`e un grafo decontraibile
-            rappresentato da $v$, quindi tale per cui $dec_V(v) = v.dec$.
+    \begin{itemize}
+        \item $\forall$ $v \in V,$ \`e definito un attributo $v.dec = G_v$ dove $G_v = (\mathcal{V}_v, \mathcal{E}_v)$ \`e un
+            grafo decontraibile rappresentato da $v$, quindi tale per cui $dec_V(v) = v.dec$.
         \item $\forall$ $e=(u, v)$  $\in E$, \`e definito una attributo $e.dec = E_e$ dove
             $\mathcal{E}_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$ $b \in \mathcal{V}_v\}$ \`e un insieme di archi
             rappresentati da $e$, quindi tale per cui $dec_E(e) = e.dec$.
@@ -62,6 +62,13 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     La scelta di rendere il grafo decontraibile una struttura ricorsiva, cos\`{i} come la definizione in se stessa,
     \`e utile alle successive definizoni legate ai grafi multi-livello. \newline
 
+    \begin{figure}[h!]
+      \centering
+      \include{TikzPictures/decontractible_graph_example}
+      \caption{Un esempio di decontrazione locale di un grafo decontraibile}
+      \label{fig:dec-graph-example}
+    \end{figure}
+
     In Figura~\ref{fig:dec-graph-example} \`e mostrato un esempio di grafo decontraibile sulla sinistra, mentre sulla
     destra sono rappresentati i grafi associati ai supernodi $v_2$ e $v_3$, assieme all'insieme di archi associato
     al super-arco $e_2$.
@@ -69,13 +76,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     esternamente che definiscono il contesto in cui tale grafo si colloca, e solo uno degli archi incidenti
     in $v_1$ \`e stato espanso.
     Questo fornisce una visione parziale dell'informazione contenuta nel grafo decontraibile a sinistra,
-    e per questo si pu\`o dire che il grafo a destra \`e il risultato di un'espansione locale.
-
-    \begin{figure}[H]
-      \centering
-      \include{TikzPictures/decontractible_graph_example}
-      \label{fig:dec-graph-example}
-    \end{figure}
+    e per questo si pu\`o dire che il grafo a destra \`e il risultato di un'espansione locale. \newline
 
     Inoltre, dal momento in cui i grafi decontraibili sono a tutti gli effetti dei grafi, tutte le
     definizioni date sui grafi standard continuano ad essere utilizzate in modo equivalente per i grafi decontraibili.
@@ -85,7 +86,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     ignorando l'aspetto \"decontraibile\" di nodi e archi, ovvero le funzioni $dec_V$ e $dec_E$ di entrambi i grafi
     di cui si vuole valutare l'isomofismo.
 
-    % Potrebbe essere altres\`{\i} utile indicare un tipo di isomorfismo specifico per i grafi decontraibili, che tenga
+    % Potrebbe essere altres\`{i} utile indicare un tipo di isomorfismo specifico per i grafi decontraibili, che tenga
     % conto delle funzioni di decontrazione, ovvero che imponga un isomorfismo anche tra i grafi risultanti dalle
     % decontrazioni dei singoli nodi, risultando in una forma di isomorfismo pi\`u forte.
 
@@ -100,7 +101,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     %\end{defintion}
 
-    \subsection{Contrazioni}\label{subsec:contrazioni}
+    \section{Contrazioni}\label{subsec:contrazioni}
     A partire dalla decontrazione, che rappresenta un aspetto intrinseco alla definzione dei grafi decontrabili,
     la relazione di contrazione \`e quella che, intuitivamente, permette di legare grafi decontraibili nel senso
     opposto.
@@ -112,22 +113,27 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     \begin{definition}[Contrazione di un Grafo Decontraibile]
         Sia $G = (V, E)$ un grafo decontraibile, il grafo decontraibile
         $G\mathcal{'} = (\mathfrak{V}, \mathfrak{E})$ \`e una sua \textbf{contrazione} se e solamente se:
-            \begin{enumerate}
+            \begin{itemize}
                 \item l'insieme $\{V_\alpha \mid \alpha \in \mathfrak{V}\}$ \`e una partizione di $V$
                 \item l'insieme $(\{E_\alpha \mid \alpha \in \mathfrak{V}\} \setminus \{ \emptyset \}) \cup
                     \{ dec_{\mathfrak{E}}(\epsilon) \mid \epsilon \in \mathfrak{E}\}$ \`e una partizione di $E$.
-            \end{enumerate}
+            \end{itemize}
     \end{definition}
 
     Nella definzione, cos\`{i} come d'ora in avanti, si utilizzer\`a la notazione $\mathfrak{V}$ e $\mathfrak{E}$ per
     indicare, rispettivamente, gli insiemi di supernodi e superarchi di un grafo contratto, e quindi di livello
-    superiore, rispetto al grafo di riferimento.
+    superiore, rispetto al grafo di riferimento. \newline
 
-    \begin{figure}[H]
-          \centering
-          \caption{Esempio di contrazione di un grafo decontraibile.}
-          \label{fig:contraction-example}
-      \end{figure}
+    Nella figura~\ref{fig:contraction-example}, sulla sinistra \`e mostrato un esempio di grafo decontraibile
+    contrazione del grafo decontraibile a destra, dove sono annotati per ogni supernodo e superarco
+    i nodi e gli archi ottenibili dalle loro decontrazioni. \newline
+
+    \begin{figure}
+        \centering
+        \include{TikZPictures/contraction_example}
+        \caption{Esempio di contrazione di un grafo decontraibile}
+        \label{fig:contraction-example}
+    \end{figure}
 
     Dalla definizione si evince che le seguenti sono condizioni necessarie affinch\`e un grafo decontraibile $G'$ possa
     essere una contrazione di un grafo decontraibile $G$:
@@ -141,7 +147,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
         non possono esistere nodi a cui corrispondono contemporaneamente due supernodi distinti, in quanto anche in
         questo caso l'insieme $\{V_\alpha \mid \alpha \in \mathfrak{V}\}$ non costituirebbe una partizione di $V$.
         \item I superarchi di $G'$ devono avere tutti una decontrazione non vuota.
-        Infatti, se fosse che $dec_\mathfrak{E}(\epsilon) = \emptyset$ per qualche $\epsilon \in \mathfrak{E}$, allora
+        Infatti, se fosse che $dec_{\mathfrak{E}}(\epsilon) = \emptyset$ per qualche $\epsilon \in \mathfrak{E}$, allora
         l' insieme $(\{E_\alpha \mid \alpha \in \mathfrak{V}\} \setminus \{ \emptyset \}) \cup
         \{ dec_{\mathfrak{E}}(\epsilon) \mid \epsilon \in \mathfrak{E}\}$ non costituirebbe una partizione di $E$,
         analogamente a quanto detto nel primo punto. \newline
@@ -159,7 +165,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
             dev_V, dec_E)
     \end{equation*}
 
-    Definiamo, inoltre, l'operatore unario $.^D : \mathcal{G}_D \rightarrow \mathcal{G}_D$ come l'operatore di
+    Definiamo, quindi, l'operatore unario $.^D : \mathcal{G}_D \rightarrow \mathcal{G}_D$ come l'operatore di
     \textbf{decontrazione completa} che, dato un grafo decontraibile $G = (V, E)$ restituisce il grafo decontrabile
     $G^D$ ottenuto dalla decontrazione di tutti i supernodi e superarchi del grafo in input.
 
@@ -173,101 +179,148 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     \newline
 
     Si noti che, in generale, un grafo decontraibile $G$ pu\`o non essere una contrazione di $G^D$.
-    Questo pu\`o verificarsi unicamente quando $G$ non soddisfa tutte le tre condizioni necessarie presentate in
-    precendenza.
+    Questo pu\`o verificarsi unicamente quando $G$ non soddisfa tutte le condizioni (i), (ii) e (iii) presentate in
+    precendenza. \newline
+    Per rendere chiaro questo aspetto, in figura~\ref{fig:non-contraction-example} \`e proposta una variazione
+    dell'esempio precedente, in cui il grafo decontraibile a sinistra, ottenuto come decontrazione completa del grafo
+    destra, non \`e una sua contrazione, in quanto il super-nodo $a_3$ appartiene contemporaneamente a $V_a$ e $V_b$,
+    e il super-arco $e_3$ viene decontratto in un insieme vuoto di archi, violando le condizioni (ii) e (iii).
+
+    \begin{figure}
+        \centering
+        \include{TikzPictures/non_contraction_example}
+        \caption{Esempio di grafo decontraibile che non \`e contrazione della sua decontrazione completa}
+        \label{fig:non-contraction-example}
+    \end{figure}
+
     Sarebbe, quindi, scorretto dire che un grafo $G'$ \`e una contrazione di $G$ se $(G')^D = G$.
-    In particolare, considerato quanto gi\`a detto, si pu\`o facilmente dimostrare che:
+    In particolare, considerato quanto gi\`a detto, si pu\`o facilmente dimostrare la seguente proposizione.
 
-    \begin{equation*}
-        (i), (ii), (iii) \text{ valgono per } G' \land G = (G')^D \quad \Longleftrightarrow \quad G' \text{ \`e una contrazione di } G
-    \end{equation*}
+    \begin{proposition}
+        Siano $G = (V, E)$ e $G' = (\mathfrak{V}, \mathfrak{E})$ due grafi decontraibili. Allora:
+        \begin{equation*}
+            \left\{
+            \begin{aligned}
+                &V_\alpha \neq \emptyset  &&\forall \alpha \in \mathfrak{V} \\
+                &V_{\alpha} \cap V_{\beta} = \emptyset &&\forall \alpha, \beta \in \mathfrak{V}, \, \alpha \neq \beta \\
+                &E_{\epsilon} \neq \emptyset  &&\forall \epsilon \in \mathfrak{E}
+            \end{aligned}
+            \right\}
+            \land G = (G')^D \quad \Longleftrightarrow \quad G' \text{ è una contrazione di } G
+        \end{equation*}
+    \end{proposition}
 
-\begin{figure}[H]
-    \centering
-    \include{TikzPictures/non_contraction_example}
-    \caption{Il grafo decontraibile a sinistra ottenuto come decontrazione completa del grafo destra NON \`e una
-    sua contrazione, in quanto il super-nodo $a_3$ appartiene contemporaneamente a $V_a$ e $V_b$,
-        e il super-arco $e_3$ viene decontratto in un insieme vuoto di archi.}
-    \label{fig:example3}
-\end{figure}
+    In aggiunta alla precendente proposizione, grazie alla definizione di contrazione tra grafi decontraibili,
+    si propone un'altra propoizione che descrive come il concetto di grafo indotto pu\`o essere usato per descrivere
+    le decontrazioni.
 
-    \paragraph{Proposizione 1.1}
-    Sia $G=(V, E)$ un grafo decontraibile e sia $G\mathcal{'} = (\mathfrak{V}, \mathfrak{E})$ una sua contrazione,
+    \begin{proposition}
+    Sia $G=(V, E)$ un grafo decontraibile e sia $G' = (\mathfrak{V}, \mathfrak{E})$ una sua contrazione,
     sia $\alpha$ un super-nodo appartenente a $\mathfrak{V}$.
     Allora $dec_{\mathfrak{V}}(\alpha) = (V_\alpha, E_\alpha)$ \`e il sottografo di $G$ indotto da $V_\alpha$.
     \begin{equation*}
         dec_{\mathfrak{V}}(\alpha) = G[V_\alpha]
     \end{equation*}
+    \end{proposition}
+
     \paragraph{Dimostrazione}
     Sia $H = (W, F)$ il sottografo di $G = (V, E)$ indotto da $V_\alpha$ con
     $\alpha \in \mathfrak{V}$, per definizione di grafo indotto, $H$ deve essere definito sull'insieme di nodi
     $V_\alpha$, ovvero deve essere $W = V_\alpha$.
     Si vuole ora dimostrare che $F = E_\alpha$. \newline
+
     L'inclusione $F \subseteq E_\alpha$ pu\`o essere dimostrata notando che per definizione $H$,
     che \`e un grafo indotto da $V_\alpha$, si ha:
     \begin{equation*}
     (x, y) \in F \implies (x, y) \in E \quad \text{con} \quad x, y \in V_{\alpha}
     \end{equation*}
-    Essendo che $\{ E_\alpha \mid \alpha \in \mathfrak{V}$, $dec_\mathfrak{V}(\alpha) = (V_\alpha, E_\alpha)\} \cup \{ dec_\mathfrak{E}(\epsilon) \mid \epsilon \in \mathfrak{E}\} $ \`e un ricoprimento di
-    $E$, si nota che l'unico insieme del ricoprimento che pu\`o contenere archi definiti in $V_\alpha \times V_\alpha$ \`e proprio $E_\alpha$.
-    Si conclude allora $(x, y) \in F \implies (x, y) \in E \implies (x, y) \in E_\alpha $. \newline
-    L'inclusione $E_\alpha \subseteq F$ pu\`o essere dimostrata notando che per la propriet\`a delle contrazioni, per cui
-    $\{ E_\alpha \mid \alpha \in \mathfrak{V}$, $dec_\mathfrak{V}(\alpha) = (V_\alpha, E_\alpha)\} \cup \{dec_\mathfrak{E}(\epsilon) \mid \epsilon \in \mathfrak{E}\} $ \`e una copertura di $E$, si ha:
+    Essendo che $\{ E_\beta \mid \beta \in \mathfrak{V}\}
+    \cup \{ dec_{\mathfrak{E}}(\epsilon) \mid \epsilon \in \mathfrak{E}\}$ \`e un ricoprimento di $E$, si nota che
+    l'unico insieme del ricoprimento che pu\`o contenere archi definiti in $V_\alpha \times V_\alpha$
+    \`e proprio $E_\alpha$. Si conclude allora $(x, y) \in F \implies (x, y) \in E \implies (x, y) \in E_\alpha $.
+    \newline
+
+    L'inclusione $E_\alpha \subseteq F$ pu\`o essere dimostrata notando che per la propriet\`a delle contrazioni,
+    per cui $\{ E_\beta \mid \beta \in \mathfrak{V}\} \cup
+    \{dec_{\mathfrak{E}}(\epsilon) \mid \epsilon \in \mathfrak{E}\} $ \`e una copertura di $E$, si ha:
     \begin{equation*}
-    (u, v) \in E_\epsilon \implies (u, v) \in E
+        (u, v) \in E_\alpha \implies (u, v) \in E
     \end{equation*}
-    Essendo che  $(u, v) \in E_\alpha \implies (u, v) \in V_\alpha \times V_\alpha$ per definzione di $E_\alpha$, si deve avere $u, v \in V_\alpha$.
-    Segue quindi $(u, v) \in E \wedge u,v \in V_\alpha \implies (u, v) \in F$.
+    Essendo che  $(u, v) \in E_\alpha \implies (u, v) \in V_\alpha \times V_\alpha$ per definzione di $E_\alpha$, si
+    deve avere $u, v \in V_\alpha$. Segue quindi $(u, v) \in E_\alpha \land u,v \in V_\alpha \implies (u, v) \in F$.
 
     \newpage
 
-    \subsection{Grafo multi-livello}\label{subsec:grafo-multi-livello}
+    \section{Grafo multi-livello}\label{sec:grafo-multi-livello}
 
     A partire dalla definizione di grafo decontraibile e di contrazione, pu\`o essere definita una struttura gerarchica
-    a pi\`u livelli dove i grafi ai livelli inferiori possono essere ricorsivamente espansi a partire dai supernodi dei
-    livelli superiori.
-    Il concetto di grafo multi-livello prevede quindi una definizione bottom-up di tale struttura, indicandone il
-    grafo inziale e gli schemi di contrazione secondo cui dei sotto-grafi sono collassati in singoli super-nodi,
-    formando gerarchie di grafi decontraibili.
+    a pi\`u livelli di grafi decontraibili che siano l'uno la contrazione dell'altro, dove i grafi ai livelli inferiori
+    o loro sottografi possano essere ottenuti attraverso, rispettivamente, decontrazioni complete o espansioni locali
+    dei livelli superiori.
 
-    \paragraph{Definzione 4} (Funzione di contrazione) \newline
-    \textit{Una \textbf{funzione di contrazione} $f_C : \mathcal{G}_D \rightarrow \mathcal{G}_D$ \`e una funzione che dato un grafo
-    decontraibile $G$ essa produce un nuovo grafo decontraibile $f_C(G) = G'$ che sia una contrazione di $G$.} \newline
+    \subsection{Funzioni}\label{subsec:funzioni}
+
+    \begin{definition} [Funzione di contrazione] \newline
+    Una \textbf{funzione di contrazione} $f_C : \mathcal{G}_D \rightarrow \mathcal{G}_D$ \`e una funzione che dato un
+    grafo decontraibile $G$ essa produce un nuovo grafo decontraibile $f_C(G) = G'$ che sia una contrazione di $G$.
+    \end{definition}
+    \newline
 
     Una funzione di contrazione rappresenta quindi un particolare schema di contrazione dove dominio e codominio sono
-    coincidenti e sono rappresentati dall'insieme dei grafi decontraibili.
-    Questo vuol dire che \`e possibile comporre le funzioni di contrazione in sequenza a partire da un dato
-    grafo decontraibile.
+    coincidenti e sono rappresentati dall'insieme dei grafi decontraibili $\mathcal{G}_D$. Essa produce contrazioni
+    dei grafi decontraibili in input secondo determinate logiche definite dalla funzione stessa.
+    Nel corso di questo capitolo, i termini \textit{funzione di contrazione} e \textit{schema di contrazione}
+    saranno utilizzati in modo intercambiabile. \newline
+    \'E importante notare il fatto che la funzione sia chiusa rispetto all'insieme dei grafi decontraibili: questo vuol
+    dire che \`e possibile comporre pi\`u funzioni di contrazione in sequenza a partire da un dato grafo decontraibile.
+    \newline
 
-    \paragraph{Definzione 5} (Funzione di trasformazione naturale) \newline
-    \textit{Definiamo \textbf{funzione di trasformazione naturale} $\eta$ una funzione che dato un grafo standard
-        $H=(W,F)$, produce il corripondente grafo decontraibile $G = (V, E)$ con le seguenti propriet\`a:
+    \begin{definition} [Funzione di trasformazione naturale] \newline
+    Definiamo \textbf{funzione di trasformazione naturale} $\eta$ una funzione che dato un grafo standard
+        $H=(W,F)$, produce il corripondente grafo decontraibile $G = (V, E, dec_V, dec_E)$ con le seguenti propriet\`a:
         \begin{itemize}
-            \item $dec_V(v) = (\emptyset, \emptyset)$ \quad $\forall$ $v\in V$
-            \item $dec_E(e) = \emptyset$ \quad $\forall$ $e\in E$
-            \item $H$ e $G$ sono isomorfi, ovvero esiste una biiezione $f_V : W \rightarrow V$ tale che
-            \begin{equation*}
-            (u, v) \in F \iff (f_V(u), f_V(v)) \in E
-            \end{equation*}
-        \end{itemize}}
+            \item $dec_V(v) = (\emptyset, \emptyset)$ \quad $\forall v\in V$
+            \item $dec_E(e) = \emptyset$ \quad $\forall e\in E$
+            \item $H$ e $G$ sono isomorfi
+        \end{itemize}
+    \end{definition}
 
     La funzione trasformazione naturale \`e quindi la funzione che permette di trasformare un dato grafo standard in un
     grafo decontraibile isomorfo per cui le due funzioni di decontrazione dei nodi e degli archi siano definite,
-    seppur producano rispettivamente un grafo e un insieme di archi vuoto.
-    Questo garantisce che il grafo decontraibile ottenuto non possa essere contrazione di alcun altro grafo
-    decontraibile.
+    seppur producano rispettivamente un grafo e un insieme di archi vuoto. \newline
+    Si pu\`o osservare che queste propriet\`a garantiscono che il grafo decontraibile ottenuto non possa essere
+    contrazione di alcun altro grafo decontraibile. \newline
 
-    \paragraph{Definzione 6} (Grafo multi-livello) \newline
-    \textit{Un \textbf{grafo multi-livello} $M$ \`e una coppia $(G, \Gamma)$ dove:
+    Il nome di funzione di trasformazione naturale deriva dalla teoria delle categorie, dove una trasformazione
+    naturale \`e una mappa tra due funtori che preserva la struttura tra i due oggetti e la coerenza delle operazioni
+    che possono essere applicate su di essi. Sebbene in matematica i grafi non siano considerati essi stessi funtori,
+    nella programmazione funzionale \`e possibile che i grafi vengano interpretati come tali. \newline
+
+    \subsection{Definizione dei Grafi Multi-Livello}\label{subsec:definzione-grafi_multilivello}
+
+    Il concetto di grafo multi-livello \`e di seguito definito attraverso una decrizione bottom-up di tale struttura,
+    indicandone il grafo inziale e gli schemi di contrazione, che descrivono il modo in cui dei sottografi di un
+    determinato livello sono collassati in singoli supernodi del livello superiore, formando gerarchie di grafi
+    decontraibili.
+
+    \begin{defintion}[Grafo multi-livello] \newline
+    Un \textbf{grafo multi-livello} $M$ \`e una coppia $(G, \Gamma)$ dove:
         \begin{itemize}
             \item $G = (V, E)$ \`e un grafo
-            \item $\Gamma$ \`e una sequenza $\langle f_{C_1}, f_{C_2}, .., f_{C_k} \rangle$ di funzioni di contrazione, ovvero tali che
-            \begin{equation*}
-                f_{C_i}(G_{i-1}) = G_i \text{ \`e una contrazione di } G_{i-1} \quad \forall i \in \{1, \ldots, k\}
-            \end{equation*}
-        \end{itemize}}
+            \item $\Gamma$ \`e una sequenza $\langle f_{C_1}, f_{C_2}, .., f_{C_k} \rangle$ di funzioni di contrazione
+        \end{itemize}
+    \end{defintion}
 
-    Dato un grafo multi-livello $M = (G,\Gamma)$ con $\Gamma = \langle f_{C_1}, f_{C_2}, .., f_{C_k} \rangle$, la funzione che calcola il suo grafo decontraibile al livello k-esimo \`e definita come \newline
+    Utilizzando la notazione $G_i$ per indicare il grafo decontraibile collocato al livello $i$-esimo della gerarchia,
+    si pu\`o consierare il grafo multi-livello $M$ come una sequenza di grafi decontraibili
+    $\langle G_0, G_1, .., G_k \rangle$, dove il grafo $G_0 = \eta(G)$ pu\`o essere ottenuto dalla funzione di
+    trasformazione naturale $\eta$ applicata al grafo standard $G$.
+    Per questo, le funzioni di contrazione di un grafo multi-livello dovono essere tali che
+    $f_{C_i}(G_{i-1}) = G_i$ per ogni $i \in \{1, .., k\}$. \newline
+
+    Dato un grafo multi-livello $M = (G,\Gamma)$ con $\Gamma = \langle f_{C_1}, f_{C_2}, .., f_{C_k} \rangle$,
+    la funzione che calcola il suo grafo decontraibile al livello k-esimo $G_k$ pu\`o quindi essere descritta
+    attraverso la seguente definizione ricorsiva: \newline
     \begin{equation*}
         con(M, k) =
         \left\{
@@ -277,37 +330,51 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
         \end{aligned}
         \right\}
         = G_k
+    \end{equation*} \newline
+
+    Si pu\`o notare che la funzione da applicare a $G$ per ottenere $G_{k}$ dovr\`a essere la composizione ordinata
+    delle funzioni di contrazione in $\Gamma$ fino al livello $k$ abbinata alla funzione di contrazione $\eta$ per
+    ottenere $G_0$, ovvero:
+    \begin{equation*}
+        G_k = (f_{C_k} \circ f_{C_{k-1}} \circ \ldots \circ f_{C_1} \circ \eta)(G)
     \end{equation*}
-    dove $\eta$ \`e la funzione di trasformazione naturale precedentemente defnita. \newline \newline
-    Si noti che la funzione da applicare a $G$ per ottenere $G_{k}$ \`e $ f_{C_k} \circ f_{C_{k-1}} \circ \ldots \circ f_{C_1} \circ \eta $.
 
-\newpage
-Definiamo, inoltre, la funzione altezza $h$, sia per grafi multi-livello che per i suoi grafi decontraibili,
-nel modo seguente:
+    Sia $\mathcal{M}$ l'insieme dei grafi decontraibili, definiamo, inoltre, la funzione altezza $h$, sia
+    per grafi multi-livello che per i suoi grafi decontraibili, nel modo seguente:
 
-\begin{itemize}
-    \item $h : \mathcal{M} \rightarrow \mathbb{N}$, tale che $h(M) = k$, con $M = (G, \Gamma)$ e $k$ il numero di
-    funzioni di contrazione in $\Gamma$.
-    \item $h : \mathcal{G}_D \rightarrow \mathbb{N}$, tale che $h(G_i) = i$, con $i$ il numero di contrazioni
-    necessarie per ottenere $G_i$ a partire da $\eta(G)$.
-\end{itemize}
+    \begin{itemize}
+        \item $h : \mathcal{M} \rightarrow \mathbb{N}$, tale che $h(M) = k$, con $M = (G, \Gamma)$ e $k$ il numero di
+        funzioni di contrazione in $\Gamma$. Ad esempio $h(M) = 0$ se $M = (G, \langle \rangle)$.
+        \item $h : \mathcal{G}_D \rightarrow \mathbb{N}$, tale che $h(G_i) = i$, con $i$ il numero di contrazioni
+        necessarie per ottenere $G_i$ a partire da $\eta(G)$. Ad esempio $h(\eta(G)) = 0$.
+    \end{itemize}
 
-\begin{figure}[H]
-    \include{TikzPictures/3d_layers_example}
-    %example
-    \caption{Esempio di grafi decontraibili $G_0, G_1, G_2$ di un grafo multi-livello di altezza 2 definito da funizoni
-    di contrazione per cricche (contrazione da $G_0$ a $G_1$) e per componenti connesse (contrazione da $G_1$ a $G_2$).}
-    \label{fig:example4}
-\end{figure}
+    In figura~\ref{fig:multi-level-graph-example} \`e mostrato un esempio di grafo multi-livello di altezza 2,
+    rappresentato mediante una sequenza di grafi decontraibili $G_0, G_1,$ e $G_2$. I grafi dei livelli superiori
+    sono ottenuti rispettivamente attraverso funzioni di contrazione per cricche (contrazione da $G_0$ a $G_1$) e
+    per componenti connesse (contrazione da $G_1$ a $G_2$).
 
-    \subsection{Algoritmo generico di trasformazione naturale}\label{subsec:algoritmo-generico-di-trasformazione-naturale}
-    L'algoritmo generico di trasformazione naturale si occupa di definire un nuovo grafo decontraibile tramite
-    l'ausilio della funzione biiettiva sopra definita $f_V$ che realizza l'isomorfismo.
+    \begin{figure}
+        \include{TikzPictures/3d_layers_example}
+        \caption{Esempio di grafo multilivello}
+        \label{fig:multi-level-graph-example}
+    \end{figure}
+
+    \newpage
+
+    \subsection{Algoritmo di trasformazione naturale}\label{subsec:algoritmo-di-trasformazione-naturale}
+
+    La generica procedura algoritmica per realizzare la trasformazione naturale da un grafo standard $H = (W, F)$
+    preso in input ad un grafo decontraibile $G = (V, E)$, pu\`o essere definita considerando la creazione di supernodi
+    e superarchi in accordo alla funzione biiettiva
+    $f_V: W \rightarrow V$ che realizza l'isomorfismo tra i nodi di $H$ e i supernodi di $G$.
 
     \input{Algoritmi/1-natural_transformation}
 
-    Tramite l'ausilio di strutture dati con tempi di ricerca costanti, la complessit\`a della riga 10 si riduce a $O(1)$,
-    e, di conseguenza, la complessit\`a dell'algoritmo \`e $\Theta(\mid V \mid+ \mid E \mid )$.
+    Tramite l'ausilio di strutture dati con tempi di ricerca costanti, come insiemi di hash, la complessit\`a delle
+    operazioni all'interno dei due circli \`e $O(1)$,
+    e, di conseguenza, la complessit\`a dell'algoritmo \`e dettata dal numero di nodi e archi del grafo in input $H$,
+    ovvero $\Theta(|W| + |F|)$.
 
 
 

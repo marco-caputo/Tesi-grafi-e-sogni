@@ -4,8 +4,10 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{enumerate}
+\usepackage{mathtools}
 
 \usepackage{tikz}
+\usepackage{drftcite}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{3d}
 \usetikzlibrary{positioning}
@@ -19,17 +21,10 @@
 \tikzset{mynode/.style={draw, thick, circle, size=0.3mm}, myarrow/.style={thick, -Triangle}}
 
 
-\usetikzlibrary{graphs, graphdrawing}
-\usegdlibrary{force, layering, graphs}
+% \usetikzlibrary{graphs, graphdrawing}
+% \usegdlibrary{force, layering, graphs}
 
 \addbibresource{biblio.bib}
-
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=black,
-    citecolor=black
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TESI DATI FRONTESPIZIO
@@ -66,9 +61,6 @@
 \theoremstyle{proposition}
 \newtheorem{proposition}{Proposizione}[section]
 
-\theoremstyle{proof}
-\newtheorem{proof}{Dimostrazione}[theorem]
-
 \graphicspath{Immagini/}
 
 \begin{document}
@@ -83,6 +75,7 @@
 \input{Introduzione}
 \input{1-GrafiEAppML}
 \input{2-GrafiML}
+\input{3-Schemi di Contrazione}
 \input{AppDeiGML}
 %\input{Capitolo7}
 

@@ -159,6 +159,7 @@ Si noti che l'insieme di nodi $V$ di un grafo completo \`e per definizione un'un
 
 %TODO: Algoritmi di Visita?
 %TODO: Rappresentazione in memoria?
+%TODO: CITATI: DFS
 
 \section{Contrazione di Grafi}\label{sec:contrazione-di-grafi}
 
@@ -391,6 +392,13 @@ L'utilit\`a di questa tecnica si basa sull'intuizione per cui una buona partizio
 gerarchia rimarr\`a tale anche ad un livello pi\`u raffinato, e che, in questo modo, la ricerca di una
 partizione ottimale pu\`o essere effettuata su grafi pi\`u piccoli e pi\`u semplici. \newline
 
+\begin{figure}[h!]
+    \centering
+    \include{TikzPictures/mgp}
+    \caption{Schema grafico del partizionamento multilivello}
+    \label{fig:multi-level-graph-partitioning}
+\end{figure}
+
 L'approccio multi-livello per la partizione di grafi si articola in tre fasi principali:
 \begin{enumerate}
     \item \textbf{Fase di contrazione} (\textit{contraction/coarsening phase}):
@@ -415,13 +423,6 @@ L'approccio multi-livello per la partizione di grafi si articola in tre fasi pri
     pi\`u raffinati, un algoritmo di miglioramento locale (\textit{local improvement}) ricolloca i nodi tra i
     blocchi per migliorare la dimensione del taglio o l'equilibrio delle dimensioni tra i blocchi.
 \end{enumerate}
-
-\begin{figure}[h]
-    \centering
-    \include{TikzPictures/mgp}
-    \caption{Schema grafico del partizionamento multilivello}
-    \label{fig:multi-level-graph-partitioning}
-\end{figure}
 
 
 

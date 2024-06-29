@@ -6,16 +6,16 @@
         % Nodes
         \node[main node,
           label={[align=center, blue, font=\tiny]above:{$V_{v_1} = \{a_1, a_2\}$}\\{$E_a = \emptyset$}}]
-        (A) {v$_1$};
+        (A) {$v_1$};
         \node[main node,
         label={[align=center, blue, font=\tiny]above:{$V_{v_2} = \{a_3, a_4, a_5\}$}\\{$E_{v_2} = \{(a_3, a_4),$}\\{$(a_4, a_5), (a_5, a_3)\}$}}]
-        (B) [right of=A] {v$_2$};
+        (B) [right of=A, node distance=2.5cm] {$v_2$};
         \node[main node,
         label={[align=left, blue, font=\tiny]right:{$V_{v_3} = \{a_6, a_7, a_8, a_9\}$}\\{$E_{v_3} = \{(a_7, a_6),(a_7, a_9),$}\\{$(a_7, a_8)\}$}}]
-          (C) [below right of=B] {v$_3$};
+          (C) [below right of=B] {$v_3$};
         \node[main node,
         label={[align=center, blue, font=\tiny]left:{$V_{v_4} = \{a_{10}\}$}\\{$E_{v_4} = \emptyset$}}]
-          (D) [below left of=C] {v$_4$};
+          (D) [below left of=C] {$v_4$};
 
         % Edges
         \path[every node/.style={font=\sffamily\small}];
@@ -30,10 +30,10 @@
         % G_b graph
         \begin{scope}[shift={(8.5,1)}];
         \draw[blue] (0,0) circle (1.5cm);
-        \node[above, blue] at (0,1.5) {v$_2$};
-        \node[main node] (X) at (-0.5,0.5) {a$_3$};
-        \node[main node] (Y) at (1,0) {a$_4$};
-        \node[main node] (Z) at (0,-1) {a$_5$};
+        \node[above, blue] at (0,1.5) {$v_2$};
+        \node[main node] (X) at (-0.5,0.5) {$a_3$};
+        \node[main node] (Y) at (1,0) {$a_4$};
+        \node[main node] (Z) at (0,-1) {$a_5$};
         \draw[myarrow] (X) -- (Y);
         \draw[myarrow] (Y) -- (Z);
         \draw[myarrow] (Z) -- (X);
@@ -42,11 +42,11 @@
         % G_c graph
         \begin{scope}[shift={(10.5,-1.75)}]
         \draw[blue] (0,0) circle (1.5cm);
-        \node[right, blue] at (1.5,0) {v$_3$};
-        \node[main node] (T) at (-0.5,0.5) {a$_6$};
-        \node[main node] (U) at (1,0) {a$_7$};
-        \node[main node] (V) at (0.25,-1) {a$_8$};
-        \node[main node] (W) at (-0.5,-0.5) {a$_9$};
+        \node[right, blue] at (1.5,0) {$v_3$};
+        \node[main node] (T) at (-0.5,0.5) {$a_6$};
+        \node[main node] (U) at (1,0) {$a_7$};
+        \node[main node] (V) at (0.25,-1) {$a_8$};
+        \node[main node] (W) at (-0.5,-0.5) {$a_9$};
         \draw[myarrow] (U) -- (T);
         \draw[myarrow] (U) -- (W);
         \draw[myarrow] (U) -- (V);
@@ -55,16 +55,16 @@
         % G_a graph
         \begin{scope}[shift={(5.7, 1)}]
         \draw[blue] (0,0) circle (1cm);
-        \node[above, blue] at (0,1) {v$_1$};
-        \node[main node] (N) at (0,0.5) {a$_1$};
-        \node[main node] (M) at (0,-0.5) {a$_2$};
+        \node[above, blue] at (0,1) {$v_1$};
+        \node[main node] (N) at (0,0.5) {$a_1$};
+        \node[main node] (M) at (0,-0.5) {$a_2$};
         \end{scope}
 
         % G_d graph
         \begin{scope}[shift={(7.5,-2.5)}]
         \draw[blue] (0,0) circle (0.75cm);
-        \node[left, blue] at (-0.75,0) {v$_4$};
-        \node[main node] (K) at (0,0) {a$_{10}$};
+        \node[left, blue] at (-0.75,0) {$v_4$};
+        \node[main node] (K) at (0,0) {$a_{10}$};
         \end{scope}
 
         % edges between graphs

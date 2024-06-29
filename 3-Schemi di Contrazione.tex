@@ -1,0 +1,392 @@
+\chapter{Algoritmi di enumerazione}
+
+In informatica, un \textit{algoritmo di enumerazione} \`e un algoritmo che elenca tutte le possibili risposte ad un
+problema computazionale in modo sistematico e completo. Tali algoritmi sono quindi progettati per ricevere un
+determinato input, generare una lista esaustiva di tutte le possibili soluzioni senza duplicati e, solo allora,
+terminare.
+Quando si parla di algoritmi di enumerazione applicati al dominio dei grafi, allora spesso si intende il processo di
+identificazione di sottoinsiemi di nodi o archi che soddisfano determinate caratteristiche.
+In questo capitolo si tratteranno e analizzeranno alcuni utili algoritmi di enumerazione presenti in letteratura per
+il riconoscimento di pattern strutturali all'interno di grafi. In particolare, si scuteranno algoritmi per l'enumerazione
+di componenti fortemente connesse, di cricche e di circuiti semplici, problemi di notevole importanza nella teoria dei
+grafi e ritenuti di interesse per la definizione di algoritmi di contrazione.
+Questi algoritmi costituiranno il \"motore\" degli algoritmi presentati nei capitoli successivi, e saranno di
+importanza fondamentale alla definizione degli algoritmi di contrazione usati per la costruzione di grafi multi-livello.
+
+\section{Enumerazione di componenti fortemente connesse}\label{subsec:enumerazione-di-componenti-fortemente-connesse}
+Come citato nel Capitolo 1, la condensazione di un grafo diretto \`e il suo grafo quoziente dove le componenti
+fortemente connesse definiscono i blocchi della partizione.
+Enumerare le componenti fortemente connesse di un grafo diretto $G = (V, E)$ significa trovare tutti i sottoinsiemi
+che permettano di costruire una condensazione del grafo di partenza.
+In questa sezione si discuter\`a un classico algoritmo di enumerazione delle componenti fortementi connesse, chiamato
+da alcuni testi come l'algoritmo di Kosaraju~\cite{SHARIR198167} e al seguito si discuter\`a di un possibile adattamento
+dell'algoritmo per la costruzione contestuale di un grafo contratto in forma di grafo decontraibile.
+
+\subsection{Algoritmo di Kosaraju}\label{subsec:algoritmo-di-kosaraju}
+L'algoritmo di Kosaraju (anche noto come algoritmo di Kosaraju-Sharir) \`e un algoritmo per l'enumerazione
+delle componenti fortemente connesse di un grafo diretto dalla complessit\`a lineare scoperto nel 1978 da S. Rao
+Kosaraju, ma pubblicato solamente nel 1981 da Micha Sharir, che lo scopri\`o indipendentemente.
+Esso sfrutta il principio per cui le componenti fortemente connesse di un grafo diretto sono le stesse del suo grafo
+trasposto, ovvero il grafo ottenuto invertendo l'orientamento di tutti gli archi.
+
+A seguire alcune utili nozioni preliminari per la comprensione dell'algoritmo:
+
+\paragraph{Grafo trasposto}
+Dato un grafo diretto $G = (V, E)$, il suo grafo trasposto $G^T = (V, E^T)$ \`e il grafo ottenuto invertendo
+l'orientamento di tutti gli archi di $G$, ovvero $E^T = \{(u, v) \mid (v, u) \in E\}$.
+ \'E interessante notare che $G^T$ ha le stesse componenti fortemente connesse di $G$: se un cammino da $u$ a $v$
+esiste in $G$, allora esiste anche un cammino da $v$ a $u$ in $G^T$.
+Essendo le componenti fortemente connesse basate sulla mutua raggiungibilit\`a dei nodi, esse non cambiano
+quando si invertono gli archi.
+
+Una procedura algoritmica per il calcolo di $G^T$ non farebbe altro che scorrere linsieme di archi di $G$ e
+invertirli, e sarebbe quindi di complessit\`a lineare.
+
+\paragraph{Visita in profondit\`a}
+La visita in profondit\`a di un grafo (in inglese \textit{depth-first search} o \textit{DFS}) \`e un particolare
+algoritmo di visita che, in quanto tale, permette di visitare tutti i nodi di un grafo partendo da un nodo iniziale,
+e di scoprire tutti i nodi raggiungibili da esso.
+Ci\`o viene fatto in modo ricorsivo, visitando un nodo e poi applicando la procedura di visita ricorsivamente
+a tutti i nodi ad esso adiacenti.
+Nel corso dell'algoritmo i nodi vengono colorati in tre colori: bianco, grigio e nero, ad indicare rispettivamente
+che il nodo non \`e stato visitato, che \`e in fase di visita e che \`e stato visitato.
+Questo permette di non incorrere in cicli di visita infiniti nel caso non si stia visitando un grafo aciclico.
+Nel corso dell'algoritmo vengono anche assegnati ai nodi due valori interi: il tempo di scoperta ($d$) e il tempo di
+fine visita ($f$), che permettono di determinare, rispettivamente, l'ordine in cui i nodi vengono scoperti e il tempo
+in cui la visita di un nodo termina.
+Un attributo aggiuntivo, il predecessore, permette di memorizzare il nodo da cui si \`e scoperto il nodo corrente.
+
+\paragraph{Ordinamento topologico}
+Dato un grafo diretto aciclico $G = (V, E)$, un ordinamento topologico di $G$ \`e una particolare sequenza
+dei suoi nodi $\langle v_1, v_2, \ldots, v_n \rangle$ tale che per ogni arco $(v_i, v_j) \in E$, $i < j$.
+Si noti, quindi, che un ordinamento topologico di un grafo diretto pu\`o esistere solo se il grafo non contiene
+cicli.
+Una procedura algoritmica per il calcolo di un ordinamento topologico di $G$ pu\`o essere effettuata tramite una
+visita in profondit\`a del grafo, raccogliendo in una lista concatenata i nodi in ordine decrescente di tempo
+di fine visita, man mano che vengono visitati.
+Per via del normale costo di una visita in profondit\`a, la complessit\`a di tale procedura \`e lineare.
+
+
+
+
+
+La procedura segue la logica dell'algoritmo di Kosaraju per l'individuazione delle componenti strettamente connesse
+descritto in [1], effettuando due visite in profondit\`a, una sul grafo originale $G$ e una sul grafo trasposto
+$G^T$, in cui la seconda \`e effettuata secondo l'ordinamento topologico della prima.
+Durante la seconda visita in profondit\`a viene costruito il grafo $G\mathcal{'}$ ottenuto come contrazione del
+grafo decontraibile $G$.
+
+    \input{Algoritmi/2.1-component-contract}
+
+    Il seguente algoritmo descrive la seconda visita in profondit\`a, che include la costruzione del grafo
+    contratto di $G$. \newline
+    I parametri passati alla procedura ricorsiva DFS-VISIT' includono
+    \begin{itemize}
+        \item il grafo decontraibile originale  $G$
+        \item il nodo da  visitare $u$
+        \item il supernodo $\alpha_i$, che rappresenta una componente fortemente connessa di $G$ che include $u$
+        \item i due insiemi da costruire $V_{\alpha_i}, E_{\alpha_i}$, che insieme definiscono il grafo $\alpha_i.dec = (V_{\alpha_i}, E_{\alpha_i})$ 
+		associato al supernodo $\alpha_i$.
+	    \item l'insieme di superarchi $\mathfrak{E}$, che vengono definiti nel corso della visita.
+		Gli archi in $\epsilon.dec$ con $\epsilon \in \mathfrak{E}$ vengono aggiunti quando si incontrano nodi appartenenti
+        ad altre componenti connesse gi\`a visitate.
+    \end{itemize}
+
+    \input{Algoritmi/2.2-dfs'}
+    \input{Algoritmi/2.3-dfs_visit'}
+
+    \newpage
+
+    \begin{figure}
+        \resizebox{!}{3.3cm}{
+            \begin{tikzpicture}
+                %comp 1
+                \node[mynode](n1) at (0,0){1};
+                \node[mynode](n2) at (1.2,-1){2};
+                \node[mynode](n3) at (1.2, 1){4};
+                \node[mynode](n4) at (2.4, 0){3};
+                \draw[myarrow](n1)--(n2);
+                \draw[myarrow](n3)--(n1);
+                \draw[myarrow](n4)--(n3);
+                \draw[myarrow](n2)--(n4);
+                %comp 2
+                \node[mynode](n5) at (4,1.2){5};
+                \node[mynode](n6) at (4,0){6};
+                \node[mynode](n7) at (4, -1.2){7};
+                \draw[myarrow](n6) -- (n5);
+                \draw[myarrow](n5) to[out=3,in=3] (n7);
+                \draw[myarrow](n7) -- (n6);
+
+                %comp edges
+                \draw[myarrow](n3) -- (n5);
+                \draw[myarrow](n2) -- (n7);
+                %comp 3
+                \node[mynode](n8) at (6, 2){8};
+                %comp 4
+                \node[mynode](n9) at (8, 2){9};
+                \node[mynode](na) at (8.5, 0){10};
+                \draw[myarrow](n9) -- (n8);
+                \draw[myarrow](na) to[out=3,in=3] (n9);
+                \draw[myarrow](n9) -- (na);
+                \draw[myarrow](n8) -- (n5);
+
+                \node[below=10mm] at (5, -1.2) {(a)};
+            \end{tikzpicture}
+            \begin{tikzpicture}
+                %comp 1
+                \node[mynode, label=above:{$13/20$}, fill=black](n1) at (0,0){\textcolor{white}{1}};
+                \node[mynode, label=above:{$14/19$}, fill=black](n2) at (1.2,-1){\textcolor{white}{2}};
+                \node[mynode, label=above:{$16/17$}, fill=black](n3) at (1.2, 1){\textcolor{white}{4}};
+                \node[mynode, label=above:{$15/18$}, fill=black](n4) at (2.4, 0){\textcolor{white}{3}};
+                \draw[myarrow](n1)--(n2);
+                \draw[myarrow](n3)--(n1);
+                \draw[myarrow](n4)--(n3);
+                \draw[myarrow](n2)--(n4);
+                %comp 2
+                \node[mynode, label=above:{$5/10$}, fill=black](n5) at (4,1.2){\textcolor{white}{5}};
+                \node[mynode, label=right:{$7/8$}, fill=black](n6) at (4,0){\textcolor{white}{6}};
+                \node[mynode, label=below:{$6/9$}, fill=black](n7) at (4, -1.2){\textcolor{white}{7}};
+                \draw[myarrow](n6) -- (n5);
+                \draw[myarrow](n5) to[out=3,in=3] (n7);
+                \draw[myarrow](n7) -- (n6);
+
+                %comp edges
+                \draw[myarrow](n3) -- (n5);
+                \draw[myarrow](n2) -- (n7);
+                %comp 3
+                \node[mynode, label=above:{$4/11$}, fill=black](n8) at (6, 2){\textcolor{white}{8}};
+                %comp 4
+                \node[mynode, label=above:{$1/12$}, fill=black](n9) at (8, 2){\textcolor{white}{9}};
+                \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+                \draw[myarrow](n9) -- (n8);
+                \draw[myarrow](na) to[out=3,in=3] (n9);
+                \draw[myarrow](n9) -- (na);
+                \draw[myarrow](n8) -- (n5);
+
+                % label for the second graph
+                \node[align=center, xshift=0.5cm, yshift=2.3cm] (label2) {$\langle 1, 2, 3, 4, 9, 8, 5, 7, 6, 10 \rangle$};
+                \node[below=10mm] at (5, -1.2) {(b)};
+            \end{tikzpicture}
+            \label{fig:alg1}}
+    \end{figure}
+
+    \begin{figure}
+        \resizebox{!}{3.9cm}{
+            \begin{tikzpicture}
+                %comp 1
+                \node[mynode](n1) at (0,0){1};
+                \node[mynode](n2) at (1.2,-1){2};
+                \node[mynode](n4) at (1.2, 1){4};
+                \node[mynode](n3) at (2.4, 0){3};
+                \draw[myarrow](n2)--(n1);
+                \draw[myarrow](n1)--(n4);
+                \draw[myarrow](n4)--(n3);
+                \draw[myarrow](n3)--(n2);
+                %comp 2
+                \node[mynode](n5) at (4,1.2){5};
+                \node[mynode](n6) at (4,0){6};
+                \node[mynode](n7) at (4, -1.2){7};
+                \draw[myarrow](n5) -- (n6);
+                \draw[myarrow](n7) to[out=3,in=3] (n5);
+                \draw[myarrow](n6) -- (n7);
+
+                %comp edges
+                \draw[myarrow](n5) -- (n4);
+                \draw[myarrow](n7) -- (n2);
+                %comp 3
+                \node[mynode](n8) at (6, 2){8};
+                %comp 4
+                \node[mynode](n9) at (8, 2){9};
+                \node[mynode](na) at (8.5, 0){10};
+                \draw[myarrow](n8) -- (n9);
+                \draw[myarrow](n9) to[out=3,in=3] (na);
+                \draw[myarrow](na) -- (n9);
+                \draw[myarrow](n5) -- (n8);
+
+                \node[align=center, xshift=0.5cm, yshift=2.3cm] (label2) {$\langle 1, 2, 3, 4, 9, 8, 5, 7, 6, 10 \rangle$};
+                \node[below=10mm] at (5, -1.2) {(c)};
+            \end{tikzpicture}
+            \begin{tikzpicture}
+                %comp 1
+                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n1) at (0,0){\textcolor{white}{1}};
+                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n2) at (1.2,-1){\textcolor{white}{2}};
+                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n4) at (1.2, 1){\textcolor{white}{4}};
+                \node[mynode, fill={rgb:red,4;green,2;yellow,1}](n3) at (2.4, 0){\textcolor{white}{3}};
+                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n2)--(n1);
+                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n1)--(n4);
+                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n4)--(n3);
+                \draw[myarrow, color={rgb:red,4;green,2;yellow,1}](n3)--(n2);
+                %comp 2
+                \node[mynode, fill=red](n5) at (4,1.2){\textcolor{white}{5}};
+                \node[mynode, fill=red](n6) at (4,0){\textcolor{white}{6}};
+                \node[mynode, fill=red](n7) at (4, -1.2){\textcolor{white}{7}};
+                \draw[myarrow, red](n5) -- (n6);
+                \draw[myarrow, red](n7) to[out=3,in=3] (n5);
+                \draw[myarrow, red](n6) -- (n7);
+                %comp edges
+                \draw[myarrow, color={rgb:red,1;blue,2}](n5) -- (n4);
+                \draw[myarrow, color={rgb:red,1;blue,2}](n7) -- (n2);
+                %comp 3
+                \node[mynode, fill=green!50!red](n8) at (6, 2){\textcolor{white}{8}};
+                %comp 4
+                \node[mynode, fill={rgb:red,1;green,2;blue,5}](n9) at (8, 2){\textcolor{white}{9}};
+                \node[mynode, fill={rgb:red,1;green,2;blue,5}](na) at (8.5, 0){\textcolor{white}{10}};
+                \draw[myarrow, color={rgb:red,4;green,1;blue,3}](n8) -- (n9);
+                \draw[myarrow, color={rgb:red,1;green,2;blue,5}](n9) to[out=3,in=3] (na);
+                \draw[myarrow, color={rgb:red,1;green,2;blue,5}](na) -- (n9);
+                \draw[myarrow, color={rgb:red,2;green,1}](n5) -- (n8);
+
+                \node[align=center, xshift=0.5cm, yshift=2.3cm] (label2) {$\langle \rangle$};
+
+                \begin{scope}[shift={(0,-3.2)}]
+                \node[mynode,
+                    label={[align=center]above:{$V_{1\mathcal{'}} = \{1, 4, 3, 2\}$}\\{\tiny$E_{1\mathcal{'}} = \{(4,1), (3, 4), (2, 3), (1, 2)\}$}},
+                    fill={rgb:red,4;green,2;yellow,1}](n1) at (0, 0){\textcolor{white}{$1\mathcal{'}$}};
+                \node[mynode,
+                    label={[align=center]above:{$V_{4\mathcal{'}} = \{5, 6, 7\}$}\\{\tiny$E_{4\mathcal{'}} = \{(6, 5), (7, 6), (5, 7)\}$}},
+                    fill=red](n4) at (3.5, 0){\textcolor{white}{$4\mathcal{'}$}};
+                \node[mynode,
+                    label={[align=center]above:{$V_{3\mathcal{'}} = \{8\}$}\\{\tiny$E_{3\mathcal{'}} = \{\}$}},
+                    fill=green!50!red](n3) at (6.5, 0){\textcolor{white}{$3\mathcal{'}$}};
+                \node[mynode,
+                    label={[align=center]above:{$V_{2\mathcal{'}} = \{9, 10\}$}\\{\tiny$E_{2\mathcal{'}} = \{(10,9), (9, 10)\}$}},
+                    fill={rgb:red,1;green,2;blue,5}](n2) at (9, 0){\textcolor{white}{$2\mathcal{'}$}};
+
+                \draw[myarrow,
+                    color={rgb:red,4;green,1;blue,3}](n2) to node [below]{\tiny$E_{e_1} = \{(9, 8)\}$} (n3);
+                \draw[myarrow,
+                    color={rgb:red,1;blue,2}](n1) to node [below]{\tiny$E_{e_2} = \{(4, 5), (2, 7)\}$} (n4);
+                \draw[myarrow,
+                    color={rgb:red,2;green,1}](n3) to node [below]{\tiny$E_{e_3} = \{(8, 5)\}$} (n4);
+
+                \node[below=10mm] at (5, 0) {(d)};
+                \end{scope}
+            \end{tikzpicture}
+            \label{fig:alg2}}
+        \caption{Rappresentazione delle fasi rilevanti dell'algoritmo COMPONENT-CONTRACTION applicato al grafo in (a).
+        In (b) \`e rappresentato lo stato del grafo al termine della procedura DFS, assieme alla lista dei nodi ordinata
+        per tempi di fine visita (ordinamento topologico). In (c) il grafo trasposto ottenuto invertendo gli archi del
+        grafo in (a). In (d) lo stato del grafo trasposto in (c) al termine della procedura DFS$\mathcal{'}$, assieme al grafo
+        contratto costruito.}
+    \end{figure}
+
+    \newpage
+    In particolare:
+    \begin{itemize}
+        \item i nodi $v$ che soddisfano la condizione a riga 5 di DFS-VISIT$\mathcal{'}$ fanno parte della stessa componente di $u$.
+        Per questi nodi l'arco originale del grafo non trasposto $(v, u)$ viene aggiunto al grafo corrispondente al
+        supernodo $\alpha$ a riga 6;
+        \item i nodi $v$ che soddisfano la condizione a riga 10 di DFS-VISIT$\mathcal{'}$ sono nodi che fanno parte di altre
+        componenti fortemente connesse gi\`a visitate che sono adiacenti a $u$.
+        Per questi nodi, si considerano i superarchi ottenuti dai rispettivi supernodi di $v$ e $u$, aggingendoli a
+	    $\mathfrak{E}$ se necessario, (riga 13), e aggiungendo l'arco originale $(v, u)$ all'insieme di archi
+        rappresentato dal superarco (riga 15).
+    \end{itemize}
+
+    \paragraph{Complessit\`a dell'algoritmo}
+    L'algoritmo COMPONENT-CONTRACT applicato ad un grafo $G = (V, E)$  mantiene una complessit\`a temporale di
+    $\Theta(V + E)$, in quanto:
+    \begin{itemize}
+        \item A riga 1 viene eseguita una ricerca in profondit\`a tradizionale, quindi con costo $\Theta(V + E)$.
+        \item A riga 2 viene costruito il grafo trasposto $G^T = (V, E^T)$, dove $E^T = \{(u, v) \mid (v, u) \in E\}$ \`e
+        dato dagli archi in $E$ con orientamento invertito.
+        Anche in questo caso, la sua costruzione pu\`o avvenire in un tempo $O(V + E)$, iterando prima sull'insieme dei
+        nodi di $G$ e poi sui suoi archi, invertendone l'orientamento.
+        L'ordinamento dei nodi di $G^T$ pu\`o essere realizzato nel corso della visita a riga 1 attraverso la costruizione
+        di una lista concatenata, per cui i nodi possono essere aggiunti in testa alla lista in tempo $O(1)$  man mano
+        che viene loro assegnata l'etichetta di fine visita $u.f$.
+        \item A riga 3 viene eseguita la procedura DFS' che corrisponde ad una visita in profondit\`a di $G^T$ abbinata
+        alle operazioni di costruzione del grafo decontraibile.
+        In particolare, le operazioni che vengono effettuate in aggiunta a quelle di una visita in profondit\`a consistono
+        nei semplici assegnamenti alle righe 4\textendash6, 10\textendash12, 14\textendash15 e 18 di DFS' e alle righe
+        2\textendash3 di DFS-VISIT'.
+        Inoltre sono previsti dei controlli e dei relativi assegnamenti alle righe 5\textendash7 e 10\textendash16 che,
+        ancora una volta, aggiungono solamente costi costanti per ogni arco in $G^T$.
+        Il costo computazionale della procedura rimane $\Theta(V + E)$.
+    \end{itemize}
+
+    \subsection{Correttezza dell'algoritmo}\label{subsec:correttezza-dell'algoritmo}
+
+    \paragraph{Lemma 3.2.1}
+    Sia $G=(V,E)$ un grafo decontraibile input dell'algoritmo COMPONENT-CONTRACT, sia $G\mathcal{'}$ il grafo decontraibile
+    in output, sia $u$ un nodo in $V$, sia $v$ un nodo adiacente a $u$ in $(G)^T$, sia $\alpha$ il supernodo di $u$.
+    Le condizioni sul nodo $v$ alle righe 5 e 10 di DFS-VISIT' sono tra loro mutualmente esclusive e ricoprono tutti i
+    possibili casi.
+    In particolare:
+    \begin{enumerate}[(i)]
+        \item ($v.color ==$ WHITE $\vee$ $v.supernode == \alpha$) $\implies$ il nodo $v$ ha lo stesso supernodo di $u$ al
+        termine dell'algoritmo.
+        \item ($v.color ==$ BLACK $\wedge$ $v.supernode \ne \alpha$) $\implies$ il nodo $v$ non ha lo stesso supernodo di
+        $u$ al termine dell'algoritmo.
+    \end{enumerate}
+
+    \paragraph{Dimostrazione}
+    Si noti, innanzitutto, che l'attributo $supernode$ una volta assegnato non viene pi\`u modificato fino al termine
+    dell'algoritmo, in quanto esso pu\`o essere assegnato solamente a riga 2 di DFS-VISIT' e DFS-VISIT' viene richiamato
+    una ed una sola volta per ciascun nodo. \newline
+
+    Per dimostrare (i) ci limitiamo a dimostrare $v.color ==$ WHITE $ \implies v.supernode == u.supernode$ e
+    $v.supernode == \alpha \implies v.supernode == u.supernode$.
+    \begin{enumerate}
+        \item Assumiamo $v.color ==$ WHITE. Questo significa che esso non ha ancora alcun supernodo assegnato e che gli 
+		verr\`a assegnato il supernodo $\alpha$ nella chiamata di DFS-VISIT' a riga 9, in quanto la condizione a riga 8
+        \`e verificata $(H_1)$.
+        \item Assumiamo $v.supernode == \alpha$.
+        Banalmente, essendo $u.supernode = \alpha$ si ottiene $v.supernode == u.supernode$ $(H_2)$.
+    \end{enumerate}
+    Per $(H_1)$ e $(H_2)$ abbiamo dimostrato il punto (i).
+
+    Per dimostrare (ii) assumiamo $v.color ==$ BLACK $(H_3)$ e $v.supernode \ne \alpha$ $(H_4)$.
+    Dato $(H_3)$, il nodo $v$ \`e gi\`a stato visitato e deve, pertanto, avere un supernodo assegnato.
+    Per $(H_4)$, questo supernodo non pu\`o essere $\alpha = u.supernode$, pertanto si conclude
+    $v.supernode \neq u.supernode$. \newline
+
+    Le conclusioni dei punti (i) e (ii) risultano essere, quindi, mutualmente esclusive e ricoprono tutti i possibili
+    casi sullo stato del nodo $v$ ed $u$ al termine dell'algoritmo.
+
+    \paragraph{Correttezza dell'algoritmo}
+    Al termine dell'esecuzione dell'algoritmo su un grafo decontraibile $G\coloneqq(V, E)$ avremo costruito un grafo
+    decontraibile $G\mathcal{'} \coloneqq (\mathfrak{V}, \mathfrak{E})$ dove:
+    \begin{enumerate}[(i)]
+        \item $G\mathcal{'}$ \`e una contrazione di $G$
+        \item Per ogni supernodo $\alpha \in \mathfrak{V}$, con $\alpha.dec = (V_{\alpha}, E_{\alpha})$, $V_{\alpha}$ \`e una componente fortemente
+        connessa di $G$
+    \end{enumerate}
+
+    \paragraph{Dimostrazione}
+    La propriet\`a (i) pu\`o essere dimostrata notando che:
+    \begin{itemize}
+        \item La prima propriet\`a delle contrazioni \`e rispettata, in quanto ogni nodo $u \in V$ viene visitato una ed una
+        sola volta da DFS-VISIT' e viene aggiunto ad un certo insieme $V_{\alpha}$ per qualche $\alpha \in \mathfrak{V}$.
+        Inoltre, per ogni supernodo $\alpha \in \mathfrak{V}$, $V_{\alpha} \neq \emptyset$ in quanto esso dovr\`a contenere
+        almeno il nodo $u$ della prima chiamata di DFS-VISIT' a riga 13 di DFS'.
+
+        \item La seconda propriet\`a delle contrazioni \`e rispettata.
+        Per il Lemma 3.2.1 le condizioni sul nodo $v$ alle righe 5 e 10 di DFS-VISIT' sono tra loro mutualmente
+        esclusive e ricoprono tutti i possibili casi al termine dell'algoritmo: o $v$ ha lo stesso supernodo di $u$ o
+        non ha lo stesso supernodo di $u$.
+        Quindi si pu\`o notare che tutti gli archi in $E$ sono considerati ognuno una ed una sola volta dal ciclo for a
+        riga 4 di DFS-VISIT'. Per ognuno di questi archi $(v, u)$, o vengono aggiunti ad un certo insieme $E_{\alpha}$
+        per qualche $\alpha$ quando $u$ e $v$ sono tali per cui $u.supernode = v.supernode = \alpha$, o vengono aggiunti ad
+        un insieme $e.dec$ per qualche $e \in \mathfrak{E}$ quando $u$ e $v$ sono tali per cui
+        $u.supernode \neq v.supernode$.
+        Questo vuol dire che
+        $\{ E_\alpha \mid \alpha \in \mathfrak{V}$, $\alpha.dec = (V_\alpha, E_\alpha)\} \cup \{ \epsilon .dec \mid \epsilon \in \mathfrak{E}\}$
+        \`e un ricoprimento di $E$ formato di insiemi a due a due disgiunti. \newline
+        Inoltre, la propriet\`a per cui $\emptyset \notin \{\epsilon .dec \mid \epsilon \in \mathfrak{E}\}$ \`e garantita dal fatto che
+        l'esecuzione della riga 13 di DFS-VISIT' \`e sempre succeduta dall'esecuzione della riga 16, per cui non pu\`o
+        esistere $\epsilon \in \mathfrak{E}$ tale per cui $\epsilon .dec = \emptyset$.
+    \end{itemize}
+
+    La propriet\`a (ii) pu\`o essere dimostrata notando che l'agoritmo utilizza la stessa logica dell'algoritmo per
+    l'individuazione delle componenti connesse descritto in [1].
+    In particolare, \`e possibile dimostrare per induzione che alla k-esima chiamata di DFS-VISIT', le componenti
+    connesse $C_i$ con $ i = 0,\ldots, k-1$, tali per cui $f(C_i)$ \`e il tempo di fine visita massimo tra i nodi della
+    componente i-esima e, quindi, tali per cui $f(C_i) > f(C_k)$ $\forall i$, sono state gi\`a visitate e assegnate a
+    degli insiemi $V_{\alpha_i}$ per dei supernodi $\alpha_i$.
+    Inoltre, per il Lemma 22.15 descritto in [1], le componenti $C'$ tali per cui $f(C') < f(C_k)$ non possono essere
+    visitate durante la visita dell'albero di $C_k$, in quanto in $G^T$ non possono esistere archi della forma $(v ,u)$
+    con $v \in C' $ e $ u \in C_k$.
+    Per l'assegnamento a riga 3 di DFS-VISIT', ogni nodo visitato viene aggiunto all'insieme $V_{\alpha_i}$, il quale cambia
+    a riga 11 di DFS' per ogni nuovo albero di ricerca in profondit\`a che viene percorso.
+    Pertanto al termine dell'algoritmo $V_{\alpha_i}$ rappresenter\`a una componente fortemente connessa di $G$ per ogni $\alpha_i$.
