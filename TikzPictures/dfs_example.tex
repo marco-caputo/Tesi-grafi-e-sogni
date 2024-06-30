@@ -1,0 +1,389 @@
+\resizebox{!}{3.07cm}{
+    \begin{tikzpicture}
+        %comp 1
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode](n5) at (4,1.2){5};
+        \node[mynode](n6) at (4,0){6};
+        \node[mynode](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode](na) at (8.5, 0){10};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture} \quad \quad
+    \begin{tikzpicture}
+        %comp 1
+        % \node[mynode, fill=black](n1) at (0,0){\textcolor{white}{1}};
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode](n5) at (4,1.2){5};
+        \node[mynode](n6) at (4,0){6};
+        \node[mynode](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2$}, fill={rgb:black,1;white,2}](na) at (8.5, 0){10};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture}
+}
+\resizebox{!}{3.07cm}{
+    \begin{tikzpicture}
+        %comp 1
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode](n5) at (4,1.2){5};
+        \node[mynode](n6) at (4,0){6};
+        \node[mynode](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture} \quad \quad
+    \begin{tikzpicture}
+        %comp 1
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode](n5) at (4,1.2){5};
+        \node[mynode](n6) at (4,0){6};
+        \node[mynode](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4$}, fill={rgb:black,1;white,2}](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture}
+}
+\resizebox{!}{3.416cm}{
+    \begin{tikzpicture}
+        %comp 1
+
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5$}, fill={rgb:black,1;white,2}](n5) at (4,1.2){5};
+        \node[mynode](n6) at (4,0){6};
+        \node[mynode](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4$}, fill={rgb:black,1;white,2}](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture} \quad \quad
+    \begin{tikzpicture}
+        %comp 1
+
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5$}, fill={rgb:black,1;white,2}](n5) at (4,1.2){5};
+        \node[mynode](n6) at (4,0){6};
+        \node[mynode, label=below:{$6$}, fill={rgb:black,1;white,2}](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4$}, fill={rgb:black,1;white,2}](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture}
+}
+\resizebox{!}{3.416cm}{
+    \begin{tikzpicture}
+        %comp 1
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5$}, fill={rgb:black,1;white,2}](n5) at (4,1.2){5};
+        \node[mynode, label=right:{$7$}, fill={rgb:black,1;white,2}](n6) at (4,0){6};
+        \node[mynode, label=below:{$6$}, fill={rgb:black,1;white,2}](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4$}, fill={rgb:black,1;white,2}](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture} \quad \quad
+    \begin{tikzpicture}
+        %comp 1
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5$}, fill={rgb:black,1;white,2}](n5) at (4,1.2){5};
+        \node[mynode, label=right:{$7/8$}, fill=black](n6) at (4,0){\textcolor{white}{6}};
+        \node[mynode, label=below:{$6$}, fill={rgb:black,1;white,2}](n7) at (4, -1.2){7};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4$}, fill={rgb:black,1;white,2}](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture}
+}
+\resizebox{!}{3.5cm}{
+    \begin{tikzpicture}
+        %comp 1
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5$}, fill={rgb:black,1;white,2}](n5) at (4,1.2){5};
+        \node[mynode, label=right:{$7/8$}, fill=black](n6) at (4,0){\textcolor{white}{6}};
+        \node[mynode, label=below:{$6/9$}, fill=black](n7) at (4, -1.2){\textcolor{white}{7}};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4$}, fill={rgb:black,1;white,2}](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture} \quad \quad
+    \begin{tikzpicture}
+        % comp 1
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5/10$}, fill=black](n5) at (4,1.2){\textcolor{white}{5}};
+        \node[mynode, label=right:{$7/8$}, fill=black](n6) at (4,0){\textcolor{white}{6}};
+        \node[mynode, label=below:{$6/9$}, fill=black](n7) at (4, -1.2){\textcolor{white}{7}};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4$}, fill={rgb:black,1;white,2}](n8) at (6, 2){8};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[draw, thick, circle, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture}
+}
+\resizebox{!}{3.59cm}{
+    \begin{tikzpicture}
+        %comp 1
+        % \node[mynode, fill=black](n1) at (0,0){\textcolor{white}{1}};
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5/10$}, fill=black](n5) at (4,1.2){\textcolor{white}{5}};
+        \node[mynode, label=right:{$7/8$}, fill=black](n6) at (4,0){\textcolor{white}{6}};
+        \node[mynode, label=below:{$6/9$}, fill=black](n7) at (4, -1.2){\textcolor{white}{7}};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4/11$}, fill=black](n8) at (6, 2){\textcolor{white}{8}};
+        %comp 4
+        \node[mynode, label=above:{$1$}, fill={rgb:black,1;white,2}](n9) at (8, 2){9};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture} \quad \quad
+    \begin{tikzpicture}
+        %comp 1
+        % \node[mynode, fill=black](n1) at (0,0){\textcolor{white}{1}};
+        \node[mynode](n1) at (0,0){1};
+        \node[mynode](n2) at (1.2,-1){2};
+        \node[mynode](n3) at (1.2, 1){4};
+        \node[mynode](n4) at (2.4, 0){3};
+        \draw[myarrow](n1)--(n2);
+        \draw[myarrow](n3)--(n1);
+        \draw[myarrow](n4)--(n3);
+        \draw[myarrow](n2)--(n4);
+        %comp 2
+        \node[mynode, label=above:{$5/10$}, fill=black](n5) at (4,1.2){\textcolor{white}{5}};
+        \node[mynode, label=right:{$7/8$}, fill=black](n6) at (4,0){\textcolor{white}{6}};
+        \node[mynode, label=below:{$6/9$}, fill=black](n7) at (4, -1.2){\textcolor{white}{7}};
+        \draw[myarrow](n6) -- (n5);
+        \draw[myarrow](n5) to[out=3,in=3] (n7);
+        \draw[myarrow](n7) -- (n6);
+
+        %comp edges
+        \draw[myarrow](n3) -- (n5);
+        \draw[myarrow](n2) -- (n7);
+        %comp 3
+        \node[mynode, label=above:{$4/11$}, fill=black](n8) at (6, 2){\textcolor{white}{8}};
+        %comp 4
+        \node[mynode, label=above:{$1/12$}, fill=black](n9) at (8, 2){\textcolor{white}{9}};
+        \node[mynode, label=below:{$2/3$}, fill=black](na) at (8.5, 0){\textcolor{white}{10}};
+        \draw[myarrow](n9) -- (n8);
+        \draw[myarrow](na) to[out=3,in=3] (n9);
+        \draw[myarrow](n9) -- (na);
+        \draw[myarrow](n8) -- (n5);
+    \end{tikzpicture}
+}

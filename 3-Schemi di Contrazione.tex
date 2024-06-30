@@ -48,6 +48,16 @@ algoritmo di visita che, in quanto tale, permette di visitare tutti i nodi di un
 e di scoprire tutti i nodi raggiungibili da esso.
 Ci\`o viene fatto in modo ricorsivo: nel corso della visita di un nodo si considerano uno ad uno i nodi ad esso
 adiacenti, e ai nodi non ancora marcati come visitati viene applicata immediatamente la stessa procedura di visita.
+
+\input{Algoritmi/dfs}
+\input{Algoritmi/dfs-visit}
+
+\begin{figure}
+    \input{TikzPictures/dfs_example}
+    \caption{Esempio di esecuzione di una visita in profondit\`a su un grafo diretto}
+    \label{fig:dfs-example}
+\end{figure}
+
 Nel corso dell'algoritmo i nodi vengono colorati in tre colori: bianco, grigio e nero, ad indicare rispettivamente
 che il nodo non \`e stato visitato, che \`e in fase di visita e che \`e stato visitato.
 Questo permette di non incorrere in cicli di visita infiniti nel caso non si stia visitando un grafo aciclico.
@@ -56,9 +66,11 @@ fine visita $f$, che permettono di determinare, rispettivamente, il momento in c
 di grigio e il tempo in cui la visita di un nodo termina, colorandosi di nero.
 Un attributo aggiuntivo, il predecessore $\pi$, permette di memorizzare il nodo da cui si \`e scoperto il nodo
 corrente e, con esso, di ricostruire il cammino di visita sotto forma di albero, detto albero di visita in profondit\`a.
+\newline
 
-\input{Algoritmi/dfs}
-\input{Algoritmi/dfs-visit}
+In figura~\ref{fig:dfs-example} \`e rappresentato un esempio di esecuzione della procedura DFS-VISIT su un grafo
+diretto, eseguita a partire dal nodo con etichetta $9$, in cui lo stato del grafo \`e rappresentato ad ogni
+incremento della variabile $time$. \newline
 
 La procedura si mantiene in tempo lineare rispetto al numero di nodi e di archi del grafo, in quanto
 ogni nodo viene visitato una sola volta e ogni arco viene esaminato al massimo una volta.
@@ -111,20 +123,14 @@ connessa alla volta per ogni iterazione del ciclo for principale possono essere 
 
 \begin{figure}
     \resizebox{!}{4cm}{
-        \centering
         \input{TikzPictures/kosaraju-example_1}}
-    \label{fig:kozaraju_example_1}
-\end{figure}
-
-\begin{figure}
     \resizebox{!}{4cm}{
-        \centering
         \input{TikzPictures/kosaraju_example_2}}
-    \label{fig:kozaraju_example_2}
     \caption{Esempio di esecuzione dell'algoritmo di Kosaraju su un grafo diretto}
+    \label{fig:kozaraju_example}
 \end{figure}
 
-In figura~\cite{fig:kozaraju_example_2} sono rappresentate le fasi rilevanti dell'algoritmo di Kozaraju
+In figura~\ref{fig:kozaraju_example} sono rappresentate le fasi rilevanti dell'algoritmo di Kozaraju
 applicato al grafo in (a).
 In (b) \`e rappresentato lo stato del grafo al termine della procedura DFS, assieme alla lista dei nodi ordinata
 per tempi di fine visita.
@@ -147,151 +153,3 @@ L'algoritmo di Kosaraju ha una complessit\`a temporale di $\Theta(V + E)$, in qu
     \item A riga 3 viene eseguita la procedura DFS che corrisponde ad una visita in profondit\`a di $G^T$, quindi
     sempre di complessit\`a $\Theta(|V| + |E|)$.
 \end{itemize}
-
-\subsection{Condensazione in un grafo decontraibile}\label{subsec:condensazione-grafo-decontraibile}
-
-La procedura segue la logica dell'algoritmo di Kosaraju per l'individuazione delle componenti strettamente connesse
-descritto in [1], effettuando due visite in profondit\`a, una sul grafo originale $G$ e una sul grafo trasposto
-$G^T$, in cui la seconda \`e effettuata secondo l'ordinamento della prima.
-Durante la seconda visita in profondit\`a viene costruito il grafo $G\mathcal{'}$ ottenuto come contrazione del
-grafo decontraibile $G$.
-
-    Il seguente algoritmo descrive la seconda visita in profondit\`a, che include la costruzione del grafo
-    contratto di $G$. \newline
-    I parametri passati alla procedura ricorsiva DFS-VISIT' includono
-    \begin{itemize}
-        \item il grafo decontraibile originale  $G$
-        \item il nodo da  visitare $u$
-        \item il supernodo $\alpha_i$, che rappresenta una componente fortemente connessa di $G$ che include $u$
-        \item i due insiemi da costruire $V_{\alpha_i}, E_{\alpha_i}$, che insieme definiscono il grafo $\alpha_i.dec = (V_{\alpha_i}, E_{\alpha_i})$ 
-		associato al supernodo $\alpha_i$.
-	    \item l'insieme di superarchi $\mathfrak{E}$, che vengono definiti nel corso della visita.
-		Gli archi in $\epsilon.dec$ con $\epsilon \in \mathfrak{E}$ vengono aggiunti quando si incontrano nodi appartenenti
-        ad altre componenti connesse gi\`a visitate.
-    \end{itemize}
-
-    \input{Algoritmi/2.2-dfs'}
-    \input{Algoritmi/2.3-dfs_visit'}
-
-    \newpage
-
-    \newpage
-    In particolare:
-    \begin{itemize}
-        \item i nodi $v$ che soddisfano la condizione a riga 5 di DFS-VISIT$\mathcal{'}$ fanno parte della stessa componente di $u$.
-        Per questi nodi l'arco originale del grafo non trasposto $(v, u)$ viene aggiunto al grafo corrispondente al
-        supernodo $\alpha$ a riga 6;
-        \item i nodi $v$ che soddisfano la condizione a riga 10 di DFS-VISIT$\mathcal{'}$ sono nodi che fanno parte di altre
-        componenti fortemente connesse gi\`a visitate che sono adiacenti a $u$.
-        Per questi nodi, si considerano i superarchi ottenuti dai rispettivi supernodi di $v$ e $u$, aggingendoli a
-	    $\mathfrak{E}$ se necessario, (riga 13), e aggiungendo l'arco originale $(v, u)$ all'insieme di archi
-        rappresentato dal superarco (riga 15).
-    \end{itemize}
-
-    \paragraph{Complessit\`a dell'algoritmo}
-    L'algoritmo COMPONENT-CONTRACT applicato ad un grafo $G = (V, E)$  mantiene una complessit\`a temporale di
-    $\Theta(V + E)$, in quanto:
-    \begin{itemize}
-        \item A riga 1 viene eseguita una ricerca in profondit\`a tradizionale, quindi con costo $\Theta(V + E)$.
-        \item A riga 2 viene costruito il grafo trasposto $G^T = (V, E^T)$, dove $E^T = \{(u, v) \mid (v, u) \in E\}$ \`e
-        dato dagli archi in $E$ con orientamento invertito.
-        Anche in questo caso, la sua costruzione pu\`o avvenire in un tempo $O(V + E)$, iterando prima sull'insieme dei
-        nodi di $G$ e poi sui suoi archi, invertendone l'orientamento.
-        L'ordinamento dei nodi di $G^T$ pu\`o essere realizzato nel corso della visita a riga 1 attraverso la costruizione
-        di una lista concatenata, per cui i nodi possono essere aggiunti in testa alla lista in tempo $O(1)$  man mano
-        che viene loro assegnata l'etichetta di fine visita $u.f$.
-        \item A riga 3 viene eseguita la procedura DFS' che corrisponde ad una visita in profondit\`a di $G^T$ abbinata
-        alle operazioni di costruzione del grafo decontraibile.
-        In particolare, le operazioni che vengono effettuate in aggiunta a quelle di una visita in profondit\`a consistono
-        nei semplici assegnamenti alle righe 4\textendash6, 10\textendash12, 14\textendash15 e 18 di DFS' e alle righe
-        2\textendash3 di DFS-VISIT'.
-        Inoltre sono previsti dei controlli e dei relativi assegnamenti alle righe 5\textendash7 e 10\textendash16 che,
-        ancora una volta, aggiungono solamente costi costanti per ogni arco in $G^T$.
-        Il costo computazionale della procedura rimane $\Theta(V + E)$.
-    \end{itemize}
-
-    \subsection{Correttezza dell'algoritmo}\label{subsec:correttezza-dell'algoritmo}
-
-    \paragraph{Lemma 3.2.1}
-    Sia $G=(V,E)$ un grafo decontraibile input dell'algoritmo COMPONENT-CONTRACT, sia $G\mathcal{'}$ il grafo decontraibile
-    in output, sia $u$ un nodo in $V$, sia $v$ un nodo adiacente a $u$ in $(G)^T$, sia $\alpha$ il supernodo di $u$.
-    Le condizioni sul nodo $v$ alle righe 5 e 10 di DFS-VISIT' sono tra loro mutualmente esclusive e ricoprono tutti i
-    possibili casi.
-    In particolare:
-    \begin{enumerate}[(i)]
-        \item ($v.color ==$ WHITE $\vee$ $v.supernode == \alpha$) $\implies$ il nodo $v$ ha lo stesso supernodo di $u$ al
-        termine dell'algoritmo.
-        \item ($v.color ==$ BLACK $\wedge$ $v.supernode \ne \alpha$) $\implies$ il nodo $v$ non ha lo stesso supernodo di
-        $u$ al termine dell'algoritmo.
-    \end{enumerate}
-
-    \paragraph{Dimostrazione}
-    Si noti, innanzitutto, che l'attributo $supernode$ una volta assegnato non viene pi\`u modificato fino al termine
-    dell'algoritmo, in quanto esso pu\`o essere assegnato solamente a riga 2 di DFS-VISIT' e DFS-VISIT' viene richiamato
-    una ed una sola volta per ciascun nodo. \newline
-
-    Per dimostrare (i) ci limitiamo a dimostrare $v.color ==$ WHITE $ \implies v.supernode == u.supernode$ e
-    $v.supernode == \alpha \implies v.supernode == u.supernode$.
-    \begin{enumerate}
-        \item Assumiamo $v.color ==$ WHITE. Questo significa che esso non ha ancora alcun supernodo assegnato e che gli 
-		verr\`a assegnato il supernodo $\alpha$ nella chiamata di DFS-VISIT' a riga 9, in quanto la condizione a riga 8
-        \`e verificata $(H_1)$.
-        \item Assumiamo $v.supernode == \alpha$.
-        Banalmente, essendo $u.supernode = \alpha$ si ottiene $v.supernode == u.supernode$ $(H_2)$.
-    \end{enumerate}
-    Per $(H_1)$ e $(H_2)$ abbiamo dimostrato il punto (i).
-
-    Per dimostrare (ii) assumiamo $v.color ==$ BLACK $(H_3)$ e $v.supernode \ne \alpha$ $(H_4)$.
-    Dato $(H_3)$, il nodo $v$ \`e gi\`a stato visitato e deve, pertanto, avere un supernodo assegnato.
-    Per $(H_4)$, questo supernodo non pu\`o essere $\alpha = u.supernode$, pertanto si conclude
-    $v.supernode \neq u.supernode$. \newline
-
-    Le conclusioni dei punti (i) e (ii) risultano essere, quindi, mutualmente esclusive e ricoprono tutti i possibili
-    casi sullo stato del nodo $v$ ed $u$ al termine dell'algoritmo.
-
-    \paragraph{Correttezza dell'algoritmo}
-    Al termine dell'esecuzione dell'algoritmo su un grafo decontraibile $G\coloneqq(V, E)$ avremo costruito un grafo
-    decontraibile $G\mathcal{'} \coloneqq (\mathfrak{V}, \mathfrak{E})$ dove:
-    \begin{enumerate}[(i)]
-        \item $G\mathcal{'}$ \`e una contrazione di $G$
-        \item Per ogni supernodo $\alpha \in \mathfrak{V}$, con $\alpha.dec = (V_{\alpha}, E_{\alpha})$, $V_{\alpha}$ \`e una componente fortemente
-        connessa di $G$
-    \end{enumerate}
-
-    \paragraph{Dimostrazione}
-    La propriet\`a (i) pu\`o essere dimostrata notando che:
-    \begin{itemize}
-        \item La prima propriet\`a delle contrazioni \`e rispettata, in quanto ogni nodo $u \in V$ viene visitato una ed una
-        sola volta da DFS-VISIT' e viene aggiunto ad un certo insieme $V_{\alpha}$ per qualche $\alpha \in \mathfrak{V}$.
-        Inoltre, per ogni supernodo $\alpha \in \mathfrak{V}$, $V_{\alpha} \neq \emptyset$ in quanto esso dovr\`a contenere
-        almeno il nodo $u$ della prima chiamata di DFS-VISIT' a riga 13 di DFS'.
-
-        \item La seconda propriet\`a delle contrazioni \`e rispettata.
-        Per il Lemma 3.2.1 le condizioni sul nodo $v$ alle righe 5 e 10 di DFS-VISIT' sono tra loro mutualmente
-        esclusive e ricoprono tutti i possibili casi al termine dell'algoritmo: o $v$ ha lo stesso supernodo di $u$ o
-        non ha lo stesso supernodo di $u$.
-        Quindi si pu\`o notare che tutti gli archi in $E$ sono considerati ognuno una ed una sola volta dal ciclo for a
-        riga 4 di DFS-VISIT'. Per ognuno di questi archi $(v, u)$, o vengono aggiunti ad un certo insieme $E_{\alpha}$
-        per qualche $\alpha$ quando $u$ e $v$ sono tali per cui $u.supernode = v.supernode = \alpha$, o vengono aggiunti ad
-        un insieme $e.dec$ per qualche $e \in \mathfrak{E}$ quando $u$ e $v$ sono tali per cui
-        $u.supernode \neq v.supernode$.
-        Questo vuol dire che
-        $\{ E_\alpha \mid \alpha \in \mathfrak{V}$, $\alpha.dec = (V_\alpha, E_\alpha)\} \cup \{ \epsilon .dec \mid \epsilon \in \mathfrak{E}\}$
-        \`e un ricoprimento di $E$ formato di insiemi a due a due disgiunti. \newline
-        Inoltre, la propriet\`a per cui $\emptyset \notin \{\epsilon .dec \mid \epsilon \in \mathfrak{E}\}$ \`e garantita dal fatto che
-        l'esecuzione della riga 13 di DFS-VISIT' \`e sempre succeduta dall'esecuzione della riga 16, per cui non pu\`o
-        esistere $\epsilon \in \mathfrak{E}$ tale per cui $\epsilon .dec = \emptyset$.
-    \end{itemize}
-
-    La propriet\`a (ii) pu\`o essere dimostrata notando che l'agoritmo utilizza la stessa logica dell'algoritmo per
-    l'individuazione delle componenti connesse descritto in [1].
-    In particolare, \`e possibile dimostrare per induzione che alla k-esima chiamata di DFS-VISIT', le componenti
-    connesse $C_i$ con $ i = 0,\ldots, k-1$, tali per cui $f(C_i)$ \`e il tempo di fine visita massimo tra i nodi della
-    componente i-esima e, quindi, tali per cui $f(C_i) > f(C_k)$ $\forall i$, sono state gi\`a visitate e assegnate a
-    degli insiemi $V_{\alpha_i}$ per dei supernodi $\alpha_i$.
-    Inoltre, per il Lemma 22.15 descritto in [1], le componenti $C'$ tali per cui $f(C') < f(C_k)$ non possono essere
-    visitate durante la visita dell'albero di $C_k$, in quanto in $G^T$ non possono esistere archi della forma $(v ,u)$
-    con $v \in C' $ e $ u \in C_k$.
-    Per l'assegnamento a riga 3 di DFS-VISIT', ogni nodo visitato viene aggiunto all'insieme $V_{\alpha_i}$, il quale cambia
-    a riga 11 di DFS' per ogni nuovo albero di ricerca in profondit\`a che viene percorso.
-    Pertanto al termine dell'algoritmo $V_{\alpha_i}$ rappresenter\`a una componente fortemente connessa di $G$ per ogni $\alpha_i$.
