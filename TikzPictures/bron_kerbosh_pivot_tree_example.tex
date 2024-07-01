@@ -1,0 +1,52 @@
+\resizebox{!}{10cm}{
+\begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
+	    %H0
+	    \node (A) at (-9.15,1.4) [font=\scriptsize, text width=4em,square,draw]
+	    	{\shortstack[l]{$Pivot=3$\\$ R=\emptyset$\\$P=\{1,2,3,4\}$\\$X=\emptyset$}};
+	    %H1
+	    \node (B) at (-11.5,-2.8) [font=\scriptsize, text width=4em,square,draw]
+	    	{\shortstack[l]{$Pivot=1$\\$ R=\{3\}$\\$P=\{1,2,4\}$\\$X=\emptyset$}};
+
+	    \node (C) at (-6.5,-2.8) [font=\scriptsize, text width=4em,square,draw]
+	    	{\shortstack[l]{$Pivot=4$\\$ R=$\{5\}\\$P=\{4\}$\\$X=\emptyset$}};
+            %H2
+	    \node (D) at (-13,-6) [font=\scriptsize, text width=4em,square,draw]
+	    	{\shortstack[l]{$Pivot=2$\\$ R=$\{3,1\}\\$P=\{2\}$\\$X=\emptyset$}};
+	    \node (E) at (-10,-6) [font=\scriptsize, text width=4em,square,draw]
+	    	{\shortstack[l]{$\color{blue}R=$\color{blue}\{3,4\}\\$P=\emptyset$\\$X=\emptyset$}};
+
+	    \node (F) at (-6.5,-6) [font=\scriptsize, text width=4em,square,draw]
+	    	{\shortstack[l]{$\color{blue}R=$\color{blue}\{5,4\}\\$P=\emptyset$\\$X=\emptyset$}};
+	    %H4
+	    \node (G) at (-13, -9) [font=\scriptsize, text width=4em,square,draw]
+	    	{\shortstack[l]{$\color{blue}R=$\color{blue}\{3,1,2\}\\$P=\emptyset$\\$X=\emptyset$}};
+
+
+
+	    %E0-1
+	    \draw (A) to[out=270, in=90, looseness=0] (B);
+	    \draw (A) to[out=270, in=90, looseness=0] (C);
+
+	    %E1-2
+	    \draw (B) to[out=270, in=90, looseness=0] (D);
+	    \draw (B) to[out=270, in=90, looseness=0] (E);
+	    \draw (C) to[out=270, in=90, looseness=0] (F);
+
+	    %E2-3
+	    \draw (D) to[out=270, in=90, looseness=0] (G);
+
+	\begin{scope}[shift={(-16.5, 0.3)}]
+		\node[circle, draw] (A) {1};
+		\node[circle, draw] (B) [right of=A, node distance=2cm] {2};
+		\node[circle, draw] (C) [above of=B, node distance=2cm] {3};
+		\node[circle, draw] (D) [right  of=C, node distance=2cm] {4};
+		\node[circle, draw] (E) [below of=D, node distance=2cm] {5};
+
+		\draw(A) -- (B);
+		\draw(B) -- (C);
+		\draw(A) -- (C);
+		\draw(C) -- (D);
+		\draw(D) -- (E);
+	\end{scope}
+\end{tikzpicture}
+}

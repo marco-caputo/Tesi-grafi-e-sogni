@@ -50,17 +50,17 @@
     \draw[myarrow, red](n7) to[out=3,in=3] (n5);
     \draw[myarrow, red](n6) -- (n7);
     %comp edges
-    \draw[myarrow, color={rgb:red,1;blue,2}](n5) -- (n4);
-    \draw[myarrow, color={rgb:red,1;blue,2}](n7) -- (n2);
+    \draw[myarrow](n5) -- (n4);
+    \draw[myarrow](n7) -- (n2);
     %comp 3
-    \node[mynode, fill=green!50!red](n8) at (6, 2){\textcolor{white}{8}};
+    \node[mynode, fill={rgb:red,1;green,4;blue,2}](n8) at (6, 2){\textcolor{white}{8}};
     %comp 4
     \node[mynode, fill={rgb:red,1;green,2;blue,5}](n9) at (8, 2){\textcolor{white}{9}};
     \node[mynode, fill={rgb:red,1;green,2;blue,5}](na) at (8.5, 0){\textcolor{white}{10}};
-    \draw[myarrow, color={rgb:red,4;green,1;blue,3}](n8) -- (n9);
+    \draw[myarrow](n8) -- (n9);
     \draw[myarrow, color={rgb:red,1;green,2;blue,5}](n9) to[out=3,in=3] (na);
     \draw[myarrow, color={rgb:red,1;green,2;blue,5}](na) -- (n9);
-    \draw[myarrow, color={rgb:red,2;green,1}](n5) -- (n8);
+    \draw[myarrow](n5) -- (n8);
 
     \node[align=left, xshift=0.3cm, yshift=2.8cm] (label2) {$\langle \rangle$};
 

@@ -14,6 +14,7 @@ Questi algoritmi costituiranno il \"motore\" degli algoritmi presentati nei capi
 importanza fondamentale alla definizione degli algoritmi di contrazione usati per la costruzione di grafi multi-livello.
 
 \section{Enumerazione di componenti fortemente connesse}\label{subsec:enumerazione-di-componenti-fortemente-connesse}
+
 Come citato nel Capitolo 1, la condensazione di un grafo diretto \`e il suo grafo quoziente dove le componenti
 fortemente connesse definiscono i blocchi della partizione.
 Enumerare le componenti fortemente connesse di un grafo diretto $G = (V, E)$ significa trovare tutti i sottoinsiemi
@@ -23,6 +24,7 @@ da alcuni testi come l'algoritmo di Kosaraju~\cite{SHARIR198167} e al seguito si
 dell'algoritmo per la costruzione contestuale di un grafo contratto in forma di grafo decontraibile.
 
 \subsection{Algoritmo di Kosaraju}\label{subsec:algoritmo-di-kosaraju}
+
 L'algoritmo di Kosaraju (anche noto come algoritmo di Kosaraju-Sharir) \`e un algoritmo per l'enumerazione
 delle componenti fortemente connesse di un grafo diretto dalla complessit\`a lineare scoperto nel 1978 da S. Rao
 Kosaraju, ma pubblicato solamente nel 1981 da Micha Sharir, che lo scopri\`o indipendentemente.
@@ -153,3 +155,422 @@ L'algoritmo di Kosaraju ha una complessit\`a temporale di $\Theta(V + E)$, in qu
     \item A riga 3 viene eseguita la procedura DFS che corrisponde ad una visita in profondit\`a di $G^T$, quindi
     sempre di complessit\`a $\Theta(|V| + |E|)$.
 \end{itemize}
+
+\section{Enumerazione di cricche}\label{sec:enumerazione-di-cricche}
+
+Come gi\`a discusso nel Capitolo 1, una cricca di un grafo \`e un sottoinsieme di nodi che sono tutti mutuamente
+adiacenti, ovvero un sottoinsieme di nodi che formano un sottografo completo.
+Nella teoria dei grafi, il concetto di cricca \`e normalmente riferito al contesto di un grafo non orientato,
+in cui \`e sufficiente un singolo arco non orientato $\{u, v\}$ per rendere i due nodi $u$ e $v$ tra loro
+mutualmente adiacienti.
+Tuttavia il concetto di cricca pu\`o essere esteso anche al contesto di grafi orientati: in particolare \'e sempre
+possibile considerare la versione non orientata alla base di un grafo orientato secondo due possibili modalit\`a:
+\begin{itemize}
+    \item Rimuovendo l'orientamento degli archi: in questo caso, \`e sufficiente un singolo arco orientato $(u, v)$
+        per avere un arco non orientato ${u, v}$ nella versione non orientata, rendendo quindi i nodi $u$ e $v$ tra loro
+        mutuamente adiacienti anche se ci\`o non fosse vero nella versione orientata originale.
+    \item Considerando come archi non diretti le relazioni simmetriche di adiacienza tra i nodi del grafo orientato
+        originale: in questo caso, la versione non orientata conterr\`a un arco non diretto ${u, v}$ se e solo se
+        nel grafo orientato originale esistono entrambi gli archi $(u, v)$ e $(v, u)$.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \input{TikzPictures/undirected_version_example}
+    \caption{Esempio di grafo orientato e delle sue due possibili versioni non orientate}
+    \label{fig:undirected_version_example}
+\end{figure}
+
+La definzione di cricca in un grafo diretto pu\`o quindi essere declinata in due modi a seconda di quanto si vuole
+rendere lasco il concetto di adiacienza tra i nodi.
+In figura~\ref{fig:undirected_version_example} sono rappresentati in (a) un grafo diretto, in (b) la sua versione non
+diretta ottenuta rimuovendo l'orientamento degli archi e in (c) quella ottenuta considerando come archi non diretti le
+relazioni simmetriche di adiacienza tra i nodi. \`E utile notare che la versione non orientata (b) \`e mantenuta come
+grafo semplice, ovvero un grafo non orientato che non contiene archi multipli o cappi.
+Appare evidente di come la versione non orientata (c) sia pi\`u restrittiva rispetto alla versione (b): mentre
+in (b) le cricche di dimensione superiore a uno sono $\{v_1, v_2, v_3\}$ e $\{v_3, v_4\}$, in (c) l'unica
+cricca di dimensione superiore a uno \`e $\{v_1, v_2\}$. \newline
+
+D'ora in avanti, quando si far\`a riferimento al concetto di cricca nel contesto di grafo diretto, si far\`a
+uso dell'espressione \textit{cricca non reciproca} per indicare le cricche presenti nella versione non diretta
+ottenuta rimuovendo semplicemente l'orientamento degli archi, come in (b), e \textit{cricca reciproca} per indicare
+le cricche presenti nella versione non diretta ottenuta considerando le relazioni simmetriche di adiacienza tra i nodi,
+come in (c).
+
+
+\subsection{Algoritmo di Bron-Kerbosch}\label{subsec:bronkerbosh}
+
+L'algoritmo di Bron-Kerbosch, descritto per la prima volta in nel 1973~\cite{10.1145/362342.362367} da
+Coen Bron e Joep Kerbosch, \`e un noto algoritmo per l'enumerazione delle cricche massimali in grafi non diretti.
+Con cricche massimali si intendono cricche che non possono essere estese aggiungendo ulteriori nodi senza
+violare la propriet\`a di cricca, ovvero cricche che non sono sottoinsieme proprio di altre cricche presenti nel grafo.
+Nella sua versione con pivoting, si tratta dell'algoritmo esatto considerato essere pi\`u efficiente nelle applicazioni
+pratiche rispetto ad altri algoritmi per l'enumerazione di cricche, oltre che essere stato dimostrato ottimale
+rispetto al numero massimo di cricche presenti in un grafo~\cite{TOMITA200628}. \newline
+
+L'algoritmo si basa su un approccio ricorsivo di backtracking, in cui a partire da un insieme vuoto di nodi, si
+cerca di costruire una cricca massimale aggiungendo nodi uno alla volta, valutando solo i nodi che
+possono essere aggiunti alla cricca senza violare la propriet\`a di cricca.
+A partire dalla cricca corrente, ovvero la cricca attualmente in costruzione, ad ogni chiamata ricorsiva si valuta
+la scelta di aggiungere un nodo valido tra quelli disponibili, scendendo in profondit\`a nell'albero della ricorsione.
+Al termine della chiamata riscorsiva, il nodo viene inserito in un insieme dei nodi
+gi\`a considerati, corrispondente alla scelta di escludere tale nodo dalla costruzione della cricca corrente in tutte
+le chiamate successive. \newline
+
+\input{Algoritmi/4.1-bron_kerbosh}
+
+Nello pseudocodice, la notazione $N(v)$ indica l'insieme dei vicini del nodo $v$, ovvero l'insieme dei nodi adiacenti
+a $v$ tramite un arco non orientato.
+Nel corso della sua esecuzione, quindi, l'algoritmo manipola tre insiemi di nodi disgiunti che vengono passati
+alle procedure ricorsive, che sono:
+\begin{itemize}
+    \item $R$: cricca correntemente in costruzione
+    \item $P$: insieme di nodi adiacienti ad ogni nodo in $R$, ovvero i nodi candidati a far parte della cricca corrente
+    non ancora considerati nella costruzione di una cricca massimale che includa $R$.
+    \item $X$: insieme di nodi adiacienti ad ogni nodo in $R$, gi\`a considerati nella costruzione di una cricca
+    massimale che includa $R$.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \input{TikzPictures/bron_kerbosh_tree_example}
+    \caption{Esempio di albero di ricorsione dell'algoritmo di Bron-Kerbosch}
+    \label{fig:bron_kerbosh_tree_example}
+\end{figure}
+
+Inizialmente gli insiemi $R$ e $X$ sono vuoti, mentre $P$ contiene tutti i nodi del grafo.
+Le chiamate ricorsive valutano l'aggiunta di nodi da $P$ in $R$, e gli insiemi $P$ e $X$ vengono aggiornati
+mantenendo solo nodi che sono adiacenti a tutti i nodi in $R$, e che quindi, presi singolarmente, potrebbero
+essere aggiunti alla cricca corrente senza violarne la propriet\`a di cricca.
+Quando $P$ \'e vuoto, le chiamate ricorsive nel ramo corrente della ricorsione terminano e, a quel punto,
+$R$ rappresenter\'a una cricca.
+Tuttavia l'algoritmo riconosce se tale cricca sia massimale o meno valutando se al contempo l'insieme $X$ sia,
+rispettivamente, vuoto o non vuoto.
+Si noti infatti che un insime $X$ non vuoto indicherebbe che la cricca corrente potrebbe essere estesa aggiungendo
+nodi in $X$, concludendo non solo che la cricca in $R$ non \'e massimale, ma anche che la cricca massimale che
+la contiene assieme ai nodi in $X$ \'e gi\`a stata trovata. \newline
+
+\paragraph{Pivoting} \newline
+Bron e Kerbosch proposero nel loro articolo orginale una versione migliorata del loro algoritmo, la quale
+prevede l'utilizzo di una strategia di pivoting, che permette di ridurre le chiamate ricorsive della procedura
+trovando comunque tutte le cricche massimali.
+
+\input{Algoritmi/4.2-bron_kerbosh_pivot}
+
+In particolare, ad ogni procedura ricorsiva BRON-KERBOSCH-PIVOT si sceglie un nodo pivot $u \in P$.
+Le chiamate ricorsive effettuate sull'insieme $P$ saranno quindi ristrette ai nodi in $P$ che non sono vicini di $u$,
+quindi $u$ stesso e tutti i suoi non-vicini in $P$.
+Sebbene qualunque nodo in $P$ possa essere scelto come pivot, come dimostrato da Tomita~\cite{TOMITA200628},
+la scelta migliore del pivot ricade sul nodo che abbia il maggior numero di vicini in $P$, scelta che di fatto
+permette di escludere il maggior numero di elementi da $P$ e, quindi, di evitare il maggior numero di chiamate ricorsive.
+Per questo motivo, questa versione dell'algoritmo di Bron-Kerbosch viene spesso chiamata \textit{Tomita}. \newline
+
+La tecnica del pivoting nasce dalla considerazione per cui la procedura ricorsiva applicata aggiungendo un arbitrario
+nodo $u$ a $R$ permette comunque a tutti i suoi vicini di poter essere aggiunti a $R$ tramite le sotto-chiamate
+ricorsive immediatamene successive.
+In altre parole, i vicini di $u$ in $P$ faranno parte di ogni cricca massimale che
+contenga $R$ che ammette anche $u$, in quanto ogni nodo in $P$ preso singolarmente \'e adiacente ad ogni nodo in $R$.
+\newline
+
+\begin{figure}[H]
+    \centering
+    \input{TikzPictures/bron_kerbosh_pivot_example}
+    \caption{Rappresentazione dei tre insiemi $R$, $P$ e $X$ nel corso dell'algoritmo di Bron-Kerbosch con pivoting}
+    \label{fig:bron_kerbosh_pivot_example}
+\end{figure}
+
+La figura~\ref{fig:bron_kerbosh_pivot_example} tenta di dare un'idea migliore degli insiemi R, P ed X nel corso
+dell'esecuzione dell'algoritmo con strategia di pivoting.
+Il nodo $u$ \'e scelto come pivot, e le chiamate ricorsive al livello corrente della ricorsione sono limitate ai nodi
+in blu.
+I segmenti uscenti da ogni nodo in P ed X rappresentano gli archi che li rendono adiacienti ad ogni nodo in R.
+
+\begin{figure}[H]
+    \centering
+    \input{TikzPictures/bron_kerbosh_pivot_tree_example}
+    \caption{Esempio di albero di ricorsione dell'algoritmo di Bron-Kerbosch con pivoting}
+    \label{fig:bron_kerbosh_pivot_tree_example}
+\end{figure}
+
+La figura ~\ref{fig:bron_kerbosh_pivot_tree_example} mostra l'albero di ricorsione derivante dall'applicazione
+dell'algoritmo di Bron-Kerbosch con pivoting sullo stesso grafo orientato presente in figura
+~\ref{fig:bron_kerbosh_tree_example}, rendendo evidente come la strategia di pivoting permetta di ridurre il numero
+di chiamate ricorsive rispetto alla versione senza pivoting.
+
+\paragraph{Complessit\'a} \newline
+Come dimostrato da Tomita ~\cite{TOMITA200628}, adottando una strategia di pivoting affinch\'e si scelga il nodo pivot
+$w$ con il maggior numero di vicini in $P$, l'algoritmo di Bron-Kerbosch ha una complessit\'a temporale pari a
+$O(3^{n/3})$, che \'e una complessit\'a ottimale, in quanto il numero massimo di cricche massimali che si possono
+trovare in un grafo con $n$ nodi \'e dimostrato essere $3^{n/3}$.
+
+\section{Enumerazione di circuiti semplici}\label{sec:enumerazione-di-cicli}
+
+Come gi\`a spiegato nel capitolo introduttivo, un circuito semplice di un grafo diretto \'e un circuito
+che non contiene nodi ripetuti, ad eccezione del nodo di partenza e di arrivo.
+Dal momento in cui, per definizione, un circuito non pu\`o contenere archi ripetuti, parlare anche solo di cicli
+semplici garantirebbe che esso non contenga neanche archi ripetuti.
+Si potrebbe notare che, mentre componenti fortemente connesse e cricche sono concetti che possono essere
+ricondotti ad un insieme non ordinato, i circuiti semplici comprendono in s\'e una sequenza di nodi in un determinato
+ordine.
+Per questo motivo diventa rilevante distinguere tra cicli e permutazioni cicliche, in quanto ogni ciclo
+pu\`o essere rappresentato da un insieme di permutazioni cicliche.
+Ad esempio, il ciclo $c_1 = \langle v_1, v_2, v_3, v_1 \rangle$ pu\`o essere rappresentato anche attraverso le
+permutazioni cicliche $\langle v_2, v_3, v_1, v_2 \rangle$ e $\langle v_3, v_1, v_2, v_3 \rangle$, in quanto entrambe
+rappresentano lo stesso anello di nodi percorsi nello stesso senso. \newline
+\`E interessante notare che il ciclo $c_2 = \langle v_1, v_3, v_2, v_1 \rangle$, nonostante sia un ciclo semplice
+composto degli stessi nodi di $c_1$, non pu\`o essere rappresentato da nessuna permutazione ciclica di $c_1$.
+Per questo motivo due cicli si dicono distinti se non sono l'uno una permutazione ciclica dell'altro. \newline
+
+In questa sezione tratteremo, quindi, un algoritmo per l'enumerazione di circuiti semplici in un grafo diretto, che
+risolve il problema di individuare tutti i cicli semplici distinti presenti in un grafo diretto.
+
+
+\subsection{Algoritmo di ricerca dei circuiti semplici di Johnson} \label{subsec:algoritmo-di-jhonson}
+L'algoritmo per la ricerca dei circuiti semplici di Donald B. Johnson, proposto nel 1975~\cite{doi:10.1137/0204007},
+provvede ad enumerare tutti i cicli in un grafo orientato eseguendo delle visite in profondit\`a.
+A partire da un ordinamento arbitrario dei nodi, l'algoritmo esegue la procedura di visita ricorsiva CIRCUIT partendo
+da ciascuno di essi, individuando di volta in volta tutti e soli i circuiti semplici contenenti il nodo di partenza $s$. \newline
+
+Nel corso di ogni visita viene mantenuto uno stack $S$, su cui si effettua una operazione di $PUSH(S, v)$ non
+appena $v$ viene visitato invocando la procedura CIRCUIT su $v$, e una operazione di $POP(S)$ non appena la visita
+sul nodo termina.
+Lo stack, quindi, rappresenta in ogni momento il prefisso di un potenziale circuito semplice che inizia e finisce in $s$.
+\newline
+
+Quando la visita a partire da un certo nodo $s$ si conclude, si considera il nuovo grafo ottenuto come grafo indotto
+dal grafo precedente sui nodi rimanenti, ovvero il grafo della precedente iterazione privato del nodo $s$ e di tutti
+gli archi incidenti su di esso.
+Questo permette di evitare l'individuazione di tutti i circuiti equivalenti che sono permutazioni cicliche degli stessi
+nodi. \newline
+
+Tuttavia le caratteristiche che hanno determinato il successo dell'algoritmo non finiscono qui.
+Sebbene condivida con loro caratteristiche comuni, l'algoritmo risulta essere pi\`u efficente di altri algoritmi
+proposti per lo stesso problema, come quello di Tiernan [3] e Weinblatt [4], in quanto utilizza un criterio di blocco
+dei nodi che permette di evitare visite successive in aree del grafo che non conducono al nodo origine $s$.
+Ogni nodo \`e bloccato nel corso di una visita, e viene sbloccato all'uscita solamente se esso conduce ad almeno
+un cammino verso il nodo origine $s$ (che non si interseca con lo stack dei nodi correntemente visitati, mantenendo
+la semplicit\`a del ciclo).
+Ogni nodo $v$ custodisce una lista $v.B$ di nodi che, in parole semplici, pu\`o considerarsi come l'insieme di nodi
+che sono stati bloccati a causa del blocco del nodo $v$ nel corso di una visita.
+Per cui, quando un nodo viene sbloccato, la procedura UNBLOCK($v$) provvede a sbloccare non solo il nodo stesso $v$,
+ma ricorsivamente anche tutti i nodi eventualmente presenti in $v.B$.
+
+\input{Algoritmi/5.1-circuit_finding_algorithm}
+
+\newpage
+
+I parametri passati alla procedura ricorsiva CIRCUIT includono
+\begin{itemize}
+    \item il nodo da visitare $v$
+    \item il nodo origine del circuito $s$
+    \item il grafo indotto attuale $K$ su cui avviene la ricerca
+    \item lo stack dei nodi attualmente in corso di visita $S$
+\end{itemize}
+
+\input{Algoritmi/5.2-circuit}
+\input{Algoritmi/5.3-unblock}
+
+\begin{figure}[!h] \centering
+    \resizebox{!}{5.3cm}{
+        \begin{tikzpicture}
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\small $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill=white, label={[align=center]above:{\small $B = \emptyset$}}](n2) at (0,1.5){2};
+            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n4) at (4,0){4};
+            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n5) at (4,3){5};
+            \node[mynode, fill=white, label={[align=center]below:{\small $B = \emptyset$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill=white, label={[align=center]above:{\small $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow](n1) -- (n3);
+            \draw[myarrow](n2) -- (n4);
+            \draw[myarrow](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow](n4) -- (n1);
+            \draw[myarrow](n4) -- (n5);
+            \draw[myarrow](n4) -- (n7);
+            \draw[myarrow](n5) -- (n2);
+            \draw[myarrow](n6) -- (n4);
+            \draw[myarrow](n7) -- (n5);
+            \draw[myarrow](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1 \rangle$};
+            \node[below=10mm] at (4, -3.1) {\textbf{(a)}};
+        \end{tikzpicture}
+
+        \begin{tikzpicture}
+
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n2) at (0,1.5){2};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
+            \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
+            \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow, color=red](n1) -- (n3);
+            \draw[myarrow](n2) -- (n4);
+            \draw[myarrow, color=red](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow, color=red](n4) -- (n1);
+            \draw[myarrow](n4) -- (n5);
+            \draw[myarrow](n4) -- (n7);
+            \draw[myarrow](n5) -- (n2);
+            \draw[myarrow](n6) -- (n4);
+            \draw[myarrow](n7) -- (n5);
+            \draw[myarrow](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 \rangle$};
+            \node[below=10mm] at (4, -3.2) {\textbf{(b)}};
+        \end{tikzpicture}
+    }\label{fig:cf1_figure}
+\end{figure}
+
+\begin{figure}[!h] \centering
+    \resizebox{!}{5.3cm}{
+        \begin{tikzpicture}
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{2\}$}}](n4) at (4,0){4};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
+            \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow, color=red](n1) -- (n3);
+            \draw[myarrow, color=red](n2) -- (n4);
+            \draw[myarrow, color=red](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow](n4) -- (n1);
+            \draw[myarrow, color=red](n4) -- (n5);
+            \draw[myarrow](n4) -- (n7);
+            \draw[myarrow, color=red](n5) -- (n2);
+            \draw[myarrow](n6) -- (n4);
+            \draw[myarrow](n7) -- (n5);
+            \draw[myarrow](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 {\color{red}, 5, 2} \rangle$};
+            \node[below=10mm] at (4, -3.2) {\textbf{(c)}};
+        \end{tikzpicture}
+
+        \begin{tikzpicture}
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{2, 6\}$}}](n4) at (4,0){4};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{7\}$}}](n5) at (4,3){5};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]below:{\tiny $B = \{7\}$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow, color=red](n1) -- (n3);
+            \draw[myarrow](n2) -- (n4);
+            \draw[myarrow, color=red](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow](n4) -- (n1);
+            \draw[myarrow](n4) -- (n5);
+            \draw[myarrow, color=red](n4) -- (n7);
+            \draw[myarrow](n5) -- (n2);
+            \draw[myarrow, color=red](n6) -- (n4);
+            \draw[myarrow, color=red](n7) -- (n5);
+            \draw[myarrow, color=red](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 {\color{red}, 7, 6} \rangle$};
+            \node[below=10mm] at (4, -3.2) {\textbf{(d)}};
+        \end{tikzpicture}
+    }\label{fig:cf2_figure}
+\end{figure}
+
+\begin{figure}[!h] \centering
+\resizebox{!}{5.3cm}{
+    \begin{tikzpicture}
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{7\}$}}](n5) at (4,3){5};
+        \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \{7\}$}}](n6) at (8,-1.5){6};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+        \draw[myarrow, color=red](n1) -- (n3);
+        \draw[myarrow](n2) -- (n4);
+        \draw[myarrow, color=red](n3) -- (n4);
+        \draw[myarrow](n3) -- (n6);
+        \draw[myarrow](n4) -- (n1);
+        \draw[myarrow](n4) -- (n5);
+        \draw[myarrow](n4) -- (n7);
+        \draw[myarrow](n5) -- (n2);
+        \draw[myarrow](n6) -- (n4);
+        \draw[myarrow](n7) -- (n5);
+        \draw[myarrow](n7) -- (n6);
+
+        \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 \rangle$};
+        \node[below=10mm] at (4, -3.2) {\textbf{(e)}};
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n2) at (0,1.5){2};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
+        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
+        \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
+        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+        \draw[myarrow, color=red](n1) -- (n3);
+        \draw[myarrow](n2) -- (n4);
+        \draw[myarrow](n3) -- (n4);
+        \draw[myarrow](n3) -- (n6);
+        \draw[myarrow](n4) -- (n1);
+        \draw[myarrow](n4) -- (n5);
+        \draw[myarrow](n4) -- (n7);
+        \draw[myarrow](n5) -- (n2);
+        \draw[myarrow](n6) -- (n4);
+        \draw[myarrow](n7) -- (n5);
+        \draw[myarrow](n7) -- (n6);
+
+        \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, {\color{red}4} \rangle$};
+        \node[below=10mm] at (4, -3.2) {\textbf{(f)}};
+    \end{tikzpicture}
+}\label{fig:cf3_figure}
+\caption{Rappresentazione delle fasi rilevanti dell'applicazione della procedura CIRCUIT al nodo 1. I nodi in grigio
+rappresentano i nodi bloccati.
+La figura (a) mostra l'inzio della procedura, in cui il nodo 1 viene aggiunto allo tack $S$.
+La figura (b) rappresenta il momento dell'individuazione del circuito $\langle 1, 3, 4, 1 \rangle$,
+    derivante dalla valutazione dell'arco $(4, 1)$.
+La figura (c) rappresenta gli effetti della procedura CIRCUIT(5), derivante dalla valutazione dell'arco $(4, 5)$.
+    La figura (d) rappresenta gli effetti della procedura CIRCUIT(7), derivante dalla valutazione dell'arco $(4, 7)$.
+In entrambe le figure (c) e (d) i nodi visitati vengono aggiunti e rimossi dallo stack, ma rimangono bloccati,
+    in quanto non conducono ad un circuito elementare, e per questo vengono aggiornate le liste $B$ dei relativi
+    nodi adiacianti.
+Le figure (e) e (f) raffigurano le procedure ricorsive di UNBLOCK derivanti dallo sblocco del nodo 4.}
+
+\end{figure}
+
+\newpage
+
+\paragraph{Complessit\`a}\label{subsec:complessit`a}
+Come discusso in [2], la complessit\`a dell'algoritmo di Johnson \`e $O((n + m)(c + 1))$, dove $n$ \`e il numero di nodi,
+$m$ il numero di archi e $c$ il numero di circuiti semplici presenti nel grafo.
+Questo risultato \`e ottenuto considerando che tutti i nodi e gli archi del grafo possono essere visitati al pi\`u una
+volta per ogni circuito elementare presente, ovvero che l'algoritmo impiega al pi\`u $O(n + m)$ tempo tra l'output di
+un circuito e l'individuazione del successivo.
+In particolare, ciascun nodo pu\`o essere bloccato al pi\`u una volta per ogni circuito, e non pu\`o passare pi\`u di
+di $O(n + m)$ tempo tra il blocco di un nodo e il suo sblocco. \newline
+
+Si noti tuttavia che, pur essendo l'algoritmo di Johnson pi\`u efficiente rispetto ad altri algoritmi proposti, la
+complessit\`a computazionale nel caso peggiore (ovvero quello di un grafo completo) risulta essere maggiore dell'
+esponenziale, dovuto al numero di circuiti semplici presenti, che in tal caso \`e pari a
+
+\begin{equation*}
+    c \quad = \quad \sum_{i = 1}^{n-1} \binom{n}{n-i+1} (n-1)!
+\end{equation*}
+
+\subsection{Algoritmo di ricerca dei circuiti semplici massimali} \label{sec:maximal-circuits}
+L'algoritmo di Johnson pu\`o essere modificato per individuare i circuiti semplici massimali, ovvero i circuiti
+semplici i cui nodi non sono inclusi nei nodi di altri circuiti semplici pi\`u grandi.\newline
+Una tale modifica pu\`o essere ottenuta inserendo la procedura di controllo ADD-MAXIMAL-SUBSET all'interno della
+procedura CIRCUIT a riga 6, al posto della normale aggiunta del sottoinsieme $S$ con ADD-SUBSET, in modo da verificare
+che il circuito individuato sia massimale o meno rispetto ai nodi visitati.
+
+Tale procedura sar\`a decritta nel dettaglio nel paragrafo successivo.
+
+

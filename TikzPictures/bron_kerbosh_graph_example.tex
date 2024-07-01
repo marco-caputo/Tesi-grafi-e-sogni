@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+        % G_2 Nodes
+	\node[circle, draw] (A) {1};
+	\node[circle, draw] (B) [right of=A] {2};
+	\node[circle, draw] (C) [above of=B] {3};
+	\node[circle, draw] (D) [right  of=C] {4};
+	\node[circle, draw] (E) [below of=D] {5};
+
+	\draw(A) -- (B);
+	\draw(B) -- (C);
+	\draw(A) -- (C);
+	\draw(C) -- (D);
+	\draw(D) -- (E);
+\end{tikzpicture}

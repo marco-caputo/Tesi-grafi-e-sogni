@@ -1,0 +1,48 @@
+\begin{tikzpicture}
+    % Define the nodes
+    \node[mynode] (1) at (0, 0) {$v_1$};
+    \node[mynode] (2) at (1.5, 1.5) {$v_2$};
+    \node[mynode] (3) at (3, 0) {$v_3$};
+    \node[mynode] (4) at (1.5, -1.5) {$v_4$};
+
+    \node[] (a) [below of=4, node distance=1cm] {(a)};
+
+    % Draw the edges
+    \draw[myarrow] (1) -- (2);
+    \draw[myarrow] (2) to[out=180, in=90] (1);
+    \draw[myarrow] (4) to[out=225, in=135, looseness=5] (4); % This edge is a self-loop, corrected below
+    \draw[myarrow] (2) -- (3);
+    \draw[myarrow] (3) -- (4);
+    \draw[myarrow] (3) -- (1);
+
+    \begin{scope}[shift={(5,0)}]
+        % Define the nodes
+    \node[mynode] (1) at (0, 0) {$v_1$};
+    \node[mynode] (2) at (1.5, 1.5) {$v_2$};
+    \node[mynode] (3) at (3, 0) {$v_3$};
+    \node[mynode] (4) at (1.5, -1.5) {$v_4$};
+
+    % Draw the edges
+    \draw[edge, thick] (1) -- (2);
+    \draw[edge, thick] (2) -- (3);
+    \draw[edge, thick] (3) -- (4);
+    \draw[edge, thick] (3) -- (1);
+
+    \node[] (b) [below of=4, node distance=1cm] {(b)};
+
+    \end{scope}
+
+    \begin{scope}[shift={(10,0)}]
+        % Define the nodes
+    \node[mynode] (1) at (0, 0) {$v_1$};
+    \node[mynode] (2) at (1.5, 1.5) {$v_2$};
+    \node[mynode] (3) at (3, 0) {$v_3$};
+    \node[mynode] (4) at (1.5, -1.5) {$v_4$};
+
+    % Draw the edges
+    \draw[edge, thick] (1) -- (2);
+
+    \node[] (c) [below of=4, node distance=1cm] {(c)};
+
+    \end{scope}
+\end{tikzpicture}

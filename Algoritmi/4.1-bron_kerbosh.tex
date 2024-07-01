@@ -1,8 +1,15 @@
 \begin{algorithm}[H]
-    \caption{BRON-KERBOSH($H$)}\label{alg:bk1}
+    \caption{BRON-KERBOSH($R$, $P$, $X$)}\label{alg:bk1}
     \begin{algorithmic}[1]
-        \State INITIALIZE-TABLE($H.V$)
-        \State BRON-KERBOSH-PIVOT($\emptyset$, $H.V$, $\emptyset$, $\emptyset$)
-        \State \textbf{return} $T$
+        \If {$P \cup X$ $=$ $\emptyset$}
+            \State Segnala $R$ come una cricca massimale
+        \Else
+
+            \For{$v\in P$}
+                \State BRON-KERBOSH($R \cup \{v\},$ $P \cap N(v)$, $X \cap N(v)$)
+                \State $P:= P \setminus \{v\}$
+                \State $X:= X \cup \{v\}$
+            \EndFor
+        \EndIf
     \end{algorithmic}
 \end{algorithm}
