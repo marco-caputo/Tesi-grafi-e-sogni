@@ -1,4 +1,4 @@
-\chapter{Algoritmi di enumerazione}
+\chapter{Algoritmi di enumerazione}\label{ch:algoritmi-di-enumerazione}
 
 In informatica, un \textit{algoritmo di enumerazione} \`e un algoritmo che elenca tutte le possibili risposte ad un
 problema computazionale in modo sistematico e completo. Tali algoritmi sono quindi progettati per ricevere un
@@ -7,27 +7,28 @@ terminare.
 Quando si parla di algoritmi di enumerazione applicati al dominio dei grafi, allora spesso si intende il processo di
 identificazione di sottoinsiemi di nodi o archi che soddisfano determinate caratteristiche.
 In questo capitolo si tratteranno e analizzeranno alcuni utili algoritmi di enumerazione presenti in letteratura per
-il riconoscimento di pattern strutturali all'interno di grafi. In particolare, si scuteranno algoritmi per l'enumerazione
-di componenti fortemente connesse, di cricche e di circuiti semplici, problemi di notevole importanza nella teoria dei
-grafi e ritenuti di interesse per la definizione di algoritmi di contrazione.
+il riconoscimento di pattern strutturali all'interno di grafi.
+In particolare, si discuteranno algoritmi per l'enumerazione di componenti fortemente connesse, di cricche e di
+circuiti semplici, problemi di notevole importanza nella teoria dei grafi e ritenuti di interesse per la definizione
+di algoritmi di contrazione.
 Questi algoritmi costituiranno il \"motore\" degli algoritmi presentati nei capitoli successivi, e saranno di
 importanza fondamentale alla definizione degli algoritmi di contrazione usati per la costruzione di grafi multi-livello.
 
 \section{Enumerazione di componenti fortemente connesse}\label{subsec:enumerazione-di-componenti-fortemente-connesse}
 
-Come citato nel Capitolo 1, la condensazione di un grafo diretto \`e il suo grafo quoziente dove le componenti
-fortemente connesse definiscono i blocchi della partizione.
+Come citato nel Capitolo~\ref{ch:grafi-e-approccio-multi-livello}, la condensazione di un grafo diretto \`e il suo
+grafo quoziente dove le componenti fortemente connesse definiscono i blocchi della partizione.
 Enumerare le componenti fortemente connesse di un grafo diretto $G = (V, E)$ significa trovare tutti i sottoinsiemi
 che permettano di costruire una condensazione del grafo di partenza.
-In questa sezione si discuter\`a un classico algoritmo di enumerazione delle componenti fortementi connesse, chiamato
+In questa sezione si discuter\`a un classico algoritmo di enumerazione delle componenti fortemente connesse, chiamato
 da alcuni testi come l'algoritmo di Kosaraju~\cite{SHARIR198167} e al seguito si discuter\`a di un possibile adattamento
 dell'algoritmo per la costruzione contestuale di un grafo contratto in forma di grafo decontraibile.
 
 \subsection{Algoritmo di Kosaraju}\label{subsec:algoritmo-di-kosaraju}
 
-L'algoritmo di Kosaraju (anche noto come algoritmo di Kosaraju-Sharir) \`e un algoritmo per l'enumerazione
-delle componenti fortemente connesse di un grafo diretto dalla complessit\`a lineare scoperto nel 1978 da S. Rao
-Kosaraju, ma pubblicato solamente nel 1981 da Micha Sharir, che lo scopri\`o indipendentemente.
+L'algoritmo di Kosaraju (anche noto come algoritmo di Kosaraju-Sharir) è un algoritmo per l'enumerazione
+delle componenti fortemente connesse di un grafo diretto dalla complessità lineare scoperto nel 1978 da S. Rao
+Kosaraju, ma pubblicato solamente nel 1981 da Micha Sharir, che lo scoprì indipendentemente.
 Esso sfrutta il principio per cui le componenti fortemente connesse di un grafo diretto sono le stesse del suo grafo
 trasposto, ovvero il grafo ottenuto invertendo l'orientamento di tutti gli archi. \newline
 
@@ -327,30 +328,29 @@ risolve il problema di individuare tutti i cicli semplici distinti presenti in u
 
 \subsection{Algoritmo di ricerca dei circuiti semplici di Johnson} \label{subsec:algoritmo-di-jhonson}
 L'algoritmo per la ricerca dei circuiti semplici di Donald B. Johnson, proposto nel 1975~\cite{doi:10.1137/0204007},
-provvede ad enumerare tutti i cicli in un grafo orientato eseguendo delle visite in profondit\`a.
-A partire da un ordinamento arbitrario dei nodi, l'algoritmo esegue la procedura di visita ricorsiva CIRCUIT partendo
-da ciascuno di essi, individuando di volta in volta tutti e soli i circuiti semplici contenenti il nodo di partenza $s$. \newline
+provvede ad enumerare tutti i cicli in un grafo orientato eseguendo delle visite in profondit\`a. \newline
 
+A partire da un ordinamento arbitrario dei nodi, l'algoritmo esegue la procedura di visita ricorsiva CIRCUIT partendo
+da ciascuno di essi, individuando di volta in volta tutti e soli i circuiti semplici contenenti il nodo di partenza $s$.
 Nel corso di ogni visita viene mantenuto uno stack $S$, su cui si effettua una operazione di $PUSH(S, v)$ non
 appena $v$ viene visitato invocando la procedura CIRCUIT su $v$, e una operazione di $POP(S)$ non appena la visita
 sul nodo termina.
 Lo stack, quindi, rappresenta in ogni momento il prefisso di un potenziale circuito semplice che inizia e finisce in $s$.
-\newline
-
 Quando la visita a partire da un certo nodo $s$ si conclude, si considera il nuovo grafo ottenuto come grafo indotto
 dal grafo precedente sui nodi rimanenti, ovvero il grafo della precedente iterazione privato del nodo $s$ e di tutti
 gli archi incidenti su di esso.
 Questo permette di evitare l'individuazione di tutti i circuiti equivalenti che sono permutazioni cicliche degli stessi
 nodi. \newline
 
-Tuttavia le caratteristiche che hanno determinato il successo dell'algoritmo non finiscono qui.
-Sebbene condivida con loro caratteristiche comuni, l'algoritmo risulta essere pi\`u efficente di altri algoritmi
-proposti per lo stesso problema, come quello di Tiernan [3] e Weinblatt [4], in quanto utilizza un criterio di blocco
+Tuttavia, quelle elencate non sono le sole caratteristiche che hanno determinato il successo dell'algoritmo.
+Sebbene condivida con loro aspetti comuni, l'algoritmo risulta essere pi\`u efficente di altri algoritmi
+proposti per lo stesso problema, come quello di Tiernan~\cite{10.1145/362814.362819} e
+Weinblatt~\cite{10.1145/321679.321684}, in quanto utilizza un criterio di blocco
 dei nodi che permette di evitare visite successive in aree del grafo che non conducono al nodo origine $s$.
 Ogni nodo \`e bloccato nel corso di una visita, e viene sbloccato all'uscita solamente se esso conduce ad almeno
 un cammino verso il nodo origine $s$ (che non si interseca con lo stack dei nodi correntemente visitati, mantenendo
 la semplicit\`a del ciclo).
-Ogni nodo $v$ custodisce una lista $v.B$ di nodi che, in parole semplici, pu\`o considerarsi come l'insieme di nodi
+Ogni nodo $v$ custodisce una lista $v.B$ di nodi che, informalmente, pu\`o considerarsi come l'insieme di nodi
 che sono stati bloccati a causa del blocco del nodo $v$ nel corso di una visita.
 Per cui, quando un nodo viene sbloccato, la procedura UNBLOCK($v$) provvede a sbloccare non solo il nodo stesso $v$,
 ma ricorsivamente anche tutti i nodi eventualmente presenti in $v.B$.
@@ -370,186 +370,29 @@ I parametri passati alla procedura ricorsiva CIRCUIT includono
 \input{Algoritmi/5.2-circuit}
 \input{Algoritmi/5.3-unblock}
 
-\begin{figure}[!h] \centering
-    \resizebox{!}{5.3cm}{
-        \begin{tikzpicture}
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\small $B = \emptyset$}}](n1) at (0,-1){1};
-            \node[mynode, fill=white, label={[align=center]above:{\small $B = \emptyset$}}](n2) at (0,1.5){2};
-            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n3) at (4,-3){3};
-            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n4) at (4,0){4};
-            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n5) at (4,3){5};
-            \node[mynode, fill=white, label={[align=center]below:{\small $B = \emptyset$}}](n6) at (8,-1.5){6};
-            \node[mynode, fill=white, label={[align=center]above:{\small $B = \emptyset$}}](n7) at (8,1.5){7};
-
-            \draw[myarrow](n1) -- (n3);
-            \draw[myarrow](n2) -- (n4);
-            \draw[myarrow](n3) -- (n4);
-            \draw[myarrow](n3) -- (n6);
-            \draw[myarrow](n4) -- (n1);
-            \draw[myarrow](n4) -- (n5);
-            \draw[myarrow](n4) -- (n7);
-            \draw[myarrow](n5) -- (n2);
-            \draw[myarrow](n6) -- (n4);
-            \draw[myarrow](n7) -- (n5);
-            \draw[myarrow](n7) -- (n6);
-
-            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1 \rangle$};
-            \node[below=10mm] at (4, -3.1) {\textbf{(a)}};
-        \end{tikzpicture}
-
-        \begin{tikzpicture}
-
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
-            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n2) at (0,1.5){2};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
-            \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
-            \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
-            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
-
-            \draw[myarrow, color=red](n1) -- (n3);
-            \draw[myarrow](n2) -- (n4);
-            \draw[myarrow, color=red](n3) -- (n4);
-            \draw[myarrow](n3) -- (n6);
-            \draw[myarrow, color=red](n4) -- (n1);
-            \draw[myarrow](n4) -- (n5);
-            \draw[myarrow](n4) -- (n7);
-            \draw[myarrow](n5) -- (n2);
-            \draw[myarrow](n6) -- (n4);
-            \draw[myarrow](n7) -- (n5);
-            \draw[myarrow](n7) -- (n6);
-
-            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 \rangle$};
-            \node[below=10mm] at (4, -3.2) {\textbf{(b)}};
-        \end{tikzpicture}
-    }\label{fig:cf1_figure}
-\end{figure}
-
-\begin{figure}[!h] \centering
-    \resizebox{!}{5.3cm}{
-        \begin{tikzpicture}
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{2\}$}}](n4) at (4,0){4};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
-            \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
-            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
-
-            \draw[myarrow, color=red](n1) -- (n3);
-            \draw[myarrow, color=red](n2) -- (n4);
-            \draw[myarrow, color=red](n3) -- (n4);
-            \draw[myarrow](n3) -- (n6);
-            \draw[myarrow](n4) -- (n1);
-            \draw[myarrow, color=red](n4) -- (n5);
-            \draw[myarrow](n4) -- (n7);
-            \draw[myarrow, color=red](n5) -- (n2);
-            \draw[myarrow](n6) -- (n4);
-            \draw[myarrow](n7) -- (n5);
-            \draw[myarrow](n7) -- (n6);
-
-            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 {\color{red}, 5, 2} \rangle$};
-            \node[below=10mm] at (4, -3.2) {\textbf{(c)}};
-        \end{tikzpicture}
-
-        \begin{tikzpicture}
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{2, 6\}$}}](n4) at (4,0){4};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{7\}$}}](n5) at (4,3){5};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]below:{\tiny $B = \{7\}$}}](n6) at (8,-1.5){6};
-            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
-
-            \draw[myarrow, color=red](n1) -- (n3);
-            \draw[myarrow](n2) -- (n4);
-            \draw[myarrow, color=red](n3) -- (n4);
-            \draw[myarrow](n3) -- (n6);
-            \draw[myarrow](n4) -- (n1);
-            \draw[myarrow](n4) -- (n5);
-            \draw[myarrow, color=red](n4) -- (n7);
-            \draw[myarrow](n5) -- (n2);
-            \draw[myarrow, color=red](n6) -- (n4);
-            \draw[myarrow, color=red](n7) -- (n5);
-            \draw[myarrow, color=red](n7) -- (n6);
-
-            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 {\color{red}, 7, 6} \rangle$};
-            \node[below=10mm] at (4, -3.2) {\textbf{(d)}};
-        \end{tikzpicture}
-    }\label{fig:cf2_figure}
-\end{figure}
-
-\begin{figure}[!h] \centering
-\resizebox{!}{5.3cm}{
-    \begin{tikzpicture}
-        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
-        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
-        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
-        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
-        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{7\}$}}](n5) at (4,3){5};
-        \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \{7\}$}}](n6) at (8,-1.5){6};
-        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
-
-        \draw[myarrow, color=red](n1) -- (n3);
-        \draw[myarrow](n2) -- (n4);
-        \draw[myarrow, color=red](n3) -- (n4);
-        \draw[myarrow](n3) -- (n6);
-        \draw[myarrow](n4) -- (n1);
-        \draw[myarrow](n4) -- (n5);
-        \draw[myarrow](n4) -- (n7);
-        \draw[myarrow](n5) -- (n2);
-        \draw[myarrow](n6) -- (n4);
-        \draw[myarrow](n7) -- (n5);
-        \draw[myarrow](n7) -- (n6);
-
-        \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 \rangle$};
-        \node[below=10mm] at (4, -3.2) {\textbf{(e)}};
-    \end{tikzpicture}
-
-    \begin{tikzpicture}
-        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
-        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n2) at (0,1.5){2};
-        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
-        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
-        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
-        \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
-        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
-
-        \draw[myarrow, color=red](n1) -- (n3);
-        \draw[myarrow](n2) -- (n4);
-        \draw[myarrow](n3) -- (n4);
-        \draw[myarrow](n3) -- (n6);
-        \draw[myarrow](n4) -- (n1);
-        \draw[myarrow](n4) -- (n5);
-        \draw[myarrow](n4) -- (n7);
-        \draw[myarrow](n5) -- (n2);
-        \draw[myarrow](n6) -- (n4);
-        \draw[myarrow](n7) -- (n5);
-        \draw[myarrow](n7) -- (n6);
-
-        \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, {\color{red}4} \rangle$};
-        \node[below=10mm] at (4, -3.2) {\textbf{(f)}};
-    \end{tikzpicture}
-}\label{fig:cf3_figure}
-\caption{Rappresentazione delle fasi rilevanti dell'applicazione della procedura CIRCUIT al nodo 1. I nodi in grigio
-rappresentano i nodi bloccati.
+In Figura \label{fig:circuit-example} \`e fornita una rappresentazione delle fasi rilevanti dell'applicazione della
+procedura CIRCUIT al nodo 1. I nodi in grigio rappresentano nodi bloccati.
 La figura (a) mostra l'inzio della procedura, in cui il nodo 1 viene aggiunto allo tack $S$.
-La figura (b) rappresenta il momento dell'individuazione del circuito $\langle 1, 3, 4, 1 \rangle$,
-    derivante dalla valutazione dell'arco $(4, 1)$.
+La figura (b) rappresenta il momento dell'individuazione del circuito $\langle 1, 3, 4, 1 \rangle$, derivante dalla valutazione
+dell'arco $(4, 1)$.
 La figura (c) rappresenta gli effetti della procedura CIRCUIT(5), derivante dalla valutazione dell'arco $(4, 5)$.
-    La figura (d) rappresenta gli effetti della procedura CIRCUIT(7), derivante dalla valutazione dell'arco $(4, 7)$.
+La figura (d) rappresenta gli effetti della procedura CIRCUIT(7), derivante dalla valutazione dell'arco $(4, 7)$.
 In entrambe le figure (c) e (d) i nodi visitati vengono aggiunti e rimossi dallo stack, ma rimangono bloccati,
-    in quanto non conducono ad un circuito elementare, e per questo vengono aggiornate le liste $B$ dei relativi
-    nodi adiacianti.
-Le figure (e) e (f) raffigurano le procedure ricorsive di UNBLOCK derivanti dallo sblocco del nodo 4.}
+in quanto non conducono ad un circuito elementare, e per questo vengono aggiornate le liste $B$ dei relativi
+nodi adiacenti.
+Le figure (e) e (f) raffigurano le procedure ricorsive di UNBLOCK derivanti dallo sblocco del nodo 4.
 
+\begin{figure}[!h] \centering
+    \input{TikzPictures/circuit_example}
+\caption{Fasi rilevanti dell'applicazione della procedura CIRCUIT}\label{fig:cicruit-example}
 \end{figure}
 
 \newpage
 
 \paragraph{Complessit\`a}\label{subsec:complessit`a}
-Come discusso in [2], la complessit\`a dell'algoritmo di Johnson \`e $O((n + m)(c + 1))$, dove $n$ \`e il numero di nodi,
-$m$ il numero di archi e $c$ il numero di circuiti semplici presenti nel grafo.
+Come discusso nella trattazione originale \cite{doi:10.1137/0204007}, la complessit\`a dell'algoritmo di Johnson
+\`e $O((n + m)(c + 1))$, dove $n$ \`e il numero di nodi, $m$ il numero di archi e $c$ il numero di circuiti semplici
+presenti nel grafo.
 Questo risultato \`e ottenuto considerando che tutti i nodi e gli archi del grafo possono essere visitati al pi\`u una
 volta per ogni circuito elementare presente, ovvero che l'algoritmo impiega al pi\`u $O(n + m)$ tempo tra l'output di
 un circuito e l'individuazione del successivo.

@@ -1,0 +1,198 @@
+\chapter{Procedure di Contrazione}\label{cap:proc_contr}
+
+In questo capitolo si entrerà nel merito delle dinamiche interne alla costruzione della struttura di un grafo
+multi-livello e alle sue funzioni di contrazione.
+Sebbene nel Capitolo~\ref{ch:algoritmi-di-enumerazione} si siano già stati illustrati gli
+algoritmi specefici per il riconoscimento e l'elencazione di pattern strutturali all'interno di un grafo,
+nulla è stato ancora detto di come queste procedure di enumerazione debbano essere sfruttate nel contesto più
+complesso del grafo multi-livello.
+In particolare, si vuole dare una visione più chiara di come sia algoritmicamente
+possibile realizzare una rete di collegamenti tra supernodi su più livelli attenendosi alle definizioni
+fornite nel Capitolo~\ref{cap:grafi-multi-livello}, affinché si possa ottenere un tale risultato a partire da una
+qualsiasi sequenza di insiemi di nodi generati dalle procedure di enumerazione, evidenziandone problematiche e
+possibili soluzioni.
+
+\section{Riduzione disgiunta}
+
+Si vuole ora considerare il generico problema per cui, dato un grafo decontraibile $G = (V, E)$ e un insieme di
+sottoinsiemi di nodi $Q \subseteq \mathcal{P}(V)$ che costituisce una copertura di $V$, si vuole costruire un grafo
+decontraibile $G'$ che rappresenti l'informazione fornita dal raggruppamento dei nodi descritto in $Q$.
+Aspetto di fondamentale importanza è che l'insieme $Q$ non costituisce necessariamente una partizione.
+$Q$ potrebbe quindi essere calcolato a partire da un grafo $G$ attraverso un algortimo di enumerazione, in modo tale
+che i suoi elementi siano insiemi di nodi appartenenti ad un certo pattern strutturale.
+Tuttavia, come si può immaginare, tali insiemi non sono necessariamente disgiunti: basti pensare alle cricche e i
+circuiti semplici, che possono avere nodi in intersezioni di più insiemi.
+Le componenti fortemente connesse invece, essendo construite a partire da una relazione di equivalenza, sono un
+valido esempio di pattern strutturale che costituisce sempre una partizione di $V$. \newline
+
+D'ora in avanti, ci riferiremo agli elementi di una tale copertura di nodi $Q$ (non necessariamente disgiunta)
+come \textbf{insiemi componenti} \newline
+
+Per mantenere le proprietà delle contrazioni su grafi è però necessario che ad ogni nodo corrisponda ad uno ed un solo
+supernodo.
+La presenza dello stesso nodo un più supernodi contratti non sarebbe coerente con la teoria dei grafi
+già affermata, oltre che portare ad un risultato che rischia di avere limitate applicabilità.
+Si vuole quindi definire una procedura per rappresentare l'informazione fornita da $Q$ in un nuovo insieme che sia una
+partizione di $V$ rappresentativa di $Q$ e, a partire da questa, costruire un grafo decontraibile $G'$.
+Abbinare questa definzione generica, valida nella teoria degli insiemi, ad uno specifico algoritmo per calcolare
+$Q$ a partire dalla struttura di un grafo, è il primo passo che permetterà di definire particolari funzioni di
+contrazione.
+
+\subsection{Definzione}
+
+\begin{defintion}[Riduzione disgiunta] \newline
+Sia $V$ un insieme di elementi. Sia $Q \subseteq \mathcal{P}(V)$ una copertura di $V$.
+Definiamo la \textbf{rappresentazione disgiunta} di $Q$, e la indichiamo con $\mathcal{D}(Q)$,
+l'insieme di insiemi di elementi in $V$ tale per cui:
+\begin{enumerate}[(i)]
+    \item $\emptyset \notin \mathcal{D}(Q)$
+    \item $\forall A \in \mathcal{D}(Q), \quad u, v \in A \Leftrightarrow \{C \in Q \mid u \in C\} = \{C \in Q \mid v \in C\}$
+\end{enumerate}
+\end{defintion}
+
+Una riduzione disgiunta di una copertura $Q$ è quindi un insieme di insiemi di nodi in $V$ tale per cui due
+nodi $u$ e $v$ appartengono allo stesso insieme in $\mathcal{D}(Q)$ se e solo se sono inclusi nella stessa combinazione
+di insiemi in $Q$. \newline
+
+\begin{figure}[!h] \centering
+\include{TikzPictures/disjoint_reduction_example}
+\caption{Esempio di riduzione disgiunta}
+\label{fig:disjoint_reduction_example}
+\end{figure}
+
+L'esempio in Figura~\ref{fig:disjoint_reduction_example} da una rappresentazione di una copertura $Q$ di elementi a
+sinistra accompagnata dalla sua rappresentazione disgiunta $D(Q)$ sulla destra.
+
+Il nome di questa definizione deriva dal fatto che:
+\begin{itemize}
+    \item il risultato di questo operatore su una copertura $Q$, da solo non contiene le informazioni sufficienti a
+        descrivere la copertura che lo ha originato, che potrebbero essere molteplici (ma non infinite, se si ha a che
+        fare con insiemi finiti). %TODO: nota: potrebbe essere una classe di equivalenza tra coperture!!
+        Da qui il termine \("\)riduzione\("\).
+    \item il risultato di questo operatore su una copertura $Q$ di $V$ costituisce una partizione di $V$, come
+        dimostrato in seguito, e fornisce un criterio per una suddivisione degli elementi in $V$ in insiemi disgiunti
+        tra loro.
+        Da qui il termine \("\)disgiunta\("\).
+\end{itemize}
+
+\begin{proposition}
+Sia $V$ un insieme di elementi. Sia $Q \subseteq \mathcal{P}(V)$ una copertura di $V$.
+La rappresentazione disgiunta di $Q$ costituisce una partizione di $V$.
+\end{proposition}
+
+\paragraph{Dimostrazione}
+Si definisce la relazione $R_Q$ sull'insieme $V$ come
+\begin{equation*}
+    uR_{Q}v \Leftrightarrow \{C \in Q \mid u \in C\} = \{C \in Q \mid v \in C\}
+\end{equation*}
+
+Essa \`e una relazione di equivalenza, in quanto rispetta le propriet\`a di riflessivit\`a, simmetria e transitivit\`a,
+che sono date dalle rispettive propriet\`a dell'uguaglianza.
+Segue che l'insieme quoziente $V/R_{Q}$ deve rappresentare una partizione degli elementi in $V$.
+
+Per il punto (ii) della definzione di $\mathcal{D}(Q)$, i suoi insiemi non vuoti rappresentano le classi di equivalenza
+di $R_Q$.
+Inoltre per il punto (i), l'insieme vuoto non pu\`o appartenere a $D(Q)$.
+Si conclude allora $D(Q) = V/R_{Q}$, e pertanto $D(Q)$ \`e una partizione di $V$.
+
+\paragraph{Definizione tramite ipergrafi} \newline
+Si consideri ora un ipergrafo non orientato $H = (V, E)$, dove $V$ \`e un insieme di nodi e $E$ \`e un insieme di
+iperarchi.
+Notando che un iperarco non orientato $e \in E$ pu\`o essere rappresentato come un insieme di nodi $e \subseteq V$,
+si pu\`o estendere il concetto di rappresentazione disgiunta anche nel dominio degli ipergrafi.
+
+\paragraph{Definizione} (Rappresentazione disgiunta di un ipergrafo) \newline
+\textit{Dato un ipergrafo non orientato $H = (V, E)$ tale per cui $E$ \`e un ricoprimento di $V$,
+definiamo \textbf{rappresentazione disgiunta} di $H$ un nuovo ipergrafo non orientato $J = (W, F)$
+    tale per cui $W = V$ e $F = \mathcal{D}(E)$}. \newline
+
+Si pu\`o notare, quindi, che la funzione di rappresentazione disgiunta pu\`o essere considerata come una
+endofunzione idempotente sull'insieme degli ipergrafi non orientati.
+
+\subsection{Contrazione costruita da una partizione}\label{subsec:Contrazione-costruita-da-una-partizione}
+
+\paragraph{Definizione} (Contrazione costruita da una partizione) \newline
+\textit{Sia $G = (V, E)$ un grafo decontraibile, sia $P$ una partizione di $V$.
+Si definisce \textbf{contrazione di $G$ costruita sulla partizione $P$} il grafo decontraibile
+    $G' = (\mathfrak{V}, \mathfrak{E})$ contrazione di $G$ tale per cui
+    \begin{equation*}
+        \{V_\alpha \mid \alpha \in \mathfrak{V}, dec_\mathfrak{V}(\alpha) = (V_\alpha, E_\alpha)\} = P
+    \end{equation*}}
+
+Dato un grafo decontraibile $G$ e una sua partizione dei nodi, quindi, \`e sempre possibile calcolare la sua
+contrazione $G'$ contraendo nodi di $G$ in supernodi di $G'$ secondo gli insiemi descritti dalla partizione.
+Si noti, infatti, che esiste una biiezione tra l'insieme delle possibili contrazioni di $G$ e l'insieme delle
+partizioni di $V$ e che, pertanto, data una partizione di $V$ esiste una sola contrazione di $G$ costruita su di essa.
+
+\subsection{Algoritmo per la contrazione costruita da una rappresentazione disgiunta}
+Si vuole ora definire un algoritmo che a partire da un grafo decontraibile $G$ e una sua copertura $Q$,
+fornisca in output la contrazione di $G$ costruita sulla rappresentazione disgiunta di $Q$.
+
+Nell'algoritmo la copertura $Q$ \`e rappresentata come un dizionario $T$, di dimensione $|V|$, in cui le coppie
+chiave-valore consistono di
+\begin{itemize}
+    \item Chiave: nodo $v$ di $V$
+    \item Valore: l'insieme di insiemi componenti $C \in Q$ tali per cui $v \in C$
+\end{itemize}
+
+Nel corso dell'algoritmo un altro dizionario $T'$ viene usato allo scopo di mappare la biiezione tra le classi
+di equivalenza di $V/R_Q$ e i supernodi di $G'$.
+Al termine dell'algoritmo, questo dizionario raggiunger\`a la dimensione $|\mathcal{D}(Q)|$.
+\newline
+
+	\input{Algoritmi/3-make_decontractible_graph}
+
+    \begin{figure}[H]
+    \begin{multicols}{3}
+			\begin{tabularx}{0.8\linewidth} {
+				| >{\raggedright\arraybackslash}X
+				| >{\centering\arraybackslash}X | }
+                \multicolumn{2}{>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X}{\center$T$} \\
+ 				\hline
+				$v_1$ & $\{C_1\}$\\
+ 				\hline
+ 				$v_2$ & $\{C_1\}$\\
+				\hline
+ 				$v_3$ & $\{C_1, C_2\}$\\
+ 				\hline
+ 				$v_4$ & $\{C_2\}$\\
+				\hline
+ 				$v_5$ & $\{C_2\}$\\
+				\hline
+			\end{tabularx}
+            \columnbreak \centering
+            \begin{tabularx}{0.8\linewidth} {
+                | >{\raggedright\arraybackslash}X
+                | >{\centering\arraybackslash}X | }
+                \multicolumn{2}{>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X}{\center$T'$} \\
+                \hline
+                $\{C_1\}$ & $\alpha_1$\\
+                \hline
+                $\{C_1, C_2\}$ & $\alpha_2$\\
+                \hline
+                $\{C_2\}$ & $\alpha_3$\\
+                \hline
+            \end{tabularx}
+	        \columnbreak
+            \centering %\input{hourglass}
+    \end{multicols}
+	    \caption{Il dizionario T$\mathcal{'}$ \`e stato riempito con i supernodi ottenuti dalla contrazione di $G$.
+	    Il risultato dell'applicazione di T e G all'algoritmo MAKE-DECONTRACTIBLE-GRAPH \`e il grafo decontraibile
+	    $\mathcal{G}=(\{\alpha_1, \alpha_2, \alpha_3\}, \{(\alpha_1, \alpha_2), (\alpha_2, \alpha_3)\})$ }
+        \label{fig:make_decontractible_graph_example}
+    \end{figure}
+
+\paragraph{Complessità}
+Facendo uso di tabelle di hash per rappresentare i dizionari $T$ e $T'$, l'algoritmo mantiene una complessit\`a
+temporale di $O(|V| + |E|)$.
+Si noti infatti che:
+\begin{itemize}
+    \item Il primo ciclo for scorre tutti i nodi in $V$.
+    Esso inizializza il dizionario $T'$, definisce i supernodi di $G'$ e assegna loro i nodi in $V$.
+    La complessit\`a del ciclo \`e $O(|V|)$, infatti il controllo a riga $5$ ha complessit\`a costante,
+    cos\`i come la ricerca in $T'$ a riga $11$.
+    \item Il secondo ciclo for scorre tutti gli archi in $E$.
+    Esso assegna gli archi di $G$ ai grafi dei supernodi di $G'$ o ai superarchi di $G'$ a seconda dei supernodi
+    di appartenenza dei nodi che li compongono, precedentemente calcolati nel primo ciclo for.
+    La complessit\`a del ciclo \`e $O(|E|)$.
+\end{itemize}

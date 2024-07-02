@@ -6,7 +6,7 @@
         \State $v.blocked \coloneqq true$
         \For {$w \in K.adj[s]$}
             \If {$w == s$}
-                \State ADD-SUBSET($T$, $S$)  \Comment{Stack $S$ followed by $s$ is a simple circuit}
+                \State Fornisci in output $S$ seguito da $s$ come un circuito semplice
                 \State $f \coloneqq true$
             \ElsIf {$\lnot w.blocked$}
             \If {CIRCUIT($w$)} \State $f \coloneqq true$ \EndIf

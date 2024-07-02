@@ -1,0 +1,49 @@
+\resizebox{!}{5.3cm}{
+    \begin{tikzpicture}[state/.style ={circle, draw, color=black , fill=blue, text=white, inner sep=0cm,
+    minimum size=0.1cm}]
+        \node[state] (1) [label={[left,text=blue]:$v_1$}] at (-0.3, 0);
+        \node[state] (2) [label={[left,text=blue]:$v_2$}] at (1, 0.5);
+        \node[state] (3) [label={[left,text=blue]:$v_3$}] at (0, -0.6);
+        \node[state] (4) [label={[right,text=blue]:$v_4$}] at (-0.4, 0.8);
+        \node[state] (5) [label={[right,text=blue]:$v_5$}] at (0.8, 1.7);
+        \node[state] (6) [label={[left,text=blue]:$v_6$}] at (1.9, 2.3);
+        \node[state] (7) [label={[left,text=blue]:$v_7$}] at (4, 0);
+        \node[state] (8) [label={[left,text=blue]:$v_8$}] at (3.2, -0.8);
+        \node[state] (9) [label={[right,text=blue]:$v_9$}] at (3.6, -0.8);
+        \node[state] (10) [label={[right,text=blue]:$v_{10}$}] at (2.5, 0.5);
+        \node[state] (11) [label={[below,text=blue]:$v_{11}$}] at (4, 1.5);
+        \node[state] (12) [label={[above,text=blue]:$v_{12}$}] at (4.5, 1.2);
+
+        \node[fit={(1)(2)(3)(4)}, draw, circle, label=below:$C_1$]{};
+        \node[fit={(5)(6)}, draw, circle, label=left:$C_5$]{};
+        \node[fit={(7)(10)},draw, ellipse, label=right:$C_4$, minimum width = 2.7cm]{};
+        \node[fit={(2)(10)},draw, ellipse, label=below:$C_3$, minimum width = 2.7cm, minimum height = 1cm]{};
+        \node[fit={(7)(8)(9)(10)(11)(12)}, draw, circle, label=above:$C_2$]{};
+        \node[fit={(11)(12)}, draw, circle, label=left:$C_6$]{};
+        \node (Q) at (2.3, -2) {$Q$};
+    \end{tikzpicture}
+    \hspace{0.5cm}
+    \begin{tikzpicture}[state/.style ={circle, draw, color=black , fill=blue, text=white, inner sep=0cm,
+    minimum size=0.1cm}]
+        \node[state] (1) [label={[left,text=blue]:$v_1$}] at (-0.3, 0);
+        \node[state] (2) [label={[left,text=blue]:$v_2$}] at (1, 0.5);
+        \node[state] (3) [label={[left,text=blue]:$v_3$}] at (0, -0.6);
+        \node[state] (4) [label={[right,text=blue]:$v_4$}] at (-0.4, 0.8);
+        \node[state] (5) [label={[right,text=blue]:$v_5$}] at (0.8, 1.7);
+        \node[state] (6) [label={[left,text=blue]:$v_6$}] at (1.9, 2.3);
+        \node[state] (7) [label={[left,text=blue]:$v_7$}] at (4, 0);
+        \node[state] (8) [label={[left,text=blue]:$v_8$}] at (3.2, -0.8);
+        \node[state] (9) [label={[right,text=blue]:$v_9$}] at (3.6, -0.8);
+        \node[state] (10) [label={[right,text=blue]:$v_{10}$}] at (2.5, 0.5);
+        \node[state] (11) [label={[below,text=blue]:$v_{11}$}] at (4, 1.5);
+        \node[state] (12) [label={[above,text=blue]:$v_{12}$}] at (4.5, 1.2);
+
+        \node[fit={(1)(3)(4)}, draw, ellipse]{};
+        \node[fit={(5)(6)}, draw, circle]{};
+        \node[fit={(2)}, draw, circle]{};
+        \node[fit={(10)}, draw, circle]{};
+        \node[fit={(7)}, draw, circle]{};
+        \node[fit={(8)(9)}, draw, ellipse, minimum width = 2cm]{};
+        \node[fit={(11)(12)}, draw, circle]{};
+        \node (DQ) at (2.2, -2) {$D(Q)$};
+    \end{tikzpicture}}

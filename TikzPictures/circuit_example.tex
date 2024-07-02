@@ -1,0 +1,160 @@
+\resizebox{!}{5.3cm}{
+        \begin{tikzpicture}
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\small $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill=white, label={[align=center]above:{\small $B = \emptyset$}}](n2) at (0,1.5){2};
+            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n4) at (4,0){4};
+            \node[mynode, fill=white, label={[align=left]right:{\small $B = \emptyset$}}](n5) at (4,3){5};
+            \node[mynode, fill=white, label={[align=center]below:{\small $B = \emptyset$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill=white, label={[align=center]above:{\small $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow](n1) -- (n3);
+            \draw[myarrow](n2) -- (n4);
+            \draw[myarrow](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow](n4) -- (n1);
+            \draw[myarrow](n4) -- (n5);
+            \draw[myarrow](n4) -- (n7);
+            \draw[myarrow](n5) -- (n2);
+            \draw[myarrow](n6) -- (n4);
+            \draw[myarrow](n7) -- (n5);
+            \draw[myarrow](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1 \rangle$};
+            \node[below=10mm] at (4, -3.1) {\textbf{(a)}};
+        \end{tikzpicture}
+
+        \begin{tikzpicture}
+
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n2) at (0,1.5){2};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
+            \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
+            \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow, color=red](n1) -- (n3);
+            \draw[myarrow](n2) -- (n4);
+            \draw[myarrow, color=red](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow, color=red](n4) -- (n1);
+            \draw[myarrow](n4) -- (n5);
+            \draw[myarrow](n4) -- (n7);
+            \draw[myarrow](n5) -- (n2);
+            \draw[myarrow](n6) -- (n4);
+            \draw[myarrow](n7) -- (n5);
+            \draw[myarrow](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 \rangle$};
+            \node[below=10mm] at (4, -3.2) {\textbf{(b)}};
+        \end{tikzpicture}
+    }
+\end{figure}
+
+\begin{figure}[!h] \centering
+    \resizebox{!}{5.3cm}{
+        \begin{tikzpicture}
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{2\}$}}](n4) at (4,0){4};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
+            \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow, color=red](n1) -- (n3);
+            \draw[myarrow, color=red](n2) -- (n4);
+            \draw[myarrow, color=red](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow](n4) -- (n1);
+            \draw[myarrow, color=red](n4) -- (n5);
+            \draw[myarrow](n4) -- (n7);
+            \draw[myarrow, color=red](n5) -- (n2);
+            \draw[myarrow](n6) -- (n4);
+            \draw[myarrow](n7) -- (n5);
+            \draw[myarrow](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 {\color{red}, 5, 2} \rangle$};
+            \node[below=10mm] at (4, -3.2) {\textbf{(c)}};
+        \end{tikzpicture}
+
+        \begin{tikzpicture}
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{2, 6\}$}}](n4) at (4,0){4};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{7\}$}}](n5) at (4,3){5};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]below:{\tiny $B = \{7\}$}}](n6) at (8,-1.5){6};
+            \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+            \draw[myarrow, color=red](n1) -- (n3);
+            \draw[myarrow](n2) -- (n4);
+            \draw[myarrow, color=red](n3) -- (n4);
+            \draw[myarrow](n3) -- (n6);
+            \draw[myarrow](n4) -- (n1);
+            \draw[myarrow](n4) -- (n5);
+            \draw[myarrow, color=red](n4) -- (n7);
+            \draw[myarrow](n5) -- (n2);
+            \draw[myarrow, color=red](n6) -- (n4);
+            \draw[myarrow, color=red](n7) -- (n5);
+            \draw[myarrow, color=red](n7) -- (n6);
+
+            \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 {\color{red}, 7, 6} \rangle$};
+            \node[below=10mm] at (4, -3.2) {\textbf{(d)}};
+        \end{tikzpicture}
+    }
+\end{figure}
+
+\begin{figure}[!h] \centering
+\resizebox{!}{5.3cm}{
+    \begin{tikzpicture}
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \{5\}$}}](n2) at (0,1.5){2};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \{7\}$}}](n5) at (4,3){5};
+        \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \{7\}$}}](n6) at (8,-1.5){6};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+        \draw[myarrow, color=red](n1) -- (n3);
+        \draw[myarrow](n2) -- (n4);
+        \draw[myarrow, color=red](n3) -- (n4);
+        \draw[myarrow](n3) -- (n6);
+        \draw[myarrow](n4) -- (n1);
+        \draw[myarrow](n4) -- (n5);
+        \draw[myarrow](n4) -- (n7);
+        \draw[myarrow](n5) -- (n2);
+        \draw[myarrow](n6) -- (n4);
+        \draw[myarrow](n7) -- (n5);
+        \draw[myarrow](n7) -- (n6);
+
+        \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, 4 \rangle$};
+        \node[below=10mm] at (4, -3.2) {\textbf{(e)}};
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=center]above:{\tiny $B = \emptyset$}}](n1) at (0,-1){1};
+        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n2) at (0,1.5){2};
+        \node[mynode, fill={rgb:black,1;white,2}, label={[align=left]right:{\tiny $B = \emptyset$}}](n3) at (4,-3){3};
+        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n4) at (4,0){4};
+        \node[mynode, fill=white, label={[align=left]right:{\tiny $B = \emptyset$}}](n5) at (4,3){5};
+        \node[mynode, fill=white, label={[align=center]below:{\tiny $B = \emptyset$}}](n6) at (8,-1.5){6};
+        \node[mynode, fill=white, label={[align=center]above:{\tiny $B = \emptyset$}}](n7) at (8,1.5){7};
+
+        \draw[myarrow, color=red](n1) -- (n3);
+        \draw[myarrow](n2) -- (n4);
+        \draw[myarrow](n3) -- (n4);
+        \draw[myarrow](n3) -- (n6);
+        \draw[myarrow](n4) -- (n1);
+        \draw[myarrow](n4) -- (n5);
+        \draw[myarrow](n4) -- (n7);
+        \draw[myarrow](n5) -- (n2);
+        \draw[myarrow](n6) -- (n4);
+        \draw[myarrow](n7) -- (n5);
+        \draw[myarrow](n7) -- (n6);
+
+        \node[align=left, xshift=0cm, yshift=3cm] (label2) {$S = \langle 1, 3, {\color{red}4} \rangle$};
+        \node[below=10mm] at (4, -3.2) {\textbf{(f)}};
+    \end{tikzpicture}
+}
