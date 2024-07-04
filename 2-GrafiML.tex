@@ -27,10 +27,11 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
         \begin{itemize}
             \item $V$ \`e un insieme di elementi detti \textbf{supernodi};
             \item $E \subseteq V \times V$ \`e un insieme di coppie ordinate di supernodi, dette \textbf{superarchi};
-            \item $dec_V : V \rightarrow \mathcal{G}_D$ \`e una biiezione tale per cui $dec_V(v) = G_v = (\mathcal{V}_v,
-                \mathcal{E}_v)$ \`e un grafo decontraibile rappresentato dal supernodo $v$;
+            \item $dec_V : V \rightarrow \mathcal{G}_D$ \`e una biiezione tale per cui $dec_V(v) = (\mathcal{V}_v,
+                \mathcal{E}_v, dec_{\mathcal{V}_v}, dec_{\mathcal{E}_v})$ \`e un grafo decontraibile rappresentato
+                dal supernodo $v$;
             \item $dec_E : E \rightarrow (\mathcal{V} \times \mathcal{V})$ con $\mathcal{V} = \bigcup_{v \in V}\mathcal{V}_v$,
-                \`e una biiezione tale per cui $\forall$ $ e = (u, v)$, $dec_E(e) = E_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$
+                \`e una biiezione tale per cui $\forall$ $ e = (u, v)$, $dec_E(e) = \mathcal{E}_e \subseteq$ $\{(a, b)$ $\mid$ $a \in \mathcal{V}_u$ $\wedge$
                 $b \in \mathcal{V}_v\}$ \`e un insieme di archi rappresentati dal superarco $e$.
         \end{itemize}
     \end{definition}
@@ -111,8 +112,9 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     sia coerente con il concetto di contrazione esistente nella teoria dei grafi.
 
     \begin{definition}[Contrazione di un Grafo Decontraibile]
-        Sia $G = (V, E)$ un grafo decontraibile, il grafo decontraibile
-        $G\mathcal{'} = (\mathfrak{V}, \mathfrak{E})$ \`e una sua \textbf{contrazione} se e solamente se:
+        Sia $G = (V, E, dec_V, dec_E)$ un grafo decontraibile, il grafo decontraibile
+        $G\mathcal{'} = (\mathfrak{V}, \mathfrak{E}, dec_{\mathfrak{V}}, dec_{\mathfrak{E}})$ \`e una sua
+        \textbf{contrazione} se e solamente se:
             \begin{itemize}
                 \item l'insieme $\{V_\alpha \mid \alpha \in \mathfrak{V}\}$ \`e una partizione di $V$
                 \item l'insieme $(\{E_\alpha \mid \alpha \in \mathfrak{V}\} \setminus \{ \emptyset \}) \cup
@@ -162,9 +164,13 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     \begin{equation*}
         G = (\bigcup_{\alpha \in \mathfrak{V}} V_\alpha ,
             (\bigcup_{\alpha \in \mathfrak{V}} E_\alpha \cup \bigcup_{\epsilon \in \mathfrak{E}}{dec_{\mathfrak{E}}(\epsilon)}),
-            dev_V, dec_E)
+            dev_V, dec_E) %TODO: \bigsqcup{\alpha \in \mathfrak{V}} dec_{V_{\alpha}}, (\bigsqcup{\alpha \in \mathfrak{V}} dec_{E_{\alpha}} \cup ???)
     \end{equation*}
 
+    dove $dec_V$ è ottenuto dall'unione delle funzioni $dec_{\mathfrak{V}_v}$ per ciascun $v \in \mathfrak{V}$,
+    e $dec_E$ è ottenuto dall'unione delle funzioni $dec_{\mathfrak{E}_e}$ per ciascun $e \in \mathfrak{E}$ combinato con
+    tutte le mappature tra superarchi in $\bigcup{\epsilon \in \mathfrak{E}} dec_{\mathfrak{E}}(\epsilon)$ e le loro
+    decontrazioni.
     Definiamo, quindi, l'operatore unario $.^D : \mathcal{G}_D \rightarrow \mathcal{G}_D$ come l'operatore di
     \textbf{decontrazione completa} che, dato un grafo decontraibile $G = (V, E)$ restituisce il grafo decontrabile
     $G^D$ ottenuto dalla decontrazione di tutti i supernodi e superarchi del grafo in input.
@@ -277,7 +283,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     \begin{definition} [Funzione di trasformazione naturale] \newline
     Definiamo \textbf{funzione di trasformazione naturale} $\eta$ una funzione che dato un grafo standard
-        $H=(W,F)$, produce il corripondente grafo decontraibile $G = (V, E, dec_V, dec_E)$ con le seguenti propriet\`a:
+        $H=(W,F)$, produce il corrispondente grafo decontraibile $G = (V, E, dec_V, dec_E)$ con le seguenti propriet\`a:
         \begin{itemize}
             \item $dec_V(v) = (\emptyset, \emptyset)$ \quad $\forall v\in V$
             \item $dec_E(e) = \emptyset$ \quad $\forall e\in E$

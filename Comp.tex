@@ -1,0 +1,139 @@
+\subsection{Use cases and complexity}
+\bigskip
+The following is a brief showcase of the tools the data structure can provide for text analysis, and a comparison
+with typical tools for syntax and semantic analysis. \newline
+We refer to the number of unigrams in the text corpus, or corpus size, as $|N|$, while $|V|$ is the unique-words
+vocabulary count. \newline \newline
+
+\begin{table}[hbt!]
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \multicolumn{3}{|c|}{\textbf{Tools for syntax analysis (do not require data structure)}} \\ [0.5ex]
+        \hline
+        \textit{Tool}  &  \textit{Typical complexity}  & \textit{Multilevel graph complexity} \\  [0.5ex]
+        \hline
+        \large Count unigram occurences    \,\,    &  \large$O(|N|)$                 &  \large$O(|N|)$ \\
+        \hline
+        \large Count bigram occurences         &  \large$O(|N|)$                 &  \large$O(|N|)$ \\
+        \hline
+        \large Find bigram collocations        &  \large$O(|N|)$                 &  \large$O(|N|)$ \\
+        \hline
+        \large Word cloud generation           &  \large$O(|N|)$                 &  \large$O(|N|)$ \\
+        \hline
+    \end{tabular}\label{tab:table1}
+\end{table}
+
+Compared to typical tools for syntax analysis, the multi-level graph doesn't provide any advantage or disadvantage in
+terms of complexity for basic syntax analysis of texts. \newline
+This is because operations like \textbf{counting unigram and bigram occurrences} rely on the same simple operations
+that can be performed directly on the text corpus.
+When declined to the multi-level graph, the information resulting from such operations is stored as
+nodes and edges label values, respectively, which doesn't affect the complexity of the operations themselves. \newline
+
+\textbf{Finding bigram collocations} can be performed with typical statistical methods such as the \textit{Pointwise
+Mutual Information (PMI)} method.
+These methods require data about the frequency of single words and bigrams, and aim to compute an estimate of
+the relevance of a bigram in the text corpus.
+Those values can typically be calculated in constant time for each element and can be stored in the data structure
+as edge labels. \newline
+
+\textbf{Word cloud generation} of the top $k$ most frequent words can be achieved providing a visualization of a
+graph where each node is associated to each of the top unique $k$ words in the text corpus, showed with a proper size,
+while edges are associated to the most common bigrams defined on the same set of words text and showed with a proper
+thickness.
+This view on the data can be obtained from the base-level graph of the data structure and, thus, doesn't require the
+costs of construction. \newline \newline
+
+\begin{table}[hbt!]
+    \begin{tabular}{|l|l|l|}        \hline
+        \multicolumn{3}{|c|}{\textbf{Data structure complexity}} \\ [0.5ex]
+        \hline
+                                          & \textit{Others}           & \textit{Multilevel graph} \\ [0.5ex]
+        \hline
+        \large Time for construction     \,\,        &  \large $O(|N| \log(|V|))$    \,\,   &  \large $O(|V|^2) \sim O(|V|!)$ \\
+        \hline
+        \large Memory requirement                &  \large $O(|V| d)$               &  \large $O(|V|) \sim O(2^{|V|})$ \\
+        \hline
+    \end{tabular}\label{tab:table2}
+\end{table}
+
+The time cost of construction of the multi-level graph may vary considerably depending on the particular
+contraction function(s) used in its definition, varying from $O(|V|^2)$ for the simplest schemes, such as the
+contraction scheme by strongly connected components, to $O(|V|!)$ for the most complex schemes, such as the
+contraction scheme by elementary circuits.
+Let $\mathcal{O}_i$ be the time complexity required by the $i$-th contraction function, then the time complexity of the
+construction of the multi-level graph $M$ of height $h$ is given by $\max_{1 \leq i \leq k}{\mathcal{O}_i}$. \newline
+Note that an additional time cost of $O(|V|^2 \log{|V|})$ may be required for the computation of the base-level graph
+of the hierarchy when input data represent spaces with high dimensionality, such as the semantic space of natural
+language words, in order to \("\)flatten\("\) the data into more comprehensible and contractible graph structure. \newline
+
+Typical word embedding methods that serve similar purposes for NLP tasks, such as the \textit{Word2Vec} algorithm \cite{Mikolov13}
+and Glove~\cite{Pennington14}, have a time complexity of $O(|N| \log(|V|))$ for the construction of the word vectors. \newline
+
+The space cost of storing the multi-level graph may also vary depending on the used contraction function(s).
+While the space complexity provided by the exclusive use of contraction schemes based on partitions of nodes, such as
+the strongly connected components, is $O(|V|)$, the space complexity provided by contraction schemes based on subsets of
+nodes, such as the elementary circuits, is $O(2^{|V|})$. \newline
+
+For vector models such as \textit{Word2Vec}, the space complexity can be calculated as the dimensionality of the
+embedding weight matrices, which remain in the order of $O(|V|d)$. \newline\newline
+
+
+\begin{table}[hbt!]
+    \begin{tabular}  {|l|l|l|}      \hline
+        \multicolumn{3}{|c|}{\textbf{Tools for semantic analysis (require data structure)}} \\ [0.5ex]
+        \hline
+        \textit{Tool}                   &  \textit{Typical complexity}  & \textit{Multilevel graph complexity} \\ [0.5ex]
+        \hline
+        \large Word clustering    \,\,      &  \large $O(|V|\log{k_{\max}}) \sim  O(\left| V \right|^2)$  \,\,  &  \large $O(|V| h)$ \\
+        \hline
+        \large Semantic word distance \,\,   &  \large $O(d)$                &  \large $O(|V| \log(|V|))$ \\
+        \hline
+        \large Sensitive analysis       &  \large $?$                   &  \large $O(|V|^2)  \sim O(|V|!)$ \\
+        \hline
+    \end{tabular}\label{tab:table3}
+\end{table}
+
+\textbf{Word clustering} can be performed by retrieving each supernode at a certain level of the multi-level graph and
+analyzing the nodes at the base level that are contracted into it through one or more contraction functions.
+Since the number of supernodes at a certain level is $O(|V|)$, the complexity of this operation is $O(|V| \cdot h)$,
+where $h$ is the height of the multi-level graph. \newline
+
+Typical tools for semantic word clustering on vector spaces, such as the \textit{K-means} algorithm and its variants,
+have a time complexity in the order of $O(|V| \cdot \log{k_{\max}})$, where $k_{\max}$ denotes the maximum number of
+clusters in a dataset~\cite{Ahmed20}.
+When the number of clusters $k$ is not pre-determined, as in our case, well-known algorithms such as \textit{DBSCAN}~\cite{Ester96}have a time complexity in the order of $O(|V|^2)$, since the distances between the points in pairs must be obtained.
+\newline
+
+\textbf{Semantic word distance} between two words can be computed by analyzing the shortest path between the two
+corresponding nodes at a certain level of the multi-level graph.
+Considering a non-negative semantic distance obtained in $O(1)$ time from the bigram collocation score associated
+to each edge, the complexity of this operation is $O(|V| \log(|V|))$, if the shortest path is computed with Dijkstra
+algorithm. \newline
+Typical complexity for d-dimensional vector models is $O(d)$ for the cosine similarity computation. \newline
+
+\textbf{Sensitive analysis} can be performed by analyzing the influence of the removal of a certain node or edge at
+the base level of the multi-level graph on the structure of a certain upper level.
+Evaluating the impact of the removal of an edge is dependent on the contraction functions(s) used to define the
+multi-level graph, and may vary from $O(|V|^2)$, for the simplest schemes such as the contraction by strongly connected
+components, to $O(|V|!)$ for the most complex schemes such as the contraction by elementary circuits.
+% TODO: Typical complexity
+
+\subsection{Graph Data Space and Vector Data Space}
+
+To continue we have to underline the differences between Graph Data Spaces and Vector Data Spaces. A vector data space is a mathematical framework for representing and manipulating data as high-dimensional vectors. In this context, each data point is encoded as a vector with a fixed number of dimensions, representing features or attributes of the original data, which can include various types of information such as text, images, audio, or video. The creation of these vector representations often involves applying transformation or embedding functions to the raw data. These functions can be based on various methods, including machine learning models, word embeddings, or feature extraction algorithms. The resulting vectors capture the essential characteristics of the data in a format that allows for efficient computation and comparison. One of the key advantages of vector data spaces is their ability to support fast and accurate similarity searches. By calculating the distance or similarity between vectors, it becomes possible to find the most relevant or similar data points quickly. This capability is particularly useful in applications involving natural language processing, computer vision, and recommendation systems, where semantic or contextual similarity is often more important than exact matches. Vector data spaces excel at handling complex and unstructured data that may not fit well into traditional database schemas. By transforming diverse data types into a consistent vector format, they provide a unified way to represent and analyze information that might otherwise be difficult to compare or process. Furthermore, vector data spaces offer significant benefits in terms of scalability and performance. They can be designed to handle large-scale, real-time data analysis and processing, which is crucial for modern data science and AI applications.
+
+On the other hand, Graph Data Spaces offer a fundamentally different paradigm for data representation and analysis. Rather than positioning data points within a coordinate system, Graph Data Spaces represent data as a com- plex network of nodes connected by edges, with each element potentially carrying additional properties or weights, capturing the relationships and interconnections between entities. One of the most powerful aspects of Graph Data Spaces is their capacity for efficient traversal-based queries. Leverage the inherent structure of graphs allow to uncover patterns and relationships that might remain hidden in other data representations. However, it is important to acknowledge that the flexibility and expressiveness of Graph Data Spaces come with their own set of computational challenges. As graphs grow in size and complexity, certain operations like cycle detection or stongly connected component detection can become computationally expensive, requiring specialized algorithms and data structures to maintain efficiency.
+
+
+\subsection{NLP pipeline of dream reports}
+
+The initial phase of the analysis involved text cleaning, a crucial step in preparing the raw dream narratives for subsequent processing. This stage included the removal of extraneous whitespace, standardization of text formatting, and the correction of spelling errors or inconsistencies. Such cleaning procedures are essential for ensuring the quality and consistency of the input data, thereby improving the reliability of subsequent analytical steps. Following the text cleaning, a preliminary NLP analysis was conducted.
+
+This phase began with tokenization, breaking down the raw text into indi- vidual words or tokens, which forms the foundation for all subsequent analyses. Following tokenization, Part-of-Speech (POS) tagging was applied to identify and label the grammatical categories of each word (e.g., nouns, verbs, adjectives). This step provides crucial syntactic information, enabling a deeper understanding of the sentence structure and the roles different words play within the dream narratives. Named Entity Recognition (NER) tagging was then performed to identify and classify named entities within the text. This process helps in rec- ognizing and categorizing elements such as persons, locations, organizations, and potentially other domain-specific entities relevant to dream content. NER can reveal important themes or recurring elements in Emma's dreams, such as frequent locations or significant figures. A word frequency analysis was also conducted as part of the preliminary analysis. This step involves counting the occurrences of each unique word in the corpus, providing insights into the most common terms used in Emma's dreams. Such analysis can highlight predominant themes, emotions, or objects that frequently appear in the dream narratives. helps in understanding the basic linguistic structure of the dream narratives.
+
+The next stage in the pipeline involved lemmatization, a process that reduces words to their base or dictionary form. For instance, "running" would be lemmatized to "run," and "better" to "good." Lemmatization is preferred over simple stemming as it considers the context and part of speech of words, resulting in more meaningful base forms. This step helps in consolidating different inflected forms of words, reducing the dimensionality of the text data and potentially revealing underlying patterns more clearly. Subsequently, stop words were removed from the text. Stop words are common words (such as "the," "is," "at," "which," and "on") that typically do not carry significant meaning in NLP tasks. Their removal helps to focus the analysis on the more content-rich words in the dream narratives. This step can significantly reduce noise in the data and highlight the most salient terms in the dreams. Punctuation removal was also performed, further streamlining the text data. While punctuation can carry semantic information in some contexts, its removal is often beneficial in NLP tasks focused on word-level analysis, as it reduces the complexity of the text representation.
+
+The processed text was then divided into unigrams, which are individual words. This unigram representation forms the basis for the subsequent analysis and visualization. Unigrams provide a simple yet effective way to analyze the frequency and distribution of individual words within the dream narratives. The final step in the pipeline involved the creation of a directed graph based on these unigrams. In this graph, each node represents a unique unigram, with a property indicating the number of occurrences of that unigram in the text. The edges of the graph are directed, connecting unigrams that appear sequentially in the original text. The weight of each edge represents the number of occurrences of that specific word transition in the text. This weighted, directed graph structure captures not only the sequential relationships between words in the dreams but also the frequency and strength of these relationships. To focus on the most significant relationships within the dream narratives, all edges with weights below a certain threshold were removed from the graph. This pruning step helps to reduce noise and highlight the most frequent and potentially meaningful word transitions in Emma's dreams.
+
+Following the graph pruning, we performed cycle detection and strongly connected component detection. Cycle detection identifies closed loops in the graph, where a sequence of words eventually leads back to a starting word. These cycles could represent recurring patterns or themes in the dream narratives, potentially indicating persistent motifs or thought patterns in Emma's dreams. Strongly connected component detection identifies subgraphs within which every node is reachable from every other node. In the context of dream analysis, these components might represent clusters of closely interrelated concepts or themes that frequently co-occur and interconnect within the dreams. The application of these graph analysis techniques to the pruned, weighted, and directed unigram graph could reveal complex structures within the dream narratives, such as recurring themes, persistent thought patterns, or clusters of related concepts. The cycles detected might indicate circular or repetitive elements in the dreams, while the strongly connected components could represent coherent thematic units or narrative structures.
