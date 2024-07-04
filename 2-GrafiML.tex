@@ -266,11 +266,10 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     \subsection{Funzioni}\label{subsec:funzioni}
 
-    \begin{definition} [Funzione di contrazione] \newline
+    \begin{definition} [Funzione di contrazione]
     Una \textbf{funzione di contrazione} $f_C : \mathcal{G}_D \rightarrow \mathcal{G}_D$ \`e una funzione che dato un
     grafo decontraibile $G$ essa produce un nuovo grafo decontraibile $f_C(G) = G'$ che sia una contrazione di $G$.
     \end{definition}
-    \newline
 
     Una funzione di contrazione rappresenta quindi un particolare schema di contrazione dove dominio e codominio sono
     coincidenti e sono rappresentati dall'insieme dei grafi decontraibili $\mathcal{G}_D$. Essa produce contrazioni
@@ -281,7 +280,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     dire che \`e possibile comporre pi\`u funzioni di contrazione in sequenza a partire da un dato grafo decontraibile.
     \newline
 
-    \begin{definition} [Funzione di trasformazione naturale] \newline
+    \begin{definition} [Funzione di trasformazione naturale]
     Definiamo \textbf{funzione di trasformazione naturale} $\eta$ una funzione che dato un grafo standard
         $H=(W,F)$, produce il corrispondente grafo decontraibile $G = (V, E, dec_V, dec_E)$ con le seguenti propriet\`a:
         \begin{itemize}
@@ -309,13 +308,13 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     determinato livello sono collassati in singoli supernodi del livello superiore, formando gerarchie di grafi
     decontraibili.
 
-    \begin{defintion}[Grafo multi-livello] \newline
+    \begin{definition}[Grafo multi-livello]
     Un \textbf{grafo multi-livello} $M$ \`e una coppia $(G, \Gamma)$ dove:
         \begin{itemize}
             \item $G = (V, E)$ \`e un grafo
             \item $\Gamma$ \`e una sequenza $\langle f_{C_1}, f_{C_2}, .., f_{C_k} \rangle$ di funzioni di contrazione
         \end{itemize}
-    \end{defintion}
+    \end{definition}
 
     Utilizzando la notazione $G_i$ per indicare il grafo decontraibile collocato al livello $i$-esimo della gerarchia,
     si pu\`o consierare il grafo multi-livello $M$ come una sequenza di grafi decontraibili
@@ -370,10 +369,10 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     \subsection{Algoritmo di trasformazione naturale}\label{subsec:algoritmo-di-trasformazione-naturale}
 
-    La generica procedura algoritmica per realizzare la trasformazione naturale da un grafo standard $H = (W, F)$
-    preso in input ad un grafo decontraibile $G = (V, E)$, pu\`o essere definita considerando la creazione di supernodi
-    e superarchi in accordo alla funzione biiettiva
-    $f_V: W \rightarrow V$ che realizza l'isomorfismo tra i nodi di $H$ e i supernodi di $G$.
+    La generica procedura algoritmica per realizzare la trasformazione naturale di un grafo standard $H = (W, F)$
+    preso in input in un grafo decontraibile $G = (V, E)$, può essere definita considerando la creazione di supernodi
+    e superarchi, costruendo implicitamente la funzione biiettiva $f_V: W \rightarrow V$ che realizza l'isomorfismo tra i nodi
+    di $H$ e i supernodi di $G$.
 
     \input{Algoritmi/1-natural_transformation}
 

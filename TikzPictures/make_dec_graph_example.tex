@@ -1,0 +1,60 @@
+\begin{multicols}{3}
+    \begin{tabularx}{0.8\linewidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X | }
+        \multicolumn{2}{>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X}{\center$T$} \\
+        \hline
+        $v_1$ & $\{C_1\}$\\
+        \hline
+        $v_2$ & $\{C_1\}$\\
+        \hline
+        $v_3$ & $\{C_1, C_2\}$\\
+        \hline
+        $v_4$ & $\{C_2\}$\\
+        \hline
+        $v_5$ & $\{C_2\}$\\
+        \hline
+    \end{tabularx}
+    \columnbreak \centering
+    \begin{tabularx}{0.8\linewidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X | }
+        \multicolumn{2}{>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X}{\center$T'$} \\
+        \hline
+        $\{C_1\}$ & $\alpha_1$\\
+        \hline
+        $\{C_1, C_2\}$ & $\alpha_2$\\
+        \hline
+        $\{C_2\}$ & $\alpha_3$\\
+        \hline
+    \end{tabularx}
+    \columnbreak
+    \centering
+    \begin{tikzpicture}
+
+        \node[circle, draw] (A) {$v_1$};
+        \node[circle, draw] (B) [above of=A, node distance=1.4cm] {$v_2$};
+        \node[circle, draw] (C) [right=0cm and 1cm of B] {$v_3$};
+        \node[circle, draw] (D) [right=0cm and 1cm of C] {$v_4$};
+        \node[circle, draw] (E) [below of=D, node distance=1.4cm] {$v_5$};
+        \begin{pgfonlayer}{background}
+            \node[blue,
+            circle,
+            draw,
+            fit=(A)(B)(C),
+            label={[align=center, black]above:{$C_1$}}] (set1) {};
+        \node[red,
+            circle,
+            draw,
+            fit=(C)(D)(E),
+            label={[align=center, black]above:{$C_2$}}] (set2) {};
+
+        \end{pgfonlayer}
+        \draw[myarrow] (A) -- (B);
+        \draw[myarrow] (B) -- (C);
+        \draw[myarrow] (A) -- (C);
+        \draw[myarrow] (C) -- (D);
+        \draw[myarrow] (D) -- (E);
+        \draw[myarrow] (C) -- (E);
+    \end{tikzpicture}
+\end{multicols}

@@ -1,19 +1,17 @@
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
         \caption{NATURAL-TRANSFORMATION($H$)}\label{alg:natural-transformation}
-        \State $V \coloneqq \emptyset$
+        \State Sia $G = (V, E)$ un nuovo grafo decontraibile, con $V = \emptyset$ e $E = \emptyset$
         \For{$x \in W$}
-            \State Sia $v$ un supernodo tale che $f_V(x) = v$
+            \State Sia $v$ un nuovo supernodo
             \State $v.dec \coloneqq (\emptyset, \emptyset)$
             \State $V \coloneqq V \cup \{v\}$
         \EndFor
-        \State $E \coloneqq \emptyset$
         \For{$(x,y) \in F$}
-            \State Sia $e$ un superarco tale che $e=(f_V(x), f_V(y))$
+            \State Sia $e$ un nuovo superarco
             \State $e.dec \coloneqq \emptyset$
             \State $E \coloneqq E \cup \{e\}$
         \EndFor
-        \State $G \coloneqq (V, E)$
         \State \Return $G$
     \end{algorithmic}
 \end{algorithm}

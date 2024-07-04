@@ -6,14 +6,16 @@
 \usepackage{enumerate}
 \usepackage{mathtools}
 \usepackage[labelfont=bf]{caption}
+\usepackage{multicol}
+\usepackage{tabularx}
 \usepackage{tikz}
-\usepackage{drftcite}
+%\usepackage{drftcite}
 \usepackage{xcolor}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{3d}
 \usetikzlibrary{positioning}
 \usetikzlibrary{fit}
-\usetikzlibrary{verbatim}
+%\usetikzlibrary{verbatim}
 \usetikzlibrary{shapes}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{shapes.misc}
@@ -21,13 +23,20 @@
 \usetikzlibrary{arrows.meta}
 \tikzset{mynode/.style={draw, thick, circle}, myarrow/.style={thick, -{Stealth[length=3mm, width=2mm]}}}
 
+\usepackage[style=numeric, backend=bibtex]{biblatex}
+\addbibresource{biblio.bib}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=black,   % Change to black for bibliography entries
+  urlcolor=blue
+}
+
 \definecolor{blue}{rgb}{0.1,0.2,1}
 
 
 % \usetikzlibrary{graphs, graphdrawing}
 % \usegdlibrary{force, layering, graphs}
-
-\addbibresource{biblio.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TESI DATI FRONTESPIZIO
@@ -64,6 +73,8 @@
 \theoremstyle{proposition}
 \newtheorem{proposition}{Proposizione}[section]
 
+\newcommand{\nlparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
 \graphicspath{Immagini/}
 
 \begin{document}
@@ -90,8 +101,9 @@
 %\input{Appendix2}
 
 % Citazioni nel testo
-~\nocite{*} % Include tutte le voci nel .bib, anche se non citate nel testo
+%~\nocite{*} % Include tutte le voci nel .bib, anche se non citate nel testo
 % Stampa la bibliografia
+
 \printbibliography
 
 \printindex

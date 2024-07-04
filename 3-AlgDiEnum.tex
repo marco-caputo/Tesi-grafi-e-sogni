@@ -251,7 +251,7 @@ Si noti infatti che un insime $X$ non vuoto indicherebbe che la cricca corrente 
 nodi in $X$, concludendo non solo che la cricca in $R$ non \'e massimale, ma anche che la cricca massimale che
 la contiene assieme ai nodi in $X$ \'e gi\`a stata trovata. \newline
 
-\paragraph{Pivoting} \newline
+\paragraph{Pivoting}
 Bron e Kerbosch proposero nel loro articolo orginale una versione migliorata del loro algoritmo, la quale
 prevede l'utilizzo di una strategia di pivoting, che permette di ridurre le chiamate ricorsive della procedura
 trovando comunque tutte le cricche massimali.
@@ -298,7 +298,7 @@ dell'algoritmo di Bron-Kerbosch con pivoting sullo stesso grafo orientato presen
 ~\ref{fig:bron_kerbosh_tree_example}, rendendo evidente come la strategia di pivoting permetta di ridurre il numero
 di chiamate ricorsive rispetto alla versione senza pivoting.
 
-\paragraph{Complessit\'a} \newline
+\paragraph{Complessit\'a}
 Come dimostrato da Tomita ~\cite{TOMITA200628}, adottando una strategia di pivoting affinch\'e si scelga il nodo pivot
 $w$ con il maggior numero di vicini in $P$, l'algoritmo di Bron-Kerbosch ha una complessit\'a temporale pari a
 $O(3^{n/3})$, che \'e una complessit\'a ottimale, in quanto il numero massimo di cricche massimali che si possono

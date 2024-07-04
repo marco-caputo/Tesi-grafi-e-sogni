@@ -1,27 +1,26 @@
 \begin{algorithm}[H]
-    \caption{MAKE-DECONTRACTIBLE-GRAPH($T,G$)}
+    \caption{MAKE-DECONTRACTIBLE-GRAPH($T,G$)}\label{alg:make-decontractible-graph}
     \begin{algorithmic}[1]
-        \State Let $S$ be a set of sets of nodes
-        \State Let $T\mathcal{'}$ be a new table with sets of nodes as keys and supernodes as values
-        \State $i:=\emptyset$
-        \State $\mathfrak{V} \coloneqq \emptyset$
-        \For{$v\in T$}
-            \If {$T[v]\notin T\mathcal{'}$}
-                \State Let $\alpha_i$ be a new supernode
-                \State $\mathfrak{V}$ $\coloneqq$ $\mathfrak{V}$ $\cup$ $\{\alpha_i\}$
-                \State $G_{\alpha_i}$ = $(\emptyset, \emptyset)$
-                \State $i$ $:=$ $i+1$
+        \State Sia $G' = (\mathfrak{V}, \mathfrak{E})$ un nuovo grafo decontraibile, con $\mathfrak{V} = \emptyset$
+                e $\mathfrak{E} = \emptyset$
+        \State Sia $T\mathcal{'}$ una nuova tabella, con insiemi di nodi come chiavi e supernodi come valori
+        \For{$v\in G.V$}
+            \If {$T[v]\notin T\mathcal{'}.keys$}
+                \State Sia $\beta$ un nuovo supernodo con $G_{\beta}$ = $(\emptyset, \emptyset)$
+                \State $\mathfrak{V}$ $\coloneqq$ $\mathfrak{V}$ $\cup$ $\{\beta\}$
+                \State $T'[T[v]] \coloneqq \beta$
+                \State $\alpha \coloneqq \beta$
+            \Else
+                \State $\alpha \coloneqq T'[T[v]]$
             \EndIf
-            \State Let $\alpha \coloneqq T\mathcal{'}[T[v]]$
-            \State $v.supernode \coloneqq \alpha$
             \State $V_{\alpha} \coloneqq V_{\alpha}$ $\cup$ $\{v\}$
+            \State $v.supernode \coloneqq \alpha$
         \EndFor
-        \State $\mathfrak{E} \coloneqq \emptyset$
         \For {$(v,w)$ in $G.E$}
-            \State Let $\alpha \coloneqq v.supernode$
-            \State Let $\beta \coloneqq w.supernode$
+            \State $\alpha \coloneqq v.supernode$
+            \State $\beta \coloneqq w.supernode$
             \If {$(\alpha == \beta )$}
-                \State $E_{\alpha}$ $\coloneqq$ $\cup$ $\{(v,w)\}$
+                \State $E_{\alpha} \coloneqq E_{\alpha} \cup \{(v,w)\}$
             \Else
                 \If {$(\alpha , \beta)$ $\notin$ $\mathfrak{E}$}
                     \State $\mathfrak{E}$ $\coloneqq$ $\mathfrak{E}$ $\cup$ $(\alpha , \beta)$
@@ -29,6 +28,6 @@
                 \State $(\alpha , \beta).dec$ $\coloneqq$ $(\alpha , \beta).dec$ $\cup$ $(v, w)$
             \EndIf
         \EndFor
-        \State \textbf{return} $(\mathfrak{V}, \mathfrak{E})$
-    \end{algorithmic}\label{alg:make-decontractible-graph}
+        \State \Return $G'$
+    \end{algorithmic}
 \end{algorithm}

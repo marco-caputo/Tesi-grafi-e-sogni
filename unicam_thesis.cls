@@ -89,7 +89,7 @@
 \RequirePackage[italian]{varioref}
 \RequirePackage[italian]{babel}
 \RequirePackage[babel]{csquotes}
-\RequirePackage[style=alphabetic, backend=biber]{biblatex}
+%\RequirePackage[style=alphabetic, backend=biber]{biblatex}
 \RequirePackage{colortbl}
 
 \RequirePackage[final]{listings}
