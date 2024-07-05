@@ -11,10 +11,10 @@
                 \State $Q \coloneqq$ REACH-VISIT($G_i$, $v$, $u$)
                     \If{$Q \neq \emptyset$}
                         \For{$w \in Q$}
-                            \State REMOVE-SUBSET($T$, $T[\text{any node in } V_w]$)
+                            \State REMOVE-COMPONENT-SET($T$, $T[\text{any node in } V_w]$)
                         \EndFor
                         \State $C_{new} \coloneqq \bigcup_{w \in Q} V_w$
-                        \State ADD-SUBSET($T$, $C_{new}$)
+                        \State ADD-COMPONENT-SET($T$, $C_{new}$)
                     \EndIf
             \EndIf
         \EndIf

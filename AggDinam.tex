@@ -1,0 +1,228 @@
+\chapter{Aggiornamento Dinamico}\label{cap:aggiornamento-dinamico}
+
+Avendo presentato nel Capitolo~\ref{cap:procedure-contrazione} quanto necessario per affrontare il problema
+della costruzione di un grafo multilivello, si vogliono ora considerare le implicazioni che deriverebbero
+dalla modifica della struttura del grafo alla base di una gerarchia già stabilita.
+In questa capitolo verrà affrontato il problema dell'aggiornamento dinamico di un grafo multilivello, inteso
+come la definizione delle operazioni necessarie affinché la sequenza di grafi decontraibili già costruiti
+$G_0$, $G_1$ \ldots $G_k$ espressa da un grafo multilivello $M = (G, \Gamma)$ possa essere aggiornata in modo coerente
+rispetto all'aggiunta e rimozione di archi e nodi al grafo $G$.
+Si vuole precisare che questo problema non ricopre particolare rilevanza dal punto di vista algebrico o dichiarativo,
+in quanto sostituire un grafo $G$ con un grafo simile $H$ non comporterebbe altro che alla sostituzione
+del grafo multilivello $M$ con un nuovo grafo multilivello $N = (H, \Gamma)$.
+Si potrebbe invece dire che il problema risulta interessante dal punto di vista algoritmico: si consideri una possibile
+rappresentazione in memoria di un grafo multilivello in cui la struttura di ciascun grafo decontraibile
+$G_0$, $G_1$ \ldots $G_k$ sia effettivamente memorizzata.
+In tal caso l'aggiornamento dinamico si pone come obiettivo quello di individuare delle procedure che risultino
+essere computazionalmente vantaggiose rispetto alla ricostruzione dell'intera gerarchia di grafi decontraibili da zero
+mediante l'applicazione delle procedure di contrazione nella loro completezza. \newline
+Più precisamente, si vogliono definire degli algoritmi da eseguire a ciascun livello $i$ della gerarchia che,
+data una modifica al grafo decontraibile $G_{i-1}$, permettano di far propagare tale modifica al grafo
+decontraibile $G_i$ affinché rimanga una sua contrazione in accordo alla funzione di contrazione $f_{C_i}$.
+
+A riguardo, valgono le seguenti importanti considerazioni legate agli schemi di contrazione considerati precedentemente:
+\begin{itemize}
+    \item L'operazione di aggiunta di un nodo a $G_{i-1}$ comporta semplicemente l'aggiunta di un nodo a $G_i$ per
+    qualunque schema di contrazione adottato al livello $i$ tra quelli fon'ora considerati.
+    Si noti infatti che l'aggiunta di un nodo non comporta la creazione di nuovi archi tra i nodi del livello $i$, e
+    gli schemi di contrazione per componenti fortemente connesse, cricche e circuiti sono unicamente sensibili alla
+    presenza di archi tra nodi.
+    Questo non \`e certamente vero in generale, come potrebbe essere il caso di schemi di contrazione per insiemi
+    indipendenti dove, dato un grafo $G = (V, E)$, un suo insieme indipendente di nodi (o \textit{anticricca}) è un
+    sottoinsieme $S \subseteq V$ tale per cui nessun nodo in $S$ è adiacente ad un altro nodo in $S$.
+    \item Le operazioni di aggiunta e rimozione di un arco al livello $i-1$ possono comportare delle modifiche
+    sostanziali al livello $i$ per gli schemi considerati, in quanto definiti proprio sulla base delle relazioni.
+    Inoltre, tali modifiche sono determinate dallo specifico schema di contrazione adottato, e saranno determinate
+    da algoritmi specifici per ciascuno schema.
+    \item L'operazione di rimozione di un nodo da $G_{i-1}$ pu\`o essere realizzata attraverso la rimozione
+    progressiva degli archi entranti ed uscenti dal nodo da rimuovere.
+    Successivamente si pu\`o procedere con la rimozione del nodo stesso, che, nel caso degli schemi considerati,
+    comporta semplicemente la rimozione del relativo supernodo in $G_i$.
+    \item Operazioni di unione con un altro grafo possono essere realizzate attraverso la combinazione delle
+    operazioni precedenti.
+\end{itemize}
+
+Per questi motivi, le attenzioni di questo capitolo saranno rivolte principalmente alle operazioni di aggiunta e
+rimozione di un arco per ciascuno dei tre schemi di contrazione considerati, ovvero per componenti fortemente connesse,
+cricche massimali e circuiti semplici. \newline
+
+Ciascuno degli algoritmi sar\`a definito come una procedura locale al livello del grafo $G_i = (V, E)$ della gerarchia
+che prenda in input un arco $(a, b) \in \mathcal{E}$ (che sia stato rimosso o aggiunto al livello inferiore, che modifichi
+il dizionario $T$ del livello $i$ in accordo all'operazione descritta e fornisca in output al livello superiore della
+gerarchia insiemi di nodi $V^+, V^- \subseteq V$ e di archi $E^+,E^- \subseteq E$ che rappresentino le modifiche
+apportate al livello $i$, rispettivamente come insiemi di nodi e archi da aggiungere e rimuovere. \newline
+A seguito della modifica del dizionario $T$, la modifica effettiva della struttura del grafo $G_i$ sar\`a realizzata
+attraverso la procedura UPDATE-GRAPH, che si occuper\`a di aggiungere e rimuovere nodi e archi in accordo alle modifiche
+apportate al dizionario $T$. \newline
+In caso di pi\`u modifiche al livello $i-1$, e quindi pi\`u chiamate consecutive di ciascuno degli algoritmi di
+aggiornamento, potrebbe essere necessario utilizzare la procedura UPDATE-GRAPH pi\`u volte per mantenere coerente la
+struttura del grafo $G_i$ con le modifiche apportate al dizionario $T$, qualora gli algoritmi specifici di aggiornamento
+richiedano di conoscere la struttura aggiornata del grafo $G_i$ per poter operare correttamente.
+
+%TODO: Forse qui o dopo?
+Definiremo poi in che modo le modifiche potranno essere propagate efficientemente tra i livelli della gerarchia.
+
+
+\subsection{Aggiornamento dinamico per componenti fortemente connesse}
+\label{subsec:aggiornamento-dinamico-per-componenti-fortemente-connesse}
+
+\nlparagraph{Aggiunta di un arco}
+Tra gli schemi di contrazione considerati, quello per componenti fortemente connesse \`e l'unico che permette
+di far coincidere ciascun nodo con uno ed un solo insieme $C$ nel dizionario $T$.
+Questo significa che l'aggiunta di un arco $(a, b)$ al livello $i-1$ pu\`o comportare una modifica sostanziale alla
+struttura del grafo $G_i$ al livello $i$ solo se le componenti fortemente connesse a cui appartengono $a$ e $b$ e,
+quindi, i supernodi associati, non coincidono e non esiste gi\`a un superarco tra di esse. \newline
+In tal caso, l'aggiunta dell'arco $(a, b)$ pu\`o comportare la fusione delle due componenti fortemente connesse
+presenti nel grafo $G_{i-1}$ e corrisponenti ai nodi $a$ e $b$ in una nuova componente fortemente connessa.
+
+L'algoritmo qui presentato permette di realizzare la logica descritta, realizzando l'aggiornamento degli insiemi
+componente tracciati al livello $i$ a seguito dell'aggiunta di un arco $(a, b)$ al livello $i-1$.
+
+\input{Algoritmi/8.1-add_edge_scc}
+
+Nel caso in cui le componenti fortemente connesse di $a$ e $b$ siano distinte, l'algoritmo procede ad eseguire la
+procedura REACH-VISIT, che consiste di una visita in profondit\`a sul grafo contratto $G_i$ a partire dal supernodo
+di $b$, restituendo l'insieme di tutti i supernodi che possono raggiungere il supernodo di $a$.
+
+\input{Algoritmi/8.2-reach_visit}
+\input{Algoritmi/8.3-reach_dfs}
+
+La procedura REACH-VISIT etichetta tutti i nodi in $G_i$ con una flag $Reach$ che indica se il nodo pu\`o raggiungere
+il supernodo di $a$ ed \`e al contempo raggiungibile dal supernodo di $b$.
+Quando $Q$ non \`e vuoto, l'algoritmo procede a rimuovere gli insiemi corrispondenti ai supernodi trovati, che saranno almeno
+due se $a \neq b$, e ad aggiungere un nuovo insieme $C_{new}$ che rappresenta l'unione delle componenti connesse
+individuate. \newline
+
+Si noti che l'algoritmo, facendo affidamento alla struttura di $G_i$, necessita che tale struttura sia
+aggiornata rispetto alle modifiche apportate al dizionario $T$.
+Pertanto l'algoritmo UPDATE-GRAPH dovr\`a essere eseguito prima di una nuova esecuzione di UPDATE-ADDED-EDGE-SCC.
+
+\subparagraph{Proposizione 9.1.1}
+Sia $G_{i-1} = (\mathcal{V}, \mathcal{E})$ un grafo diretto, sia $G_i$ la contrazione di $G_{i-1}$ secondo
+lo schema di contrazione per componenti fortemente connesse.
+Sia $(a, b) \in (\mathcal{V} \times \mathcal{V})$ l'arco passato alla procedura UPDATE-ADDED-EDGE-SCC tale che
+$(u \neq v)$ e $(u, v) \notin E$ dove $u = a.supernode$ e $v = b.supernode$, sia
+$H_{i-1} = (G_{i-1}.V, G_{i-1}.E \cup {(a, b)})$ il grafo risultante dall'aggiunta dell'arco $(a, b)$ a $G_{i-1}$.
+\newline
+Al termine dell'esecuzione dell'algoritmo UPDATE-ADDED-EDGE-SCC su $(a, b)$ e $G_i$, l'insieme $Q$ contiene tutti e
+soli i supernodi tali per cui $\bigcup_{w \in Q} V_w$ \`e una nuova componente fortemente connessa
+in $H_{i-1}$, o \`e vuoto se tale componente non esiste.
+
+\subparagraph{Dimostrazione}
+Per le propriet\`a delle condensazioni, il grafo $G_i$ ha componenti fortemente connesse con un solo supernodo,
+e quindi \`e un grafo connesso aciclico.
+Si ha pertanto che per qualsiasi $w, x \in V$, non pu\`o essere che $w \rightsquigarrow x$ e $x \rightsquigarrow w$
+in $G_i$, in quanto $w$, $x$ e tutti i supernodi che siano raggiungibili da $w$ e che possono raggiungere
+$x$ sarebbero in una unica componente fortemente connessa.
+Lo stesso vale per $u$ e $v$.
+
+Si noti inoltre che, considerando $x \rightsquigarrow x \quad \forall x \in V$ , in generale si ha
+\begin{equation*}
+    \forall w, x \in V \quad w \rightsquigarrow x \quad  \Longleftrightarrow \quad
+    \exists y \in V \quad \text{t.c.} \quad w \rightsquigarrow y \land y \rightsquigarrow x
+\end{equation*}
+
+Si consideri ora l'insieme $Q \subseteq V$.
+Esso pu\`o contenere solo supernodi $w$ tali per cui esiste un cammino $w \rightsquigarrow v$, in quanto \`e
+costruito a partire dai nodi che hanno nodo adiacente $v$ o un qualsiasi altro nodo che pu\`o raggiungerlo.
+Inoltre essendo costruito da una visita a partire da $u$, $Q$ contiene tutti e soli i supernodi $w$ tali per cui
+esistono almeno due cammini $u \rightsquigarrow w$ e $w \rightsquigarrow v$. \newline
+
+Si ottiene quindi
+\begin{equation*}
+    Q \neq \emptyset \quad \Longleftrightarrow \quad
+    u \rightsquigarrow v \text{ in } G_i \quad \Longleftrightarrow \quad
+    \lnot (v \rightsquigarrow u) \text{ in } G_i
+\end{equation*}
+
+Pertanto, supponendo $\lnot (u \rightsquigarrow v)$ in $G_i$, all'aggiunta dell'arco $(u, v)$ certamente si ha
+$u \rightsquigarrow v$ con $\{u, v\}$ gli unici supernodi $w \in V$ tali per cui
+$u \rightsquigarrow w \land w \rightsquigarrow v$. \newline
+Supponendo invece $v \rightsquigarrow u$ in $G_i$, si deve avere  $\lnot u \rightsquigarrow v$ in $G_i$.
+All'aggiunta dell'arco $(u, v)$ tali condizioni rimangono invariate, e quindi $Q = \emptyset$. \newline
+Pertanto si conclude che $Q$ contiene tutti e soli i supernodi tali per cui $Q$ \`e una nuova componente fortemente
+connessa composta da pi\`u supernodi in $H_{i} = (G_i.V, G_i.E \cup \{(u, v))\}$, o \`e vuoto se tale componente non
+esiste.
+
+\subparagraph{Complessità}
+La complessit\`a dell'algoritmo UPDATE-ADDED-EDGE-SCC \`e $O(|V|+|E|) + O(\mathcal{V})$, dove $V$ e $E$ sono rispettivamente
+sono gli insieme dei nodi e degli archi del grafo $G_i$ e $\mathcal{V}$ \`e l'insieme dei nodi di $G_{i-1}$.\newline
+La complessit\`a di $O(|V|+|E|)$ \`e dovuta alla visita in profondit\`a eseguita dalla procedura REACH-VISIT, che esegue
+la procedura REACH-DFS al pi\`u una volta per ciascun nodo del grafo $G_i$, in quanto ogni nodo $w$ viene visitato
+solo quando $Reach[w]$ non \`e $NIL$, e ad ogni visita di un nodo $w$ si imposta $Reach[w]$ ad un valore booleano
+permanentemente, mentre ogni arco uscente viene valutato al pi\`u una volta, in quanto arco uscente di un solo nodo.
+Il ciclo for a riga 10 pu\`o modificare al pi\`u una volta ogni riga di $T$, e quindi una volta per ogni nodo in
+$\mathcal{V}$, in quanto ogni nodo appartiene ad una sola componente connessa, e quindi ad un solo insieme $C$.
+Pertanto la complessit\`a del ciclo \`e $O(\mathcal{V})$.
+Stessa cosa pu\`o essere detta per il calcolo dell'unione a riga 13 e per l'esecuzione di ADD-SUBSET a riga 14.
+
+\paragraph{Rimozione di un arco}
+La rimozione di un arco $(a, b)$ al livello $i-1$ pu\`o comportare la divisione di una componente fortemente connessa
+solo nel caso in cui l'arco $(a, b)$ appartenga all'insieme $dec_E(v)$ per qualche supernodo $v$ in $G_i$.
+Altra condizione necessaria affinch\`e la componente venga divisa \`e che $a$ non possa pi\`u raggiungere $b$ a
+seguito della rimozione dell'arco $(a, b)$. \newline
+
+A seguito della verifica positiva della prima delle due condizioni, l'algoritmo provvede alla verifica della seconda
+controllando con una visita in profondit\`a in $G_v$ a partire da $a$ che $b$ non sia nell'insieme $C \subseteq dec_V(v)$
+dei nodi raggiungibili.
+In tal caso, l'algoritmo procede ad individuare le nuove componenti connesse interne alla componente connessa del
+supernodo $v$.
+Come dimostrato in seguito, \`e possibile assumere che i nodi in $C$ siano una delle nuove componenti fortemente
+connesse al livello $i-1$.
+
+L'algoritmo per la rimozione di un arco $(a, b)$ al livello $i-1$ pu\`o, quindi, essere definito come segue:
+
+\input{Algoritmi/8.4-remove_edge_scc}
+
+Anche in questo caso , l'algoritmo pu\`o modificare sensibilmente la struttura di $G_i$ nel caso in cui la rimozione
+dell'arco comporti la disgregazione di una componente fortemente connessa, e pertanto la procedura UPDATE-GRAPH
+dovrebbe essere eseguita in seguito a tale evenienza in virt\`u delle successive chiamate agli algoritmi di
+aggiornamento.
+
+\subparagraph{Proposizione 9.1.2}
+Sia $G_{i-1} = (\mathcal{V}, \mathcal{E})$ un grafo diretto, sia $G_i$ la contrazione di $G_{i-1}$ secondo
+lo schema di contrazione per componenti fortemente connesse.
+Sia $(a, b) \in (\mathcal{V} \times \mathcal{V})$ l'arco passato alla procedura UPDATE-REMOVED-EDGE-SCC tale che
+$u = a.supernode = b.supernode$, sia $H_{i-1}$ il grafo risultante dalla rimozione dell'arco $(a, b)$ da $G_{i-1}$.
+Sia $C$ l'insieme di nodi raggiungibili da $a$ in $H_{i-1}[V_u]$.
+
+\begin{enumerate}[(i)]
+    \item Se $b \in C$, allora $dec_V(u)$ \`e una componente fortemente connessa anche in $H_{i-1}$.
+    \item Se $b \notin C$, allora $C$ \`e una nuova componente fortemente connessa in $H_{i-1}$.
+\end{enumerate}
+
+\subparagraph{Dimostrazione}
+Si nota innanzitutto che, per definzione di $G_u$ e $H_{i-1}[V_u]$, si ha che la rimozione dell'arco $(a, b)$
+mantiene inalterata la raggiungibilit\`a di $a$ e di tutti i nodi in $dec_V(u)$ rispetto a $b$.
+\begin{equation*}
+        \forall c \in V_u
+        \quad c \rightsquigarrow a \land b \rightsquigarrow c
+        \text{ in } H_{i-1}[V_u]
+\end{equation*}
+
+Per dimostrare (i), assumiamo per ipotesi $b \in C$.
+Questo significa che $a \rightsquigarrow b$ in $H_{i-1}[V_u]$.
+Per via di (1), se $b \in C$, tutti i nodi in $H_{i-1}[V_u]$, che possono raggiungere $a$, possono raggiungere
+anche $b$ attraverso $a$.
+Inoltre, potendo raggiungere $b$, tutti nodi possono raggiungere tutti gli altri nodi attraverso $b$.
+Pertanto $V_u$ \`e una componente fortemente connessa. \newline
+Per dimostrare (ii), assumiamo per ipotesi $b \notin C$.
+Questo significa che $a$ non pu\`o raggiungere $b$ in $H_{i-1}[V_u]$ e che quindi $V_u$ non pu\`o essere
+una componente fortemente connessa.
+Inoltre, poich\`e $C$ \`e l'insieme dei nodi raggiungibili da $a$ in $H_{i-1}[V_u]$, tutti
+i nodi in $C$ sono mutualmente raggiungibili, e per via di (1) possono raggiungere $a$ in quanto $C \subseteq V_u$.
+Pertanto si conclude che $C$ \`e una nuova componente fortemente connessa.
+
+\subparagraph{Complessità}
+La complessit\`a dell'algoritmo UPDATE-REMOVED-EDGE-SCC \`e $O(|\mathcal{V}_u|+|\mathcal{E}_u|)$, dove $\mathcal{V}_u$ e
+$\mathcal{E}_u$ sono rispettivamente l'insieme dei nodi e degli archi del grafo $G_u$, con $u$ l'eventuale
+supernodo in $G_i$ in comune ad entrambi i nodi agli estremi dell'arco $(a, b)$ da aggiungere.
+Si noti infatti che nel caso la condizione a riga 3 sia verificata, l'algoritmo rimane di una complessit\`a
+$O(1)$.
+Nel caso, invece, $a.supernode = b.supernode = u$,la complessit\`a \`e data principalmente dalla visita in profondit\`a
+in $G_u$ a riga 7, di costo $O(|\mathcal{V}_u|+|\mathcal{E}_u|)$ e dalla procedura COMPONENT-CONTRACT a riga 12, che
+come discusso in precedenza ha complessit\`a $O(|\mathcal{V}_u|+|\mathcal{E}_u|)$, in quanto $H$ \`e un sottografo di
+$G_u$.
+Inoltre il ciclo for a riga 15 mantiene una complessit\`a di $O(|\mathcal{V}_u|)$, in quanto scorre una
+partizione di nodi in $H$ ed esegue al pi\`u una modifica alla tabella $T$ per ogni nodo in $H$ nella totalit\`a
+delle chiamate di ADD-SUBSET.

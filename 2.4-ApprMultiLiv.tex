@@ -1,0 +1,67 @@
+\section{Approccio Multi-Livello}\label{sec:approccio-multi-livello}
+In questa sezione verr\`a introdotto il concetto di contrazione a pi\`u livelli di grafi. \newline
+L'idea di base di un approccio multi-livello \`e quella di partire da un grafo di partenza e di applicare
+ripetutamente operazioni di contrazione, ottenendo una sequenza di grafi contratti di dimensione via via minore.
+Sebbene tale approccio sia stato generalmente utilizzato per ridurre la dimensione di un grafo al fine di
+applicare efficientemente algoritmi di partizionamento~\cite{DBLP:journals/corr/abs-1012-0006},
+non mancano esempi di applicazioni in contesti diversi, come quello della visualizzazione di grafi di grandi
+dimensioni~\cite{4069239}. \newline
+
+In ogni caso, lo scopo di un approccio multi-livello \`e quello di costruire una gerarchia di grafi contratti
+che rappresentino la struttura del grafo di partenza, comprimendo in nodi in meta-nodi in accordo a determinate
+caratteristiche di interesse.
+Cos\`{\i} come per la terminologia usata per le partizioni, i grafi risultanti dalle contrazioni sono spesso detti
+grossolani (\textit{coarse}), mentre quelli risultanti dalle decontrazioni sono detti raffinati (\textit{fine}).
+I grafi grossolani, ottenuti ricorsivamente a partire dai grafi pi\`u raffinati, sono quindi da considerarsi
+come rappresentazioni pi\`u astratte di questi ultimi. \newline
+
+\subsection{Partizionamento multilivello di grafi}\label{subsec:partizionamento-multilivello-di-grafi}
+Il \textbf{partizionamento multilivello di grafi} (in inglese \textit{multilevel graph partitioning} o \textit{MGP})
+\`e un approccio euristico per la risoluzione di problemi su grafi in cui si vuole dividere un grafo in un dato numero
+di blocchi che abbiano approssimativamente la stessa dimensione, affinch\`e una certa funzione obiettivo sia
+minimizzata. \newline
+Un esempio di tale problema dalla grande utilit`a pratica \`e quello in cui l'obiettivo del partizionamento \`e quello
+di minimizzare il numero di archi che connettono i blocchi, che trova applicazione in importanti contesti legati
+all'informatica, ad esempio per la decomposizione di strutture dati per la computazione parallela, e all'ingegneria,
+ad esempio per il partizionamento di circuiti integrati. \newline
+
+L'approccio multi-livello, per la prima volta introdotto da Hendrickson e Leland nel
+1995~\cite{Hendrickson:1995:MPG:221253.221279}, si \`e rivelato essere quello di maggior successo per la risoluzione
+di problemi di partizionamento di grafi di grandi dimensioni, in quanto permette di ottenere partizioni di alta
+qualit\`a in tempi ragionevoli, nonostante il problema di partizionamento sia NP-completo per la maggior parte delle
+funzioni obiettivo. \newline
+L'utilit\`a di questa tecnica si basa sull'intuizione per cui una buona partizione ad un livello grossolano della
+gerarchia rimarr\`a tale anche ad un livello pi\`u raffinato, e che, in questo modo, la ricerca di una
+partizione ottimale pu\`o essere effettuata su grafi pi\`u piccoli e pi\`u semplici. \newline
+
+\begin{figure}[h!]
+    \centering
+    \include{TikzPictures/mgp}
+    \caption{Schema grafico del partizionamento multilivello}
+    \label{fig:multi-level-graph-partitioning}
+\end{figure}
+
+L'approccio multi-livello per la partizione di grafi si articola in tre fasi principali:
+\begin{enumerate}
+    \item \textbf{Fase di contrazione} (\textit{contraction/coarsening phase}):
+    si crea una gerarchia di grafi riducendo iterativamente la dimensione del grafo iniziale.
+    Questo viene fatto comunemente individuando e contraendo coppie di nodi adiacenti, ovvero individuando un
+    sottoinsieme degli archi del grafo da contrarre, $M \subseteq E $ detti \textit{match}.
+    Si noti che la scelta di contrarre coppie di nodi adiacienti porta a grafi grossolani i cui nodi rappresentano
+    sottografi del grafo iniziale densamente connessi.
+    In base allo specifico problema, una determinata funzione di \textit{rating} classifica gli archi individuando
+    quale sottoinsieme degli archi $E$ debba essere assegnato ad $M$ affinch\`e la somma dei \textit{rating} degli in
+    $M$ sia globalmente massimizzata.
+    Si consideri che un nodo gi\`a contratto non pu\`o essere pi\`u coinvolto in un ulteriore \textit{matching}
+    allo stesso livello della gerarchia.
+    \item \textbf{Fase di partizionamento iniziale} (\textit{initial partitioning phase}): quando a seguito delle
+    contazioni il grafo risulta essere di ordine abbastanza piccolo, in relazione ad un qualche threshold,
+    esso pu\`o essere partizionato direttamente con algoritmi costosi, fornendo una partizione inizile sul grafo
+    pi\`u grossolano della gerarchia.
+    \item \textbf{Fase di decontrazione} (\textit{refinement/uncoarsening phase}), i matchings vengono iterativamente
+    decontratti, e i relativi nodi vengono associati a blocchi della partizione del grafo pi\`u grossolano,
+    proiettandola sul grafo pi\`u raffinato.
+    Per fare in modo che la partizione al livello pi\`u grossolano tenga conto delle sotto-strutture ai livelli
+    pi\`u raffinati, un algoritmo di miglioramento locale (\textit{local improvement}) ricolloca i nodi tra i
+    blocchi per migliorare la dimensione del taglio o l'equilibrio delle dimensioni tra i blocchi.
+\end{enumerate}

@@ -9,7 +9,6 @@
 \usepackage{multicol}
 \usepackage{tabularx}
 \usepackage{tikz}
-%\usepackage{drftcite}
 \usepackage{xcolor}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{3d}
@@ -27,7 +26,7 @@
 \addbibresource{biblio.bib}
 \hypersetup{
   colorlinks=true,
-  linkcolor=blue,
+  linkcolor=black,
   citecolor=black,   % Change to black for bibliography entries
   urlcolor=blue
 }
@@ -42,7 +41,7 @@
 % TESI DATI FRONTESPIZIO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Sviluppo di una struttura dati per la\\trascrizione e gestione di sogni}
+\title{Sviluppo di una struttura dati per la\\memorizzazione e analisi di sogni}
 
 \university{Universit\`a degli Studi di Camerino}%
 \school{Scienze e Tecnologie}%
@@ -61,6 +60,9 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definizione}[section]
 
+\theoremstyle{proposition}
+\newtheorem{proposition}{Proposizione}[section]
+
 % Customizing the definition environment
 
 \renewenvironment{definition}[1][]
@@ -70,10 +72,7 @@
    \itshape\par\nobreak}
   {\par\medskip}
 
-\theoremstyle{proposition}
-\newtheorem{proposition}{Proposizione}[section]
-
-\newcommand{\nlparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\nlparagraph}[1]{\paragraph{#1}\mbox{}\nobreak\vspace{1em}}
 
 \graphicspath{Immagini/}
 
@@ -87,10 +86,8 @@
 \listoftables
 
 \input{Introduzione}
-\input{1-GrafiEAppML}
-\input{2-GrafiML}
-\input{3-AlgDiEnum}
-\input{4-ProcDiContr}
+\input{2-Grafi}
+\input{3-GrafiML}
 \input{AppDeiGML}
 %\input{Capitolo7}
 

@@ -1,4 +1,4 @@
-\chapter{Algoritmi di enumerazione}\label{ch:algoritmi-di-enumerazione}
+\section{Algoritmi di enumerazione}\label{sec:algoritmi-di-enumerazione}
 
 In informatica, un \textit{algoritmo di enumerazione} \`e un algoritmo che elenca tutte le possibili risposte ad un
 problema computazionale in modo sistematico e completo. Tali algoritmi sono quindi progettati per ricevere un
@@ -6,91 +6,28 @@ determinato input, generare una lista esaustiva di tutte le possibili soluzioni 
 terminare.
 Quando si parla di algoritmi di enumerazione applicati al dominio dei grafi, allora spesso si intende il processo di
 identificazione di sottoinsiemi di nodi o archi che soddisfano determinate caratteristiche.
-In questo capitolo si tratteranno e analizzeranno alcuni utili algoritmi di enumerazione presenti in letteratura per
+In questa sezione si tratteranno e analizzeranno alcuni utili algoritmi di enumerazione presenti in letteratura per
 il riconoscimento di pattern strutturali all'interno di grafi.
 In particolare, si discuteranno algoritmi per l'enumerazione di componenti fortemente connesse, di cricche e di
-circuiti semplici, problemi di notevole importanza nella teoria dei grafi e ritenuti di interesse per la definizione
-di algoritmi di contrazione.
+circuiti semplici.
 Questi algoritmi costituiranno il \"motore\" degli algoritmi presentati nei capitoli successivi, e saranno di
 importanza fondamentale alla definizione degli algoritmi di contrazione usati per la costruzione di grafi multi-livello.
 
-\section{Enumerazione di componenti fortemente connesse}\label{subsec:enumerazione-di-componenti-fortemente-connesse}
+\subsection{Enumerazione di componenti fortemente connesse}\label{subsec:enumerazione-di-componenti-fortemente-connesse}
 
-Come citato nel Capitolo~\ref{ch:grafi-e-approccio-multi-livello}, la condensazione di un grafo diretto \`e il suo
-grafo quoziente dove le componenti fortemente connesse definiscono i blocchi della partizione.
-Enumerare le componenti fortemente connesse di un grafo diretto $G = (V, E)$ significa trovare tutti i sottoinsiemi
-che permettano di costruire una condensazione del grafo di partenza.
+Come precedentemente citato, una componente fortemente connessa di un grafo diretto \`e un sottoinsieme massimale
+di nodi che siano mutualmente raggiungibili, ovvero tali che per ogni coppia di nodi $u$ e $v$ della componente esiste
+un cammino da $u$ a $v$ e viceversa.
 In questa sezione si discuter\`a un classico algoritmo di enumerazione delle componenti fortemente connesse, chiamato
-da alcuni testi come l'algoritmo di Kosaraju~\cite{SHARIR198167} e al seguito si discuter\`a di un possibile adattamento
-dell'algoritmo per la costruzione contestuale di un grafo contratto in forma di grafo decontraibile.
+da alcuni testi come l'algoritmo di Kosaraju~\cite{SHARIR198167}.
 
-\subsection{Algoritmo di Kosaraju}\label{subsec:algoritmo-di-kosaraju}
+\nlparagraph{Algoritmo di Kosaraju}
 
 L'algoritmo di Kosaraju (anche noto come algoritmo di Kosaraju-Sharir) è un algoritmo per l'enumerazione
 delle componenti fortemente connesse di un grafo diretto dalla complessità lineare scoperto nel 1978 da S. Rao
 Kosaraju, ma pubblicato solamente nel 1981 da Micha Sharir, che lo scoprì indipendentemente.
 Esso sfrutta il principio per cui le componenti fortemente connesse di un grafo diretto sono le stesse del suo grafo
 trasposto, ovvero il grafo ottenuto invertendo l'orientamento di tutti gli archi. \newline
-
-A seguire alcune utili nozioni preliminari per la comprensione dell'algoritmo:
-
-\paragraph{Grafo trasposto}
-Dato un grafo diretto $G = (V, E)$, il suo grafo trasposto $G^T = (V, E^T)$ \`e il grafo ottenuto invertendo
-l'orientamento di tutti gli archi di $G$, ovvero $E^T = \{(u, v) \mid (v, u) \in E\}$.
- \'E interessante notare che $G^T$ ha le stesse componenti fortemente connesse di $G$: se un cammino da $u$ a $v$
-esiste in $G$, allora esiste anche un cammino da $v$ a $u$ in $G^T$.
-Essendo le componenti fortemente connesse basate sulla mutua raggiungibilit\`a dei nodi, esse non cambiano
-quando si invertono gli archi.
-
-Una procedura algoritmica per il calcolo di $G^T$ non farebbe altro che scorrere linsieme di archi di $G$ e
-invertirli, e sarebbe quindi di complessit\`a lineare.
-
-\paragraph{Visita in profondit\`a}
-La visita in profondit\`a di un grafo (in inglese \textit{depth-first search} o \textit{DFS}) \`e un particolare
-algoritmo di visita che, in quanto tale, permette di visitare tutti i nodi di un grafo partendo da un nodo iniziale,
-e di scoprire tutti i nodi raggiungibili da esso.
-Ci\`o viene fatto in modo ricorsivo: nel corso della visita di un nodo si considerano uno ad uno i nodi ad esso
-adiacenti, e ai nodi non ancora marcati come visitati viene applicata immediatamente la stessa procedura di visita.
-
-\input{Algoritmi/dfs}
-\input{Algoritmi/dfs-visit}
-
-\begin{figure}
-    \input{TikzPictures/dfs_example}
-    \caption{Esempio di esecuzione di una visita in profondit\`a su un grafo diretto}
-    \label{fig:dfs-example}
-\end{figure}
-
-Nel corso dell'algoritmo i nodi vengono colorati in tre colori: bianco, grigio e nero, ad indicare rispettivamente
-che il nodo non \`e stato visitato, che \`e in fase di visita e che \`e stato visitato.
-Questo permette di non incorrere in cicli di visita infiniti nel caso non si stia visitando un grafo aciclico.
-Nel corso dell'algoritmo vengono anche assegnati ai nodi due valori interi: il tempo di scoperta $d$ e il tempo di
-fine visita $f$, che permettono di determinare, rispettivamente, il momento in cui i nodi vengono scoperti e colorati
-di grigio e il tempo in cui la visita di un nodo termina, colorandosi di nero.
-Un attributo aggiuntivo, il predecessore $\pi$, permette di memorizzare il nodo da cui si \`e scoperto il nodo
-corrente e, con esso, di ricostruire il cammino di visita sotto forma di albero, detto albero di visita in profondit\`a.
-\newline
-
-In figura~\ref{fig:dfs-example} \`e rappresentato un esempio di esecuzione della procedura DFS-VISIT su un grafo
-diretto, eseguita a partire dal nodo con etichetta $9$, in cui lo stato del grafo \`e rappresentato ad ogni
-incremento della variabile $time$. \newline
-
-La procedura si mantiene in tempo lineare rispetto al numero di nodi e di archi del grafo, in quanto
-ogni nodo viene visitato una sola volta e ogni arco viene esaminato al massimo una volta.
-
-\paragraph{Ordinamento topologico}
-Dato un grafo diretto aciclico $G = (V, E)$, un ordinamento topologico di $G$ \`e una particolare sequenza
-dei suoi nodi $\langle v_1, v_2, \ldots, v_n \rangle$ tale che per ogni arco $(v_i, v_j) \in E$, $i < j$.
-Si noti, quindi, che un ordinamento topologico di un grafo diretto pu\`o esistere solo se il grafo non contiene
-cicli.
-Un ordinamento topologico fornisce una disposizione tale che i nodi raggiungibili da un certo nodo $v_i$ vengano
-disposti dopo di esso, e che i nodi che $v_j$ pu\`o raggiungere vengano disposti dopo di esso.
-
-Una procedura algoritmica per il calcolo di un ordinamento topologico di $G$ pu\`o essere effettuata tramite una
-visita in profondit\`a del grafo, raccogliendo in una lista concatenata i nodi in ordine decrescente di tempo
-di fine visita, man mano che vengono visitati.
-Per via del normale costo di una visita in profondit\`a, la complessit\`a di tale procedura \`e lineare al
-numero di nodi e di archi del grafo \newline
 
 \input{Algoritmi/2.1-kosaraju-algorithm}
 
@@ -142,7 +79,8 @@ In (d) lo stato del grafo trasposto in (c) al termine della seconda procedura di
 profondit\`a, dove colori dello stesso colore rappresentano nodi appartenenti alla stessa componente fortemente
 connessa fornita in output.
 
-\paragraph{Complessit\`a dell'algoritmo}
+\nlparagraph{Complessit\`a}
+
 L'algoritmo di Kosaraju ha una complessit\`a temporale di $\Theta(V + E)$, in quanto:
 \begin{itemize}
     \item A riga 1 viene eseguita una ricerca in profondit\`a tradizionale, quindi con costo $\Theta(|V| + |E|)$.
@@ -157,9 +95,9 @@ L'algoritmo di Kosaraju ha una complessit\`a temporale di $\Theta(V + E)$, in qu
     sempre di complessit\`a $\Theta(|V| + |E|)$.
 \end{itemize}
 
-\section{Enumerazione di cricche}\label{sec:enumerazione-di-cricche}
+\subsection{Enumerazione di cricche}\label{sec:enumerazione-di-cricche}
 
-Come gi\`a discusso nel Capitolo 1, una cricca di un grafo \`e un sottoinsieme di nodi che sono tutti mutuamente
+Come gi\`a discusso, una cricca di un grafo \`e un sottoinsieme di nodi che sono tutti mutuamente
 adiacenti, ovvero un sottoinsieme di nodi che formano un sottografo completo.
 Nella teoria dei grafi, il concetto di cricca \`e normalmente riferito al contesto di un grafo non orientato,
 in cui \`e sufficiente un singolo arco non orientato $\{u, v\}$ per rendere i due nodi $u$ e $v$ tra loro
@@ -199,15 +137,16 @@ le cricche presenti nella versione non diretta ottenuta considerando le relazion
 come in (c).
 
 
-\subsection{Algoritmo di Bron-Kerbosch}\label{subsec:bronkerbosh}
+\nlparagraph{Algoritmo di Bron-Kerbosch}
 
 L'algoritmo di Bron-Kerbosch, descritto per la prima volta in nel 1973~\cite{10.1145/362342.362367} da
 Coen Bron e Joep Kerbosch, \`e un noto algoritmo per l'enumerazione delle cricche massimali in grafi non diretti.
 Con cricche massimali si intendono cricche che non possono essere estese aggiungendo ulteriori nodi senza
 violare la propriet\`a di cricca, ovvero cricche che non sono sottoinsieme proprio di altre cricche presenti nel grafo.
-Nella sua versione con pivoting, si tratta dell'algoritmo esatto considerato essere pi\`u efficiente nelle applicazioni
-pratiche rispetto ad altri algoritmi per l'enumerazione di cricche, oltre che essere stato dimostrato ottimale
-rispetto al numero massimo di cricche presenti in un grafo~\cite{TOMITA200628}. \newline
+Nella sua versione con pivoting (talvolta chiamata ``Tomita''), si tratta dell'algoritmo esatto considerato essere
+pi\`u efficiente nelle applicazioni pratiche rispetto ad altri algoritmi per l'enumerazione di cricche, oltre che
+essere stato dimostrato ottimale rispetto al numero massimo di cricche presenti in un grafo~\cite{TOMITA200628}.
+\newline
 
 L'algoritmo si basa su un approccio ricorsivo di backtracking, in cui a partire da un insieme vuoto di nodi, si
 cerca di costruire una cricca massimale aggiungendo nodi uno alla volta, valutando solo i nodi che
@@ -251,7 +190,7 @@ Si noti infatti che un insime $X$ non vuoto indicherebbe che la cricca corrente 
 nodi in $X$, concludendo non solo che la cricca in $R$ non \'e massimale, ma anche che la cricca massimale che
 la contiene assieme ai nodi in $X$ \'e gi\`a stata trovata. \newline
 
-\paragraph{Pivoting}
+\nlparagraph{Algoritmo Tomita}
 Bron e Kerbosch proposero nel loro articolo orginale una versione migliorata del loro algoritmo, la quale
 prevede l'utilizzo di una strategia di pivoting, che permette di ridurre le chiamate ricorsive della procedura
 trovando comunque tutte le cricche massimali.
@@ -298,13 +237,14 @@ dell'algoritmo di Bron-Kerbosch con pivoting sullo stesso grafo orientato presen
 ~\ref{fig:bron_kerbosh_tree_example}, rendendo evidente come la strategia di pivoting permetta di ridurre il numero
 di chiamate ricorsive rispetto alla versione senza pivoting.
 
-\paragraph{Complessit\'a}
+\nlparagraph{Complessit\'a}
+
 Come dimostrato da Tomita ~\cite{TOMITA200628}, adottando una strategia di pivoting affinch\'e si scelga il nodo pivot
 $w$ con il maggior numero di vicini in $P$, l'algoritmo di Bron-Kerbosch ha una complessit\'a temporale pari a
 $O(3^{n/3})$, che \'e una complessit\'a ottimale, in quanto il numero massimo di cricche massimali che si possono
 trovare in un grafo con $n$ nodi \'e dimostrato essere $3^{n/3}$.
 
-\section{Enumerazione di circuiti semplici}\label{sec:enumerazione-di-cicli}
+\subsection{Enumerazione di circuiti semplici}\label{sec:enumerazione-di-cicli}
 
 Come gi\`a spiegato nel capitolo introduttivo, un circuito semplice di un grafo diretto \'e un circuito
 che non contiene nodi ripetuti, ad eccezione del nodo di partenza e di arrivo.
@@ -326,7 +266,7 @@ In questa sezione tratteremo, quindi, un algoritmo per l'enumerazione di circuit
 risolve il problema di individuare tutti i cicli semplici distinti presenti in un grafo diretto.
 
 
-\subsection{Algoritmo di ricerca dei circuiti semplici di Johnson} \label{subsec:algoritmo-di-jhonson}
+\nlparagraph{Algoritmo di ricerca dei circuiti semplici di Johnson}
 L'algoritmo per la ricerca dei circuiti semplici di Donald B. Johnson, proposto nel 1975~\cite{doi:10.1137/0204007},
 provvede ad enumerare tutti i cicli in un grafo orientato eseguendo delle visite in profondit\`a. \newline
 
@@ -389,8 +329,8 @@ Le figure (e) e (f) raffigurano le procedure ricorsive di UNBLOCK derivanti dall
 
 \newpage
 
-\paragraph{Complessit\`a}\label{subsec:complessit`a}
-Come discusso nella trattazione originale \cite{doi:10.1137/0204007}, la complessit\`a dell'algoritmo di Johnson
+\nlparagraph{Complessit\`a}
+Come discusso nella trattazione originale~\cite{doi:10.1137/0204007}, la complessit\`a dell'algoritmo di Johnson
 \`e $O((n + m)(c + 1))$, dove $n$ \`e il numero di nodi, $m$ il numero di archi e $c$ il numero di circuiti semplici
 presenti nel grafo.
 Questo risultato \`e ottenuto considerando che tutti i nodi e gli archi del grafo possono essere visitati al pi\`u una
@@ -406,14 +346,5 @@ esponenziale, dovuto al numero di circuiti semplici presenti, che in tal caso \`
 \begin{equation*}
     c \quad = \quad \sum_{i = 1}^{n-1} \binom{n}{n-i+1} (n-1)!
 \end{equation*}
-
-\subsection{Algoritmo di ricerca dei circuiti semplici massimali} \label{sec:maximal-circuits}
-L'algoritmo di Johnson pu\`o essere modificato per individuare i circuiti semplici massimali, ovvero i circuiti
-semplici i cui nodi non sono inclusi nei nodi di altri circuiti semplici pi\`u grandi.\newline
-Una tale modifica pu\`o essere ottenuta inserendo la procedura di controllo ADD-MAXIMAL-SUBSET all'interno della
-procedura CIRCUIT a riga 6, al posto della normale aggiunta del sottoinsieme $S$ con ADD-SUBSET, in modo da verificare
-che il circuito individuato sia massimale o meno rispetto ai nodi visitati.
-
-Tale procedura sar\`a decritta nel dettaglio nel paragrafo successivo.
 
 

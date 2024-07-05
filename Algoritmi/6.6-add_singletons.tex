@@ -1,0 +1,10 @@
+\begin{algorithm}[H]
+    \caption{ADD-SINGLETONS($T$)}\label{alg:find-subsets}
+    \begin{algorithmic}[1]
+        \For{$v \in T.keys$}
+            \If{$T[v] == \emptyset$}
+                \State $T[v] := \{v\}$
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}

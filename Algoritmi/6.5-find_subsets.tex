@@ -1,7 +1,7 @@
 \begin{algorithm}[H]
     \caption{FIND-SUBSETS($T$, $C$)}\label{alg:find-subsets}
     \begin{algorithmic}[1]
-        \State Let $T_c$ be a new table for counting occurrences of subsets among vertices
+        \State Sia $T_c$ una nuova tabella per contare le occorrenze dei sottoinsiemi
         \For{$v \in C$}
             \For{$S \in T[v]$}
                 \State $T_c[S] := T_c[S] + 1$

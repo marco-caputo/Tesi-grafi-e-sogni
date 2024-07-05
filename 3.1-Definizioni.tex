@@ -1,18 +1,12 @@
-\chapter{Grafi Multi-livello}\label{cap:grafi-multi-livello}
+\section{Definizioni e propriet\`a di base}\label{sec:definizioni-e-proprieta-di-base}
 
-Come si \`e potuto vedere dal contenuto del Capitolo 1, le operazioni di contrazione e la costruzione di
-gerarchie di grafi a pi\`u livelli siano concetti gi\`a ampiamente utilizzati e consolidati nella teoria dei grafi e
-nelle sue applicazioni.
-Tuttavia, ci\`o che non \`e stato ancora propriamente considerato nella letteratura esistente \`e la possibilit\`a di
-definire e formalizzare una vera e propria struttura dati astratta che rappresenti un grafo multi-livello come
-un'entit\`a a s\`e stante.
-In questo capitolo saranno proposte definizioni e propriet\`a di base di una struttura dati per la rappresentazione
+In questa sezione saranno proposte definizioni e propriet\`a di base di una struttura dati per la rappresentazione
 di gerarchie di grafi a pi\`u livelli, in cui sia possibile ottenere informazioni sull'intera struttura gerarchica in
 relazione ai singoli grafi che la compongono, come attraverso l'espansione e contrazione di nodi.
 In particolare, riprendendo dalla terminologia e dai concetti esistenti in letteratura, si proporranno definizioni
 orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
-\section{Grafo decontraibile}\label{subsec:grafo-decontraibile}
+\subsection{Grafo decontraibile}
 
     A partire dal concetto noto di grafo quoziente e di contrazione, si vuole definire una particolare
     tipologia di grafi quoziente che, oltre a rappresentare le caratteristiche strutturali ad alto livello
@@ -102,7 +96,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     %\end{defintion}
 
-    \section{Contrazioni}\label{subsec:contrazioni}
+    \nlparagraph{Contrazioni di grafi decontraibili}\label{subsec:contrazioni}
     A partire dalla decontrazione, che rappresenta un aspetto intrinseco alla definzione dei grafi decontrabili,
     la relazione di contrazione \`e quella che, intuitivamente, permette di legare grafi decontraibili nel senso
     opposto.
@@ -217,7 +211,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     \end{proposition}
 
     In aggiunta alla precendente proposizione, grazie alla definizione di contrazione tra grafi decontraibili,
-    si propone un'altra propoizione che descrive come il concetto di grafo indotto pu\`o essere usato per descrivere
+    si propone un'altra proposizione che descrive come il concetto di grafo indotto pu\`o essere usato per descrivere
     le decontrazioni.
 
     \begin{proposition}
@@ -257,14 +251,14 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     \newpage
 
-    \section{Grafo multi-livello}\label{sec:grafo-multi-livello}
+    \subsection{Grafo multi-livello}\label{subsec:grafo-multi-livello}
 
-    A partire dalla definizione di grafo decontraibile e di contrazione, pu\`o essere definita una struttura gerarchica
+A partire dalla definizione di grafo decontraibile e di contrazione, pu\`o essere definita una struttura gerarchica
     a pi\`u livelli di grafi decontraibili che siano l'uno la contrazione dell'altro, dove i grafi ai livelli inferiori
     o loro sottografi possano essere ottenuti attraverso, rispettivamente, decontrazioni complete o espansioni locali
     dei livelli superiori.
 
-    \subsection{Funzioni}\label{subsec:funzioni}
+    \nlparagraph{Funzioni}
 
     \begin{definition} [Funzione di contrazione]
     Una \textbf{funzione di contrazione} $f_C : \mathcal{G}_D \rightarrow \mathcal{G}_D$ \`e una funzione che dato un
@@ -301,7 +295,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     che possono essere applicate su di essi. Sebbene in matematica i grafi non siano considerati essi stessi funtori,
     nella programmazione funzionale \`e possibile che i grafi vengano interpretati come tali. \newline
 
-    \subsection{Definizione dei Grafi Multi-Livello}\label{subsec:definzione-grafi_multilivello}
+    \nlparagraph{Definizione dei Grafi Multi-Livello}\label{subsec:definzione-grafi_multilivello}
 
     Il concetto di grafo multi-livello \`e di seguito definito attraverso una decrizione bottom-up di tale struttura,
     indicandone il grafo inziale e gli schemi di contrazione, che descrivono il modo in cui dei sottografi di un
@@ -367,7 +361,7 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
 
     \newpage
 
-    \subsection{Algoritmo di trasformazione naturale}\label{subsec:algoritmo-di-trasformazione-naturale}
+    \nlparagraph{Algoritmo di trasformazione naturale}\label{subsec:algoritmo-di-trasformazione-naturale}
 
     La generica procedura algoritmica per realizzare la trasformazione naturale di un grafo standard $H = (W, F)$
     preso in input in un grafo decontraibile $G = (V, E)$, può essere definita considerando la creazione di supernodi
@@ -380,8 +374,3 @@ orginali di \textit{Grafi decontraibili} e di \textit{Grafi multi-livello}.
     operazioni all'interno dei due circli \`e $O(1)$,
     e, di conseguenza, la complessit\`a dell'algoritmo \`e dettata dal numero di nodi e archi del grafo in input $H$,
     ovvero $\Theta(|W| + |F|)$.
-
-
-
-
-
