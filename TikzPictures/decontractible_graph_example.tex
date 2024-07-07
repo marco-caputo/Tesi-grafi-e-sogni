@@ -1,50 +1,53 @@
 \begin{tikzpicture}
-  [mynode/.style={draw, thick, circle, size=0.3mm},
-    ->,shorten >=1pt,auto,node distance=2cm, thick,main node/.style={circle,draw}]
+  [mynode/.style={draw, thick, circle, size=0.3mm}, ->,shorten >=1pt,auto,node distance=2cm, thick,
+  main node/.style={circle,draw}, little node/.style={circle,draw, minimum size=7.5mm, inner sep=0mm}]
 
   % Nodes
-  \node[main node] (A) {v$_1$};
-  \node[main node, blue] (B) [right of=A] {v$_2$};
-  \node[main node, blue] (C) [below right of=B] {v$_3$};
-  \node[main node] (D) [below left of=C] {v$_4$};
+  \node[main node] (A) {$v_1$};
+  \node[main node, blue] (B) [right of=A] {$v_2$};
+  \node[main node, blue] (C) [below right of=B] {$v_3$};
+  \node[main node] (D) [below left of=C] {$v_4$};
 
   % Edges
-  \path[every node/.style={font=\sffamily\small}];
-  \draw[myarrow](A) to node [above] {$e_1$} (B);
-  \draw[myarrow, blue] (B) to node [above, name=e2] {$e_2$} (C);
-  \draw[myarrow](C) to node [above] {$e_3$} (D);
-  \draw[myarrow](B) to node [left] {$e_4$} (D);
+  \path[every node/.style={font=\sffamily\small}]
+    (A) edge node [above] {$e_1$} (B)
+    (B) edge[blue] node [right, name=e2] {$e_2$} (C)
+    (C) edge node [below] {$e_3$} (D)
+    (B) edge node [left] {$e_4$} (D);
 
-  % G_b graph
+  % G_v2 graph
   \begin{scope}[shift={(6,1)}]
-  \draw[blue] (0,0) circle (1.5cm);
-  \node[main node] (X) at (-0.5,0.5) {a$_1$};
-  \node[main node] (Y) at (1,0) {a$_2$};
-  \node[main node] (Z) at (0,-1) {a$_3$};
-  \draw[myarrow] (X) -- (Y);
-  \draw[myarrow] (Y) -- (Z);
-  \draw[myarrow] (Z) -- (X);
+    \draw[blue] (0,0) circle (1.5cm);
+    \node[little node, blue] (X) at (-0.5,0.5) {$a_1$};
+    \node[little node, blue] (Y) at (1,0) {$a_2$};
+    \node[little node, blue] (Z) at (0,-1) {$a_3$};
+    \path[every node/.style={font=\sffamily\small}]
+      (X) edge[blue] (Y)
+      (Y) edge[blue] (Z)
+      (Z) edge[blue] (X);
   \end{scope}
 
-  % G_c graph
+  % G_v3 graph
   \begin{scope}[shift={(8,-2.5)}]
-  \draw[blue] (0,0) circle (1.5cm);
-  \node[main node] (T) at (-0.5,0.5) {a$_4$};
-  \node[main node] (U) at (1,0) {a$_5$};
-  \node[main node] (V) at (0.25,-1) {a$_6$};
-  \node[main node] (W) at (-0.5,-0.5) {a$_7$};
-  \draw[myarrow] (U) -- (T);
-  \draw[myarrow] (U) -- (W);
-  \draw[myarrow] (U) -- (V);
+    \draw[blue] (0,0) circle (1.5cm);
+    \node[little node, blue] (T) at (-0.5,0.5) {$a_4$};
+    \node[little node, blue] (U) at (1,0) {$a_5$};
+    \node[little node, blue] (V) at (0.25,-1) {$a_6$};
+    \node[little node, blue] (W) at (-0.5,-0.5) {$a_7$};
+    \path[every node/.style={font=\sffamily\small}]
+      (U) edge[blue] (T)
+      (U) edge[blue] (W)
+      (U) edge[blue] (V);
   \end{scope}
 
-  % edges between graphs
-  \draw[myarrow, blue] (Z) -- (T);
-  \draw[myarrow, blue] (Y) -- (U);
+  % Edges between graphs
+  \path[blue]
+    (Z) edge[blue] (T)
+    (Y) edge[blue] (U);
 
   % Links
-  \draw[dashed, line width=1.5pt, red] (B) to[out=65, in=145] node {$dec_{V}(v_2)$} (4.5,1);
-  \draw[dashed, line width=1.5pt, red] (e2) to[out=0, in=155] node [below] {$dec_{E}(e_2)$} (6.75,-1);
+  \draw[dashed, line width=1.5pt, red] (B) to[out=65, in=145] node[midway, above, sloped, red] {$dec_{V}(v_2)$} (4.5,1);
+  \draw[dashed, line width=1.5pt, red] (e2) to[out=0, in=155] node[midway, below, sloped, red] {$dec_{E}(e_2)$} (6.75,-1);
   \draw[dashed, line width=1.5pt, red] (e2) to[out=0, in=175] (8,-0.7);
-  \draw[dashed, line width=1.5pt, red] (C) to[out=300, in=145] node [below] {$dec_{V}(v_3)$} (6.5,-2);
+  \draw[dashed, line width=1.5pt, red] (C) to[out=300, in=145] node[midway, below, sloped, red] {$dec_{V}(v_3)$} (6.5,-2);
 \end{tikzpicture}

@@ -1,0 +1,16 @@
+\begin{algorithm}[H]
+    \caption{REDUCE-CONNECTIVITY($G$, $threshold$)}\label{alg:reduce-connectivity}
+    \begin{algorithmic}[1]
+        \State Sia $H = (W, F)$ un nuovo grafo orientato, con $W = G.V$ e $F = \emptyset$
+        \State Sia $H_u = (W_u, F_u)$ un nuovo grafo non orientato, con $W_u = G.V$ e $F_u = \emptyset$
+        \State Ordina gli archi in $G.E$ in ordine crescente di costo
+        \For {$(u, v) \in G.E$}
+            \State Sia $d$ il costo del cammino minimo tra $u$ e $v$ in $H_u$ calcolato sulla base del costo degli archi
+            \If{$d == \infty$ \textbf{or} $d < threshold$}
+                \State $F = F \cup \{(u, v)\}$
+                \State $F_u = F_u \cup \{\{u, v\}\}$ \Comment{L'arco aggiunto ha lo stesso costo di $(u, v)$}
+            \EndIf
+        \EndFor
+        \State \textbf{return} $H$
+    \end{algorithmic}
+\end{algorithm}

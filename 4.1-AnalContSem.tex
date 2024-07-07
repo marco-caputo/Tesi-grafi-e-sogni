@@ -1,0 +1,184 @@
+\section{Analisi dei contesti semantici di un sognatore}\label{sec:analisi-dei-contesti-semantici-di-un-sognatore}
+
+In questa sezione verrà esplorato un caso di studio, risultato del tentativo di usare il modello dei grafi multi-livello
+allo scopo di individuare dei contesti di parole di valenza sintattica e semantica all'interno del mondo onirico
+di una particolare sognatrice, i cui sogni sono stati prelevati dal dataset di sogni di DreamBank.net disponibile
+online.
+Daremo forma allo spazio delle parole di Emma a partire da un vasto corpus di racconti di sogni, e analizzeremo la
+struttura del grafo multi-livello risultante.
+
+\subsection{Pre-elaborazione con strumenti di NLP}\label{subec:pre-elaborazione-con-NLP}
+Per poter procedere con l'analisi dei sogni di Emma affinché si potesse costruire un grafo delle parole
+da cui poter cogliere aspetti semantici, è stato necessario effettuare una pre-elaborazione dei testi
+attraverso gli strumenti tipici dell'elaborazione del linguaggio naturale.
+L'NLP (in inglese \textit{Natural Language Processing}) è di fatti quella disciplina a metà tra intelligenza artificiale
+e linguistica che si occupa di individuare i metodi di elaborazione e analisi di dati che si presentano sotto forma di
+linguaggio naturale, ovvero di linguaggi usati dell'essere umano. \newline
+
+La pre-elaborazione ha quindi previsto l'applicazione della seguente sequenza di fasi al corpus di 1218 sogni
+originario:
+\begin{enumerate}
+    \item Pulizia del testo. \newline \noindent
+          Questa fase ha incluso la rimozione degli spazi bianchi superflui, la standardizzazione della
+          formattazione del testo e la correzione di errori ortografici o di incoerenze. È stata inoltre eseguita la
+          rimozione della punteggiatura, snellendo ulteriormente i dati testuali. Tali procedure di pulizia sono
+          essenziali per garantire la qualità e la coerenza dei dati in ingresso, migliorando così l'affidabilità
+          dell'analisi.
+    \item Tokenizzazione. \newline \noindent
+          Questa fase ha comportato la suddivisione del testo in parole singole dette \textit{token},
+          passaggio fondamentale nell'elaborazione del linguaggio naturale, creando la base per le fasi successive.
+    \item Rimozione delle stop words. \newline \noindent
+          Le \textit{stop words} sono parole comuni (come ``the'', ``is'', ``at'', ``which'' e ``on'') che tipicamente non hanno
+          un ruolo significativo nei compiti di NLP, specialmente in quelli legati ad analisi semantiche.
+          In questo caso, la loro rimozione può certamente aiutare a concentrare l'analisi sulle parole più ricche di
+          contenuto nelle narrazioni dei sogni, riducendo significativamente il rumore nei dati e mettendo in evidenza
+          i termini più salienti.
+    \item Lemmatizzazione. \newline \noindent
+          La lemmatizzazione è un processo che riduce le parole alla loro forma base, chiamata \textit{lemma}.
+          Ad esempio, ``running'' verrebbe lemmatizzato in ``run'' e ``better'' in ``good''.
+          Questo passaggio aiuta a ridurre le diverse declinazioni delle parole ai loro concetti di base, riducendo
+          la dimensionalità dei dati testuali e rivelando, potenzialmente, schemi sottostanti in modo più chiaro.
+    %\item Estrapolazione dei sostantivi. \newline \noindent
+    %      Attraverso una fase di Part-of-Speech (POS) tagging, ciascuna parola viene etichettata di con la sua categoria
+    %      grammaticale di appartenenza, come quella dei sostantivi, verbi, aggettivi, avverbi, ecc.
+    %      A partire da queste categorizzazioni, tutte le parole che non sono state etichettate come sostantivi vengono
+    %      filtrate. Lo scopo di questa fase è quello di concentrare l'analisi sulle parole che sono generalmente
+    %      considerate le parti del testo più significative e ricche di contenuto, che meglio possono coadiuvare
+    %      l'analisi semantica.
+    \item Filtraggio delle parole meno frequenti. \newline \noindent
+          Questa fase ha comportato la rimozione delle parole meno frequenti all'interno dell'intero corpus di sogni
+          di Emma. Questo passaggio è stato eseguito per ridurre la complessità del testo e concentrare l'analisi sui
+          termini più rilevanti e significativi, con l'obiettivo di individuare le tematiche principali trattate
+          nei sogni e l'ordine con cui esse appaiono nei testi.
+    \item Costruzione del grafo delle parole. \newline \noindent
+          Infine, è stato costruito un grafo diretto basato sulle singole parole all'interno delle sequenze
+          di lemmi associate ad ogni sogno. Tali parole, in quanto prese singolarmente rispetto alla sequenza
+          di appartenenza, si definiscono \textit{unigrammi}. In questo grafo, quindi, ogni nodo rappresenta
+          un unigramma univoco, con una proprietà ``peso'' che indica il numero di occorrenze di quell'unigramma
+          nell'intero corpus di sogni.
+          Gli archi orientati del grafo collegano gli unigrammi dei lemmi che appaiono seguitamente nella
+          sequenza associata ad ogni sogno. Per questo motivo, ad ogni arco corrisponde un \textit{bigramma}, ovvero
+          un accostamento ordinato di due parole.
+          Il peso di ciascun arco rappresenta il numero di occorrenze di quello specifico accostamento ordinato nel testo.
+          In questo modo, la struttura del grafo cattura non solo le relazioni sequenziali tra le parole nei sogni,
+          ma anche la frequenza e la forza di queste parole e relazioni.
+\end{enumerate}
+
+
+\subsection{Riduzione della connettività del grafo delle parole}\label{subsec:elaborazione-del-grafo-delle-parole}
+
+Sebbene il grafo delle parole risultante dalla pre-elaborazione dei sogni sia frutto di un processo di
+semplificazione e riduzione della complessità del testo, la sua analisi diretta attraverso l'uso del
+grafo multi-livello ne ha rivelato sin da subito la sua elevata connettività derivante dalla natura del
+linguaggio naturale: parole e concetti possono essere strettamente legati (e quindi ``vicini'') ad un ampio numero di
+altri concetti che a loro volta possono collegarsi direttamente ad altri concetti sparsi per il grafo.
+Il risultato è uno spazio fortemente ``aggrovigliato'' che non favorisce la formazione di gruppi di parole distinti e
+ben definiti e che, di conseguenza, non favorisce un processo di contrazione di qualità nella
+gerarchia del grafo multi-livello.
+
+Per rendere chiaro questo aspetto, si prenda come esempio il grafo multi-livello $M = (G, \langle f_{C_1}, f_{C_2}\rangle)$
+rappresentato in figura~\ref{fig:les-miserables-graph}, il cui grafo $G$ rappresenta il grafo delle relazioni di
+co-apparizione dei personaggi del romanzo \textit{Les Misérables} di Victor Hugo,
+e le cui funzioni di contrazione $f_{C_1}$ e $f_{C_2}$ rappresentano rispettivamente le funzioni di contrazione
+per cricche non reciproche e componenti fortemente connesse.
+Appare evidente di come la struttura del grafo $G$ sia stata contratta con un elevato tasso di contrazione,
+producendo una struttura notevolmente più semplice e facilmente interpretabile. Per via degli schemi di
+contrazione scelti, appare evidente come la struttura originale del grafo abbia rivelato la sua ordinatezza ai livelli
+superiori: in media i personaggi del romanzo possono apparire assieme ad una cerchia ristretta di altri personaggi,
+ad eccezione di personaggi principali che risultano collegarsi a questi gruppi più o meno isolati di nodi.
+Questo rispecchia in parte la natura dello spazio bidimensionale in cui i personaggi sono collocati: personaggi
+appartenenti a luoghi distanti difficilmente appariranno insieme. I personaggi principali, in quanto seguiti
+nella narrazione nel mentre che si spostano nello spazio, permettono di rompere questa dimensionalità, e risultano
+essere collegati a nodi distanti tra loro. \newline
+
+Per risolvere questo problema legato all'alta connettività del grafo delle parole, si è deciso di applicare
+una tecnica di potatura del grafo, che consiste nell'identificazione di uno scheletro portante del grafo
+basato sulle relazioni più significative tra le parole e dell'esclusione delle relazioni meno significative in
+accordo a tale scheletro, allo scopo di ``appiattire'' lo spazio delle parole.
+
+\nlparagraph{Classificazione degli archi}
+
+L'algoritmo di potatura del grafo si basa sulla rilevanza delle relazioni tra le parole, ovvero degli archi del grafo.
+Sebbene la rilevanza di un bigramma possa essere definita e valutata in diversi modi - come ad esempio il calcolo
+dell'informazione mutua puntuale (PMI) tra le parole - in questo caso si è scelto di basare la rilevanza
+direttamente sull'informazione fornita dai pesi degli archi e dei relativi nodi coinvolti.
+In particolare, la misura di rilevanza di un arco è stata definita come la somma dei rapporti tra il peso dell'arco
+e i singoli pesi dei nodi su cui l'arco è incidente.
+In formule, siano $w(u)$, $w(v)$ e $w(u, v)$ il peso del nodo $u$ e $v$ e dell'arco $(u, v)$ rispettivamente,
+la rilevanza dell'arco $(u, v)$ è definita come:
+\begin{equation*}
+    relevance(u, v) = \frac{w(u, v)}{w(u)} + \frac{w(u, v)}{w(v)}
+\end{equation*}
+
+La formula fornisce un criterio elementare per distinguere la frequenza di coppie di parole dalla loro importanza:
+un arco con un peso elevato rispetto ai pesi dei nodi coinvolti è considerato più rilevante di un arco con un peso
+elevato rispetto alla media dei pesi degli altri archi.
+Ad esempio, un arco con peso 10 tra due nodi con pesi 100 e 200 è considerato meno rilevante di un arco con peso 5
+tra due nodi con pesi 8 e 10. \newline
+
+La scelta di questa misura di rilevanza è dovuta alla facilità con cui è possibile associarla ad un nuovo valore
+positivo che rappresenti una distanza semantica tra le parole collegate.
+Essendo tale valore di rilevanza sempre compreso nell'intervallo $(0, 2]$, è possibile definire un valore di costo
+semantico dell'arco $(u, v)$ come $\frac{1}{relevance(u, v)}$, che è inversamente proporzionale alla
+rilevanza dell'arco.
+Gli archi possono, quindi, essere classificati in base a questo valore di distanza che d'ora in avanti chiameremo
+\textit{costo} dell'arco.
+
+\nlparagraph{Algoritmo per la riduzione della connettività}
+
+Un algoritmo che sfrutti l'informazione data dal costo degli archi per ridurre la complessità e la connettività
+di un grafo potrebbe agire costruendo in maniera incrementale un nuovo grafo a partire da quello fornito in input,
+che ne rappresenti una versione semplificata.
+L'algoritmo proposto nel seguente pseudocodice considera gli archi del grafo in input $G$ in ordine crescente di
+costo al fine di valutarne l'inclusione nel nuovo grafo semplificato $H$, sulla base di un ulteriore parametro in input
+che chiamiamo \textit{threshold}.
+
+In particolare, ogni nodo del grafo originale $G$ sarà presente nel grafo semplificato $H$. Mentre per ogni arco $(u, v)$
+di $G$ considerato nel ciclo for a riga 4, se nella versione non orientata di $H$, ottenuta rimuovendo l'orientamento
+degli archi, esiste già un cammino tra i nodi $u$ e $v$ e il costo del cammino minimo calcolato sul costo degli archi
+è maggiore al threshold, l'arco $(u, v)$ viene ignorato, altrimenti viene aggiunto al grafo semplificato $H$.
+Si noti che nello pseudocodice, così come nella notazione tipica, un costo di cammino minimo pari a $\infty$ indica
+che non esiste un cammino tra i nodi.
+
+\input{Algoritmi/reduce_connectivity}
+
+In questo modo, l'algoritmo costruisce arco dopo arco un grafo semplificato $H$ basato sui collegamenti più
+rilevanti tra le parole.
+Gli archi che vengono ignorati sono quelli che collegano parole considerate distanti secondo i collegamenti più
+rilevanti stabiliti nello scheletro provvisorio del grafo $H$.
+Il grado di tolleranza alla distanza tra le parole è regolato dal parametro \textit{threshold},
+che può essere impostato per ottenere un grafo più o meno semplificato: più basso sarà il threshold, minore
+sarà il grado di connettività del grafo prodotto.
+
+\nlparagraph{Complessità}
+Il costo dell'algoritmo REDUCE-CONNECTIVITY è principalmente dominato dalla fase di ordinamento degli archi
+e del calcolo dei cammini minimi tra i nodi del grafo non orientato $H_u$.
+Utilizzando algoritmi di ordinamento efficienti, il costo computazionale dell'ordinamento a riga 3 è $O(|E| \log |E|)$.
+Il calcolo dei cammini minimi tra i nodi di $H_u$ a riga 5 può essere eseguito in tempo $O(|V| \log{|V|} + |E|))$
+utilizzando l'algoritmo di Dijkstra con coda di priorità gestita da heap di Fibonacci.
+Essendo che il ciclo for a riga 4 viene eseguito una volta per ogni arco in $|E|$, il costo totale dell'algoritmo
+risulta essere:
+\begin{equation*}
+      O(|E| \log |E|) + O(|E| \cdot (|V| \log{|V|} + |E|)) \quad = \quad
+      O(|E| (\log |E| + |V| \log{|V|} + |E|))
+\end{equation*}
+
+\subsection{Analisi del grafo multi-livello}\label{subsec:analisi-del-grafo-multi-livello}
+
+
+
+
+
+
+
+Dopo la creazione dei grafi, abbiamo eseguito il rilevamento dei cicli e l'individuazione delle componenti fortemente
+connesse. Il rilevamento dei cicli identifica i loop chiusi nel grafo, dove una sequenza di parole porta eventualmente
+di nuovo alla parola iniziale. Questi cicli potrebbero rappresentare schemi o temi ricorrenti nelle narrazioni dei sogni,
+potenzialmente indicando motivi o modelli di pensiero persistenti nei sogni di Emma. L'individuazione delle componenti
+fortemente connesse identifica i sottografi all'interno dei quali ogni nodo è raggiungibile da ogni altro nodo.
+Nel contesto dell'analisi dei sogni, queste componenti potrebbero rappresentare cluster di concetti o temi strettamente
+interrelati che frequentemente co-occorrono e si interconnettono all'interno dei sogni. L'applicazione di queste
+tecniche di analisi del grafo al grafo di unigrammi diretto e pesato potrebbe rivelare strutture complesse all'interno
+delle narrazioni dei sogni, come temi ricorrenti, schemi di pensiero persistenti o cluster di concetti correlati.
+I cicli rilevati potrebbero indicare elementi circolari o ripetitivi nei sogni, mentre le componenti fortemente connesse
+potrebbero rappresentare unità tematiche coerenti o strutture narrative.

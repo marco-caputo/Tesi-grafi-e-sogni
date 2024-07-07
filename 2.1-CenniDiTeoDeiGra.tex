@@ -5,7 +5,7 @@ in relazione tra loro.
 I grafi possono essere orientati o non orentati, a seconda che esista una direzione o un ordine tra le coppie
 di elementi che si trovano in relazione.
 In questa sezione ci concentreremo esclusivamente sui grafi orientati, in quanto alla base della definizione dei
-textit{Grafi Multi-livello}, ed in quanto pi\`u generali: i grafi non orientati possono sempre essere rappresentati
+textit{Grafi Multi-livello}, oltre che essere più generali: i grafi non orientati possono sempre essere rappresentati
 come particolari grafi orientati.
 
 \subsection{Grafi Orientati}\label{subsec:grafi-orientati}
@@ -51,7 +51,7 @@ Essendo il contenuto informativo rilevante di un grafo orientato contenuto nei s
 tra nodi, il concetto di eguaglianza tra grafi orientati non \`e banale.
 Una relazione tra grafi orientati, utile per valutare la loro equivalenza in termini di informazione espressa,
 \`e l'isomorfismo (dal greco \textit{iso} = uguale e \textit{morph\`e} = forma).
-Cos\`{\i} come per tutte le struttre matematiche, intuitivamente, due grafi si dicono \textbf{isomorfi} quando per ogni
+Così come per tutte le strutture matematiche, intuitivamente, due grafi si dicono \textbf{isomorfi} quando per ogni
 parte della struttura di uno esiste una corrispondente parte della struttura dell'altro, e viceversa.
 Formalmente, due grafi orientati $G = (V, E)$ e $H = (W, F)$ si dicono isomorfi, e lo si indica con $G \cong H$ se
 esiste una biiezione $f: V \rightarrow W$ tale per cui $(u, v) \in E$ se e solo se $(f(u), f(v)) \in F$ per ogni
@@ -77,7 +77,9 @@ Sia $v \in V$ un nodo di un grafo orientato $G = (V, E)$, allora:
     \item il \textbf{grado} di un nodo $v$ \`e la somma del grado uscente e del grado entrante di $v$.
 \end{itemize}
 
-\subsection{Cammini}\label{subsec:cammini}
+\subsection{Cammini e Connessione tra nodi}\label{subsec:cammini}
+
+\nlparagraph{Cammini}
 
 I cammini sono concetti fondamentali della teoria dei grafi e sono alla base di molti algoritmi e problemi noti. \newline
 
@@ -87,9 +89,13 @@ $i = 0, 1, \ldots, k-1$ con $v_1 = u$ e $v_k = v$.
 La \textbf{lunghezza} k di un cammino \`e data dal numero di archi che lo compongono.
 Ad esempio, $\langle v_1, v_2, v_3, v_4 \rangle$ \`e un cammino di lunghezza 3 nel grafo della
 figura~\ref{fig:directed-graph-example}. \newline
+Nel caso di grafi pesati, quindi aventi archi con un valore associato che ne indichi un costo, si definisce
+\textbf{costo} di un cammino la somma dei pesi degli archi che lo compongono.
+Inoltre, un \textbf{cammino minimo} tra una coppia di nodi $u$ e $v$ è un cammino di costo (o lunghezza, nel caso
+di grafi non pesati) minore o uguale a quello di ogni altro cammino tra gli stessi nodi.
 
-Se esiste un cammino $p$ da $u$ a $v$ in $G$, allora si dice che il nodo $v$ \`e \textbf{raggiungibile} da $u$
-attraverso $p$ in $G$, e questo pu\`o essere indicato con la notazione $u \overset{p}{\rightsquigarrow} v$. \newline
+Se esiste un qualsiasi cammino $p$ da $u$ a $v$ in $G$, allora si dice che il nodo $v$ \`e \textbf{raggiungibile} da
+$u$ attraverso $p$ in $G$, e questo pu\`o essere indicato con la notazione $u \overset{p}{\rightsquigarrow} v$. \newline
 
 A seguire alcune definizioni relative ai cammini su un grafo orientato:
 
@@ -143,6 +149,10 @@ Le \textbf{cricche} di un grafo sono le classi di equivalenza dei nodi secondo l
 Ad esempio, nel grafo in figura~\ref{fig:directed-graph-example}, le cricche sono
 $\{\{v_1, v_2\}, \{v_3\}, \{v_4\}, \{v_5, v_6\}, \{v_7\}\}$.
 Si noti che l'insieme di nodi $V$ di un grafo completo \`e per definizione un'unica cricca.
+
+\`E altresì possibile definire il concetto di \textbf{connettività} al livello globale di un grafo: informalmente,
+un grafo ha una tanto più elevata connettività quanti più sono gli archi che devono essere rimossi per disconnettere
+il grafo in più sottografi isolati.
 
 \nlparagraph{Grafo trasposto}
 

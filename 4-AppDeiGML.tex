@@ -9,25 +9,25 @@ di applicarli ad una vasta gamma di problemi, tra cui l'analisi di testi in ling
 ed in particolare, a racconti di sogni.
 Tuttavia il potenziale dei grafi multi-livello, che si basa sulla loro capacità di catturare aspetti della struttura
 di un grafo ad un livello di astrazione superiore, è ciò che li rende particolarmente interessanti e che può
-fornire un valore aggiunto all'analisi delle relazioni di elementi discreti, come le parole di un testo.
+fornire un valore aggiunto all'analisi delle relazioni di elementi discreti, come le parole di un testo. \newline
 
 Si noti, infatti, che nel contesto generale dell'analisi di grafi, la contrazione realizzata attraverso
 l'uso di grafi multi-livello potrebbe essere utile per:
 \begin{itemize}
-    \item[a.1] Ridurre la complessit\`a dell'analisi strutturale di un grafo, sia che esso debba essere processato
+    \item Ridurre la complessit\`a dell'analisi strutturale di un grafo, sia che esso debba essere processato
     attraverso algoritmi costosi, sia che esso debba essere graficamente visualizzato, rendendolo pi\`u facilmente
     interpretabile ed evidenziandone le caratteristiche strutturali di interesse.
-    \item[a.2] Studiare l'interrelazione di caratteristiche strutturali di un grafo, che rappresenti la navigabilit\`a
+    \item Studiare l'interrelazione di caratteristiche strutturali di un grafo, che rappresenti la navigabilit\`a
     di uno spazio basato su componenti fortemente connesse, cicli, cricche ecc.
     Si noti che gli spazi generati da livelli superiori al primo non potrebbero essere altrimenti ottenuti se
     non attraverso un approccio multi-livello.
-    \item[a.3] Stabilire il grado di connettivit\`a di un grafo, individuando la rilevanza (intesa come il numero di
+    \item Stabilire il grado di connettivit\`a di un grafo, individuando la rilevanza (intesa come il numero di
     insiemi componente che rappresentano i supernodi), il numero e la dimensione delle sue contrazioni.
-    \item[a.4] Misurare il grado di complessit\`a dello spazio rappresentativo del grafo, in base al numero
+    \item Misurare il grado di complessit\`a dello spazio rappresentativo del grafo, in base al numero
     di nodi e archi presenti nelle contrazioni: grafi derivanti da specifici domini tendono ad avere un certo
     grado di complessit\`a legato ad un concetto spaziale, come successivamente mostrato nell'
     esempio~\ref{fig:les-miserables-graph}.
-    \item[a.5] Valutare l'influenza di singoli nodi e archi appartenenti al grafo di base sui livelli superiori
+    \item Valutare l'influenza di singoli nodi e archi appartenenti al grafo di base sui livelli superiori
     del grafo multi-livello, eseguendo analisi della sensitivit\`a e della robustezza.
     Sebbene non siano presentate in questa tesi, è possibile definire delle procedure che permettano di aggiornare
     coerentemente la struttura memorizzata di un grafo multi-livello all'aggiunta e rimozione di singoli nodi e
@@ -38,36 +38,21 @@ Nel contesto dell'analisi di testi, in particolare di racconti di sogni, con l'e
 elaborazione del linguaggio naturale, la contrazione realizzata attraverso l'uso di grafi multi-livello potrebbe
 essere utile per:
 \begin{itemize}
-    \item[b.1] Individuare contesti sintattici e possibilmente semantici di parole e frasi, evidenziando l'interrelazione
-    e la distanza tra gruppi di parole e frasi.
-    \item[b.2] Valutare la somiglianza di singoli racconti, individuando le macro-caratteristiche strutturali comuni e
-    la loro differenziazione tra più sognatori diversi.
-    \item[b.3] Individuare pattern ricorrenti di parole e insiemi di parole su un corpus pi\`u ampio di testi, con
-    eventuale ausilio di strumenti statistici.
-    \item[b.4] Stabilire la natura della connettività del grafo delle parole in base al numero di insiemi componente
+    \item Individuare contesti sintattici e possibilmente semantici di parole nel contesto del mondo onirico
+    di un particolare sognatore, evidenziando l'interrelazione e la distanza tra gruppi di parole e frasi.
+    \item Valutare la somiglianza sintattica di singoli racconti, individuando le macro-caratteristiche
+    strutturali comuni tra i sogni di singoli individui e usarle per differenziare e catalogare più sognatori.
+    \item Individuare pattern ricorrenti di parole e insiemi di parole su un corpus ampio di testi, con
+    eventuale ausilio di strumenti statistici
+    \item Stabilire la natura della connettività del grafo delle parole in base al numero di insiemi componente
     (gruppi di parole) e di nodi presenti nelle contrazioni.
-    \item[b.5] Permettere un confronto automatico dei pattern strutturali con grafi multi-livello che rappresentino
+    \item Permettere un confronto automatico dei pattern strutturali con grafi multi-livello che rappresentino
     un controllo, con l'eventuale ausilio di algoritmi che valutano il grado di somiglianza di grafi.
 \end{itemize}
 
 In questo capitolo verranno, quindi, esplorate le possibili modalità di applicazione dei grafi multi-livello allo scopo
-di analisi di racconti di sogni, portando dei casi di studio reali in relazione ai punti b.1 e b.2, con l'obiettivo di
+di analisi di racconti di sogni, portando dei casi di studio reali, con l'obiettivo di
 evidenziarne le capacità nell'ambito di un'analisi sintattica e semantica.
 
-
-
-Per rendere chiaro questo aspetto, si prenda come esempio il grafo multi-livello $M = (G, \langle f_{C_1}, f_{C_2}\rangle)$
-rappresentato in figura~\ref{fig:les-miserables-graph}, il cui grafo $G$ rappresenta il grafo delle relazioni di
-co-apparizione dei personaggi del romanzo \textit{Les Misérables} di Victor Hugo,
-e le cui funzioni di contrazione $f_{C_1}$ e $f_{C_2}$ rappresentano rispettivamente le funzioni di contrazione
-per cricche non reciproche e componenti fortemente connesse.
-Appare evidente di come la struttura del grafo $G$ sia stata contratta con un elevato tasso di contrazione,
-producendo una struttura notevolmente più semplice e facilmente interpretabile. Per via degli schemi di
-contrazione scelti, appare evidente come la struttura originale del grafo abbia rivelato la sua ordinatezza ai livelli
-superiori: in media i personaggi del romanzo possono apparire assieme ad una cerchia ristretta di altri personaggi,
-ad eccezione di personaggi principali che risultano collegarsi a questi gruppi più o meno isolati di nodi.
-Questo rispecchia in parte la natura dello spazio bidimensionale in cui i personaggi sono collocati: personaggi
-appartenenti a luoghi distanti difficilmente appariranno insieme. I personaggi principali, in quanto seguiti
-nella narrazione nel mentre che si spostano nello spazio, permettono di rompere questa dimensionalità, e risultano
-essere collegati a nodi ``distanti'' tra loro.
-
+\input{4.1-AnalContSem}
+\input{4.2-AnalDiffSint}
