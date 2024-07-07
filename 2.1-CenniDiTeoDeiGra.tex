@@ -5,7 +5,7 @@ in relazione tra loro.
 I grafi possono essere orientati o non orentati, a seconda che esista una direzione o un ordine tra le coppie
 di elementi che si trovano in relazione.
 In questa sezione ci concentreremo esclusivamente sui grafi orientati, in quanto alla base della definizione dei
-textit{Grafi Multi-livello}, oltre che essere più generali: i grafi non orientati possono sempre essere rappresentati
+\textit{Grafi Multi-livello}, oltre che essere più generali: i grafi non orientati possono sempre essere rappresentati
 come particolari grafi orientati.
 
 \subsection{Grafi Orientati}\label{subsec:grafi-orientati}
@@ -76,6 +76,10 @@ Sia $v \in V$ un nodo di un grafo orientato $G = (V, E)$, allora:
     \item il \textbf{grado entrante} di un nodo $v$ \`e il numero di archi che entrano in $v$.
     \item il \textbf{grado} di un nodo $v$ \`e la somma del grado uscente e del grado entrante di $v$.
 \end{itemize}
+
+Le informazioni sui gradi dei nodi di un grafo possono essere utilizzati per descriverne le loro caratteristiche
+strutturali. Ad esempio, un grafo si può chiamare una \textbf{stella} quando, informalmente, ogni nodo del grafo ha un
+grado pari a $1$, ad eccezione di un nodo, il centro della stella, con grado maggiore o uguale a $1$.
 
 \subsection{Cammini e Connessione tra nodi}\label{subsec:cammini}
 

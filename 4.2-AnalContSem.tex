@@ -1,13 +1,16 @@
 \section{Analisi dei contesti semantici di un sognatore}\label{sec:analisi-dei-contesti-semantici-di-un-sognatore}
 
+L'estrapolazione di informazioni legate al significato delle parole a partire da aspetti sintattici \`e un
+principio fondamentale della semantica computazionale, noto come \textit{ipotesi distribuzionale}, che si basa sul
+principio per cui il significato di una parola \`e determinato dal suo contesto di utilizzo, e che le parole che
+appaiono nello stesso contesto tendono ad avere significati simili.\newline
 In questa sezione verrà esplorato un caso di studio, risultato del tentativo di usare il modello dei grafi multi-livello
 allo scopo di individuare dei contesti di parole di valenza sintattica e semantica all'interno del mondo onirico
-di una particolare sognatrice, i cui sogni sono stati prelevati dal dataset di sogni di DreamBank.net disponibile
-online.
+di una particolare sognatrice.
 Daremo forma allo spazio delle parole di Emma a partire da un vasto corpus di racconti di sogni, e analizzeremo la
 struttura del grafo multi-livello risultante.
 
-\subsection{Pre-elaborazione con strumenti di NLP}
+\subsection{Fase di pre-elaborazione}
 
 Per poter procedere con l'analisi dei sogni di Emma affinché si potesse costruire un grafo delle parole
 da cui poter cogliere aspetti semantici, si è ritenuto necessario aggiungere dei passaggi ulteriori
@@ -57,7 +60,7 @@ essere collegati a nodi distanti tra loro.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{Immagini/les_miserables_example.png}
+    \includegraphics[width=1\textwidth]{Immagini/les_miserables_example}
     \caption{Grafo multi-livello delle co-apparizioni in \textit{Les Misérables}}
     \label{fig:les-miserables-graph}
 \end{figure}
@@ -121,7 +124,7 @@ Il grado di tolleranza alla distanza tra le parole è regolato dal parametro \te
 che può essere impostato per ottenere un grafo più o meno semplificato: più basso sarà il threshold, minore
 sarà il grado di connettività del grafo prodotto.
 
-\nlparagraph{Complessità}
+\paragraph{Complessità}
 Il costo dell'algoritmo REDUCE-CONNECTIVITY è principalmente dominato dalla fase di ordinamento degli archi
 e del calcolo dei cammini minimi tra i nodi del grafo non orientato $H_u$.
 Utilizzando algoritmi di ordinamento efficienti, il costo computazionale dell'ordinamento a riga 3 è $O(|E| \log |E|)$.
@@ -136,12 +139,12 @@ risulta essere:
 
 \subsection{Analisi dei risultati}\label{subsec:analisi-del-grafo-multi-livello}
 
-Discutiamo ora brevementeil grafo multi-livello dell'intero corpus di 1221 sogni di Emma mostrato in
+Discutiamo ora brevemente il grafo multi-livello dell'intero corpus di 1221 sogni di Emma mostrato in
 figura~\ref{fig:mlg-emma-example}, risultante dall'applicazione delle procedure di pre-elaborazione e dalla riduzione
 della connettività con un parametro di threshold pari a $11.0$.
 Esso è stato ottenuto selezionando i primi 300 lemmi univoci più frequenti, filtrando per categorie POS mantenendo
 sostantivi e verbi.
-Le funzioni di contrazione applicate sono, in ordine, la contrazione per circuiti semplici,
+Le funzioni di contrazione applicate sono, in ordine, la contrazione per circuiti semplici massimali,
 per componenti fortemente connesse e per stelle, la cui ultima è stata applicata ripetutamente per
 formare i cinque livelli più alti.
 Ogni nodo al livello $0$ rappresenta un unigramma, con un'etichetta che ne indica il lemma originale. L'etichetta di
@@ -162,10 +165,10 @@ rappresentare schemi influenti o temi ricorrenti nelle narrazioni dei sogni,
 potenzialmente indicando collegamenti di pensiero persistenti nei sogni di Emma.
 Si noti tuttavia che per l'elevato numero di sogni considerati e per la conseguente scelta del parametro di threshold,
 la presenza di cicli è limitata a poche brevi sequenze di parole particolarmente correlate, date da gruppi di
-parole come ``cake''- `party, ''boat''-``lake''-``water'', ``trip''-``train''-``station'' oppure
-''road''-``car''-``drive''-``hill''.
-\'E interessante supporre di come queste sequenze possano fornire delle informazioni rilevanti proprio per via del forte
-legame semantico che esse rappresentano.
+parole come ``cake''-``party'', ``boat''-``lake''-``water'', ``trip''-``train''-``station'' oppure
+``road''-``car''-``drive''-``hill''.
+\'E interessante fare supposizioni su come queste sequenze possano fornire delle informazioni rilevanti proprio per
+via del forte legame semantico che esse rappresentano.
 Ad esempio la sequenza ``liturgy''-``church'-``music'' potrebbe indicare che per Emma il tema della musica è
 fortemente associato al contesto della chiesa e alla liturgia, rispetto ad altri contesti che potrebbero
 essere maggiormente attinenti per altre persone, come quello di un concerto o di un'accademia musicale.
@@ -196,9 +199,9 @@ Lo scopo di queste contrazioni altro non è che quello di far nascere dei macro-
 delle parole originali, in maniera simile a come accade per alcuni strumenti di NLP, come i modelli di
 \textit{word embedding}, le tecniche di \textit{topic modeling} e algoritmi di clustering semantico.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{Immagini/mlg_emma_focus_example.png}
+    \includegraphics[width=1\textwidth]{Immagini/mlg_emma_focus_example}
     \caption{Grafo multi-livello del corpus di sogni di Emma}
     \label{fig:mlg-emma-example}
 \end{figure}
