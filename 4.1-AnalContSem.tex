@@ -7,71 +7,35 @@ online.
 Daremo forma allo spazio delle parole di Emma a partire da un vasto corpus di racconti di sogni, e analizzeremo la
 struttura del grafo multi-livello risultante.
 
-\subsection{Pre-elaborazione con strumenti di NLP}\label{subec:pre-elaborazione-con-NLP}
-Per poter procedere con l'analisi dei sogni di Emma affinché si potesse costruire un grafo delle parole
-da cui poter cogliere aspetti semantici, è stato necessario effettuare una pre-elaborazione dei testi
-attraverso gli strumenti tipici dell'elaborazione del linguaggio naturale.
-L'NLP (in inglese \textit{Natural Language Processing}) è di fatti quella disciplina a metà tra intelligenza artificiale
-e linguistica che si occupa di individuare i metodi di elaborazione e analisi di dati che si presentano sotto forma di
-linguaggio naturale, ovvero di linguaggi usati dell'essere umano. \newline
+\subsection{Pre-elaborazione con strumenti di NLP}
 
-La pre-elaborazione ha quindi previsto l'applicazione della seguente sequenza di fasi al corpus di 1218 sogni
-originario:
-\begin{enumerate}
-    \item Pulizia del testo. \newline \noindent
-          Questa fase ha incluso la rimozione degli spazi bianchi superflui, la standardizzazione della
-          formattazione del testo e la correzione di errori ortografici o di incoerenze. È stata inoltre eseguita la
-          rimozione della punteggiatura, snellendo ulteriormente i dati testuali. Tali procedure di pulizia sono
-          essenziali per garantire la qualità e la coerenza dei dati in ingresso, migliorando così l'affidabilità
-          dell'analisi.
-    \item Tokenizzazione. \newline \noindent
-          Questa fase ha comportato la suddivisione del testo in parole singole dette \textit{token},
-          passaggio fondamentale nell'elaborazione del linguaggio naturale, creando la base per le fasi successive.
-    \item Rimozione delle stop words. \newline \noindent
-          Le \textit{stop words} sono parole comuni (come ``the'', ``is'', ``at'', ``which'' e ``on'') che tipicamente non hanno
-          un ruolo significativo nei compiti di NLP, specialmente in quelli legati ad analisi semantiche.
-          In questo caso, la loro rimozione può certamente aiutare a concentrare l'analisi sulle parole più ricche di
-          contenuto nelle narrazioni dei sogni, riducendo significativamente il rumore nei dati e mettendo in evidenza
-          i termini più salienti.
-    \item Lemmatizzazione. \newline \noindent
-          La lemmatizzazione è un processo che riduce le parole alla loro forma base, chiamata \textit{lemma}.
-          Ad esempio, ``running'' verrebbe lemmatizzato in ``run'' e ``better'' in ``good''.
-          Questo passaggio aiuta a ridurre le diverse declinazioni delle parole ai loro concetti di base, riducendo
-          la dimensionalità dei dati testuali e rivelando, potenzialmente, schemi sottostanti in modo più chiaro.
-    %\item Estrapolazione dei sostantivi. \newline \noindent
-    %      Attraverso una fase di Part-of-Speech (POS) tagging, ciascuna parola viene etichettata di con la sua categoria
-    %      grammaticale di appartenenza, come quella dei sostantivi, verbi, aggettivi, avverbi, ecc.
-    %      A partire da queste categorizzazioni, tutte le parole che non sono state etichettate come sostantivi vengono
-    %      filtrate. Lo scopo di questa fase è quello di concentrare l'analisi sulle parole che sono generalmente
-    %      considerate le parti del testo più significative e ricche di contenuto, che meglio possono coadiuvare
-    %      l'analisi semantica.
-    \item Filtraggio delle parole meno frequenti. \newline \noindent
-          Questa fase ha comportato la rimozione delle parole meno frequenti all'interno dell'intero corpus di sogni
-          di Emma. Questo passaggio è stato eseguito per ridurre la complessità del testo e concentrare l'analisi sui
-          termini più rilevanti e significativi, con l'obiettivo di individuare le tematiche principali trattate
-          nei sogni e l'ordine con cui esse appaiono nei testi.
-    \item Costruzione del grafo delle parole. \newline \noindent
-          Infine, è stato costruito un grafo diretto basato sulle singole parole all'interno delle sequenze
-          di lemmi associate ad ogni sogno. Tali parole, in quanto prese singolarmente rispetto alla sequenza
-          di appartenenza, si definiscono \textit{unigrammi}. In questo grafo, quindi, ogni nodo rappresenta
-          un unigramma univoco, con una proprietà ``peso'' che indica il numero di occorrenze di quell'unigramma
-          nell'intero corpus di sogni.
-          Gli archi orientati del grafo collegano gli unigrammi dei lemmi che appaiono seguitamente nella
-          sequenza associata ad ogni sogno. Per questo motivo, ad ogni arco corrisponde un \textit{bigramma}, ovvero
-          un accostamento ordinato di due parole.
-          Il peso di ciascun arco rappresenta il numero di occorrenze di quello specifico accostamento ordinato nel testo.
-          In questo modo, la struttura del grafo cattura non solo le relazioni sequenziali tra le parole nei sogni,
-          ma anche la frequenza e la forza di queste parole e relazioni.
-\end{enumerate}
+Per poter procedere con l'analisi dei sogni di Emma affinché si potesse costruire un grafo delle parole
+da cui poter cogliere aspetti semantici, si è ritenuto necessario aggiungere dei passaggi ulteriori
+al processo di pre-elaborazione descritto nella sottosezione~\ref{subec:pre-elaborazione-con-NLP}.
+In particolare, si è rivelato utile allo scopo di un'analisi semantica,
+un filtraggio delle parole meno frequenti rispetto all'intero corpus di sogni di Emma.
+Questo passaggio è stato eseguito per ridurre la complessità del testo e concentrare l'analisi sui
+termini più rilevanti e significativi, con l'obiettivo di individuare le tematiche principali trattate
+nei sogni e l'ordine con cui esse appaiono nei testi.
+Un'altra possibile interessante fase di pre-elaborazione ulteriore è quella dell'estrapolazione di categorie
+specifiche di parole.
+Attraverso tecniche di NLP come il Part-of-Speech (POS) tagging, ciascuna parola può essere etichettata con la sua
+categoria grammaticale di appartenenza, come quella dei sostantivi, verbi, aggettivi, avverbi, ecc.
+Con la tecnica di Named Entity Recognition (NER) tagging è possibile, invece, identificare le entità di interesse
+all'interno del testo, categorizzando elementi come persone, luoghi e organizzazioni.
+A partire da queste categorizzazioni, tutte le parole che non sono etichettate in una particolare
+categoria vengono filtrate. Lo scopo di questa fase potrebbe essere quello di concentrare l'analisi sulle parole che
+sono considerate le parti del testo più significative e ricche di contenuto, o semplicemente focalizzare l'analisi
+su un aspetto di interesse.
 
 
 \subsection{Riduzione della connettività del grafo delle parole}\label{subsec:elaborazione-del-grafo-delle-parole}
 
-Sebbene il grafo delle parole risultante dalla pre-elaborazione dei sogni sia frutto di un processo di
-semplificazione e riduzione della complessità del testo, la sua analisi diretta attraverso l'uso del
-grafo multi-livello ne ha rivelato sin da subito la sua elevata connettività derivante dalla natura del
-linguaggio naturale: parole e concetti possono essere strettamente legati (e quindi ``vicini'') ad un ampio numero di
-altri concetti che a loro volta possono collegarsi direttamente ad altri concetti sparsi per il grafo.
+Sebbene il grafo delle parole risultante dalla pre-elaborazione di tutti i sogni di un particolare sognatore
+sia frutto di un processo di semplificazione e riduzione della complessità del testo, la sua analisi diretta
+attraverso l'uso del grafo multi-livello ne ha rivelato sin da subito la sua elevata connettività derivante dalla
+natura del linguaggio naturale: parole e concetti possono essere strettamente legati (e quindi ``vicini'') ad un
+ampio numero di altri concetti che a loro volta possono collegarsi direttamente ad altri concetti sparsi per il grafo.
 Il risultato è uno spazio fortemente ``aggrovigliato'' che non favorisce la formazione di gruppi di parole distinti e
 ben definiti e che, di conseguenza, non favorisce un processo di contrazione di qualità nella
 gerarchia del grafo multi-livello.
@@ -80,7 +44,7 @@ Per rendere chiaro questo aspetto, si prenda come esempio il grafo multi-livello
 rappresentato in figura~\ref{fig:les-miserables-graph}, il cui grafo $G$ rappresenta il grafo delle relazioni di
 co-apparizione dei personaggi del romanzo \textit{Les Misérables} di Victor Hugo,
 e le cui funzioni di contrazione $f_{C_1}$ e $f_{C_2}$ rappresentano rispettivamente le funzioni di contrazione
-per cricche non reciproche e componenti fortemente connesse.
+per cricche non reciproche e stelle.
 Appare evidente di come la struttura del grafo $G$ sia stata contratta con un elevato tasso di contrazione,
 producendo una struttura notevolmente più semplice e facilmente interpretabile. Per via degli schemi di
 contrazione scelti, appare evidente come la struttura originale del grafo abbia rivelato la sua ordinatezza ai livelli
@@ -89,7 +53,14 @@ ad eccezione di personaggi principali che risultano collegarsi a questi gruppi p
 Questo rispecchia in parte la natura dello spazio bidimensionale in cui i personaggi sono collocati: personaggi
 appartenenti a luoghi distanti difficilmente appariranno insieme. I personaggi principali, in quanto seguiti
 nella narrazione nel mentre che si spostano nello spazio, permettono di rompere questa dimensionalità, e risultano
-essere collegati a nodi distanti tra loro. \newline
+essere collegati a nodi distanti tra loro.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Immagini/les_miserables_example.png}
+    \caption{Grafo multi-livello delle co-apparizioni in \textit{Les Misérables}}
+    \label{fig:les-miserables-graph}
+\end{figure}
 
 Per risolvere questo problema legato all'alta connettività del grafo delle parole, si è deciso di applicare
 una tecnica di potatura del grafo, che consiste nell'identificazione di uno scheletro portante del grafo
@@ -163,22 +134,71 @@ risulta essere:
       O(|E| (\log |E| + |V| \log{|V|} + |E|))
 \end{equation*}
 
-\subsection{Analisi del grafo multi-livello}\label{subsec:analisi-del-grafo-multi-livello}
+\subsection{Analisi dei risultati}\label{subsec:analisi-del-grafo-multi-livello}
+
+Discutiamo ora brevementeil grafo multi-livello dell'intero corpus di 1221 sogni di Emma mostrato in
+figura~\ref{fig:mlg-emma-example}, risultante dall'applicazione delle procedure di pre-elaborazione e dalla riduzione
+della connettività con un parametro di threshold pari a $11.0$.
+Esso è stato ottenuto selezionando i primi 300 lemmi univoci più frequenti, filtrando per categorie POS mantenendo
+sostantivi e verbi.
+Le funzioni di contrazione applicate sono, in ordine, la contrazione per circuiti semplici,
+per componenti fortemente connesse e per stelle, la cui ultima è stata applicata ripetutamente per
+formare i cinque livelli più alti.
+Ogni nodo al livello $0$ rappresenta un unigramma, con un'etichetta che ne indica il lemma originale. L'etichetta di
+supernodi appartenenti al livello $1$ e superiori rappresentano invece l'etichetta del nodo più pesante del livello
+precedente tra quelli contratti per formare il supernodo, considerato quindi come rappresentante del gruppo di nodi.
+La dimensione di un nodo è infatti proporzionale al suo peso che, al livello $0$, è dato dal numero di occorrenze del
+lemma nel corpus di sogni, mentre ai livelli superiori è dato dalla somma dei pesi dei nodi del livello precedente che
+sono stati contratti per formare tale supernodo.
+Come si può meglio notare dal riquadro ingrandito, nodi dello stesso livello che vengono contratti nello stesso
+supernodo assumono un colore uguale, e la relazione nodo-supernodo è indicata da un arco orientato
+semi-trasparente dello stesso colore.
+Ciò che appare subito evidente è l'elevata complessità della struttura dei grafi ai livelli più bassi, che
+via via si semplifica riducendo il numero di nodi e archi ai livelli superiori, ottenendo nodi che accumulano
+sempre più peso.
+
+Il rilevamento dei cicli, che identifica sequenze rilevanti di parole che riportano alla parola iniziale, potrebbero
+rappresentare schemi influenti o temi ricorrenti nelle narrazioni dei sogni,
+potenzialmente indicando collegamenti di pensiero persistenti nei sogni di Emma.
+Si noti tuttavia che per l'elevato numero di sogni considerati e per la conseguente scelta del parametro di threshold,
+la presenza di cicli è limitata a poche brevi sequenze di parole particolarmente correlate, date da gruppi di
+parole come ``cake''- `party, ''boat''-``lake''-``water'', ``trip''-``train''-``station'' oppure
+''road''-``car''-``drive''-``hill''.
+\'E interessante supporre di come queste sequenze possano fornire delle informazioni rilevanti proprio per via del forte
+legame semantico che esse rappresentano.
+Ad esempio la sequenza ``liturgy''-``church'-``music'' potrebbe indicare che per Emma il tema della musica è
+fortemente associato al contesto della chiesa e alla liturgia, rispetto ad altri contesti che potrebbero
+essere maggiormente attinenti per altre persone, come quello di un concerto o di un'accademia musicale.
 
 
+L'individuazione delle componenti fortemente connesse al livello successivo potrebbe indicare unità tematiche coerenti
+che, nel complesso delle narrazioni dei sogni, si co-occorrono e si interconnettono frequentemente tra loro rendendosi
+mutualmente raggiungibili.
+Queste componenti potrebbero rappresentare cluster di concetti o temi strettamente
+interrelati che frequentemente co-occorrono e si interconnettono tra più sogni.
+Come si può dedurre confrontando le dimensioni dei nodi al livello $2$ rispetto a quelle del livello precedente,
+l'applicazione della contrazione per componenti fortemente connesse, in genere permette di individuare contesti
+semanticamente più ampi di quelli visti per la contrazione per circuiti semplici.
+Questo è dovuto da un lato alla natura delle componenti stesse, da un altro al fatto che la contrazione avviene
+già ad un livello di astrazione superiore, in cui concetti strettamente collegati sono già stati raggruppati in unici
+supernodi.
+Esempi di insiemi di lemmi originali contenuti in componenti fortemente connesse individuate sono
+``sit''-``chair''-``front''-``porch''-``seat''-``plane''
+oppure ``lake''-``boat''-``water''-``rise''-``pool''-``swim''-``rush'', che racchiude uno dei circuiti semplici visti
+in precedenza.
 
+La contrazione per stelle, infine, permette di inglobare ulteriormente dei supernodi periferici ai quelli principali già
+affermati nei primi livelli.
+In questo modo lemmi e contesti che ``orbitano'' attorno ad altri e che, quindi,
+ne siano strettamente dipendenti, vengono contratti in contesti più generali, espandendosi di una singola unità
+di distanza di un arco ad ogni successivo livello.
+Lo scopo di queste contrazioni altro non è che quello di far nascere dei macro-cluster che includano la maggior parte
+delle parole originali, in maniera simile a come accade per alcuni strumenti di NLP, come i modelli di
+\textit{word embedding}, le tecniche di \textit{topic modeling} e algoritmi di clustering semantico.
 
-
-
-
-Dopo la creazione dei grafi, abbiamo eseguito il rilevamento dei cicli e l'individuazione delle componenti fortemente
-connesse. Il rilevamento dei cicli identifica i loop chiusi nel grafo, dove una sequenza di parole porta eventualmente
-di nuovo alla parola iniziale. Questi cicli potrebbero rappresentare schemi o temi ricorrenti nelle narrazioni dei sogni,
-potenzialmente indicando motivi o modelli di pensiero persistenti nei sogni di Emma. L'individuazione delle componenti
-fortemente connesse identifica i sottografi all'interno dei quali ogni nodo è raggiungibile da ogni altro nodo.
-Nel contesto dell'analisi dei sogni, queste componenti potrebbero rappresentare cluster di concetti o temi strettamente
-interrelati che frequentemente co-occorrono e si interconnettono all'interno dei sogni. L'applicazione di queste
-tecniche di analisi del grafo al grafo di unigrammi diretto e pesato potrebbe rivelare strutture complesse all'interno
-delle narrazioni dei sogni, come temi ricorrenti, schemi di pensiero persistenti o cluster di concetti correlati.
-I cicli rilevati potrebbero indicare elementi circolari o ripetitivi nei sogni, mentre le componenti fortemente connesse
-potrebbero rappresentare unità tematiche coerenti o strutture narrative.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Immagini/mlg_emma_focus_example.png}
+    \caption{Grafo multi-livello del corpus di sogni di Emma}
+    \label{fig:mlg-emma-example}
+\end{figure}

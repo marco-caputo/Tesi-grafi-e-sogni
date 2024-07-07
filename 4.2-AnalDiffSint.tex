@@ -13,3 +13,48 @@ Aspetti di rilievo del grafo delle parole, ovvero il grafo ottenuto dal report o
 ogni parola \`e rappresentata come un nodo e ogni connessione temporale tra parole consecutive come un arco diretto,
 sono stati la frequenza di utilizzo delle parole, la presenza di cicli su parole ricorrenti, la connettivit\'a delle
 parole e la loro organizzazione in componenti e componenti fortemente connesse. \newline
+
+\subsection{Pre-elaborazione con strumenti di NLP}\label{subec:pre-elaborazione-con-NLP}
+Per poter procedere con l'analisi dei sogni di Emma affinché si potesse costruire un grafo delle parole
+da cui poter cogliere aspetti semantici, è stato necessario effettuare una pre-elaborazione dei testi
+attraverso gli strumenti tipici dell'elaborazione del linguaggio naturale.
+L'NLP (in inglese \textit{Natural Language Processing}) è di fatti quella disciplina a metà tra intelligenza artificiale
+e linguistica che si occupa di individuare i metodi di elaborazione e analisi di dati che si presentano sotto forma di
+linguaggio naturale, ovvero di linguaggi usati dell'essere umano. \newline
+
+La pre-elaborazione ha quindi previsto l'applicazione della seguente sequenza di fasi al corpus di 1218 sogni
+originario:
+\begin{enumerate}
+    \item Pulizia del testo. \newline \noindent
+          Questa fase ha incluso la rimozione degli spazi bianchi superflui, la standardizzazione della
+          formattazione del testo e la correzione di errori ortografici o di incoerenze. È stata inoltre eseguita la
+          rimozione della punteggiatura, snellendo ulteriormente i dati testuali. Tali procedure di pulizia sono
+          essenziali per garantire la qualità e la coerenza dei dati in ingresso, migliorando così l'affidabilità
+          dell'analisi.
+    \item Tokenizzazione. \newline \noindent
+          Questa fase ha comportato la suddivisione del testo in parole singole dette \textit{token},
+          passaggio fondamentale nell'elaborazione del linguaggio naturale, creando la base per le fasi successive.
+    \item Rimozione delle stop words. \newline \noindent
+          Le \textit{stop words} sono parole comuni (come ``the'', ``is'', ``at'', ``which'' e ``on'') che tipicamente
+          hanno un ruolo significativo nei compiti di NLP, specialmente in quelli legati ad analisi semantiche.
+          In questo caso, la loro rimozione può certamente aiutare a concentrare l'analisi sulle parole più ricche di
+          contenuto nelle narrazioni dei sogni, riducendo significativamente il rumore nei dati e mettendo in evidenza
+          i termini più salienti.
+    \item Lemmatizzazione. \newline \noindent
+          La lemmatizzazione è un processo che riduce le parole alla loro forma base, chiamata \textit{lemma}.
+          Ad esempio, ``running'' verrebbe lemmatizzato in ``run'' e ``better'' in ``good''.
+          Questo passaggio aiuta a ridurre le diverse declinazioni delle parole ai loro concetti di base, riducendo
+          la dimensionalità dei dati testuali e rivelando, potenzialmente, schemi sottostanti in modo più chiaro.
+    \item Costruzione del grafo delle parole. \newline \noindent
+          Infine, è stato costruito un grafo diretto basato sulle singole parole all'interno delle sequenze
+          di lemmi associate ad ogni sogno. Tali parole, in quanto prese singolarmente rispetto alla sequenza
+          di appartenenza, si definiscono \textit{unigrammi}. In questo grafo, quindi, ogni nodo rappresenta
+          un unigramma univoco, con una proprietà ``peso'' che indica il numero di occorrenze di quell'unigramma
+          nell'intero corpus di sogni.
+          Gli archi orientati del grafo collegano gli unigrammi dei lemmi che appaiono seguitamente nella
+          sequenza associata ad ogni sogno. Per questo motivo, ad ogni arco corrisponde un \textit{bigramma}, ovvero
+          un accostamento ordinato di due parole.
+          Il peso di ciascun arco rappresenta il numero di occorrenze di quello specifico accostamento ordinato nel testo.
+          In questo modo, la struttura del grafo cattura non solo le relazioni sequenziali tra le parole nei sogni,
+          ma anche la frequenza e la forza di queste parole e relazioni.
+\end{enumerate}
