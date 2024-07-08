@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+
+% Circle base
+\draw[thick] (0,0) circle (3cm);
+
+% Sectors
+% Sectors
+\fill[yellow!80] (0,0) -- (90:3cm) arc[start angle=90, end angle=70, radius=3cm] -- cycle;
+\fill[green!70] (0,0) -- (70:3cm) arc[start angle=70, end angle=-110, radius=3cm] -- cycle;
+\fill[cyan!60] (0,0) -- (250:3cm) arc[start angle=250, end angle=180, radius=3cm] -- cycle;
+\fill[blue!70] (0,0) -- (180:3cm) arc[start angle=180, end angle=90, radius=3cm] -- cycle;
+
+% Inner circle
+\draw[thick, fill=white] (0,0) circle (1.5cm);
+
+% Text
+%\node at (0,0) {\text{Ciclo del Sonno}};
+\node at (80:2.3cm) {\textbf{N1}};
+\node at (350:2.3cm) {\textbf{N2}};
+\node at (215:2.3cm) {\textbf{N3}};
+\node at (135:2.3cm) {\textbf{REM}};
+
+% Arrows and labels
+\draw[->, thick] (88:3.3cm) arc[start angle=88, end angle=-108, radius=3.3cm];
+\node at (345:4.8cm) {Sonno leggero};
+
+\draw[->, thick] (248:3.3cm) arc[start angle=248, end angle=182, radius=3.3cm];
+\node at (210:4.8cm) {Sonno profondo};
+
+\draw[->, thick] (178:3.3cm) arc[start angle=178, end angle=92, radius=3.3cm];
+\node at (140:3.9cm) {Sogno};
+
+\end{tikzpicture}
