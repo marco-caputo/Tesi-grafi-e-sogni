@@ -64,11 +64,16 @@ $M = (G, \Gamma)$, è quindi stato possibile rappresentare i sogni di Emma, Arli
 dove i supernodi rappresentano parole, concetti e pensieri a diversi livelli di astrazione, mentre i super-archi
 rappresentano le relazioni tra tali elementi quando sono correlati.
 
-%TODO: Immagine del grafo delle parole
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{Immagini/arlie_dream_graph_example}
+    \caption{Grafo multi-livello di un sogno di Arlie}
+    \label{fig:arlie-dream-graph}
+\end{figure}
 
-In Figura~\ref{XXX} è mostrato un esempio di grafo delle parole costruito a partire da un sogno di Emma, e dei
+In Figura~\ref{fig:arlie-dream-graph} è mostrato un esempio di grafo delle parole costruito a partire da un sogno di Arlie, e dei
 relativi livelli di astrazione ottenuti attraverso la contrazione del grafo.
-In particolare, l'esempio mostra il grafo multilivello risultante dall'applicazione di schemi di contrazione per
+In particolare, l'esempio mostra il grafo multi-livello risultante dall'applicazione di schemi di contrazione per
 circuiti semplici, componenti fortemente connesse e stelle.
 La funzione di contrazione per stelle rappresenta un ulteriore livello di astrazione, in cui tutti i nodi su cui è
 incidente un unico arco che li collega ad un nodo centrale vengono contratti in un unico supernodo.
@@ -83,7 +88,7 @@ A partire dall'analisi di un dataset di narrazioni di sogni provenienti da sedic
 metodologia precedentemente descritta, raccogliendo dati statistici sulle caratteristiche topologiche
 dei grafi a vari livelli delle gerarchie prodotte per ciascun sognatore.
 In questa parte l'attenzione verrà rivolta a tre particolari sognatori dei sedici originali: Arlie, Emma e Norman.
-Arlie è stato identificata come un sognatrice con grafi delle parole aventi parametri strutturali che più si
+Arlie è stata identificata come un sognatrice con grafi delle parole aventi parametri strutturali che più si
 avvicinano alle medie del campione, mentre Emma e Norman sono stati scelti per alcune caratteristiche atipiche
 che li differenziano dal resto del gruppo.
 
@@ -95,10 +100,10 @@ da ciascun sogno prevede una sequenza di sette funzioni di contrazione che sono,
       \text{funzione di contrazione per circuiti semplici}
       \end{aligned} $
     \item \eqmakebox[things][l]{$f_{C_2}$}
-      \begin{aligned}[t]
+    $ \begin{aligned}[t]
       \text{funzione di contrazione per componenti fortemente connesse}
-      \end{aligned}
-    \item \eqmakebox[things][l]{$f_{C_3} - f_{C_7}$ }
+      \end{aligned} $
+    \item \eqmakebox[things][l]{$f_{C_3},\ldots,f_{C_7}$}
     $ \begin{aligned}[t]
       \text{funzioni di contrazione per stelle}
       \end{aligned} $
@@ -117,7 +122,8 @@ A causa della significativa variazione nel numero medio di lemmi tra le narrazio
 per Emma, 28,80 per Norman e 48,47 per Arlie — i dati sensibili alla lunghezza del sogno sono stati normalizzati a un
 valore percentuale relativo al conteggio dei lemmi del sogno originale.
 A partire da osservazioni effettuate sul dataset, infatti, dati come il numero di nodi e archi, il peso dei nodi,
-la dimensione degli insiemi componenti e il numero (ma non la lunghezza) delle basi cicliche.
+la dimensione degli insiemi componenti e il numero (ma non la lunghezza) delle basi cicliche risultano essere tutti
+linearmente influenzati dal numero di lemmi considerati in ciascun sogno.
 
 Nella Figura~\ref{fig},in alto, è mostrato il grafico del conteggio dei nodi, il quale illustra l'evoluzione della
 quantità di nodi nei vari livelli.
@@ -246,23 +252,24 @@ In particolare, i grafi associati ai sogni di pazienti schizofrenici sono stati 
 piccoli e poco connessi, con basso numero di cicli, un elevato diametro rapportato alla dimensione del grafo e un
 basso coefficiente di clustering, il quale indica la tendenza dei nodi a formare cluster densamente connessi.
 I grafi dei pazienti bipolari, sebbene abbiano dimostrato avere un numero inferiore di caratteristiche che permettono
-di distinguerli rispetto al gruppo di controllo, sono prevalentemente caratterizzati da alta connettività, densità e
-coefficiente di clustering, abbinato alla maggiore presenza di cicli brevi e basso diametro.
-%SCC basse per bipolari! E alte per controllo.
-\end{enumerate}
+di distinguerli rispetto al gruppo di controllo, sono prevalentemente caratterizzati da alta connettività, alta densità
+e alto coefficiente di clustering, abbinato alla maggiore presenza di cicli brevi e un basso diametro.
+Tuttavia la caratteristica che ha permesso di caratterizzare e riconoscere distintamente il gruppo di controllo
+dagli altri due è la presenza e la dimensione delle componenti fortemente connesse: i sognatori del controllo hanno
+mostrato la dimensione maggiore tra tutti, seguiti dai bipolari e, per ultimi, gli schizofrenici. \newline
 
-
-I risultati ottenuti in questa analisi non sono corredati da informazioni riguardanti lo stato di salute mentale dei
-sognatori, tuttavia i dati ottenuti possono essere confrontati e a quelli di studi precedenti
-per trarre delle ipotesi su una possibile classificazione dei sognatori.
-
-
-i nostri risultati si
-correlano con le scoperte consolidate che indicano che Emma potrebbe essere collocata nel gruppo di controllo,
-a causa dell'alta rilevanza delle componenti fortemente connesse nel processo di contrazione e di altri parametri
-riguardanti la connettività e l'alto grado dei nodi. Questa ipotesi è supportata dal fatto che i grafici di Emma si
-conformano ai valori medi dei sedici sognatori nel dataset. Al contrario, Emma ha presentato caratteristiche tipiche
-dei pazienti schizofrenici, come un diametro del grafo elevato e un basso coefficiente di clustering, indicando nodi
-poco connessi. Dai dati di Norman è emersa una rilevanza dei cicli e un alto coefficiente di clustering, che potrebbero
+Per via del fatto che i dati ottenuti in questa analisi non sono corredati da informazioni riguardanti lo stato di
+salute mentale dei sognatori, i risultati sono stati confrontati con quelli degli studi precedenti al fine
+di trarre delle ipotesi su una possibile classificazione dei sognatori.
+I risultati dell'analisi multi-livello si correlano alle scoperte già consolidate suggerendo che Arlie potrebbe essere
+collocata nel gruppo di controllo, a causa dell'alta rilevanza delle componenti fortemente connesse nel processo di
+contrazione e di altri parametri riguardanti la connettività e l'alto grado dei nodi.
+Questa ipotesi è supportata dal fatto che i grafici di Arlie si conformano ai valori medi dei sedici sognatori nel
+dataset.
+Al contrario, Emma ha presentato caratteristiche tipiche dei pazienti schizofrenici, come un diametro del grafo
+elevato e un basso coefficiente di clustering, indicando nodi poco connessi.
+Dai dati di Norman, nel mentre, è emersa una rilevanza dei cicli e un alto coefficiente di clustering, che potrebbero
 essere considerate qualità simili ai sogni dei pazienti bipolari.
+Si noti, tuttavia, che molti altri sono stati gli aspetti emersi dall'analisi multi-livello, i quali hanno fornito una
+visione più completa sui sognatori rispetto a quella che si sarebbe ottenuta da un'analisi a livello singolo.
 
