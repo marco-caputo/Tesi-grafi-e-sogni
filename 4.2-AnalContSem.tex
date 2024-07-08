@@ -32,7 +32,7 @@ sono considerate le parti del testo più significative e ricche di contenuto, o 
 su un aspetto di interesse.
 
 
-\subsection{Riduzione della connettività del grafo delle parole}\label{subsec:elaborazione-del-grafo-delle-parole}
+\nlparagraph{Connettività del grafo delle parole}
 
 Sebbene il grafo delle parole risultante dalla pre-elaborazione di tutti i sogni di un particolare sognatore
 sia frutto di un processo di semplificazione e riduzione della complessità del testo, la sua analisi diretta
@@ -160,6 +160,13 @@ Ciò che appare subito evidente è l'elevata complessità della struttura dei gr
 via via si semplifica riducendo il numero di nodi e archi ai livelli superiori, ottenendo nodi che accumulano
 sempre più peso.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{Immagini/mlg_emma_focus_example}
+    \caption{Grafo multi-livello del corpus di sogni di Emma}
+    \label{fig:mlg-emma-example}
+\end{figure}
+
 Il rilevamento dei cicli, che identifica sequenze rilevanti di parole che riportano alla parola iniziale, potrebbero
 rappresentare schemi influenti o temi ricorrenti nelle narrazioni dei sogni,
 potenzialmente indicando collegamenti di pensiero persistenti nei sogni di Emma.
@@ -198,10 +205,3 @@ di distanza di un arco ad ogni successivo livello.
 Lo scopo di queste contrazioni altro non è che quello di far nascere dei macro-cluster che includano la maggior parte
 delle parole originali, in maniera simile a come accade per alcuni strumenti di NLP, come i modelli di
 \textit{word embedding}, le tecniche di \textit{topic modeling} e algoritmi di clustering semantico.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1\textwidth]{Immagini/mlg_emma_focus_example}
-    \caption{Grafo multi-livello del corpus di sogni di Emma}
-    \label{fig:mlg-emma-example}
-\end{figure}

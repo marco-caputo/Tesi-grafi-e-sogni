@@ -59,18 +59,17 @@ La pre-elaborazione ha quindi previsto l'applicazione della seguente sequenza di
           ma anche la frequenza e la forza di queste parole e relazioni.
 \end{enumerate}
 
-Utilizzando il grafo delle parole $G$ così prodotto come input per la costruzione di grafo multi-livello
-$M = (G, \Gamma)$, è quindi stato possibile rappresentare i sogni di Emma, Arlie e Norman in un'unica struttura,
-dove i supernodi rappresentano parole, concetti e pensieri a diversi livelli di astrazione, mentre i super-archi
-rappresentano le relazioni tra tali elementi quando sono correlati.
-
-\begin{figure}
+\begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{Immagini/arlie_dream_graph_example}
     \caption{Grafo multi-livello di un sogno di Arlie}
     \label{fig:arlie-dream-graph}
 \end{figure}
 
+Utilizzando il grafo delle parole $G$ così prodotto come input per la costruzione di grafo multi-livello
+$M = (G, \Gamma)$, è quindi stato possibile rappresentare i sogni di Emma, Arlie e Norman in un'unica struttura,
+dove i supernodi rappresentano parole, concetti e pensieri a diversi livelli di astrazione, mentre i super-archi
+rappresentano le relazioni tra tali elementi quando sono correlati.
 In Figura~\ref{fig:arlie-dream-graph} è mostrato un esempio di grafo delle parole costruito a partire da un sogno di Arlie, e dei
 relativi livelli di astrazione ottenuti attraverso la contrazione del grafo.
 In particolare, l'esempio mostra il grafo multi-livello risultante dall'applicazione di schemi di contrazione per
@@ -94,7 +93,7 @@ che li differenziano dal resto del gruppo.
 
 Il grafo multi-livello $M = (G, \Gamma)$ scelto per l'elaborazione del grafo delle parole $G$ prodotto a partire
 da ciascun sogno prevede una sequenza di sette funzioni di contrazione che sono, rispettivamente:
-\begin{enumerate}[(i)]
+\begin{itemize}
     \item \eqmakebox[things][l]{$f_{C_1}$}
     $ \begin{aligned}[t]
       \text{funzione di contrazione per circuiti semplici}
@@ -107,9 +106,9 @@ da ciascun sogno prevede una sequenza di sette funzioni di contrazione che sono,
     $ \begin{aligned}[t]
       \text{funzioni di contrazione per stelle}
       \end{aligned} $
-\end{enumerate}
+\end{itemize}
 
-Ciascuno dei grafici presentati di seguito comprende tre traiettorie distinte, ognuna corrispondente ai dati
+Ciascuno dei grafici presentati a seguire comprende tre traiettorie distinte, ognuna corrispondente ai dati
 dei tre sognatori selezionati, ottenuti da un insieme di 221, 1252 e 669 narrazioni, rispettivamente.
 Per ciascun insieme di narrazioni legate ai particolari sognatori, si sono selezionati i sogni con un numero di
 occorrenze di lemmi compreso tra 15 e 300 per narrazione, approssimativamente corrispondenti a sogni
@@ -125,8 +124,18 @@ A partire da osservazioni effettuate sul dataset, infatti, dati come il numero d
 la dimensione degli insiemi componenti e il numero (ma non la lunghezza) delle basi cicliche risultano essere tutti
 linearmente influenzati dal numero di lemmi considerati in ciascun sogno.
 
-Nella Figura~\ref{fig},in alto, è mostrato il grafico del conteggio dei nodi, il quale illustra l'evoluzione della
-quantità di nodi nei vari livelli.
+\newpage
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+    \vspace{-5pt}
+    \includegraphics[width=0.55\textwidth]{Immagini/conteggio_nodi_normalizzato}
+    \includegraphics[width=0.55\textwidth]{Immagini/conteggio_archi_normalizzato}
+    \caption{Statistiche sulle dimensioni dei grafi}\label{fig:node_edge_count}
+    \vspace{-5pt}
+\end{wrapfigure}
+
+Nella Figura~\ref{fig:node_edge_count}, in alto, è mostrato il grafico del conteggio dei nodi, il quale illustra
+l'evoluzione della quantità di nodi nei vari livelli.
 I cali significativi delle traiettorie che scendono velocemente a partire da un valore alto indicano una struttura
 di nodi inizialmente complessa che subisce una rapida semplificazione.
 I dati di Arlie mostrano una una discesa più ripida, suggerendo una veloce contrazione della struttura iniziale sin
@@ -144,9 +153,16 @@ Essendo che tali interconnessioni derivano da una quantità di archi al livello 
 paragonabile a quella degli altri due sognatori, questo aspetto potrebbe suggerire una maggiore qualità delle relazioni
 tra le parole nei sogni di Arlie, intesa come una più equa distribuzione degli archi tra parole e cicli di parole.
 
-Il grafico in Figura~\ref{fig} permette di arricchire la visione fornita dai grafici precedenti, mostrando la
-percentuale di contrazione dei nodi di ciascun livello, calcolata considerando la quantità di nodi del livello
-rispetto a quella del livello precedente.
+\begin{wrapfigure}{L}{0.5\textwidth}
+   \vspace{-5pt}
+    \includegraphics[width=0.55\textwidth]{Immagini/percentuale_di_contrazione}
+    \caption{Statistiche sulla contrazione}\label{fig:contraction_percentage}
+   \vspace{-5pt}
+\end{wrapfigure}
+
+Il grafico in Figura~\ref{fig:contraction_percentage} permette di arricchire la visione fornita dai grafici precedenti,
+mostrando la percentuale di contrazione dei nodi di ciascun livello, calcolata considerando la quantità di nodi del
+livello rispetto a quella del livello precedente.
 Le linee indicano che, mentre Emma e Norman presentano solo lievi differenze nelle prime contrazioni per stelle, i dati
 di Arlie mostrano una divergenza più significativa nel processo di contrazione delle componenti fortemente connesse.
 Questa informazione, combinata con le quelle fornite dai grafici precedenti, suggerisce che molti nodi vengono esclusi
@@ -154,7 +170,14 @@ dalle aggregazioni principali, portando a una struttura più frammentata.
 Tuttavia, questa struttura si semplifica rapidamente nei livelli successivi, indicando che la maggior parte dei nodi
 orbita nelle immediate vicinanze delle massicce aggregazioni principali.
 
-In Figura~\ref{fig} i grafici danno un'idea dell'evoluzione della distribuzione del peso dei nodi.
+\begin{wrapfigure}{R}{0.5\textwidth}
+    \includegraphics[width=0.55\textwidth]{Immagini/peso_nodo_max_normalizzato}
+    \includegraphics[width=0.55\textwidth]{Immagini/peso_nodo_medio_normalizzato}
+    \includegraphics[width=0.55\textwidth]{Immagini/varianza_peso_nodo_normalizzata}
+    \caption{Statistiche sui pesi dei nodi}\label{fig:node_weight}
+\end{wrapfigure}
+
+In Figura~\ref{fig:node_weight} i grafici danno un'idea dell'evoluzione della distribuzione del peso dei nodi.
 Al livello iniziale, i dati di Arlie mostrano un peso medio dei nodi moderato, seguito da un marcato aumento nel
 corso dei livelli superiori.
 Questo modello suggerisce che, mentre le strutture iniziali possiedono nodi di moderata importanza,
@@ -176,8 +199,18 @@ I dati di Emma presentano una varianza più alta ai livelli superiori, suggerend
 poco pesanti che rimangono distaccati dalle aggregazioni principali e che, quindi, sono generalmente distanti, poco
 connessi o situati in fondo a cammini che rappresentano vicoli ciechi.
 
-Il grafico delle medie dei cammino minimi in Figura~\ref{fig} rappresenta l'evoluzione della lunghezza media di tali
-cammini attraverso i diversi livelli dei grafi.
+\newpage
+
+\begin{wrapfigure}{L}{0.5\textwidth}
+    \vspace{-10pt}
+    \includegraphics[width=0.55\textwidth]{Immagini/lunghezza_cammino_minimo_media}
+    \includegraphics[width=0.55\textwidth]{Immagini/diametro_grafo}
+    \caption{Statistiche sui cammini}\label{fig:paths}
+    \vspace{-10pt}
+\end{wrapfigure}
+
+Il grafico delle medie dei cammino minimi in Figura~\ref{fig:paths} rappresenta l'evoluzione della lunghezza media di
+tali cammini attraverso i diversi livelli dei grafi.
 Tale misura è calcolata sulla versione non orientata di ciascun grafo come la distanza media tra ciascuna coppia di
 nodi in termini di archi.
 Valori iniziali più alti indicano strutture iniziali più estese, le quali normalmente riducono tale caratteristica
@@ -191,12 +224,12 @@ mentre i dati di Arlie presentano cammini inizialmente più lunghi e con declino
 percorso più semplici.
 Il secondo grafico nella stessa figura mostra l'evoluzione del diametro del grafo, parametro strettamente legato
 alla lunghezza dei cammini minimi, definito come il cammino minimo massimo tra tutte le coppie di nodi.
-Diametri iniziali più alti indicano strutture più estese. Questo grafico segue accuratamente quello precedente,
-indicando che, per tutti e tre i sognatori, le forme del grafo tra i livelli non sono deformate e contengono nodi
-approssimativamente equidistanti.
+Diametri iniziali più alti indicano strutture più estese.
+Questo grafico segue accuratamente quello precedente, indicando che, per tutti e tre i sognatori, le forme del grafo
+tra i livelli non sono deformate e contengono nodi approssimativamente equidistanti.
 
-Il grafico del conteggio delle basi cicliche in Figura~\ref{fig} quantifica la presenza di collegamenti circolari tra
-parole o gruppi di parole, considerando la versione non orientata dei grafi.
+Il grafico del conteggio delle basi cicliche in Figura~\ref{fig:cycle_basis} quantifica la presenza di collegamenti
+circolari tra parole o gruppi di parole, considerando la versione non orientata dei grafi.
 Le basi cicliche rappresentano i cicli fondamentali del grafo non ulteriormente scomponibili in sotto-cicli.
 Sono dette ``basi'' in quanto a partire da esse è possibile comporre tutti gli altri cicli attraverso una operazione di
 unione degli archi che li compongono in or esclusivo.
@@ -212,8 +245,23 @@ Tuttavia, la distinzione sulla lunghezza tra Emma e Arlie può essere osservata 
 che, a differenza di Arlie, le basi cicliche di Emma sono ottenute prevalentemente da insiemi di parole che si
 conseguono nella narrazione originale del sogno, nonostante consistano di un alto numero di lemmi.
 
-La Figura~\ref{fig} illustra la densità media dei grafi per ciascun livello, dove la densità di un grafo è definita
-come il rapporto tra il numero di archi nel grafo e il numero di archi possibili.
+\begin{figure}[t]
+    \hspace{-5pt}
+    \includegraphics[width=0.55\textwidth]{Immagini/conteggio_basi_cicliche_normalizzate}
+    \hspace{-20pt}
+    \includegraphics[width=0.55\textwidth]{Immagini/lunghezza_base_ciclica_media}
+    \hspace{-5pt}
+    \vspace{-10pt}
+    \caption{Statistiche sulle basi cicliche}\label{fig:cycle_basis}
+\end{figure}
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+    \includegraphics[width=0.55\textwidth]{Immagini/densità_grafo}
+    \caption{Statistiche sulla densità}\label{fig:density}
+\end{wrapfigure}
+
+La Figura~\ref{fig:density} illustra la densità media dei grafi per ciascun livello, dove la densità di un grafo è
+definita come il rapporto tra il numero di archi nel grafo e il numero di archi possibili.
 Tutti e tre i sognatori iniziano con basse densità iniziali del grafo che aumentano attraverso i primi livelli di
 contrazione.
 Oltre che essere una naturale conseguenza della riduzione della dimensione del grafo, questo indica che le strutture
@@ -228,8 +276,18 @@ Osservando gli altri due sognatori, è interessante notare che, mentre i sogni d
 rispetto a quelli di Emma nei livelli iniziali, i dati dei due sognatori convergono a valori simili nei livelli
 superiori, indicando un livello simile di interconnessione tra le aggregazioni principali.
 
-Il grafico del coefficiente di assortatività dei pesi in Figura~\ref{fig} fornisce informazioni sull'evoluzione
-di tale valore tra i singoli nodi.
+\begin{figure}[t]
+    \hspace{-5pt}
+    \includegraphics[width=0.55\textwidth]{Immagini/coefficiente_di_assortatività_peso}
+    \hspace{-20pt}
+    \includegraphics[width=0.55\textwidth]{Immagini/coefficiente_di_assortatività_grado}
+    \hspace{-5pt}
+    \vspace{-10pt}
+    \caption{Statistiche sull'assortatività}\label{fig:assortativity}
+\end{figure}
+
+Il grafico del coefficiente di assortatività dei pesi in Figura~\ref{fig:assortativity} fornisce informazioni
+sull'evoluzione di tale valore tra i singoli nodi.
 L'assortatività è un parametro che misura la tendenza dei nodi con determinate caratteristiche numeriche a collegarsi
 con nodi aventi caratteristiche simili e, in questo caso, indica la tendenza dei nodi con pesi simili a connettersi tra
 loro.

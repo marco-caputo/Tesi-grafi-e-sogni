@@ -452,14 +452,12 @@
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
       \if@mainmatter
-        \Huge \bfseries % \@chapapp\space
-         \thechapter .  #1\par\nobreak
-%        \par\nobreak
-%        \vskip 20\p@
-%      \fi
-%    \fi
-%    \interlinepenalty\@M
-%    \Huge \bfseries #1\par\nobreak
+        \Huge \bfseries \@chapapp\space \thechapter\par\nobreak
+        \vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
     \vskip 40\p@
   }}
 \def\@schapter#1{\if@twocolumn
@@ -473,6 +471,9 @@
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
-    \Huge \bfseries  #1\par\nobreak
+    \Huge \bfseries #1\par\nobreak
     \vskip 40\p@
   }}
+
+% Define \@chapapp to "Capitolo"
+\def\@chapapp{Capitolo}
