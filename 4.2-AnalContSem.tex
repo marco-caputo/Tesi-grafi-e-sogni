@@ -1,20 +1,20 @@
 \section{Analisi dei contesti semantici di un sognatore}\label{sec:analisi-dei-contesti-semantici-di-un-sognatore}
 
-L'estrapolazione di informazioni legate al significato delle parole a partire da aspetti sintattici \`e un
+L'estrapolazione d'informazioni legate al significato delle parole a partire da aspetti sintattici \`e un
 principio fondamentale della semantica computazionale, noto come \textit{ipotesi distribuzionale}, che si basa sul
 principio per cui il significato di una parola \`e determinato dal suo contesto di utilizzo, e che le parole che
 appaiono nello stesso contesto tendono ad avere significati simili.\newline
 In questa sezione verrà esplorato un caso di studio, risultato del tentativo di usare il modello dei grafi multi-livello
 allo scopo di individuare dei contesti di parole di valenza sintattica e semantica all'interno del mondo onirico
 di una particolare sognatrice.
-Daremo forma allo spazio delle parole di Emma a partire da un vasto corpus di racconti di sogni, e analizzeremo la
+Verrà data forma allo spazio delle parole di Emma a partire da un vasto corpus di racconti di sogni, e analizzeremo la
 struttura del grafo multi-livello risultante.
 
 \subsection{Fase di pre-elaborazione}
 
 Per poter procedere con l'analisi dei sogni di Emma affinché si potesse costruire un grafo delle parole
 da cui poter cogliere aspetti semantici, si è ritenuto necessario aggiungere dei passaggi ulteriori
-al processo di pre-elaborazione descritto nella sottosezione~\ref{subec:pre-elaborazione-con-NLP}.
+al processo di pre-elaborazione descritto nella Sottosezione~\ref{subec:pre-elaborazione-con-NLP}.
 In particolare, si è rivelato utile allo scopo di un'analisi semantica,
 un filtraggio delle parole meno frequenti rispetto all'intero corpus di sogni di Emma.
 Questo passaggio è stato eseguito per ridurre la complessità del testo e concentrare l'analisi sui
@@ -22,14 +22,14 @@ termini più rilevanti e significativi, con l'obiettivo di individuare le temati
 nei sogni e l'ordine con cui esse appaiono nei testi.
 Un'altra possibile interessante fase di pre-elaborazione ulteriore è quella dell'estrapolazione di categorie
 specifiche di parole.
-Attraverso tecniche di NLP come il Part-of-Speech (POS) tagging, ciascuna parola può essere etichettata con la sua
+Attraverso tecniche di NLP come il \textit{Part-of-Speech} (POS) tagging, ciascuna parola può essere etichettata con la sua
 categoria grammaticale di appartenenza, come quella dei sostantivi, verbi, aggettivi, avverbi, ecc.
-Con la tecnica di Named Entity Recognition (NER) tagging è possibile, invece, identificare le entità di interesse
+Con la tecnica di \textit{Named Entity Recognition} (NER) tagging è possibile, invece, identificare le entità di interesse
 all'interno del testo, categorizzando elementi come persone, luoghi e organizzazioni.
 A partire da queste categorizzazioni, tutte le parole che non sono etichettate in una particolare
 categoria vengono filtrate. Lo scopo di questa fase potrebbe essere quello di concentrare l'analisi sulle parole che
 sono considerate le parti del testo più significative e ricche di contenuto, o semplicemente focalizzare l'analisi
-su un aspetto di interesse.
+su un aspetto d'interesse.
 
 
 \nlparagraph{Connettività del grafo delle parole}
@@ -37,22 +37,22 @@ su un aspetto di interesse.
 Sebbene il grafo delle parole risultante dalla pre-elaborazione di tutti i sogni di un particolare sognatore
 sia frutto di un processo di semplificazione e riduzione della complessità del testo, la sua analisi diretta
 attraverso l'uso del grafo multi-livello ne ha rivelato sin da subito la sua elevata connettività derivante dalla
-natura del linguaggio naturale: parole e concetti possono essere strettamente legati (e quindi ``vicini'') ad un
+natura del linguaggio naturale: parole e concetti possono essere strettamente legati (e quindi ``vicini'') a un
 ampio numero di altri concetti che a loro volta possono collegarsi direttamente ad altri concetti sparsi per il grafo.
 Il risultato è uno spazio fortemente ``aggrovigliato'' che non favorisce la formazione di gruppi di parole distinti e
 ben definiti e che, di conseguenza, non favorisce un processo di contrazione di qualità nella
 gerarchia del grafo multi-livello.
 
 Per rendere chiaro questo aspetto, si prenda come esempio il grafo multi-livello $M = (G, \langle f_{C_1}, f_{C_2}\rangle)$
-rappresentato in figura~\ref{fig:les-miserables-graph}, il cui grafo $G$ rappresenta il grafo delle relazioni di
+rappresentato in Figura~\ref{fig:les-miserables-graph}, il cui grafo $G$ rappresenta il grafo delle relazioni di
 co-apparizione dei personaggi del romanzo \textit{Les Misérables} di Victor Hugo,
 e le cui funzioni di contrazione $f_{C_1}$ e $f_{C_2}$ rappresentano rispettivamente le funzioni di contrazione
 per cricche non reciproche e stelle.
 Appare evidente di come la struttura del grafo $G$ sia stata contratta con un elevato tasso di contrazione,
 producendo una struttura notevolmente più semplice e facilmente interpretabile. Per via degli schemi di
-contrazione scelti, appare evidente come la struttura originale del grafo abbia rivelato la sua ordinatezza ai livelli
-superiori: in media i personaggi del romanzo possono apparire assieme ad una cerchia ristretta di altri personaggi,
-ad eccezione di personaggi principali che risultano collegarsi a questi gruppi più o meno isolati di nodi.
+contrazione scelti, appare evidente come la struttura originale del grafo abbia rivelato il suo ordine ai livelli
+superiori: in media i personaggi del romanzo possono apparire assieme a una cerchia ristretta di altri personaggi,
+ad eccezione dei personaggi principali, che risultano collegarsi a questi gruppi più o meno isolati di nodi.
 Questo rispecchia in parte la natura dello spazio bidimensionale in cui i personaggi sono collocati: personaggi
 appartenenti a luoghi distanti difficilmente appariranno insieme. I personaggi principali, in quanto seguiti
 nella narrazione nel mentre che si spostano nello spazio, permettono di rompere questa dimensionalità, e risultano
@@ -74,7 +74,7 @@ accordo a tale scheletro, allo scopo di ``appiattire'' lo spazio delle parole.
 
 L'algoritmo di potatura del grafo si basa sulla rilevanza delle relazioni tra le parole, ovvero degli archi del grafo.
 Sebbene la rilevanza di un bigramma possa essere definita e valutata in diversi modi - come ad esempio il calcolo
-dell'informazione mutua puntuale (PMI) tra le parole - in questo caso si è scelto di basare la rilevanza
+dell'\textit{informazione mutua puntuale} (PMI) tra le parole - in questo caso si è scelto di basare la rilevanza
 direttamente sull'informazione fornita dai pesi degli archi e dei relativi nodi coinvolti.
 In particolare, la misura di rilevanza di un arco è stata definita come la somma dei rapporti tra il peso dell'arco
 e i singoli pesi dei nodi su cui l'arco è incidente.
@@ -87,8 +87,8 @@ la rilevanza dell'arco $(u, v)$ è definita come:
 La formula fornisce un criterio elementare per distinguere la frequenza di coppie di parole dalla loro importanza:
 un arco con un peso elevato rispetto ai pesi dei nodi coinvolti è considerato più rilevante di un arco con un peso
 elevato rispetto alla media dei pesi degli altri archi.
-Ad esempio, un arco con peso 10 tra due nodi con pesi 100 e 200 è considerato meno rilevante di un arco con peso 5
-tra due nodi con pesi 8 e 10. \newline
+Ad esempio, un arco con peso $10$ tra due nodi con pesi $100$ e $200$ è considerato meno rilevante di un arco con peso $5$
+tra due nodi con pesi $8$ e $10$.
 
 La scelta di questa misura di rilevanza è dovuta alla facilità con cui è possibile associarla ad un nuovo valore
 positivo che rappresenti una distanza semantica tra le parole collegate.
@@ -108,7 +108,7 @@ costo al fine di valutarne l'inclusione nel nuovo grafo semplificato $H$, sulla 
 che chiamiamo \textit{threshold}.
 
 In particolare, ogni nodo del grafo originale $G$ sarà presente nel grafo semplificato $H$. Mentre per ogni arco $(u, v)$
-di $G$ considerato nel ciclo for a riga 4, se nella versione non orientata di $H$, ottenuta rimuovendo l'orientamento
+di $G$ considerato nel ciclo for a riga $4$, se nella versione non orientata di $H$, ottenuta rimuovendo l'orientamento
 degli archi, esiste già un cammino tra i nodi $u$ e $v$ e il costo del cammino minimo calcolato sul costo degli archi
 è maggiore al threshold, l'arco $(u, v)$ viene ignorato, altrimenti viene aggiunto al grafo semplificato $H$.
 Si noti che nello pseudocodice, così come nella notazione tipica, un costo di cammino minimo pari a $\infty$ indica
@@ -127,20 +127,20 @@ sarà il grado di connettività del grafo prodotto.
 \paragraph{Complessità}
 Il costo dell'algoritmo REDUCE-CONNECTIVITY è principalmente dominato dalla fase di ordinamento degli archi
 e del calcolo dei cammini minimi tra i nodi del grafo non orientato $H_u$.
-Utilizzando algoritmi di ordinamento efficienti, il costo computazionale dell'ordinamento a riga 3 è $O(|E| \log |E|)$.
-Il calcolo dei cammini minimi tra i nodi di $H_u$ a riga 5 può essere eseguito in tempo $O(|V| \log{|V|} + |E|))$
+Utilizzando algoritmi di ordinamento efficienti, il costo computazionale dell'ordinamento a riga $3$ è $O(|E| \log |E|)$.
+Il calcolo dei cammini minimi tra i nodi di $H_u$ a riga $5$ può essere eseguito in tempo $O(|V| \log{|V|} + |E|))$
 utilizzando l'algoritmo di Dijkstra con coda di priorità gestita da heap di Fibonacci.
-Essendo che il ciclo for a riga 4 viene eseguito una volta per ogni arco in $|E|$, il costo totale dell'algoritmo
+Essendo che il ciclo for a riga $4$ viene eseguito una volta per ogni arco in $|E|$, il costo totale dell'algoritmo
 risulta essere:
 \begin{equation*}
       O(|E| \log |E|) + O(|E| \cdot (|V| \log{|V|} + |E|)) \quad = \quad
-      O(|E| (\log |E| + |V| \log{|V|} + |E|))
+      \mathbf{O(|E| (\log |E| + |V| \log{|V|} + |E|))}
 \end{equation*}
 
 \subsection{Analisi dei risultati}\label{subsec:analisi-del-grafo-multi-livello}
 
 Discutiamo ora brevemente il grafo multi-livello dell'intero corpus di 1221 sogni di Emma mostrato in
-figura~\ref{fig:mlg-emma-example}, risultante dall'applicazione delle procedure di pre-elaborazione e dalla riduzione
+Figura~\ref{fig:mlg-emma-example}, risultante dall'applicazione delle procedure di pre-elaborazione e dalla riduzione
 della connettività con un parametro di threshold pari a $11.0$.
 Esso è stato ottenuto selezionando i primi 300 lemmi univoci più frequenti, filtrando per categorie POS mantenendo
 sostantivi e verbi.
@@ -182,12 +182,10 @@ essere maggiormente attinenti per altre persone, come quello di un concerto o di
 
 
 L'individuazione delle componenti fortemente connesse al livello successivo potrebbe indicare unità tematiche coerenti
-che, nel complesso delle narrazioni dei sogni, si co-occorrono e si interconnettono frequentemente tra loro rendendosi
-mutualmente raggiungibili.
-Queste componenti potrebbero rappresentare cluster di concetti o temi strettamente
-interrelati che frequentemente co-occorrono e si interconnettono tra più sogni.
+che, nel complesso delle narrazioni dei sogni, co-occorrono e si interconnettono frequentemente tra loro rendendosi
+mutualmente raggiungibili tra più sogni.
 Come si può dedurre confrontando le dimensioni dei nodi al livello $2$ rispetto a quelle del livello precedente,
-l'applicazione della contrazione per componenti fortemente connesse, in genere permette di individuare contesti
+l'applicazione della contrazione per componenti fortemente connesse, in genere, permette di individuare contesti
 semanticamente più ampi di quelli visti per la contrazione per circuiti semplici.
 Questo è dovuto da un lato alla natura delle componenti stesse, da un altro al fatto che la contrazione avviene
 già ad un livello di astrazione superiore, in cui concetti strettamente collegati sono già stati raggruppati in unici
@@ -197,7 +195,7 @@ Esempi di insiemi di lemmi originali contenuti in componenti fortemente connesse
 oppure ``lake''-``boat''-``water''-``rise''-``pool''-``swim''-``rush'', che racchiude uno dei circuiti semplici visti
 in precedenza.
 
-La contrazione per stelle, infine, permette di inglobare ulteriormente dei supernodi periferici ai quelli principali già
+La contrazione per stelle, infine, permette d'inglobare ulteriormente dei supernodi periferici a quelli principali già
 affermati nei primi livelli.
 In questo modo lemmi e contesti che ``orbitano'' attorno ad altri e che, quindi,
 ne siano strettamente dipendenti, vengono contratti in contesti più generali, espandendosi di una singola unità

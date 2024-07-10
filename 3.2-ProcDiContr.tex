@@ -20,10 +20,10 @@ decontraibile $G'$ che rappresenti l'informazione fornita dal raggruppamento dei
 Aspetto di fondamentale importanza è che l'insieme $Q$ non costituisce necessariamente una partizione.
 $Q$ potrebbe quindi essere calcolato a partire da un grafo $G$ attraverso un algoritmo di enumerazione, in modo tale
 che i suoi elementi siano insiemi di nodi appartenenti ad un certo pattern strutturale.
-Tuttavia, come si può immaginare, tali insiemi non sono necessariamente disgiunti: basti pensare alle cricche e i
+Tuttavia, come si può immaginare, tali insiemi non sono necessariamente disgiunti: basti pensare alle cricche e ai
 circuiti semplici, che possono avere nodi in intersezioni di più insiemi.
 Le componenti fortemente connesse invece, essendo costruite a partire da una relazione di equivalenza, sono un
-valido esempio di pattern strutturale che costituisce sempre una partizione di $V$. \newline
+valido esempio di pattern strutturale che costituisce sempre una partizione di $V$.
 
 D'ora in avanti, ci riferiremo agli elementi di una tale copertura di nodi $Q$ (non necessariamente disgiunta)
 come \textbf{insiemi componente}. \newline
@@ -34,7 +34,7 @@ La presenza dello stesso nodo in più supernodi contratti non sarebbe coerente c
 già affermata, oltre che portare ad un risultato che rischia di avere limitate applicabilità.
 Si vuole quindi definire una procedura per rappresentare l'informazione fornita da $Q$ in un nuovo insieme che sia una
 partizione di $V$ rappresentativa di $Q$ e, a partire da questa, costruire un grafo decontraibile $G'$.
-Abbinare questa definzione generica, valida nella teoria degli insiemi, ad uno specifico algoritmo per calcolare
+Abbinare questa definizione generica, valida nella teoria degli insiemi, ad uno specifico algoritmo per calcolare
 $Q$ a partire dalla struttura di un grafo, è il primo passo che permetterà di definire particolari funzioni di
 contrazione.
 
@@ -45,14 +45,14 @@ Sia $V$ un insieme di elementi. Sia $Q \subseteq \mathcal{P}(V)$ una copertura d
 Definiamo la \textbf{riduzione disgiunta} di $Q$, e la indichiamo con $\mathcal{D}(Q)$,
 l'insieme di insiemi di elementi in $V$ tale per cui:
 \begin{enumerate}[(i)]
-    \item $\emptyset \notin \mathcal{D}(Q)$
     \item $\forall A \in \mathcal{D}(Q), \quad u, v \in A \Leftrightarrow \{C \in Q \mid u \in C\} = \{C \in Q \mid v \in C\}$
+    \item $\emptyset \notin \mathcal{D}(Q)$
 \end{enumerate}
 \end{definition}
 
 Una riduzione disgiunta di una copertura $Q$ è quindi un insieme di insiemi di nodi in $V$ tale per cui due
 nodi $u$ e $v$ appartengono allo stesso insieme in $\mathcal{D}(Q)$ se e solo se sono inclusi nella stessa combinazione
-di insiemi in $Q$. \newline
+di insiemi in $Q$.
 
 \begin{figure}[!h] \centering
 \include{TikzPictures/disjoint_reduction_example}
@@ -61,18 +61,18 @@ di insiemi in $Q$. \newline
 \end{figure}
 
 L'esempio in Figura~\ref{fig:disjoint_reduction_example} fornisce una rappresentazione di una copertura $Q$ di
-elementi (a sinistra) accompagnata dalla sua riduzione disgiunta $D(Q)$ (a destra).
+elementi (a sinistra) accompagnata dalla sua riduzione disgiunta $D(Q)$ (a destra). \newline
 
 Il nome di questa definizione deriva dal fatto che:
 \begin{itemize}
-    \item il risultato di questo operatore su una copertura $Q$, da solo non contiene le informazioni sufficienti a
+    \item il risultato di questo operatore su una copertura $Q$, da solo, non contiene le informazioni sufficienti a
         descrivere la copertura che lo ha originato, che potrebbero essere molteplici (ma non infinite, se si ha a che
         fare con insiemi finiti). %TODO: nota: potrebbe essere una classe di equivalenza tra coperture!!
-        Da qui il termine \("\)riduzione\("\).
+        Da qui il termine ``riduzione''.
     \item il risultato di questo operatore su una copertura $Q$ di $V$ costituisce una partizione di $V$, come
         dimostrato in seguito, e fornisce un criterio per una suddivisione degli elementi in $V$ in insiemi disgiunti
         tra loro.
-        Da qui il termine \("\)disgiunta\("\).
+        Da qui il termine ``disgiunta''.
 \end{itemize}
 
 \newpage
@@ -92,9 +92,9 @@ Essa \`e una relazione di equivalenza, in quanto rispetta le propriet\`a di rifl
 che sono date dalle rispettive propriet\`a dell'uguaglianza.
 Segue che l'insieme quoziente $V/R_{Q}$ deve rappresentare una partizione degli elementi in $V$.
 
-Per il punto (ii) della definzione di $\mathcal{D}(Q)$, i suoi insiemi non vuoti rappresentano le classi di equivalenza
+Per il punto (i) della definizione di $\mathcal{D}(Q)$, i suoi insiemi non vuoti rappresentano le classi di equivalenza
 di $R_Q$.
-Inoltre per il punto (i), l'insieme vuoto non pu\`o appartenere a $D(Q)$.
+Inoltre per il punto (ii), l'insieme vuoto non pu\`o appartenere a $D(Q)$.
 Si conclude allora $D(Q) = V/R_{Q}$, e pertanto $D(Q)$ \`e una partizione di $V$.
 
 \nlparagraph{Definizione tramite ipergrafi}
@@ -104,7 +104,7 @@ anziché collegare una semplice coppia di nodi può connettere un arbitrario sot
 Più formalmente, un ipergrafo $H$ è una coppia $(X, E)$ dove $X$ è un insieme di elementi chiamati nodi ed $E$ è
 un insieme di sottoinsiemi di $X$ chiamati iperarchi.
 Si consideri ora un ipergrafo non orientato $H = (X, E)$.
-Notando che un iperarco non orientato $e \in E$ è a tutti gli effetti un insieme di nodi $e \subseteq V$,
+Notando che un iperarco non orientato $e \in E$ è a tutti gli effetti un insieme di nodi $v \subseteq X$,
 si pu\`o estendere il concetto di rappresentazione disgiunta anche nel dominio degli ipergrafi.
 
 \begin{definition}[Riduzione disgiunta di un ipergrafo]
@@ -125,11 +125,11 @@ La seguente ulteriore definizione permette di chiarire il passaggio che porta al
 decontraibile.
 
 \begin{definition}[Contrazione costruita da una partizione]
-Sia $G = (V, E)$ un grafo decontraibile, sia $P$ una partizione di $V$.
-Si definisce \textbf{contrazione di $G$ costruita sulla partizione $P$} il grafo decontraibile
-$G' = (\mathfrak{V}, \mathfrak{E})$ contrazione di $G$ tale per cui
+Sia $G = (V, E, dec_V, dec_E)$ un grafo decontraibile, sia $P$ una partizione di $V$. \\
+Si definisce \textbf{contrazione di G costruita sulla partizione P} il grafo decontraibile
+$G' = (\mathfrak{V}, \mathfrak{E}, dec_{\mathfrak{V}}, dec_{\mathfrak{E}})$ contrazione di $G$ tale per cui
     \begin{equation*}
-        \{V_\alpha \mid \alpha \in \mathfrak{V}, dec_{\mathfrak{V}}(\alpha) = (V_\alpha, E_\alpha)\} = P
+        \{V_\alpha \mid \alpha \in \mathfrak{V}\} = P
     \end{equation*}
 \end{definition}
 
@@ -146,17 +146,17 @@ contrazione costruita da una partizione, sono considerabili come elementi suffic
 per la definizione di una qualsiasi procedura di contrazione.
 In particolare, il passaggio da una copertura
 di nodi ad un grafo decontraibile può essere considerato come l'operazione successiva all'enumerazione degli
-insiemi di nodi che costituiscono la copertura stessa. \newline
+insiemi di nodi che costituiscono la copertura stessa.
 
 Risulta quindi utile definire un algoritmo che a partire da un grafo decontraibile $G$ e una sua copertura $Q$,
-fornisca in output la contrazione di $G$ costruita sulla riduzione disgiunta di $Q$.
+fornisca in output la contrazione di $G$ costruita sulla riduzione disgiunta di $Q$. \newline
 
 Una delle possibili rappresentazioni della copertura $Q$, da fornire in input a tale algoritmo, è quella un
 \textit{dizionario} (talvolta anche detto ``mappa'' o ``tabella''), una struttura dati astratta che rappresenta una
 collezione di coppie di elementi chiave-valore e le cui operazioni fondamentali consistono nell'inserimento e
 cancellazione di coppie e ricerca di un valore mediante la sua chiave. \`E importante che in un dizionario
 ad ogni chiave corrisponda al più un solo valore.
-Negli pseudocodici, dato un dizionario $T$, l'operazione di ricerca di un valore associato ad una chiave $k$ verrà
+Negli pseudocodici, dato un dizionario $T$, l'operazione di ricerca del valore associato ad una chiave $k$ verrà
 indicata con $T[k]$, mentre l'operazione di inserimento di una coppia chiave-valore $(k, v)$ con $T[k] = v$.
 Con $T.keys$ e $T.values$ si indicano rispettivamente l'insieme delle chiavi e l'insieme dei valori contenuti in $T$.
 
@@ -165,28 +165,30 @@ La copertura $Q$ è quindi data da un dizionario $T$ di dimensione $|V|$, in cui
     \item Chiave: nodo $v \in V$
     \item Valore: l'insieme di insiemi componente $C \in Q$ tali per cui $v \in C$
 \end{itemize}
+\newpage
 
 Nel corso dell'algoritmo un altro dizionario $T'$ viene usato allo scopo di mappare la biiezione tra gli elementi
-di $\mathcal{D}(Q)$ (quindi le classi di equivalenza di $V/R_Q$) e i supernodi di $G'$.
-Aggiungendo coppie a $T'$, naturalmente al termine dell'algoritmo il dizionario $T'$ dovrà raggiungere la dimensione
-$|\mathcal{D}(Q)|$. \newline
+di $\mathcal{D}(Q)$ (quindi le classi di equivalenza di $V/R_Q$) e i relativi supernodi di $G'$.
+Aggiungendo coppie a $T'$, naturalmente, al termine dell'algoritmo il dizionario $T'$ dovrà raggiungere la dimensione
+$|\mathcal{D}(Q)|$.
 
-Nel ciclo a riga 3, si assegna ogni nodo del grafo decontaibile in input $G$ ad un supernodo, che esso sia
+Nel ciclo a riga 3, si assegna ogni nodo del grafo decontraibile in input $G$ ad un supernodo, che esso sia
 creato contestualmente o che sia il supernodo già creato corrispondente all'insieme di insiemi componente in $v$.
 Essendo che le precondizioni impongono che $T$ rappresenti una copertura di $V$, l'insieme $G.V$ a riga 3
 potrebbe essere sostituito con $T.keys$.
 Nel ciclo a riga 15, si assegnano gli archi di $G$ ai superarchi di $G'$. Se l'arco $(v, w)$ è interno ad un
-supernodo, esso viene assegnato al suo insieme di archi. Se invece l'arco è tra collega due supernodi distinti, esso
+supernodo, esso viene assegnato al suo insieme di archi. Se invece l'arco collega due supernodi distinti, esso
 viene assegnato al superarco corrispondente, che potrebbe essere contestualmente creato.
 
 \input{Algoritmi/3-make_decontractible_graph}
 
 In Figura~\ref{fig:make_decontractible_graph_example} sono rappresentati il grafo $G$, suddiviso in due insiemi
-componenente e il corrispondente dizionario $T$ che ne rappresenta la copertura. Il dizionario $T\mathcal{'}$ \`e
+componente, e il corrispondente dizionario $T$ che ne rappresenta la copertura. Il dizionario $T\mathcal{'}$ \`e
 rappresentato nello stato seguente all'applicazione dell'algoritmo MAKE-DECONTRACTIBLE-GRAPH con input $T$ e $G$,
 contenendo come insieme di valori i supernodi ottenuti dalla contrazione di $G$.
-Il risultato di MAKE-DECONTRACTIBLE-GRAPH($T$, $G$) \`e in questo caso il grafo decontraibile
-$G'=(\{\alpha_1, \alpha_2, \alpha_3\}, \{(\alpha_1, \alpha_2), (\alpha_2, \alpha_3)\})$
+Il risultato di MAKE-DECONTRACTIBLE-GRAPH($T$, $G$) \`e in questo caso un grafo decontraibile
+$G' = (\mathfrak{V}, \mathfrak{E}, dec_{\mathfrak{V}}, dec_{\mathfrak{E}})$ con
+$\mathfrak{V} = (\{\alpha_1, \alpha_2, \alpha_3\}$ e $\mathfrak{E} = \{(\alpha_1, \alpha_2), (\alpha_2, \alpha_3)\})$.
 
 \begin{figure}[H]
     \centering
@@ -198,13 +200,13 @@ $G'=(\{\alpha_1, \alpha_2, \alpha_3\}, \{(\alpha_1, \alpha_2), (\alpha_2, \alpha
 
 \paragraph{Complessità}
 Facendo uso di tabelle di hash per rappresentare i dizionari $T$ e $T'$, l'algoritmo mantiene una complessit\`a
-temporale di $O(|V| + |E|)$.
+temporale di $\mathbf{O(|V| + |E|)}$.
 Si noti infatti che:
 \begin{itemize}
     \item Il primo ciclo for scorre tutti i nodi in $V$.
     Esso inizializza il dizionario $T'$, definisce i supernodi di $G'$ e assegna loro i nodi in $V$.
-    La complessità del ciclo è $O(|V|)$, infatti il controllo a riga 3 ha complessità costante,
-    così come le ricerca in $T$ e $T'$ alle righe 7 e 10.
+    La complessità del ciclo è $O(|V|)$, infatti il controllo a riga $4$ ha complessità costante,
+    così come le ricerca in $T$ e $T'$ alle righe $7$ e $10$.
     \item Il secondo ciclo for scorre tutti gli archi in $E$.
     Esso assegna gli archi di $G$ ai grafi dei supernodi di $G'$ o ai superarchi di $G'$ a seconda dei supernodi
     di appartenenza dei nodi che li compongono, ottenibili in tempo $O(1)$ in quanto precedentemente calcolati nel
@@ -213,20 +215,21 @@ Si noti infatti che:
 
 \subsection{Algoritmi di contrazione}\label{sec:algoritmi-di-contrazione}
 
-In questa sezione illustriamo brevemente come a partire dagli algoritmi di enumerazione di sottoinsiemi descritti
-e dall'algoritmo per la contrazione costruita da una rappresentazione disgiunta, \`e quindi possibile costruire
-delle procedure complete che rappresentino delle funzioni di contrazione.
+In questa sezione illustriamo brevemente come a partire dagli algoritmi di enumerazione di sottoinsiemi
+e dall'algoritmo per la contrazione costruita da una rappresentazione
+disgiunta, \`e quindi possibile costruire delle procedure complete che rappresentino delle funzioni di contrazione.
 
 \nlparagraph{Procedure per la gestione dei dizionari}\label{subsec:procedure-per-la-gestione-deli-dizionari}
 
-Come si pu\`o notare dallo pseudo-codice dagli algoritmi di enumerazione descritti nel
-Capitolo~\ref{ch:algoritmi-di-enumerazione}, ciascuno di essi provvede a fornire in output una sequenza di
+Come si pu\`o notare dallo pseudo-codice dagli algoritmi di enumerazione descritti nella
+Sezione~\ref{sec:algoritmi-di-enumerazione}, ciascuno di essi provvede a fornire in output una sequenza di
 sottoinsiemi di nodi che rispettino il pattern strutturale individuato.
 Allo scopo di costruire una funzione di contrazione, \`e però necessario che tali insiemi siano usati per definire
 una copertura di nodi rappresentata attraverso un dizionario $T$, come descritto nella sezione precedente.
 Per questo motivo si propongono una serie di procedure che permettano di inizializzare, aggiungere e rimuovere
 sottoinsiemi da un dizionario $T$, affinché queste possano essere usate come integrazione per fornire un
-adattamento dello pseudo-codice originale degli algoritmi di enumerazione presentati. \newline
+adattamento dello pseudo-codice originale degli algoritmi di enumerazione presentati.
+\newpage
 
 In particolare, come riga iniziale di ciascuno di questi algoritmi, può essere aggiunta la seguente procedura per
 l'inizializzazione del dizionario $T$.
@@ -234,31 +237,33 @@ l'inizializzazione del dizionario $T$.
 \input{Algoritmi/6.1-initialize_table}
 
 L'operazione di fornire in output un insieme componente potrebbe essere invece sostituita in ciascun algoritmo
-con la seguente procedura per l'aggiunta di un insieme $C$ all'insieme di insiemi componente tracciati da $T$. \newline
+con la seguente procedura per l'aggiunta di un insieme $C$ agli insiemi componente tracciati da $T$. \newline
 
 \input{Algoritmi/6.2-add_subset}
 
-Per completezza si fornisce anche la procedura per la rimozione di un insieme $C$ da $T$.
+Si fornisce anche la procedura per la rimozione di un insieme $C$ da $T$.
 
 \input{Algoritmi/6.3-remove_subset}
 
 Nel caso in cui si avesse a che fare con procedure di enumerazione che forniscono in output insiemi di nodi che non
 necessariamente forniscono una copertura di tutti i nodi del grafo (come nel caso dell'algoritmo di enumerazione
-dei circuiti semplici), la seguente procedure può essere utilizzata al termine dell'enumerazione per aggiungere
+dei circuiti semplici), la seguente procedura può essere utilizzata al termine dell'enumerazione per aggiungere
 ciascun nodo rimasto escluso dalla copertura a un insieme componente singoletto. Come evidente dallo
-pseudocodice, tale procedura manterrebbe una complessit\`a temporale di $O(|V|)$, con |V| il numero di nodi del grafo
+pseudocodice, tale procedura manterrebbe una complessit\`a temporale di $O(|V|)$, con $|V|$ il numero di nodi del grafo
 decontraibile da contrarre.
 
 \input{Algoritmi/6.6-add_singletons}
 
-Si pu\`o notare che le procedure di aggiunta e rimozione di un sottoinsieme $C$ da $T$ prevedono il tracciamento
-dei particolari nodi corrispondenti a record di $T$ modificati, attraverso l'utilizzo di un insieme associato
-alla tabella e indicato come $T_{modified}$.
-Sebbene non sia necessario per le procedure di contrazione, questo risulterà utile per rendere le procedure
-applicabili anche nelle procedure di aggiornamento dinamico al grafo contratto, come verrà trattato nel capitolo~\ref{}.
-L'insieme $T_{modified}$ permetterà, infatti, di evitare di scorrere l'intero dizionario $T$ nel momento in cui il
-grafo contratto già costruito dovrà essere aggiornato in accordo alle modifiche agli insiemi componente tracciati
-da $T$.
+%Si pu\`o notare che le procedure di aggiunta e rimozione di un sottoinsieme $C$ da $T$ prevedono il tracciamento
+%dei particolari nodi corrispondenti a record di $T$ modificati, attraverso l'utilizzo di un insieme associato
+%alla tabella e indicato come $T_{modified}$.
+%Sebbene non sia necessario per le procedure di contrazione, questo risulterà utile per rendere le procedure
+%applicabili anche nelle procedure di aggiornamento dinamico al grafo contratto, come verrà trattato nel capitolo~\ref{}.
+%L'insieme $T_{modified}$ permetterà, infatti, di evitare di scorrere l'intero dizionario $T$ nel momento in cui il
+%grafo contratto già costruito dovrà essere aggiornato in accordo alle modifiche agli insiemi componente tracciati
+%da $T$.
+
+\newpage
 
 \nlparagraph{Aggiunta di un sottoinsieme massimale}
 
@@ -267,7 +272,7 @@ come nel caso dell'algoritmo di enumerazione delle componenti fortemente conness
 in generale non è garantito che ciò avvenga, come nel caso dell'algoritmo di enumerazione dei circuiti semplici.
 Qualora sia necessario adattare una funzione di contrazione affinché questa sia basata sui soli insiemi di nodi
 massimali forniti da un algoritmo di enumerazione, la procedura descritta di seguito può essere utilizzata in
-sostituzione della normale procedura ADD-COMPONENT-SET.
+sostituzione della normale procedura ADD-COMPONENT-SET\@.
 Infatti, questa procedura permette controllare contestualmente alla sua aggiunta a $T$ se un dato sottoinsieme $C$ di
 nodi sia massimale rispetto agli altri insiemi già tracciati in $T$ e, se si, individuare quali eventuali sottoinsiemi
 in $T$ siano inclusi in $C$, affinché possano essere rimossi.
@@ -280,23 +285,23 @@ sia gi\`a incluso in un altro insieme presente tra gli insiemi di $T$, ovvero ch
 massimale.
 Questo viene verificato controllando se tutti i nodi in $C$ condividano l'appartenenza ad uno o pi\`u insiemi gi\`a
 presenti. \newline
-Se l'insieme $C$ \`e massimale rispetto ai nodi trovati, succesivamente l'algoritmo provvede ad individuare
-gli eventuali insiemi presenti in $T$ che siano sottoinsiemi di $C$ attraverso la procedura FIND-SUBSETS.
+Se l'insieme $C$ \`e massimale rispetto ai nodi trovati, successivamente l'algoritmo provvede ad individuare
+gli eventuali insiemi presenti in $T$ che siano sottoinsiemi di $C$ attraverso la procedura FIND-SUBSETS\@.
 Essa conteggia il numero di volte che ciascun sottoinsieme appare tra i nodi di $C$ rispetto al dizionario $T$.
 Un conteggio pari alla cardinalit\`a dell'insieme stesso testimonia che tutti i suoi nodi sono presenti in $C$.
 
 \paragraph{Complessit\`a}
 Con l'utilizzo di insiemi basati su hash, in cui la complessit\`a per verificare l'appartenenza ad un insieme \`e
-$O(1)$, la complessit\`a della procedura di ADD-MAXIMAL-SUBSET risulta essere $O(|C| \cdot c_{max})$ nel caso peggiore,
-dove $|C|$ \`e la cardinalit\`a dell'insieme $C$ in input e $c_{max}$ \`e l'upper bound del numero di sottoinsiemi
+$O(1)$, la complessit\`a della procedura di ADD-MAXIMAL-COMPONENT-SET risulta essere $\mathbf{O(|C| c_{max}})$ nel caso peggiore,
+dove $|C|$ \`e la cardinalit\`a dell'insieme $C$ in input e $c_{max}$ \`e il limite superiore al numero di sottoinsiemi
 massimali già tracciati dalla tabella $T$, che risulta essere massimo quando la cardinalit\`a di questi insiemi
-\`e pari alla met\`a del numero di nodi del grafo $G = (V, E)$ che si sta contraendo.
+\`e pari alla met\`a del numero di nodi del grafo $G$ che si sta contraendo.
 Si noti che la complessit\`a apportata da $c_{max}$ non pu\`o mai essere
 superiore all' esponenziale, in quanto, in generale, il numero massimo di insiemi massimali che possono essere
 individuati in un insieme di $n$ elementi rimarr\`a sempre inferiore al numero di tutti i possibili sottoinsiemi,
 che è $2^n$.
-Sebbene il termine $c_{max}$ possa essere considerato come un $O(2^n)$ nel calcolo della complessit\`a (con $n = |V|$
-il numero di nodi del grafo), esso pu\`o essere calcolato in modo pi\`u preciso come segue:
+Sebbene il termine $c_{max}$ possa essere considerato come un $O(2^n)$ nel calcolo della complessit\`a (con $n$
+il numero di nodi del grafo $G$), esso pu\`o essere calcolato in modo pi\`u preciso come segue:
 
 \begin{equation*}
     c_{max} \quad = \quad \binom{n}{\lfloor \frac{n}{2} \rfloor} = \frac{n\cdot(n-1)\cdot\ldots\cdot(n/2)}{\frac{n}{2}!}
@@ -311,7 +316,7 @@ in cui tutti i nodi in $C$ appartengono agli insiemi costruiti tramite unione tr
 tra i restanti $|V|-|C|$ nodi del grafo e $C$, tutti di egual cardinalit\`a.
 Inoltre la procedura FIND-SUBSETS impiega anch'essa al pi\`u $O(|C| \cdot c_{max})$ tempo,
 in quanto il ciclo for a riga 2 scorre tutti i nodi in $C$, mentre il ciclo for a riga 3 scorre tutti i
-sottoinsiemi massimali presenti in $T$ per ogni nodo in $C$, che sono al pi\`u pari a tutti i sottoinsiemi massmali
+sottoinsiemi massimali presenti in $T$ per ogni nodo in $C$, che sono al pi\`u pari a tutti i sottoinsiemi massimali
 ottenibili a partire dai restanti $|V|-1$ nodi del grafo.
 Inoltre il ciclo for a riga 8 scorre tutti i sottoinsiemi massimali trovati, che sono al pi\`u pari a $c_{max} - 1$,
 considerato che l'insieme $C$ deve essere anch'esso massimale.
@@ -320,22 +325,22 @@ considerato che l'insieme $C$ deve essere anch'esso massimale.
 
 Forniamo ora una descrizione della struttura di un algoritmo generico che rappresenti la procedura completa di
 contrazione di un grafo decontraibile $G$, ovvero che permetta di realizzare una funzione di contrazione $f_C$
-che possa essere usata nella definzione di un grafo multilivello.
+che possa essere usata nella definizione di un grafo multi-livello.
 
 Esso pu\`o essere costituito dalle seguenti fasi:
 \begin{enumerate}
-    \item Fase di pre-elaborazione (opzionale) \\
+    \item \textbf{Fase di pre-elaborazione} (opzionale) \\
     Dato il grafo iniziale $G$, si produce un nuovo grafo $H$ adatto ad essere fornito in input all'algoritmo
     della fase successiva.
     Questo potrebbe essere utile allo scopo di adattare il grafo all'algoritmo, migliorare le performance o
     costruire un nuovo grafo che rappresenti particolari relazioni tra i nodi del grafo originale oltre alla
-    semplice adiacienza.
-    \item Fase di enumerazione dei sottoinsiemi \\
+    semplice adiacenza.
+    \item \textbf{Fase di enumerazione dei sottoinsiemi} \\
     Nel grafo $H$ vengono riconosciuti i pattern strutturali dallo specifico algoritmo di enumerazione e tracciati
     sotto forma di insiemi componente composti dai nodi che fanno parte di tali pattern.
-    Il riultato \`e la mappatura $T$ tra i nodi del grafo $H$ e l'insieme dei sottoinsiemi di cui fanno parte.
-    \item Fase di contrazione \\
-    Viene restituita la contrazione di $G$ costruita sulla rappresentazione digiunta dei sottoinsimi individuati,
+    Il risultato \`e la mappatura $T$ tra i nodi del grafo $H$ e l'insieme dei sottoinsiemi di cui fanno parte.
+    \item \textbf{Fase di contrazione} \\
+    Viene restituita la contrazione di $G$ costruita sulla riduzione disgiunta dei sottoinsiemi individuati,
     secondo la logica dell'algoritmo MAKE-CONTRACTIBLE-GRAPH\@.
 \end{enumerate}
 
@@ -344,16 +349,16 @@ Esso pu\`o essere costituito dalle seguenti fasi:
 Gli algoritmi di contrazione relativi ai problemi di enumerazione trattati potrebbero seguire la struttura sopra
 descritta nei seguenti modi:
 \begin{itemize}
-    \item Per la contrazione per componenti fortemente connesse la fase di preprocessing potrebbe essere
+    \item Per la contrazione per componenti fortemente connesse, la fase di preprocessing potrebbe essere
     essere saltata, in quanto l'algoritmo di Kosaraju-Sharir e la sua versione adattata non necessitano di alcuna
     modifica al grafo orientato in input.
     \item Per la contrazione per cricche può essere utilizzata una fase di preprocessing per la costruzione
     della relativa versione non orientata di un grafo, che potrebbe sostituire tutti gli archi orientati con
-    archi non orientati, oppure che potrebbe mantenere un arco non orientato solo per quelle coppie di nodi
+    archi non orientati, oppure potrebbe mantenere un arco non orientato solo per quelle coppie di nodi
     mutualmente adiacenti.
     La fase di enumerazione può essere realizzata dalla versione adattata dell'algoritmo di Bron-Kerbosch.
     \item Per la contrazione per circuiti semplici pu\`o essere utilizzata una fase di preprocessing per
     l'eliminazione di tutti gli archi tra nodi che non facciano parte delle stesse componenti fortemente connesse
-    allo scopo di migliorare le performance della fase di enumerazone che può essere realizzata dall'algoritmo
+    allo scopo di migliorare le performance della fase di enumerazione, che può essere realizzata dall'algoritmo
     di Johnson nella sua versione adattata.
 \end{itemize}

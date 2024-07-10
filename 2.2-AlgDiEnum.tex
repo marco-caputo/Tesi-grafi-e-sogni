@@ -4,14 +4,14 @@ In informatica, un algoritmo di enumerazione \`e un algoritmo che elenca tutte l
 problema computazionale in modo sistematico e completo. Tali algoritmi sono quindi progettati per ricevere un
 determinato input, generare una lista esaustiva di tutte le possibili soluzioni senza duplicati e, solo allora,
 terminare.
-Quando si parla di algoritmi di enumerazione applicati al dominio dei grafi, allora spesso si intende il processo di
-identificazione di sottoinsiemi di nodi o archi che soddisfano determinate caratteristiche.
+Quando si parla di algoritmi di enumerazione applicati al dominio dei grafi, allora spesso si intende il processo
+d'identificazione di sottoinsiemi di nodi o archi che soddisfano determinate caratteristiche.
 In questa sezione si tratteranno e analizzeranno alcuni utili algoritmi di enumerazione presenti in letteratura per
 il riconoscimento di pattern strutturali all'interno di grafi.
 In particolare, si discuteranno algoritmi per l'enumerazione di componenti fortemente connesse, di cricche e di
 circuiti semplici.
-Questi algoritmi costituiranno il ``motore'' degli algoritmi presentati nei capitoli successivi, e saranno di
-importanza fondamentale alla definizione degli algoritmi di contrazione usati per la costruzione di grafi multi-livello.
+Questi algoritmi costituiranno il ``motore'' degli algoritmi presentati nei capitoli successivi, e saranno
+d'importanza fondamentale alla definizione degli algoritmi di contrazione usati per la costruzione di grafi multi-livello.
 
 \subsection{Enumerazione di componenti fortemente connesse}\label{subsec:enumerazione-di-componenti-fortemente-connesse}
 
@@ -41,7 +41,7 @@ dei suoi nodi $\langle v_1, v_2, \ldots, v_n \rangle$ tale che per ogni arco $(v
 Si noti, quindi, che un ordinamento topologico di un grafo diretto pu\`o esistere solo se il grafo non contiene
 cicli.
 Un ordinamento topologico fornisce una disposizione tale per cui i nodi raggiungibili da un certo nodo $v_i$ vengano
-disposti dopo di esso, e  i nodi che $v_j$ pu\`o raggiungere vengano disposti dopo di esso.
+disposti dopo di esso, e i nodi che $v_j$ pu\`o raggiungere vengano disposti dopo di esso.
 
 Una procedura algoritmica per il calcolo di un ordinamento topologico di $G$ pu\`o essere effettuata tramite una
 visita in profondit\`a del grafo, raccogliendo in una lista concatenata i nodi in ordine decrescente di tempo
@@ -62,7 +62,7 @@ trasposto, ovvero il grafo ottenuto invertendo l'orientamento di tutti gli archi
 Come descritto dallo pseudocodice, l'algoritmo di Kosaraju esegue due visite in profondit\`a, una sul grafo
 originale $G$ e una sul grafo trasposto $G^T$, in cui la seconda visita viene effettuata secondo l'ordinamento
 ottenuto dalla prima.
-Le motivazioni per cui la procedura di visita a riga 3 permette di visitare una componente fortemente
+Le motivazioni per cui la procedura di visita a riga $3$ permette di visitare una componente fortemente
 connessa alla volta per ogni iterazione del ciclo for principale possono essere riassunte dai seguenti punti:
 \begin{itemize}
     \item La condensazione di $G$ \`e un grafo aciclico, e quindi ammette un ordinamento topologico.
@@ -77,7 +77,7 @@ connessa alla volta per ogni iterazione del ciclo for principale possono essere 
         in $C'$, saranno visitati prima che la visita di $u$ termini.
         Al contempo, supponendo che venga visitato prima $v$, allora nessun nodo di $C$ verr\`a visitato prima che
         la visita di $v$ termini, in quanto, come detto nel primo punto, l'esistenza di un cammino
-        $u \rightsquigarrow v$ esculde l'esistenza di un cammino $v \rightsquigarrow u$.
+        $u \rightsquigarrow v$ esclude l'esistenza di un cammino $v \rightsquigarrow u$.
     \item Considerare i nodi in ordine decrescente di tempo di fine visita permette di visitare prima le componenti
         fortemente connesse meno ``profonde'', ovvero quelle che non contengono nodi raggiungibili da altre
         componenti fortemente connesse.
@@ -86,7 +86,7 @@ connessa alla volta per ogni iterazione del ciclo for principale possono essere 
     \item Invertendo il senso degli archi e visitando prima le componenti fortemente connesse meno profonde in $G$, si
         garantisce che non si possano raggiungere nodi di altre componenti, ma solo nodi della stessa componente.
         Invertendo il senso degli archi, infatti, si inverte l'ordinamento topologico della condensazione, visitando
-        prima le compoenenti che si trovano in fondo al nuovo ordinamento.
+        prima le componenti che si trovano in fondo al nuovo ordinamento.
 \end{itemize}
 
 \begin{figure}
@@ -98,7 +98,7 @@ connessa alla volta per ogni iterazione del ciclo for principale possono essere 
     \label{fig:kozaraju_example}
 \end{figure}
 
-In figura~\ref{fig:kozaraju_example} sono rappresentate le fasi principali dell'algoritmo di Kozaraju
+In Figura~\ref{fig:kozaraju_example} sono rappresentate le fasi principali dell'algoritmo di Kozaraju
 applicato al grafo in (a).
 In (b) \`e rappresentato lo stato del grafo al termine della procedura DFS, assieme alla lista dei nodi ordinata
 per tempi di fine visita.
@@ -110,15 +110,15 @@ connessa fornita in output.
 \paragraph{Complessit\`a}
 L'algoritmo di Kosaraju risulta avere una complessit\`a temporale di $\mathbf{\Theta(V + E)}$, in quanto:
 \begin{itemize}
-    \item A riga 1 viene eseguita una ricerca in profondit\`a tradizionale, quindi con costo $\Theta(|V| + |E|)$.
-    \item A riga 2 viene costruito il grafo trasposto $G^T$ e come gi\`a detto, la sua costruzione pu\`o avvenire in
+    \item A riga $1$ viene eseguita una ricerca in profondit\`a tradizionale, quindi con costo $\Theta(|V| + |E|)$.
+    \item A riga $2$ viene costruito il grafo trasposto $G^T$ e come gi\`a detto, la sua costruzione pu\`o avvenire in
     un tempo $\Theta(|V| + |E|)$, iterando prima sull'insieme dei nodi di $G$ e poi sui suoi archi, invertendone
     l'orientamento.
-    \item L'ordinamento dei nodi di $G^T$ pu\`o essere realizzato nel corso della visita a riga 1 attraverso la
-    costruizione di una lista concatenata, per cui i singoli nodi possono essere aggiunti in testa alla lista nel
+    \item L'ordinamento dei nodi di $G^T$ pu\`o essere realizzato nel corso della visita a riga $1$ attraverso la
+    costruzione di una lista concatenata, per cui i singoli nodi possono essere aggiunti in testa alla lista nel
     momento in cui vengono colorati di nero, in tempo costante, per un totale di $\Theta(|V|)$.
     Quindi non ci sono costi aggiuntivi per la costruzione dell'ordinamento.
-    \item A riga 3 viene eseguita la procedura DFS che corrisponde ad una visita in profondit\`a di $G^T$, quindi
+    \item A riga $3$ viene eseguita la procedura DFS che corrisponde ad una visita in profondit\`a di $G^T$, quindi
     sempre di complessit\`a $\Theta(|V| + |E|)$.
 \end{itemize}
 
@@ -130,14 +130,14 @@ Come gi\`a discusso, una cricca di un grafo \`e un sottoinsieme di nodi che sono
 adiacenti, ovvero un sottoinsieme di nodi che formano un sottografo completo.
 Nella teoria dei grafi, il concetto di cricca \`e normalmente riferito al contesto di un grafo non orientato,
 in cui \`e sufficiente un singolo arco non orientato $\{u, v\}$ per rendere i due nodi $u$ e $v$ tra loro
-mutualmente adiacienti.
+mutualmente adiacenti.
 Tuttavia il concetto di cricca pu\`o essere esteso anche al contesto di grafi orientati: in particolare \'e sempre
 possibile considerare la versione non orientata alla base di un grafo orientato secondo due possibili modalit\`a:
 \begin{itemize}
     \item Rimuovendo l'orientamento degli archi: in questo caso, \`e sufficiente un singolo arco orientato $(u, v)$
         per avere un arco non orientato ${u, v}$ nella versione non orientata, rendendo quindi i nodi $u$ e $v$ tra loro
-        mutuamente adiacienti anche se ci\`o non fosse vero nella versione orientata originale.
-    \item Considerando come archi non diretti le relazioni simmetriche di adiacienza tra i nodi del grafo orientato
+        mutuamente adiacenti anche se ci\`o non fosse vero nella versione orientata originale.
+    \item Considerando come archi non diretti le relazioni simmetriche di adiacenza tra i nodi del grafo orientato
         originale: in questo caso, la versione non orientata conterr\`a un arco non orientato $\{u, v\}$ se e solo se
         nel grafo orientato originale esistono entrambi gli archi $(u, v)$ e $(v, u)$.
 \end{itemize}
@@ -150,10 +150,10 @@ possibile considerare la versione non orientata alla base di un grafo orientato 
 \end{figure}
 
 La definizione di cricca in un grafo diretto pu\`o quindi essere declinata in due modi a seconda di quanto si vuole
-rendere lasco il concetto di adiacienza tra i nodi.
-In figura~\ref{fig:undirected_version_example} sono rappresentati in (a) un grafo diretto, in (b) la sua versione non
+rendere lasco il concetto di adiacenza tra i nodi.
+In Figura~\ref{fig:undirected_version_example} sono rappresentati in (a) un grafo diretto, in (b) la sua versione non
 diretta ottenuta rimuovendo l'orientamento degli archi e in (c) quella ottenuta considerando come archi non diretti le
-relazioni simmetriche di adiacienza tra i nodi. \`E utile notare che la versione non orientata (b) \`e mantenuta come
+relazioni simmetriche di adiacenza tra i nodi. \`E utile notare che la versione non orientata (b) \`e mantenuta come
 grafo semplice, ovvero un grafo non orientato che non contiene archi multipli o cappi.
 Appare evidente di come la versione non orientata (c) sia pi\`u restrittiva rispetto alla versione (b): mentre
 in (b) le cricche di dimensione superiore a uno sono $\{v_1, v_2, v_3\}$ e $\{v_3, v_4\}$, in (c) l'unica
@@ -162,7 +162,7 @@ cricca con tale caratteristica \`e $\{v_1, v_2\}$. \newline
 D'ora in avanti, quando si far\`a riferimento al concetto di cricca nel contesto di grafo diretto, si far\`a
 uso dell'espressione \textit{cricca non reciproca} per indicare le cricche presenti nella versione non diretta
 ottenuta rimuovendo semplicemente l'orientamento degli archi, come in (b), e \textit{cricca reciproca} per indicare
-le cricche presenti nella versione non diretta ottenuta considerando le relazioni simmetriche di adiacienza tra i nodi,
+le cricche presenti nella versione non diretta ottenuta considerando le relazioni simmetriche di adiacenza tra i nodi,
 come in (c).
 
 
@@ -182,7 +182,7 @@ cerca di costruire una cricca massimale aggiungendo nodi uno alla volta, valutan
 possono essere aggiunti senza violare la propriet\`a di cricca.
 A partire dalla cricca corrente, ovvero la cricca attualmente in costruzione, ad ogni chiamata ricorsiva si valuta
 la scelta di aggiungere un nodo valido tra quelli disponibili, scendendo in profondit\`a nell'albero della ricorsione.
-Al termine della chiamata riscorsiva, il nodo viene inserito in un insieme dei nodi
+Al termine della chiamata ricorsiva, il nodo viene inserito in un insieme dei nodi
 gi\`a considerati, azione corrispondente alla scelta di escludere tale nodo dalla costruzione della cricca corrente in tutte
 le chiamate successive. \newline
 
@@ -194,9 +194,9 @@ Nel corso della sua esecuzione, quindi, l'algoritmo manipola tre insiemi di nodi
 alle procedure ricorsive, che sono:
 \begin{itemize}
     \item $R$: cricca correntemente in costruzione
-    \item $P$: insieme di nodi adiacienti ad ogni nodo in $R$, ovvero i nodi candidati a far parte della cricca corrente
+    \item $P$: insieme di nodi adiacenti a ogni nodo in $R$, ovvero i nodi candidati a far parte della cricca corrente
     non ancora considerati nella costruzione di una cricca massimale che includa $R$.
-    \item $X$: insieme di nodi adiacienti ad ogni nodo in $R$, gi\`a considerati nella costruzione di una cricca
+    \item $X$: insieme di nodi adiacenti a ogni nodo in $R$, gi\`a considerati nella costruzione di una cricca
     massimale che includa $R$.
 \end{itemize}
 
@@ -215,13 +215,13 @@ Quando $P$ è vuoto, le chiamate ricorsive nel ramo corrente della ricorsione te
 $R$ rappresenterà una cricca.
 Tuttavia l'algoritmo riconosce se tale cricca sia massimale o meno valutando se al contempo l'insieme $X$ sia,
 rispettivamente, vuoto o non vuoto.
-Si noti infatti che un insime $X$ non vuoto indicherebbe che la cricca corrente potrebbe essere estesa aggiungendo
+Si noti infatti che un insieme $X$ non vuoto indicherebbe che la cricca corrente potrebbe essere estesa aggiungendo
 nodi in $X$, concludendo non solo che la cricca in $R$ non è massimale, ma anche che la cricca massimale che
 la contiene assieme ai nodi in $X$ è gi\`a stata trovata. \newline
 
 \nlparagraph{Algoritmo Tomita}
 
-Bron e Kerbosch proposero nel loro articolo orginale una versione migliorata del loro algoritmo, la quale
+Bron e Kerbosch proposero nel loro articolo originale una versione migliorata del loro algoritmo, la quale
 prevede l'utilizzo di una strategia di pivoting, che permette di ridurre le chiamate ricorsive della procedura
 trovando comunque tutte le cricche massimali.
 
@@ -237,9 +237,9 @@ Per questo motivo, questa versione dell'algoritmo di Bron-Kerbosch viene spesso 
 
 La tecnica del pivoting nasce dalla considerazione per cui la procedura ricorsiva applicata aggiungendo un arbitrario
 nodo $u$ a $R$ permette comunque a tutti i suoi vicini di poter essere aggiunti a $R$ tramite le sotto-chiamate
-ricorsive immediatamene successive.
+ricorsive immediatamente successive.
 In altre parole, i vicini di $u$ in $P$ faranno parte di ogni cricca massimale che
-contenga $R$ che ammette anche $u$, in quanto ogni nodo in $P$ preso singolarmente è adiacente ad ogni nodo in $R$.
+contenga $R$ che ammette anche $u$, in quanto ogni nodo in $P$ preso singolarmente è adiacente a ogni nodo in $R$.
 
 \begin{figure}[H]
     \centering
@@ -248,11 +248,11 @@ contenga $R$ che ammette anche $u$, in quanto ogni nodo in $P$ preso singolarmen
     \label{fig:bron_kerbosh_pivot_example}
 \end{figure}
 
-La figura~\ref{fig:bron_kerbosh_pivot_example} tenta di dare un'idea migliore degli insiemi R, P ed X nel corso
+La Figura~\ref{fig:bron_kerbosh_pivot_example} tenta di dare un'idea migliore degli insiemi R, P ed X nel corso
 dell'esecuzione dell'algoritmo con strategia di pivoting.
 Il nodo $u$ è scelto come pivot, e le chiamate ricorsive al livello corrente della ricorsione sono limitate ai nodi
 in blu.
-I segmenti uscenti da ogni nodo in P ed X rappresentano gli archi che li rendono adiacienti ad ogni nodo in R.
+I segmenti uscenti da ogni nodo in P ed X rappresentano gli archi che li rendono adiacenti a ogni nodo in R\@.
 
 \begin{figure}
     \centering
@@ -261,8 +261,8 @@ I segmenti uscenti da ogni nodo in P ed X rappresentano gli archi che li rendono
     \label{fig:bron_kerbosh_pivot_tree_example}
 \end{figure}
 
-La figura~\ref{fig:bron_kerbosh_pivot_tree_example} mostra l'albero di ricorsione derivante dall'applicazione
-dell'algoritmo di Bron-Kerbosch con pivoting sullo stesso grafo orientato presente in figura~\ref{fig:bron_kerbosh_tree_example},
+La Figura~\ref{fig:bron_kerbosh_pivot_tree_example} mostra l'albero di ricorsione derivante dall'applicazione
+dell'algoritmo di Bron-Kerbosch con pivoting sullo stesso grafo orientato presente in Figura~\ref{fig:bron_kerbosh_tree_example},
 rendendo evidente come la strategia di pivoting permetta di ridurre il numero di chiamate ricorsive rispetto alla
 versione senza pivoting.
 
@@ -298,7 +298,7 @@ risolve il problema di individuare tutti i cicli semplici distinti presenti in u
 \nlparagraph{Algoritmo di ricerca dei circuiti semplici di Johnson}
 
 L'algoritmo per la ricerca dei circuiti semplici di Donald B. Johnson, proposto nel 1975~\cite{doi:10.1137/0204007},
-provvede ad enumerare tutti i cicli in un grafo orientato eseguendo delle visite in profondit\`a.
+provvede a enumerare tutti i cicli in un grafo orientato eseguendo delle visite in profondit\`a.
 
 A partire da un ordinamento arbitrario dei nodi, l'algoritmo esegue la procedura di visita ricorsiva CIRCUIT partendo
 da ciascuno di essi, individuando di volta in volta tutti e soli i circuiti semplici contenenti il nodo di partenza $s$.
@@ -313,7 +313,7 @@ Questo permette di evitare l'individuazione di tutti i circuiti equivalenti che 
 nodi.
 
 Tuttavia, quelle elencate non sono le sole caratteristiche che hanno determinato il successo dell'algoritmo.
-Sebbene condivida con loro aspetti comuni, l'algoritmo risulta essere pi\`u efficente di altri algoritmi
+Sebbene condivida con loro aspetti comuni, l'algoritmo risulta essere pi\`u efficiente di altri algoritmi
 proposti per lo stesso problema, come quello di Tiernan~\cite{10.1145/362814.362819} e
 Weinblatt~\cite{10.1145/321679.321684}, in quanto utilizza un criterio di blocco
 dei nodi che permette di evitare visite successive in aree del grafo che non conducono al nodo origine $s$.
@@ -343,18 +343,18 @@ I parametri passati alla procedura ricorsiva CIRCUIT includono
 \begin{figure}
     \centering
     \input{TikzPictures/circuit_example}
-\caption{Fasi rilevanti dell'applicazione della procedura CIRCUIT}\label{fig:cicruit-example}
+\caption{Fasi rilevanti dell'applicazione della procedura CIRCUIT}\label{fig:circuit-example}
 \end{figure}
 
-In Figura \label{fig:circuit-example} \`e fornita una rappresentazione delle fasi rilevanti dell'applicazione della
-procedura CIRCUIT al nodo 1. I nodi in grigio rappresentano nodi bloccati.
-La figura (a) mostra l'inzio della procedura, in cui il nodo 1 viene aggiunto allo tack $S$.
+In Figura~\ref{fig:circuit-example} \`e fornita una rappresentazione delle fasi rilevanti dell'applicazione della
+procedura CIRCUIT al nodo $1$. I nodi in grigio rappresentano nodi bloccati.
+La figura (a) mostra l'inizio della procedura, in cui il nodo $1$ viene aggiunto allo tack $S$.
 La figura (b) rappresenta il momento dell'individuazione del circuito $\langle 1, 3, 4, 1 \rangle$, derivante dalla valutazione
 dell'arco $(4, 1)$.
-La figura (c) rappresenta gli effetti della procedura CIRCUIT(5), derivante dalla valutazione dell'arco $(4, 5)$.
-La figura (d) rappresenta gli effetti della procedura CIRCUIT(7), derivante dalla valutazione dell'arco $(4, 7)$.
+La figura (c) rappresenta gli effetti della procedura CIRCUIT($5$), derivante dalla valutazione dell'arco $(4, 5)$.
+La figura (d) rappresenta gli effetti della procedura CIRCUIT($7$), derivante dalla valutazione dell'arco $(4, 7)$.
 In entrambe le figure (c) e (d) i nodi visitati vengono aggiunti e rimossi dallo stack, ma rimangono bloccati,
-in quanto non conducono ad un circuito elementare, e per questo vengono aggiornate le liste $B$ dei relativi
+in quanto non conducono a un circuito elementare, e per questo vengono aggiornate le liste $B$ dei relativi
 nodi adiacenti.
 Le figure (e) e (f) raffigurano le procedure ricorsive di UNBLOCK derivanti dallo sblocco del nodo 4.
 

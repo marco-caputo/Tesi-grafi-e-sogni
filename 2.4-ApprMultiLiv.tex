@@ -9,14 +9,14 @@ dimensioni~\cite{4069239}.
 
 In ogni caso, lo scopo di un approccio multi-livello \`e quello di costruire una gerarchia di grafi contratti
 che rappresentino la struttura del grafo di partenza, comprimendo in nodi in meta-nodi in accordo a determinate
-caratteristiche di interesse.
+caratteristiche d'interesse.
 Così come per la terminologia usata per le partizioni, i grafi risultanti dalle contrazioni sono spesso detti
 grezzi (\textit{coarse}), mentre quelli risultanti dalle decontrazioni sono detti raffinati (\textit{fine}).
 I grafi grezzi, ottenuti ricorsivamente a partire dai grafi pi\`u raffinati, sono quindi da considerarsi
 come rappresentazioni pi\`u astratte di questi ultimi. \newline
 
-\subsection{Partizionamento multilivello di grafi}\label{subsec:partizionamento-multilivello-di-grafi}
-Il \textbf{partizionamento multilivello di grafi} (in inglese \textit{multilevel graph partitioning} o \textit{MGP})
+\subsection{Partizionamento multi-livello di grafi}\label{subsec:partizionamento-multilivello-di-grafi}
+Il \textbf{partizionamento multi-livello di grafi} (in inglese \textit{multilevel graph partitioning} o \textit{MGP})
 \`e un approccio euristico per la risoluzione di problemi su grafi in cui si vuole dividere un grafo in un dato numero
 di blocchi che abbiano approssimativamente la stessa dimensione, affinch\`e una certa funzione obiettivo sia
 minimizzata.
@@ -30,7 +30,7 @@ L'approccio multi-livello, per la prima volta introdotto da Hendrickson e Leland
 di problemi di partizionamento di grafi di grandi dimensioni, in quanto permette di ottenere partizioni di alta
 qualit\`a in tempi ragionevoli, nonostante il problema di partizionamento sia NP-completo per la maggior parte delle
 funzioni obiettivo.
-L'utilit\`a di questa tecnica si basa sull'intuizione per cui una buona partizione ad un livello grezzo della
+L'utilit\`a di questa tecnica si basa sull'intuizione per cui una buona partizione a un livello grezzo della
 gerarchia rimarr\`a tale anche ad un livello pi\`u raffinato, e che, in questo modo, la ricerca di una
 partizione ottimale pu\`o essere effettuata su grafi pi\`u piccoli e pi\`u semplici.
 \newpage
@@ -48,7 +48,7 @@ L'approccio multi-livello per la partizione di grafi si articola in tre fasi pri
     si crea una gerarchia di grafi riducendo iterativamente la dimensione del grafo iniziale.
     Questo viene fatto comunemente individuando e contraendo coppie di nodi adiacenti, ovvero individuando un
     sottoinsieme degli archi del grafo da contrarre, $M \subseteq E $ detti \textit{match}.
-    Si noti che la scelta di contrarre coppie di nodi adiacienti porta a grafi grossolani i cui nodi rappresentano
+    Si noti che la scelta di contrarre coppie di nodi adiacenti porta a grafi grossolani i cui nodi rappresentano
     sottografi del grafo iniziale densamente connessi.
     In base allo specifico problema, una determinata funzione di \textit{rating} classifica gli archi individuando
     quale sottoinsieme degli archi $E$ debba essere assegnato ad $M$ affinch\`e la somma dei \textit{rating} degli in
@@ -56,10 +56,10 @@ L'approccio multi-livello per la partizione di grafi si articola in tre fasi pri
     Si consideri che un nodo gi\`a contratto non pu\`o essere pi\`u coinvolto in un ulteriore \textit{matching}
     allo stesso livello della gerarchia.
     \item \textbf{Fase di partizionamento iniziale} (\textit{initial partitioning phase}): quando a seguito delle
-    contazioni il grafo risulta essere di ordine abbastanza piccolo, in relazione ad un qualche threshold,
-    esso pu\`o essere partizionato direttamente con algoritmi costosi, fornendo una partizione inizile sul grafo
+    contrazioni il grafo risulta essere di ordine abbastanza piccolo, in relazione ad un qualche threshold,
+    esso pu\`o essere partizionato direttamente con algoritmi costosi, fornendo una partizione iniziale sul grafo
     pi\`u grossolano della gerarchia.
-    \item \textbf{Fase di decontrazione} (\textit{refinement/uncoarsening phase}), i matchings vengono iterativamente
+    \item \textbf{Fase di decontrazione} (\textit{refinement/uncoarsening phase}), i matching vengono iterativamente
     decontratti, e i relativi nodi vengono associati a blocchi della partizione del grafo pi\`u grossolano,
     proiettandola sul grafo pi\`u raffinato.
     Per fare in modo che la partizione al livello pi\`u grossolano tenga conto delle sotto-strutture ai livelli

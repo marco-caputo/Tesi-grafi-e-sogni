@@ -2,7 +2,7 @@
 
 Un grafo \`e una struttura matematica costruita su un insieme di elementi in cui coppie di elementi possono essere
 in relazione tra loro.
-I grafi possono essere orientati o non orentati, a seconda che esista una direzione o un ordine tra le coppie
+I grafi possono essere orientati o non orientati, a seconda che esista una direzione o un ordine tra le coppie
 di elementi che si trovano in relazione.
 In questa sezione si concentrerà l'attenzione sui grafi orientati, in quanto alla base della definizione dei
 grafi multi-livello, oltre che essere più generali: i grafi non orientati possono sempre essere rappresentati
@@ -22,7 +22,7 @@ come particolari grafi orientati.
 
 Nelle rappresentazioni grafiche dei grafi orientati, i nodi sono solitamente rappresentati
 come cerchi o punti, mentre gli archi come frecce.
-Nella figura~\ref{fig:directed-graph-example} \`e mostrato un esempio di grafo orientato con insieme di nodi
+Nella Figura~\ref{fig:directed-graph-example} \`e mostrato un esempio di grafo orientato con insieme di nodi
 $V = \{v_1, v_2, v_3, v_4, v_5, v_6, v_7\}$ e insieme di archi $E = \{(v_1, v_2), (v_2, v_1), (v_2, v_3), (v_3, v_1)
 (v_3, v_4), (v_4, v_4), (v_5, v_6), (v_6, v_5)\}$. \newline
 Si noti che sono ammessi \textbf{cappi}, ovvero archi che collegano un nodo a se stesso, ma nella normale nozione
@@ -65,7 +65,7 @@ A seguire alcune definizioni relative ai nodi e agli archi di un grafo orientato
 Sia $(u, v) \in E$ un arco di un grafo orientato $G = (V, E)$, allora:
 \begin{itemize}
     \item l'arco $(u, v)$ \textbf{esce} dal nodo $u$ ed {entra} nel nodo $v$.
-        Ad esempio, gli archi uscenti dal nodo $v_2$ nel grafo della figura~\ref{fig:directed-graph-example}
+        Ad esempio, gli archi uscenti dal nodo $v_2$ nel grafo della Figura~\ref{fig:directed-graph-example}
         sono $(v_2, v_1)$ e $(v_2, v_3)$, mentre l'unico arco entrante nel nodo $v_5$ \`e $(v_6, v_5)$.
     \item l'arco $(u, v)$ si dice \textbf{incidente} in entrambi i vertici $u$ e $v$.
     \item il nodo $v$ \`e detto \textbf{adiacente} al nodo $u$, in quanto esiste un arco $(u, v) \in E$.
@@ -93,8 +93,8 @@ Sia $G = (V, E)$ un grafo orientato, siano $u, v \in V$ due nodi di $G$, allora 
 \`e una sequenza ordinata di nodi $\langle v_0, v_1, \ldots, v_k \rangle$ tale che $(v_i, v_{i+1}) \in E$ per ogni
 $i = 0, 1, \ldots, k-1$ con $v_1 = u$ e $v_k = v$.
 La \textbf{lunghezza} $k$ di un cammino \`e data dal numero di archi che lo compongono.
-Ad esempio, $\langle v_1, v_2, v_3, v_4 \rangle$ \`e un cammino di lunghezza 3 nel grafo della
-figura~\ref{fig:directed-graph-example}.
+Ad esempio, $\langle v_1, v_2, v_3, v_4 \rangle$ \`e un cammino di lunghezza $3$ nel grafo della
+Figura~\ref{fig:directed-graph-example}.
 
 Nel caso di grafi pesati, quindi aventi archi con un valore associato che ne indichi un costo, si definisce
 \textbf{costo} di un cammino la somma dei pesi degli archi che lo compongono.
@@ -115,9 +115,9 @@ A seguire alcune definizioni relative ai cammini su un grafo orientato:
     suo nodo iniziale coincide con il suo nodo finale.
     Un \textbf{ciclo semplice} \`e un cammino in cui tutti i nodi sono distinti ad eccezione del primo e dell'ultimo
     nodo, mentre un \textbf{ciclo elementare} (o \textbf{circuito}) \`e un ciclo in cui tutti gli archi sono distinti.
-    Ad esempio, nel grafo in figura~\ref{fig:directed-graph-example}, il cammino $\langle v_1, v_2, v_3, v_1 \rangle$
-    \`e un circuito semplice di lunghezza 3.
-    Inoltre, un grafo diretto che non contiene cicli semplici \`e detto grafo diretto \textbf{aciciclico}.
+    Ad esempio, nel grafo in Figura~\ref{fig:directed-graph-example}, il cammino $\langle v_1, v_2, v_3, v_1 \rangle$
+    \`e un circuito semplice di lunghezza $3$.
+    Inoltre, un grafo diretto che non contiene cicli semplici \`e detto grafo diretto \textbf{aciclico}.
     \item Un cammino si dice \textbf{cammino hemiltoniano} nel grafo $G$ se attraversa ogni nodo di $G$ esattamente
     una volta.
     \item Un cammino $\langle v_0, v_1, \ldots, v_k \rangle$ si dice \textbf{ciclo hemiltoniano} nel grafo $G$ se
@@ -131,7 +131,7 @@ A seguire alcune definizioni relative ai cammini su un grafo orientato:
 
 \nlparagraph{Connessione tra nodi}
 
-Una caratteristica importante dei grafi orientati, basata sul concetto di raggiungibilit\`a e adiacienza, e quindi
+Una caratteristica importante dei grafi orientati, basata sul concetto di raggiungibilit\`a e adiacenza, e quindi
 sui cammini, \`e la connessione dei suoi nodi.
 \newline
 
@@ -140,7 +140,7 @@ cammino da $u$ a $v$.
 In un tale grafo, quindi, ogni nodo \`e mutualmente raggiungibile da ogni altro nodo. \newline
 Le \textbf{componenti fortemente connesse} di un grafo sono le classi di equivalenza dei nodi secondo la relazione
 ``essere mutualmente raggiungibili''.
-Ad esempio, nel grafo in figura~\ref{fig:directed-graph-example}, le componenti fortemente connesse sono
+Ad esempio, nel grafo in Figura~\ref{fig:directed-graph-example}, le componenti fortemente connesse sono
 $\{\{v_1, v_2, v_3\}, \{v_4\}, \{v_5, v_6\}, \{v_7\}\}$.
 Si noti che l'insieme di nodi $V$ di un grafo fortemente connesso \`e per definizione una unica componente connessa.
 \newline
@@ -149,10 +149,10 @@ Un maggiore grado di connessione tra nodi \`e dato dalla presenza di singoli arc
 di cammini. \newline
 Un grafo orientato $G = (V, E)$ si dice \textbf{completo} se esiste un arco $(u, v) \in E$ per ogni coppia di nodi
 distinti $u, v \in V$.
-In un tale grafo, quindi, ogni coppia di nodi distinti \`e adiaciente. \newline
+In un tale grafo, quindi, ogni coppia di nodi distinti \`e adiacente. \newline
 Le \textbf{cricche} di un grafo sono le classi di equivalenza dei nodi secondo la relazione
-``essere mutualmente adiacienti''.
-Ad esempio, nel grafo in figura~\ref{fig:directed-graph-example}, le cricche sono
+``essere mutualmente adiacenti''.
+Ad esempio, nel grafo in Figura~\ref{fig:directed-graph-example}, le cricche sono
 $\{\{v_1, v_2\}, \{v_3\}, \{v_4\}, \{v_5, v_6\}, \{v_7\}\}$. \newline
 Si noti che l'insieme di nodi $V$ di un grafo completo \`e per definizione un'unica cricca. \newline
 
@@ -171,7 +171,7 @@ adiacenti, e ai nodi non ancora marcati come visitati viene applicata immediatam
 \input{Algoritmi/dfs}
 \input{Algoritmi/dfs-visit}
 
-Nel corso dell'algoritmo i nodi vengono colorati di tre colori: bianco, grigio e nero, ad indicare rispettivamente
+Nel corso dell'algoritmo i nodi vengono colorati di tre colori: bianco, grigio e nero, a indicare rispettivamente
 che il nodo non \`e stato visitato, che \`e in fase di visita e che \`e stato visitato.
 Questo permette di non incorrere in cicli infiniti di visita nel caso non si stia visitando un grafo aciclico.
 Nel corso dell'algoritmo vengono anche assegnati ai nodi due valori interi: il tempo di scoperta $d$ e il tempo di
@@ -186,7 +186,7 @@ corrente e, con esso, di ricostruire il cammino di visita sotto forma di albero,
     \label{fig:dfs-example}
 \end{figure}
 
-In figura~\ref{fig:dfs-example} \`e rappresentato un esempio di esecuzione della procedura DFS-VISIT su un grafo
+In Figura~\ref{fig:dfs-example} \`e rappresentato un esempio di esecuzione della procedura DFS-VISIT su un grafo
 diretto, eseguita a partire dal nodo con etichetta $9$, in cui lo stato del grafo \`e rappresentato ad ogni
 incremento della variabile $time$.
 

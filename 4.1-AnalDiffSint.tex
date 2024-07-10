@@ -1,7 +1,7 @@
 \section{Analisi delle differenze sintattiche tra sognatori} \label{sec:analisi-delle-differenze-sintattiche-tra-sognatori}
 
 Come anticipato nel Capitolo~\ref{cap:mondo-dei-sogni}, nel contesto psichiatrico la rappresentazione di testi sui
-sogni attraverso grafi si \`e rivelato un'utile strumento a supporto della diagnosi di disturbi come la schizofrenia
+sogni attraverso grafi si \`e rivelato un utile strumento a supporto della diagnosi di disturbi come la schizofrenia
 o il disturbo bipolare~\cite{mota2014graph}, nonch\'e la possibilit\'a di predire l'insorgenza di patologie in
 anticipo rispetto alla diagnosi clinica~\cite{mota2017thought}.
 Tali studi evidenziando di come l'attenzione ad aspetti sintattici della descrizione di sogni possano fornire
@@ -11,8 +11,8 @@ ricorrenti, la connettivit\'a delle parole e la loro organizzazione in component
 
 In questa sezione verrà illustrata una possibile metodologia di analisi sintattica dei testi di singoli sogni mediante
 grafi multi-livello, applicandola ai sogni di un campione di tre sognatori: Arlie, Emma e Norman.
-In particolare, si cercherà di potenziare la modalità di studio proposta dalle ricerche citate, cercando di estenderla
-grazie alla visione globale fornita dal grafo multi-livello e focalizzando l'attenzione sugli aspetti che caratterizzano
+In particolare, si cercherà di potenziare la modalità di studio proposta dalle ricerche citate, tentando di estenderla
+grazie alla visione globale fornita dal grafo multi-livello e alla focalizzazione sugli aspetti che caratterizzano
 l'evoluzione dei grafi delle parole nel corso delle contrazioni.
 
 \subsection{Fase di pre-elaborazione}\label{subec:pre-elaborazione-con-NLP}
@@ -25,29 +25,29 @@ linguaggio naturale, ovvero di linguaggi usati dell'essere umano. \newline
 
 La pre-elaborazione ha quindi previsto l'applicazione della seguente sequenza di fasi al corpus di sogni originario:
 \begin{enumerate}
-    \item Pulizia del testo. \newline \noindent
+    \item \textbf{Pulizia del testo} \newline \noindent
           Questa fase ha incluso la rimozione degli spazi bianchi superflui, la standardizzazione della
           formattazione del testo e la correzione di errori ortografici o di incoerenze. È stata inoltre eseguita la
           rimozione della punteggiatura, snellendo ulteriormente i dati testuali. Tali procedure di pulizia sono
           essenziali per garantire la qualità e la coerenza dei dati in ingresso, migliorando così l'affidabilità
           dell'analisi.
-    \item Tokenizzazione. \newline \noindent
+    \item \textbf{Tokenizzazione} \newline \noindent
           Questa fase ha comportato la suddivisione del testo in parole singole dette \textit{token},
           passaggio fondamentale nell'elaborazione del linguaggio naturale, creando la base per le fasi successive.
-    \item Rimozione delle stop words. \newline \noindent
+    \item \textbf{Rimozione delle stop words} \newline \noindent
           Le \textit{stop words} sono parole comuni (come ``the'', ``is'', ``at'', ``which'' e ``on'') che tipicamente
-          hanno un ruolo significativo nei compiti di NLP, specialmente in quelli legati ad analisi semantiche.
+          non hanno un ruolo significativo nei compiti di NLP, specialmente in quelli legati ad analisi semantiche.
           In questo caso, la loro rimozione può certamente aiutare a concentrare l'analisi sulle parole più ricche di
           contenuto nelle narrazioni dei sogni, riducendo significativamente il rumore nei dati e mettendo in evidenza
           i termini più salienti.
-    \item Lemmatizzazione. \newline \noindent
+    \item \textbf{Lemmatizzazione} \newline \noindent
           La lemmatizzazione è un processo che riduce le parole alla loro forma base, chiamata \textit{lemma}.
           Ad esempio, ``running'' verrebbe lemmatizzato in ``run'' e ``better'' in ``good''.
           Questo passaggio aiuta a ridurre le diverse declinazioni delle parole ai loro concetti di base, riducendo
           la dimensionalità dei dati testuali e rivelando, potenzialmente, schemi sottostanti in modo più chiaro.
-    \item Costruzione del grafo delle parole. \newline \noindent
+    \item \textbf{Costruzione del grafo delle parole} \newline \noindent
           Infine, è stato costruito un grafo diretto basato sulle singole parole all'interno delle sequenze
-          di lemmi associate ad ogni sogno. Tali parole, in quanto prese singolarmente rispetto alla sequenza
+          di lemmi associate a ogni sogno. Tali parole, in quanto prese singolarmente rispetto alla sequenza
           di appartenenza, si definiscono \textit{unigrammi}. In questo grafo, quindi, ogni nodo rappresenta
           un unigramma univoco, con una proprietà ``peso'' che indica il numero di occorrenze di quell'unigramma
           nell'intero corpus di sogni.
@@ -74,7 +74,7 @@ In Figura~\ref{fig:arlie-dream-graph} è mostrato un esempio di grafo delle paro
 relativi livelli di astrazione ottenuti attraverso la contrazione del grafo.
 In particolare, l'esempio mostra il grafo multi-livello risultante dall'applicazione di schemi di contrazione per
 circuiti semplici, componenti fortemente connesse e stelle.
-La funzione di contrazione per stelle rappresenta un ulteriore livello di astrazione, in cui tutti i nodi su cui è
+La funzione di contrazione per stelle rappresenta un ulteriore livello di astrazione in cui tutti i nodi su cui è
 incidente un unico arco che li collega ad un nodo centrale vengono contratti in un unico supernodo.
 Nel caso delle parole, il centro di una stella può rappresentante il concetto di base comune a tutti i nodi contratti,
 in quanto loro unico punto di collegamento con le altre parole del grafo.
@@ -114,14 +114,14 @@ Per ciascun insieme di narrazioni legate ai particolari sognatori, si sono selez
 occorrenze di lemmi compreso tra 15 e 300 per narrazione, approssimativamente corrispondenti a sogni
 di lunghezze che variano dalle 30 alle 750 parole.
 I grafici mostrano l'evoluzione di una certa proprietà dei grafi a ciascun livello della gerarchia,
-dove il livello 0 rappresenta la struttura originale del grafo.
+dove il livello $0$ rappresenta la struttura originale del grafo.
 L'asse delle ordinate quantifica la proprietà, mentre l'asse delle ascisse delinea i livelli del grafo multi-livello.
 
-A causa della significativa variazione nel numero medio di lemmi tra le narrazioni dei sognatori — per precisione 38,57
-per Emma, 28,80 per Norman e 48,47 per Arlie — i dati sensibili alla lunghezza del sogno sono stati normalizzati a un
+A causa della significativa variazione nel numero medio di lemmi tra le narrazioni dei sognatori — per precisione
+48,47 per Arlie, 38,57 per Emma e 28,80 per Norman — i dati sensibili alla lunghezza del sogno sono stati normalizzati a un
 valore percentuale relativo al conteggio dei lemmi del sogno originale.
 A partire da osservazioni effettuate sul dataset, infatti, dati come il numero di nodi e archi, il peso dei nodi,
-la dimensione degli insiemi componenti e il numero (ma non la lunghezza) delle basi cicliche risultano essere tutti
+la dimensione degli insiemi componente e il numero (ma non la lunghezza) delle basi cicliche risultano essere tutti
 linearmente influenzati dal numero di lemmi considerati in ciascun sogno.
 
 \newpage
@@ -138,18 +138,18 @@ Nella Figura~\ref{fig:node_edge_count}, in alto, è mostrato il grafico del cont
 l'evoluzione della quantità di nodi nei vari livelli.
 I cali significativi delle traiettorie che scendono velocemente a partire da un valore alto indicano una struttura
 di nodi inizialmente complessa che subisce una rapida semplificazione.
-I dati di Arlie mostrano una una discesa più ripida, suggerendo una veloce contrazione della struttura iniziale sin
+I dati di Arlie mostrano una discesa più ripida, suggerendo una veloce contrazione della struttura iniziale sin
 dai primi schemi di contrazione.
-I dati di Norman e Emma presentano un tasso di declino più contenuto, mantenendo una riduzione coerente rispetto
+I dati di Norman ed Emma presentano un tasso di declino più contenuto, mantenendo una riduzione coerente rispetto
 allo specifico schema di contrazione, indicativo di strutture meno organizzate.
 
-Il grafico del conteggio delle archi imita l'analisi ottenuta dal conteggio dei nodi, fornendo un'idea più chiara
+Il grafico del conteggio degli archi imita l'analisi ottenuta dal conteggio dei nodi, fornendo un'idea più chiara
 della complessità delle strutture.
 Analogamente al conteggio dei nodi, un valore iniziale alto sulle ordinate seguito da un brusco calo suggerisce
 una connettività iniziale densa che subisce una significativa semplificazione.
-I dati sui sogni di Arlie mostrano una densità di archi ordinaria con un marcato declino al livello 2, indicando una
+I dati sui sogni di Arlie mostrano una densità di archi ordinaria con un marcato declino al livello $2$, indicando una
 sostanziale interconnessione di parole.
-Essendo che tali interconnessioni derivano da una quantità di archi al livello 1 proporzionalmente
+Essendo che tali interconnessioni derivano da una quantità di archi al livello $1$ proporzionalmente
 paragonabile a quella degli altri due sognatori, questo aspetto potrebbe suggerire una maggiore qualità delle relazioni
 tra le parole nei sogni di Arlie, intesa come una più equa distribuzione degli archi tra parole e cicli di parole.
 
@@ -168,7 +168,7 @@ di Arlie mostrano una divergenza più significativa nel processo di contrazione 
 Questa informazione, combinata con le quelle fornite dai grafici precedenti, suggerisce che molti nodi vengono esclusi
 dalle aggregazioni principali, portando a una struttura più frammentata.
 Tuttavia, questa struttura si semplifica rapidamente nei livelli successivi, indicando che la maggior parte dei nodi
-orbita nelle immediate vicinanze delle massicce aggregazioni principali.
+orbita nelle immediate vicinanze di massicce aggregazioni principali.
 
 \begin{wrapfigure}{R}{0.5\textwidth}
     \includegraphics[width=0.55\textwidth]{Immagini/peso_nodo_max_normalizzato}
@@ -188,7 +188,7 @@ medio più tendente al rettilineo.
 In particolare, i dati di Emma dimostrano un aumento moderato ma costante del peso medio dei nodi, indicativo di
 una struttura iniziale equilibrata in cui i nodi acquisiscono gradualmente importanza attraverso i livelli successivi.
 D'altra parte, i dati di Norman mostrano un aumento leggermente più pronunciato, a partire dai cicli fino ai
-livelli superiori, riflettendo una più bassa dispersione delle singole parole rispetto ad Emma, e una maggiore
+livelli superiori, riflettendo una più bassa dispersione delle singole parole rispetto a Emma, e una maggiore
 inclinazione all'aggregazione, specialmente per le formazioni a stella.
 Il grafico della varianza sul peso dei nodi fornisce informazioni sull'equilibrio interno delle strutture rispetto
 alla loro importanza.
@@ -209,9 +209,9 @@ connessi o situati in fondo a cammini che rappresentano vicoli ciechi.
     \vspace{-10pt}
 \end{wrapfigure}
 
-Il grafico delle medie dei cammino minimi in Figura~\ref{fig:paths} rappresenta l'evoluzione della lunghezza media di
+Il grafico delle medie dei cammini minimi in Figura~\ref{fig:paths} rappresenta l'evoluzione della lunghezza media di
 tali cammini attraverso i diversi livelli dei grafi.
-Tale misura è calcolata sulla versione non orientata di ciascun grafo come la distanza media tra ciascuna coppia di
+La misura è calcolata sulla versione non orientata di ciascun grafo come la distanza media tra ciascuna coppia di
 nodi in termini di archi.
 Valori iniziali più alti indicano strutture iniziali più estese, le quali normalmente riducono tale caratteristica
 contraendosi attraverso i livelli successivi.
@@ -223,7 +223,7 @@ I dati di Norman mostrano cammini di lunghezze più moderate, imitando l'andamen
 mentre i dati di Arlie presentano cammini inizialmente più lunghi e con declino più graduale, indicando strutture di
 percorso più semplici.
 Il secondo grafico nella stessa figura mostra l'evoluzione del diametro del grafo, parametro strettamente legato
-alla lunghezza dei cammini minimi, definito come il cammino minimo massimo tra tutte le coppie di nodi.
+alla lunghezza dei cammini minimi, definito come il cammino minimo di lunghezza massima tra tutte le coppie di nodi.
 Diametri iniziali più alti indicano strutture più estese.
 Questo grafico segue accuratamente quello precedente, indicando che, per tutti e tre i sognatori, le forme del grafo
 tra i livelli non sono deformate e contengono nodi approssimativamente equidistanti.
@@ -241,7 +241,7 @@ I dati di Emma mostrano meno cicli con una diminuzione costante, indicando la pr
 Queste informazioni, combinate ai dati del grafico sulla lunghezza delle basi cicliche, suggeriscono che i sogni di
 Norman contengono più cicli, anche se più piccoli, mentre i sogni di Emma contengono una minor quantità di cicli,
 seppur generalmente più grandi.
-Tuttavia, la distinzione sulla lunghezza tra Emma e Arlie può essere osservata solo nel grafo al livello 1, suggerendo
+Tuttavia, la distinzione sulla lunghezza tra Emma e Arlie può essere osservata solo nel grafo al livello $1$, suggerendo
 che, a differenza di Arlie, le basi cicliche di Emma sono ottenute prevalentemente da insiemi di parole che si
 conseguono nella narrazione originale del sogno, nonostante consistano di un alto numero di lemmi.
 
