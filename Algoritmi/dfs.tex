@@ -1,4 +1,4 @@
-\begin{algorithm}[H]
+\begin{algorithm}[t] \floatname{algorithm}{Algoritmo}
     \caption{DFS($G$)}\label{alg:dfs}
     \begin{algorithmic}[1]
         \For {$v \in G.V$}
@@ -8,7 +8,7 @@
         \State $time \coloneqq 0$
         \For{$v \in G.V$}
             \If {$v.color ==$ WHITE}
-                \State $DFS-VISIT(G, v)$
+                \State DFS-VISIT($G$, $v$)
             \EndIf
         \EndFor
     \end{algorithmic}

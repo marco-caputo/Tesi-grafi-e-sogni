@@ -26,7 +26,7 @@ Le componenti fortemente connesse invece, essendo costruite a partire da una rel
 valido esempio di pattern strutturale che costituisce sempre una partizione di $V$. \newline
 
 D'ora in avanti, ci riferiremo agli elementi di una tale copertura di nodi $Q$ (non necessariamente disgiunta)
-come \textbf{insiemi componenti} \newline
+come \textbf{insiemi componente}. \newline
 
 Per mantenere le proprietà delle contrazioni su grafi è però necessario che ad ogni nodo corrisponda ad uno ed un solo
 supernodo.
@@ -38,7 +38,7 @@ Abbinare questa definzione generica, valida nella teoria degli insiemi, ad uno s
 $Q$ a partire dalla struttura di un grafo, è il primo passo che permetterà di definire particolari funzioni di
 contrazione.
 
-\nlparagraph{Definzione}
+\nlparagraph{Definzione di riduzione disgiunta}
 
 \begin{definition}[Riduzione disgiunta]
 Sia $V$ un insieme di elementi. Sia $Q \subseteq \mathcal{P}(V)$ una copertura di $V$.
@@ -74,6 +74,8 @@ Il nome di questa definizione deriva dal fatto che:
         tra loro.
         Da qui il termine \("\)disgiunta\("\).
 \end{itemize}
+
+\newpage
 
 \begin{proposition}
 Sia $V$ un insieme di elementi. Sia $Q \subseteq \mathcal{P}(V)$ una copertura di $V$.
@@ -113,6 +115,7 @@ si pu\`o estendere il concetto di rappresentazione disgiunta anche nel dominio d
 
 Si pu\`o notare, quindi, che la funzione di riduzione disgiunta pu\`o essere considerata come una
 endofunzione idempotente sull'insieme degli ipergrafi non orientati.
+\newpage
 
 \nlparagraph{Contrazione costruita da una partizione}
 
@@ -160,7 +163,7 @@ Con $T.keys$ e $T.values$ si indicano rispettivamente l'insieme delle chiavi e l
 La copertura $Q$ è quindi data da un dizionario $T$ di dimensione $|V|$, in cui le coppie chiave-valore consistono di:
 \begin{itemize}
     \item Chiave: nodo $v \in V$
-    \item Valore: l'insieme di insiemi componenti $C \in Q$ tali per cui $v \in C$
+    \item Valore: l'insieme di insiemi componente $C \in Q$ tali per cui $v \in C$
 \end{itemize}
 
 Nel corso dell'algoritmo un altro dizionario $T'$ viene usato allo scopo di mappare la biiezione tra gli elementi
@@ -169,7 +172,7 @@ Aggiungendo coppie a $T'$, naturalmente al termine dell'algoritmo il dizionario 
 $|\mathcal{D}(Q)|$. \newline
 
 Nel ciclo a riga 3, si assegna ogni nodo del grafo decontaibile in input $G$ ad un supernodo, che esso sia
-creato contestualmente o che sia il supernodo già creato corrispondente all'insieme di insiemi componenti in $v$.
+creato contestualmente o che sia il supernodo già creato corrispondente all'insieme di insiemi componente in $v$.
 Essendo che le precondizioni impongono che $T$ rappresenti una copertura di $V$, l'insieme $G.V$ a riga 3
 potrebbe essere sostituito con $T.keys$.
 Nel ciclo a riga 15, si assegnano gli archi di $G$ ai superarchi di $G'$. Se l'arco $(v, w)$ è interno ad un
@@ -255,7 +258,7 @@ Sebbene non sia necessario per le procedure di contrazione, questo risulterà ut
 applicabili anche nelle procedure di aggiornamento dinamico al grafo contratto, come verrà trattato nel capitolo~\ref{}.
 L'insieme $T_{modified}$ permetterà, infatti, di evitare di scorrere l'intero dizionario $T$ nel momento in cui il
 grafo contratto già costruito dovrà essere aggiornato in accordo alle modifiche agli insiemi componente tracciati
-da $T$. \newline
+da $T$.
 
 \nlparagraph{Aggiunta di un sottoinsieme massimale}
 
@@ -329,7 +332,7 @@ Esso pu\`o essere costituito dalle seguenti fasi:
     semplice adiacienza.
     \item Fase di enumerazione dei sottoinsiemi \\
     Nel grafo $H$ vengono riconosciuti i pattern strutturali dallo specifico algoritmo di enumerazione e tracciati
-    sotto forma di insiemi componenti composti dai nodi che fanno parte di tali pattern.
+    sotto forma di insiemi componente composti dai nodi che fanno parte di tali pattern.
     Il riultato \`e la mappatura $T$ tra i nodi del grafo $H$ e l'insieme dei sottoinsiemi di cui fanno parte.
     \item Fase di contrazione \\
     Viene restituita la contrazione di $G$ costruita sulla rappresentazione digiunta dei sottoinsimi individuati,

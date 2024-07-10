@@ -32,7 +32,8 @@
   urlcolor=blue
 }
 
-\definecolor{blue}{rgb}{0.1,0.2,1}
+\definecolor{blue}{rgb}{0,0,0.8}
+\definecolor{red}{rgb}{0.8,0,0}
 
 
 % \usetikzlibrary{graphs, graphdrawing}
@@ -70,10 +71,12 @@
   {\refstepcounter{definition}\par\medskip
    \noindent
    {\bfseries Definizione~\thedefinition \ifstrempty{#1}{}{ (#1)}}
-   \itshape\par\nobreak}
+   \itshape\par\noindent\nobreak}
   {\par\medskip}
 
 \newcommand{\nlparagraph}[1]{\paragraph{#1}\mbox{}\nobreak\vspace{1em}}
+
+\renewcommand{\listalgorithmname}{Lista degli Algoritmi}
 
 \graphicspath{Immagini/}
 
@@ -82,9 +85,11 @@
 \maketitle
 
 \tableofcontents
-\lstlistoflistings
+%\lstlistoflistings
 \listoffigures
-\listoftables
+%\listoftables
+\addcontentsline{loa}{chapter*}{}
+\listofalgorithms
 
 \input{Introduzione}
 \input{1-MondoDeiSogni}
@@ -94,7 +99,7 @@
 \input{Conclusione}
 
 
-\appendix
+%\appendix
 %\input{schema_elettrico}
 %\input{Appendix1}
 %\input{Appendix2}

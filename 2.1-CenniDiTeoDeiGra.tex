@@ -4,16 +4,16 @@ Un grafo \`e una struttura matematica costruita su un insieme di elementi in cui
 in relazione tra loro.
 I grafi possono essere orientati o non orentati, a seconda che esista una direzione o un ordine tra le coppie
 di elementi che si trovano in relazione.
-In questa sezione ci concentreremo esclusivamente sui grafi orientati, in quanto alla base della definizione dei
-\textit{Grafi Multi-livello}, oltre che essere più generali: i grafi non orientati possono sempre essere rappresentati
+In questa sezione si concentrerà l'attenzione sui grafi orientati, in quanto alla base della definizione dei
+grafi multi-livello, oltre che essere più generali: i grafi non orientati possono sempre essere rappresentati
 come particolari grafi orientati.
 
-\subsection{Grafi Orientati}\label{subsec:grafi-orientati}
+\subsection{Grafi orientati}\label{subsec:grafi-orientati}
 
 \begin{definition}[Grafo orientato]
     Un \textbf{grafo orientato} $G$ \`e una coppia $(V, E)$, dove:
     \begin{itemize}
-        \item $V  = \{v_1, v_2, \ldots, v_n\}$ \`e un di un insieme finito non vuoto di elementi detti \textbf{nodi}
+        \item $V  = \{v_1, v_2, \ldots, v_n\}$ \`e un insieme finito non vuoto di elementi detti \textbf{nodi}
         (o \textbf{vertici}).
         \item $E = \{(v_i, v_j) \mid v_i, v_j \in V\} \subseteq V \times V$ \`e un insieme di coppie ordinate di
         nodi dette \textbf{archi} (o \textbf{spigoli}).
@@ -24,11 +24,11 @@ Nelle rappresentazioni grafiche dei grafi orientati, i nodi sono solitamente rap
 come cerchi o punti, mentre gli archi come frecce.
 Nella figura~\ref{fig:directed-graph-example} \`e mostrato un esempio di grafo orientato con insieme di nodi
 $V = \{v_1, v_2, v_3, v_4, v_5, v_6, v_7\}$ e insieme di archi $E = \{(v_1, v_2), (v_2, v_1), (v_2, v_3), (v_3, v_1)
-(v_3, v_4), \\ (v_4, v_4), (v_5, v_6), (v_6, v_5)\}$. \newline
+(v_3, v_4), (v_4, v_4), (v_5, v_6), (v_6, v_5)\}$. \newline
 Si noti che sono ammessi \textbf{cappi}, ovvero archi che collegano un nodo a se stesso, ma nella normale nozione
 di grafo orientato non sono ammessi archi multipli tra due nodi.
 
-\begin{figure}[h]
+\begin{figure}[t]
     \centering
     \include{TikzPictures/directed_graph_example}
     \vspace{-10pt}
@@ -36,26 +36,27 @@ di grafo orientato non sono ammessi archi multipli tra due nodi.
     \label{fig:directed-graph-example}
 \end{figure}
 
-Le cardintalit\`a degli insiemi di nodi e archi di un grafo orientato sono rispettivamente $|V| = n$ e $|E| = m$,
+Le cardintalit\`a degli insiemi di nodi e archi di un grafo orientato sono $|V|$ e $|E|$,
 e vengono dette rispettivamente \textbf{ordine} e \textbf{dimensione} del grafo.
 
 Essendo definiti su un insieme di elementi e di archi, possono essere definite relazioni di inclusione tra grafi.
-Un grafo $G' = (V', E')$ \`e un sottografo di $G = (V, E)$, e lo si indica con $G' \subseteq G$ se $V' \subseteq V$
-e $E' \subseteq E$. \newline
-Inoltre, dato un certo insieme $V' \subseteq V$, si definisce il sottografo di $G$ \textbf{indotto} da $V'$, e lo si
-indica con la notazione $G[V']$, il grafo avente come insieme di nodi $V'$ e come insieme di archi l'insieme di tutti
-gli archi in $G$ che rappresentino relazioni tra tali nodi, ovvero il grafo $G' = (V', E')$ dove
-$E' = \{ (u, v) \in E : u, v \in V'\}$. \newline
+Un grafo $G' = (V', E')$ \`e un \textbf{sottografo} di $G = (V, E)$, e lo si indica con $G' \subseteq G$, se $V' \subseteq V$
+e $E' \subseteq E$.
+
+Inoltre, dato un certo insieme $V' \subseteq V$, si definisce il sottografo di $G$ \textbf{indotto}
+da $V'$, e lo si indica con la notazione $G[V']$, il grafo avente come insieme di nodi $V'$ e come insieme di archi
+l'insieme di tutti gli archi in $G$ che rappresentino relazioni tra tali nodi, ovvero il grafo $G' = (V', E')$ dove
+$E' = \{ (u, v) \in E : u, v \in V'\}$.
 
 Essendo il contenuto informativo rilevante di un grafo orientato contenuto nei suoi archi, e quindi nelle relazioni
-tra nodi, il concetto di eguaglianza tra grafi orientati non \`e banale.
+tra nodi, il concetto di eguaglianza tra grafi orientati non risulta banale.
 Una relazione tra grafi orientati, utile per valutare la loro equivalenza in termini di informazione espressa,
-\`e l'isomorfismo (dal greco \textit{iso} = uguale e \textit{morph\`e} = forma).
+\`e l'isomorfismo (dal greco, \textit{iso} = uguale e \textit{morph\`e} = forma).
 Così come per tutte le strutture matematiche, intuitivamente, due grafi si dicono \textbf{isomorfi} quando per ogni
 parte della struttura di uno esiste una corrispondente parte della struttura dell'altro, e viceversa.
-Formalmente, due grafi orientati $G = (V, E)$ e $H = (W, F)$ si dicono isomorfi, e lo si indica con $G \cong H$ se
+Formalmente, due grafi orientati $G = (V, E)$ e $H = (W, F)$ si dicono isomorfi, e lo si indica con $G \cong H$, se
 esiste una biiezione $f: V \rightarrow W$ tale per cui $(u, v) \in E$ se e solo se $(f(u), f(v)) \in F$ per ogni
-$u, v \in V$. \newline
+$u, v \in V$.
 
 \nlparagraph{Archi e nodi}\label{par:archi-e-nodi-di-un-grafo-orientato}
 
@@ -78,7 +79,8 @@ Sia $v \in V$ un nodo di un grafo orientato $G = (V, E)$, allora:
 \end{itemize}
 
 Le informazioni sui gradi dei nodi di un grafo possono essere utilizzati per descriverne le loro caratteristiche
-strutturali. Ad esempio, un grafo si può chiamare una \textbf{stella} quando, informalmente, ogni nodo del grafo ha un
+strutturali.
+Ad esempio, un grafo si può chiamare una \textbf{stella} quando, informalmente, ogni nodo del grafo ha un
 grado pari a $1$, ad eccezione di un nodo, il centro della stella, con grado maggiore o uguale a $1$.
 
 \subsection{Cammini e Connessione tra nodi}\label{subsec:cammini}
@@ -90,9 +92,10 @@ I cammini sono concetti fondamentali della teoria dei grafi e sono alla base di 
 Sia $G = (V, E)$ un grafo orientato, siano $u, v \in V$ due nodi di $G$, allora un \textbf{cammino} da $u$ a $v$ in $G$
 \`e una sequenza ordinata di nodi $\langle v_0, v_1, \ldots, v_k \rangle$ tale che $(v_i, v_{i+1}) \in E$ per ogni
 $i = 0, 1, \ldots, k-1$ con $v_1 = u$ e $v_k = v$.
-La \textbf{lunghezza} k di un cammino \`e data dal numero di archi che lo compongono.
+La \textbf{lunghezza} $k$ di un cammino \`e data dal numero di archi che lo compongono.
 Ad esempio, $\langle v_1, v_2, v_3, v_4 \rangle$ \`e un cammino di lunghezza 3 nel grafo della
-figura~\ref{fig:directed-graph-example}. \newline
+figura~\ref{fig:directed-graph-example}.
+
 Nel caso di grafi pesati, quindi aventi archi con un valore associato che ne indichi un costo, si definisce
 \textbf{costo} di un cammino la somma dei pesi degli archi che lo compongono.
 Inoltre, un \textbf{cammino minimo} tra una coppia di nodi $u$ e $v$ è un cammino di costo (o lunghezza, nel caso
@@ -106,19 +109,18 @@ A seguire alcune definizioni relative ai cammini su un grafo orientato:
 \begin{itemize}
     \item Un cammino si dice \textbf{semplice} se non contiene nodi ripetuti, ad eventuale eccezione del primo e
     dell'ultimo nodo.
-    \item Un cammino si dice \textbf{elementare} se non contiene archi ripetuti. Si noti che un cammino semplice \`e
-    sempre elementare.
+    \item Un cammino si dice \textbf{elementare} se non contiene archi ripetuti. Si noti che in un grafo orientato, un
+    cammino semplice \`e sempre elementare.
     \item Un cammino $\langle v_0, v_1, \ldots, v_k \rangle$ di lunghezza $k \geq 1$ si dice \textbf{ciclo} se $v_1 = v_k$, ovvero se il
     suo nodo iniziale coincide con il suo nodo finale.
-    Un \textbf{ciclo semplice} \`e un cammino in cui tutti i nodi sono distinti, ad eccezione del primo e dell'ultimo
+    Un \textbf{ciclo semplice} \`e un cammino in cui tutti i nodi sono distinti ad eccezione del primo e dell'ultimo
     nodo, mentre un \textbf{ciclo elementare} (o \textbf{circuito}) \`e un ciclo in cui tutti gli archi sono distinti.
     Ad esempio, nel grafo in figura~\ref{fig:directed-graph-example}, il cammino $\langle v_1, v_2, v_3, v_1 \rangle$
     \`e un circuito semplice di lunghezza 3.
-    Inoltre, un grafo diretto che non contiene cicli semplici \`e detto grafo diretto \textbf{aciciclico} (o
-    \textbf{DAG}).
-    \item Un cammino si dice \textbf{cammino hemiltoniano} in nel grafo $G$ se attraversa ogni nodo di $G$ esattamente
+    Inoltre, un grafo diretto che non contiene cicli semplici \`e detto grafo diretto \textbf{aciciclico}.
+    \item Un cammino si dice \textbf{cammino hemiltoniano} nel grafo $G$ se attraversa ogni nodo di $G$ esattamente
     una volta.
-    \item Un cammino $\langle v_0, v_1, \ldots, v_k \rangle$ si dice \textbf{ciclo hemiltoniano} in nel grafo $G$ se
+    \item Un cammino $\langle v_0, v_1, \ldots, v_k \rangle$ si dice \textbf{ciclo hemiltoniano} nel grafo $G$ se
     esso \`e un ciclo e ogni nodo di $G$ appare una ed una sola volta tra i nodi $\langle v_0, v_1, \ldots,
     v_{k-1}\rangle$ e $v_k = v_0$.
     \item Un cammino si dice \textbf{cammino euleriano} nel grafo $G$ se attraversa ogni arco di $G$ esattamente una
@@ -134,10 +136,10 @@ sui cammini, \`e la connessione dei suoi nodi.
 \newline
 
 Un grafo orientato $G = (V, E)$ si dice \textbf{fortemente connesso} se per ogni coppia di nodi $u, v \in V$ esiste un
-cammino da $u$ a $v$. \newline
-In un tale grafo, quindi, ogni nodo \`e mutualmente raggiungibile da ogni altro nodo.
+cammino da $u$ a $v$.
+In un tale grafo, quindi, ogni nodo \`e mutualmente raggiungibile da ogni altro nodo. \newline
 Le \textbf{componenti fortemente connesse} di un grafo sono le classi di equivalenza dei nodi secondo la relazione
-\"essere mutualmente raggiungibili\".
+``essere mutualmente raggiungibili''.
 Ad esempio, nel grafo in figura~\ref{fig:directed-graph-example}, le componenti fortemente connesse sono
 $\{\{v_1, v_2, v_3\}, \{v_4\}, \{v_5, v_6\}, \{v_7\}\}$.
 Si noti che l'insieme di nodi $V$ di un grafo fortemente connesso \`e per definizione una unica componente connessa.
@@ -147,53 +149,36 @@ Un maggiore grado di connessione tra nodi \`e dato dalla presenza di singoli arc
 di cammini. \newline
 Un grafo orientato $G = (V, E)$ si dice \textbf{completo} se esiste un arco $(u, v) \in E$ per ogni coppia di nodi
 distinti $u, v \in V$.
-In un tale grafo, quindi, ogni coppia di nodi distinti \`e adiaciente.
+In un tale grafo, quindi, ogni coppia di nodi distinti \`e adiaciente. \newline
 Le \textbf{cricche} di un grafo sono le classi di equivalenza dei nodi secondo la relazione
-\("\)essere mutualmente adiacienti\("\).
+``essere mutualmente adiacienti''.
 Ad esempio, nel grafo in figura~\ref{fig:directed-graph-example}, le cricche sono
-$\{\{v_1, v_2\}, \{v_3\}, \{v_4\}, \{v_5, v_6\}, \{v_7\}\}$.
-Si noti che l'insieme di nodi $V$ di un grafo completo \`e per definizione un'unica cricca.
+$\{\{v_1, v_2\}, \{v_3\}, \{v_4\}, \{v_5, v_6\}, \{v_7\}\}$. \newline
+Si noti che l'insieme di nodi $V$ di un grafo completo \`e per definizione un'unica cricca. \newline
 
 \`E altresì possibile definire il concetto di \textbf{connettività} al livello globale di un grafo: informalmente,
 un grafo ha una tanto più elevata connettività quanti più sono gli archi che devono essere rimossi per disconnettere
 il grafo in più sottografi isolati.
 
-\nlparagraph{Grafo trasposto}
-
-Dato un grafo diretto $G = (V, E)$, il suo grafo trasposto $G^T = (V, E^T)$ \`e il grafo ottenuto invertendo
-l'orientamento di tutti gli archi di $G$, ovvero $E^T = \{(u, v) \mid (v, u) \in E\}$.
- \'E interessante notare che $G^T$ ha le stesse componenti fortemente connesse di $G$: se un cammino da $u$ a $v$
-esiste in $G$, allora esiste anche un cammino da $v$ a $u$ in $G^T$.
-Essendo le componenti fortemente connesse basate sulla mutua raggiungibilit\`a dei nodi, esse non cambiano
-quando si invertono gli archi.
-
-Una procedura algoritmica per il calcolo di $G^T$ non farebbe altro che scorrere l'insieme di archi di $G$ e
-invertirli, e sarebbe quindi di complessit\`a lineare.
-
-\nlparagraph{Ordinamento topologico}
-
-Dato un grafo diretto aciclico $G = (V, E)$, un ordinamento topologico di $G$ \`e una particolare sequenza
-dei suoi nodi $\langle v_1, v_2, \ldots, v_n \rangle$ tale che per ogni arco $(v_i, v_j) \in E$, $i < j$.
-Si noti, quindi, che un ordinamento topologico di un grafo diretto pu\`o esistere solo se il grafo non contiene
-cicli.
-Un ordinamento topologico fornisce una disposizione tale che i nodi raggiungibili da un certo nodo $v_i$ vengano
-disposti dopo di esso, e che i nodi che $v_j$ pu\`o raggiungere vengano disposti dopo di esso.
-
-Una procedura algoritmica per il calcolo di un ordinamento topologico di $G$ pu\`o essere effettuata tramite una
-visita in profondit\`a del grafo, raccogliendo in una lista concatenata i nodi in ordine decrescente di tempo
-di fine visita, man mano che vengono visitati.
-Per via del normale costo di una visita in profondit\`a, la complessit\`a di tale procedura \`e lineare al
-numero di nodi e di archi del grafo
-
 \subsection{Visita in profondit\`a}
 La visita in profondit\`a di un grafo (in inglese \textit{depth-first search} o \textit{DFS}) \`e un particolare
-algoritmo di visita che, in quanto tale, permette di visitare tutti i nodi di un grafo partendo da un nodo iniziale,
-e di scoprire tutti i nodi raggiungibili da esso.
+algoritmo di visita che, in quanto tale, permette di visitare tutti i nodi di un grafo partendo da uno o più nodi
+iniziali, scoprendo tutti i nodi raggiungibili da essi.
 Ci\`o viene fatto in modo ricorsivo: nel corso della visita di un nodo si considerano uno ad uno i nodi ad esso
 adiacenti, e ai nodi non ancora marcati come visitati viene applicata immediatamente la stessa procedura di visita.
+\newpage
 
 \input{Algoritmi/dfs}
 \input{Algoritmi/dfs-visit}
+
+Nel corso dell'algoritmo i nodi vengono colorati di tre colori: bianco, grigio e nero, ad indicare rispettivamente
+che il nodo non \`e stato visitato, che \`e in fase di visita e che \`e stato visitato.
+Questo permette di non incorrere in cicli infiniti di visita nel caso non si stia visitando un grafo aciclico.
+Nel corso dell'algoritmo vengono anche assegnati ai nodi due valori interi: il tempo di scoperta $d$ e il tempo di
+fine visita $f$, che permettono di determinare, rispettivamente, il momento in cui i nodi vengono scoperti e colorati
+di grigio e il tempo in cui la visita di un nodo termina, colorandosi di nero.
+Un attributo aggiuntivo, il predecessore $\pi$, permette di memorizzare il nodo da cui si \`e scoperto il nodo
+corrente e, con esso, di ricostruire il cammino di visita sotto forma di albero, detto albero di visita in profondit\`a.
 
 \begin{figure}
     \input{TikzPictures/dfs_example}
@@ -201,19 +186,15 @@ adiacenti, e ai nodi non ancora marcati come visitati viene applicata immediatam
     \label{fig:dfs-example}
 \end{figure}
 
-Nel corso dell'algoritmo i nodi vengono colorati in tre colori: bianco, grigio e nero, ad indicare rispettivamente
-che il nodo non \`e stato visitato, che \`e in fase di visita e che \`e stato visitato.
-Questo permette di non incorrere in cicli di visita infiniti nel caso non si stia visitando un grafo aciclico.
-Nel corso dell'algoritmo vengono anche assegnati ai nodi due valori interi: il tempo di scoperta $d$ e il tempo di
-fine visita $f$, che permettono di determinare, rispettivamente, il momento in cui i nodi vengono scoperti e colorati
-di grigio e il tempo in cui la visita di un nodo termina, colorandosi di nero.
-Un attributo aggiuntivo, il predecessore $\pi$, permette di memorizzare il nodo da cui si \`e scoperto il nodo
-corrente e, con esso, di ricostruire il cammino di visita sotto forma di albero, detto albero di visita in profondit\`a.
-\newline
-
 In figura~\ref{fig:dfs-example} \`e rappresentato un esempio di esecuzione della procedura DFS-VISIT su un grafo
 diretto, eseguita a partire dal nodo con etichetta $9$, in cui lo stato del grafo \`e rappresentato ad ogni
-incremento della variabile $time$. \newline
+incremento della variabile $time$.
 
-La procedura si mantiene in tempo lineare rispetto al numero di nodi e di archi del grafo, in quanto
-ogni nodo viene visitato una sola volta e ogni arco viene esaminato al massimo una volta.
+\paragraph{Complessità}
+I cicli for alle righe 1 e 6 nello pseudocodice comportano un tempo $\Theta(|V|)$ se non tiene conto della chiamata a
+DFS-VISIT. Tuttavia, attraverso il metodo dell'aggregazione, si può affermare che la totalità delle chiamate alla
+procedura ricorsiva DFS-VISIT comportano un tempo $\Theta(|V| + |E|)$, in quanto ogni nodo viene visitato una sola
+volta, quando è ancora bianco, e ogni arco viene esaminato al massimo una volta, in quanto uscente da un solo
+nodo.
+L'intera procedura si mantiene, quindi, di tempo lineare rispetto al numero di nodi e di archi del grafo,
+risultando esattamente $\mathbf{\Theta(|V| + |E|)}$.

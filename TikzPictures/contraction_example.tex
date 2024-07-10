@@ -10,7 +10,7 @@
         label={[align=center, blue, font=\tiny]above:{$V_{v_2} = \{a_3, a_4, a_5\}$}\\{$E_{v_2} = \{(a_3, a_4),$}\\{$(a_4, a_5), (a_5, a_3)\}$}}]
         (B) [right of=A, node distance=2.5cm] {$v_2$};
         \node[main node,
-        label={[align=left, blue, font=\tiny]right:{$V_{v_3} = \{a_6, a_7, a_8, a_9\}$}\\{$E_{v_3} = \{(a_7, a_6),(a_7, a_9),$}\\{$(a_7, a_8)\}$}}]
+        label={[align=left, blue, font=\tiny]right:{$V_{v_3} = \{a_6, a_7, a_8, a_9\}$}\\{$E_{v_3} = \{(a_7, a_6),$}\\{$(a_7, a_9),(a_7, a_8)\}$}}]
           (C) [below right of=B] {$v_3$};
         \node[main node,
         label={[align=center, blue, font=\tiny]left:{$V_{v_4} = \{a_{10}\}$}\\{$E_{v_4} = \emptyset$}}]
@@ -21,13 +21,13 @@
         \draw[myarrow](A) to node [above,
         label={[align=center, blue, font=\tiny]below:{$E_{e_1} = $}\\{$\{(a_2, a_5)\}$}}] {$e_1$} (B);
         \draw[myarrow](B) to node [above,
-        label={[align=left, blue, font=\tiny]right:{$E_{e_2} = \{(a_5,a_6), (a_4, a_7)\}$}}] {$e_2$} (C);
+        label={[align=left, blue, font=\tiny]right:{$E_{e_2} = \{(a_5,a_6),$}\\{$(a_4, a_7)\}$}}] {$e_2$} (C);
         \draw[myarrow](C) to node [below,
         label={[align=left, blue, font=\tiny]right:{$E_{e_3} =$}\\{$ \{(a_9,a_{10}),$}\\{$ (a_8, a_{10})\}$}}] {$e_3$} (D);
         \draw[myarrow](B) to node [right, label={[align=right, blue, font=\tiny]left:{$E_{e_4} = \{(a_5,a_{10})\}$}}] {$e_4$} (D);
 
         % G_b graph
-        \begin{scope}[shift={(8.5,1)}];
+        \begin{scope}[shift={(9.5,1)}];
         \draw[blue] (0,0) circle (1.5cm);
         \node[above, blue] at (0,1.5) {$v_2$};
         \node[main node] (X) at (-0.5,0.5) {$a_3$};
@@ -39,7 +39,7 @@
         \end{scope}
 
         % G_c graph
-        \begin{scope}[shift={(10.5,-1.75)}]
+        \begin{scope}[shift={(11.5,-1.75)}]
         \draw[blue] (0,0) circle (1.5cm);
         \node[right, blue] at (1.5,0) {$v_3$};
         \node[main node] (T) at (-0.5,0.5) {$a_6$};
@@ -52,7 +52,7 @@
         \end{scope}
 
         % G_a graph
-        \begin{scope}[shift={(5.7, 1)}]
+        \begin{scope}[shift={(6.7, 1)}]
         \draw[blue] (0,0) circle (1cm);
         \node[above, blue] at (0,1) {$v_1$};
         \node[main node] (N) at (0,0.5) {$a_1$};
@@ -60,7 +60,7 @@
         \end{scope}
 
         % G_d graph
-        \begin{scope}[shift={(7.5,-2.5)}]
+        \begin{scope}[shift={(8.5,-2.5)}]
         \draw[blue] (0,0) circle (0.75cm);
         \node[left, blue] at (-0.75,0) {$v_4$};
         \node[main node] (K) at (0,0) {$a_{10}$};

@@ -1,4 +1,4 @@
-\begin{algorithm}[H]
+\begin{algorithm}[t] \floatname{algorithm}{Algoritmo}
     \caption{DFS-VISIT($G$, $u$)}\label{alg:dfs-visit}
     \begin{algorithmic}[1]
         \State $u.color \coloneqq$ GRAY
@@ -7,7 +7,7 @@
         \For {$v \in G.Adj[u]$}
             \If {$v.color ==$ WHITE}
                 \State $v.\pi \coloneqq u$
-                \State $DFS-VISIT(G, v)$
+                \State DFS-VISIT($G$, $v$)
             \EndIf
         \EndFor
         \State $u.color \coloneqq$ BLACK

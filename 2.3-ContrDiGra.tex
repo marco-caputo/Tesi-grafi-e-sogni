@@ -16,7 +16,7 @@ informazione~\cite{10.1145/3448016.3452797}. \newline
 
 \subsection{Contrazione di archi}\label{subsec:contrazione-di-archi}
 
-La contrazione di archi, spesso riferita come \textbf{contrazione di spigoli}, di un grafo orientato $G = (V, E)$ \`e
+La contrazione di archi, spesso riferita come contrazione di spigoli, di un grafo orientato $G = (V, E)$ \`e
 un'operazione che consiste nella rimozione di un  arco $e = (u, v) \in E$ e nella simultanea fusione dei nodi $u$ e
 $v$ in un unico nodo $w$.
 Quando ci\`o avviene, tutti gli archi che entrano in $u$ e $v$ diventano archi entranti in $w$, e, analogamente,
@@ -24,9 +24,9 @@ tutti gli archi che escono da $u$ e $v$ diventano archi uscenti da $w$.
 Il risultato di una tale operazione \`e, quindi, un nuovo grafo ottenuto da $G$ mediante la contrazione
 dell'arco $e$, che pu\`o essere indicato con $G/e$ (da non confondersi con la sottrazione insiemistica $\setminus$).
 Si noti che, secondo la definzione data, una tale operazione applicata ad un grafo orientato semplice pu\`o risultare
-in un grafo con archi multipli e cappi, a seconda della struttura del grafo iniziale, e per questo \`e
-spesso previsto nella definzione di contrazione di archi che vengano applicate le ulteriori operazioni necessarie ad
-ottenere come risultato un nuovo grafo semplice. \newline
+in un grafo con archi multipli e cappi, a seconda della struttura del grafo iniziale.
+Per questo \`e spesso previsto nella definzione di contrazione di archi che vengano applicate le ulteriori operazioni
+necessarie ad ottenere come risultato un nuovo grafo semplice.
 
 \begin{definition}[Contrazione di archi]
 Sia $G = (V, E)$ un grafo orientato e sia $e = (u, v) \in E$ un arco di $G$ con $u \neq v$,
@@ -39,17 +39,17 @@ La contrazione di $e$ su $G$ \`e un nuovo grafo $G' = (V', E')$ dove:
 \end{itemize}
 \end{definition}
 
-In figura~\ref{fig:edge-contraction-example} \`e mostrato un esempio di contrazione di un arco $(u, v)$ in un nuovo
-nodo $w$ in un grafo orientato, che include la rimozione di archi multipli e di cappi.
-Pi\`u in generale, una tale operazione pu\`o essere eeguita su un insieme di archi, contraendo ciacuno di essi in
-un qualsiasi ordine.
-
 \begin{figure}[h]
     \centering
     \include{TikzPictures/edge_contraction_example}
     \caption{Esempio di contrazione di un arco in un grafo orientato}
     \label{fig:edge-contraction-example}
 \end{figure}
+
+In figura~\ref{fig:edge-contraction-example} \`e mostrato un esempio di contrazione di un arco $(u, v)$ in un nuovo
+nodo $w$ in un grafo orientato, che include la rimozione di archi multipli e di cappi.
+Pi\`u in generale, una tale operazione pu\`o essere eeguita su un insieme di archi, contraendo ciacuno di essi in
+un qualsiasi ordine.
 
 \subsection{Contrazione di sottografi}\label{subsec:contrazione-di-sottografi}
 Un'operazione simile alla contrazione di archi, ma pi\`u generale, \`e la \textbf{contrazione di vertici}
@@ -79,10 +79,6 @@ quegli archi incidenti tra nodi in $V_G \setminus V_H$ e $V_H$ con nuovi archi i
     \end{itemize}
 \end{definition}
 
-In figura~\ref{fig:subgraph-contraction-example} \`e mostrato un esempio di contrazione di un sottografo
-$G[\{v_1, v_2, v_3, v_4\}]$ del grafo orientato $G$ in un nuovo nodo $w$, che include la rimozione di archi multipli
-e di cappi. \newline
-
 \begin{figure}[h]
     \centering
     \include{TikzPictures/subgraph_contraction_example}
@@ -90,36 +86,40 @@ e di cappi. \newline
     \label{fig:subgraph-contraction-example}
 \end{figure}
 
+In figura~\ref{fig:subgraph-contraction-example} \`e mostrato un esempio di contrazione di un sottografo
+$G[\{v_1, v_2, v_3, v_4\}]$ del grafo orientato $G$ in un nuovo nodo $w$, che include la rimozione di archi multipli
+e di cappi. \newline
+
 Alla luce delle definizioni delle operazioni presentate, valgono le seguenti considerazioni:
 \begin{itemize}
     \item Il risultato della contrazione di una coppia di nodi adiacienti su un certo grafo $G$ pu\`o produrre un
     grafo isomorfo a quello della contrazione di una coppia di nodi non adiacenti in un altro grafo $G'$ non isomorfo
     a $G$.
-    E' il caso precedentemente considerato applicato al grafo a sinistra in figura~\ref{fig:edge-contraction-example}.
+    \`E il caso precedentemente considerato applicato al grafo a sinistra in figura~\ref{fig:edge-contraction-example}.
     \item Il risultato della contrazione di un sottografo su un certo grafo $G$ pu\`o produrre un grafo isomorfo
     a quello della contrazione di un sottografo in un altro grafo $G'$ non isomorfo a $G$.
-    Come esempio analogo, basta considerare un grafo $J$ ottenuto a apartire dal grafo $G$ a sinistra in
+    Come esempio analogo, basta considerare un grafo $J$ ottenuto a apartire dal grafo $G$ in
     figura~\ref{fig:subgraph-contraction-example} rimuovendo il nodo $v_1$ e i suoi archi incidenti.
     I grafi risultanti dalla contrazione di $G[\{v_1, v_2, v_3, v_4\}]$ in $G$ e dalla contrazione di
-    $J[\{v_2, v_3, v_4\}]$ in $G'$ sono certamente isomorfi.
+    $J[\{v_2, v_3, v_4\}]$ in $G'$ saranno certamente isomorfi.
 \end{itemize}
 
 Questo significa che la contrazione di vertici e di sottografi non sono operazioni invertibili, in quanto
-rappresentano funzioni suriettive, e quindi non iniettive.
+rappresentano funzioni suriettive ma non iniettive.
 Di fatti queste operazioni non mantengono alcuna informazione legata alla struttura originale del grafo su cui
 sono applicate.
-Come mostrato nei prossimi capitoli, tra gli obiettivi della definizione del grafo multi-livello, vi \`e proprio
-quello di mantenere le informazioni legate alla struttura dei grafi a cui sono applicate contrazioni, permettendo
-anche operazioni di decontrazione.
+Come mostrato nel capitolo~\ref{cap:grafi-multi-livello}, tra gli obiettivi della definizione del grafo multi-livello,
+vi \`e proprio quello di mantenere le informazioni legate alla struttura dei grafi a cui sono applicate contrazioni,
+permettendo anche operazioni di decontrazione.
 
 \subsection{Grafi quoziente}\label{subsec:grafi-quoziente}
 
 Nella teoria dei grafi, un grafo quoziente \`e una visione astratta di un grafo partizionato in sottoinsiemi di nodi
 che rappresenta le relazioni tra tali sottoinsiemi.
-In un grafo quoziente $G'$ ottenuto a partire da un grafo $G = (V, E)$, i nodi rappresentano \"blocchi\" di nodi di $G$
+In un grafo quoziente $G'$ ottenuto a partire da un grafo $G = (V, E)$, i nodi rappresentano ``blocchi'' di nodi di $G$
 che fanno parte dello stesso insieme per una qualche partizione di $V$.
 Per quanto riguarda gli archi di $G'$, dati due blocchi di nodi $B_1$ e $B_2$ in $G'$, un arco tra $B_1$ e $B_2$ sta
-ad indicare la presenza di almeno un arco tra un nodo di $B_1$ e un nodo di $B_2$ in $G$. \newline
+ad indicare la presenza di almeno un arco tra un nodo di $B_1$ e un nodo di $B_2$ in $G$.
 
 Se intuitivamente si potrebbe dire che il grafo quoziente permette di accorpare gruppi di nodi e archi tra loro
 per formare un nuovo grafo, una descrizione pi\`u formale utilizzerebbe il concetto di contrazione di sottografi,
@@ -136,15 +136,6 @@ Il grafo quoziente di $G$ rispetto a $P$ \`e il grafo $G' = (V', E')$ dove:
     \end{itemize}
 \end{definition}
 
-La figura~\ref{fig:quotient-graph-example} mostra un esempio di grafo quoziente sulla destra ottenuto a partire dal
-grafo orientato sulla sinistra e una partizione $P = \{A, B, C\}$. \newline
-
-Come evidente dalla definzione, il nome del grafo quoziente \`e dovuto al fatto che la sua struttura \`e
-strettamente legata all'insieme quoziente di una qualche relazione di equivalenza definita sui nodi del grafo.
-Sebbene, assieme al grafo di partenza, l'ingrediente fondamentale per la definizione di un grafo quoziente sia la
-una partizione dei suoi nodi, una relazione di equivalenza sugli stessi sarebbe un parametro equivalente, in quanto
-ogni relazione di equivalenza induce una partizione degli elementi del suo dominio in classi di equivalenza. \newline
-
 \begin{figure}[h]
     \centering
     \include{TikzPictures/quotient_graph_example}
@@ -152,11 +143,20 @@ ogni relazione di equivalenza induce una partizione degli elementi del suo domin
     \label{fig:quotient-graph-example}
 \end{figure}
 
+La figura~\ref{fig:quotient-graph-example} mostra un esempio di grafo quoziente sulla destra ottenuto a partire dal
+grafo orientato sulla sinistra e una partizione $P = \{A, B, C\}$. \newline
+
+Come evidente dalla definzione, il nome del grafo quoziente \`e dovuto al fatto che la sua struttura \`e
+strettamente legata all'insieme quoziente di una qualche relazione di equivalenza definita sui nodi del grafo.
+Sebbene, assieme al grafo di partenza, l'ingrediente fondamentale per la definizione di un grafo quoziente sia la
+una partizione dei suoi nodi, una relazione di equivalenza sugli stessi sarebbe un parametro equivalente, in quanto
+ogni relazione di equivalenza induce una partizione degli elementi del suo dominio in classi di equivalenza.
+
 Le relazioni di equivalenza, così come le partizioni, possono essere comparate tra
-loro secondo il concetto di raffinamento: una relazione di equivalenza $R_1$ si dice più \textit{fine}
+loro secondo il concetto di raffinamento: una relazione di equivalenza $R_1$ si dice più \textbf{fine}
 (in inglese \textit{finer}) di un'altra relazione di equivalenza $R_2$ se ogni classe di equivalenza di $R_1$ \`e
 contenuta in una classe di equivalenza di $R_2$.
-In tal caso si dice che $R_2$ \`e più \textit{grezza} (in inglese \textit{coarser}) di $R_1$, in quanto ogni classe
+In tal caso si dice che $R_2$ \`e più \textbf{grezza} (in inglese \textit{coarser}) di $R_1$, in quanto ogni classe
 di equivalenza di $R_2$ pu\`o essere ottenuta come l'unione di classi di equivalenza di $R_1$. \newline
 
 Per questo \`e interessante notare che tale concetto di finezza pu\`o essere facilmente esteso ai grafi quoziente:
@@ -184,10 +184,10 @@ Il grafo quoziente di un grafo rispetto a tale relazione di equivalenza prende i
     \label{fig:condensation-example}
 \end{figure}
 
-In figura~\ref{fig:condensation-example} \`e mostrato un esempio di grafo orientato sulla sinistra, in cui le componenti
-fortemente connesse sono evidenziate in giallo, e al sua condensazione sulla destra. \newline
-Si noti che il grafo condensato, in quanto aciclico, non contiene cicli semplici. \newline
-Se si volesse aggiungere un arco affinch\`e il grafo condensato contenesse un ciclo, ad esempio aggiungendo un arco
-uscente da un nodo nella compoente $C$ e entrante in un nodo nella componente $A$, si otterrebbe una nuova componente
+In figura~\ref{fig:condensation-example} \`e mostrato un esempio di grafo orientato sulla sinistra, in cui
+sono evidenziate le componenti fortemente connesse, e al sua condensazione sulla destra.
+Si noti che il grafo condensato, in quanto aciclico, non contiene cicli semplici.
+Se si volesse aggiungere un arco affinché il grafo condensato contenesse un ciclo, ad esempio aggiungendo un arco
+uscente da un nodo nella componente $C$ e entrante in un nodo nella componente $B$, si otterrebbe una nuova componente
 fortemente connessa data dall'unione delle componenti $A$, $B$ e $C$, ovvero le componenti i cui corrispondenti nodi
 nel grafo condensato sarebbero contentenuti in un ciclo semplice.
