@@ -12,14 +12,14 @@
 % -----------------------------------------------------------------------------
 
 \newcommand{\@ptoption}{1pt}
-\newcommand{\@tipo}{twoside}
-%\DeclareOption{10pt}{\renewcommand{\@ptoption}{0pt}}
+\newcommand{\@tipo}{oneside}
+\DeclareOption{10pt}{\renewcommand{\@ptoption}{0pt}}
 %\DeclareOption{11pt}{\renewcommand{\@ptoption}{1pt}}
 %\DeclareOption{12pt}{\renewcommand{\@ptoption}{2pt}}
 %\DeclareOption{twoside}{\renewcommand{\@tipo}{twoside}}
-%\DeclareOption{oneside}{\renewcommand{\@tipo}{oneside}}
+\DeclareOption{oneside}{\renewcommand{\@tipo}{oneside}}
 %\DeclareOption{pdf}{\pdftrue}
-\ExecuteOptions{oneside,12pt}
+\ExecuteOptions{oneside,0pt}
 \ProcessOptions\relax
 \typeout{*************************************************************************}
 \typeout{****** Document Class 'unicam_thesis' <June 30, 2010> *******************}
@@ -39,7 +39,7 @@
 % -----------------------------------------------------------------------------
 
 % set page geometry
-\RequirePackage[top=3cm, bottom=3cm, inner=3.5cm, outer=3cm]{geometry}%
+\RequirePackage[top=3cm, bottom=3cm, inner=3cm, outer=3cm]{geometry}%
 
 % italian character set
 \RequirePackage[utf8]{inputenc}%
@@ -59,6 +59,7 @@
 \RequirePackage{times}%
 \RequirePackage{longtable}%
 \RequirePackage{fancyhdr}%
+\RequirePackage{svg}%
 \pagestyle{fancy}%
 
 \setlength{\headheight}{15pt}
@@ -198,35 +199,36 @@
     \setlength{\parskip}{0mm}
 
     \begin{center}
-        \includegraphics[width=15mm]{Immagini/logo_unicam}\par%
-        \vspace{0.15cm}%
-        {\rmfamily \Large \bfseries \@theuniversity \par}%
-        \vspace{0.15cm}%
-        \hrule%
-        \vspace{0.15cm}%
-        {\rmfamily \Large \scshape Scuola di \@theschool \par}%
-        \vspace{0.15cm}%
-        {\rmfamily \large Corso di \@thecourse \par}%
-        \vspace*{\stretch{7}}%
-        {\rmfamily \LARGE \bfseries \@thetitle \par}%
-        \vspace*{\stretch{7}}%
-        {Laureando \hfill Relatore \par}%
-        {\bfseries \large \@theauthor \hfill \@theadvisor \par}%
+        {\rmfamily \LARGE \bfseries \@theuniversity \par}%
+        \vspace{0.6cm}%
+        \hrule\hrule
+        \vspace{0.1cm}%
+        \hrule\hrule\hrule\hrule\hrule\hrule
+
+        \vspace{0.6cm}%
+        {\rmfamily \LARGE \scshape Scuola di \@theschool \par}%
+        \vspace{0.25cm}%
+        {\rmfamily \Large Corso di \@thecourse \par}%
+        \vspace*{\stretch{3}}%
+        \includesvg[width=3.5cm]{stemma_nero}\par%
+        \vspace*{\stretch{4}}%
+        {\rmfamily \huge \bfseries \@thetitle \par}%
+        \vspace*{\stretch{17}}%
+        {\large \quad \>\>\> Laureando: \hfill Relatore: \>\quad\quad\quad\quad\quad\quad\par}%
+        {\bfseries \Large \@theauthor \hfill \@theadvisor \par}%
     \end{center}
-    {\bfseries \small Matricola \@thematricola}%
     \begin{center}
         %{\hfill Correlatore \par}%
         %{\bfseries \hfill \large \@thecoadvisor \par}% Uncomment if you have a co-advisor
         \vspace*{\stretch{7}}%
-        \hrule%
-        \vspace{0.15cm}%
-        {\large A.A. \@theacademicyear}%
+        \hrule\hrule%
+        \vspace{0.3cm}%
+        {\Large Anno Accademico \@theacademicyear}%
     \end{center}
 
     \newpage
     \setlength{\parindent}{1em}
     \setlength{\parskip}{2pt}
-    \cleardoublepage
 }
 
 

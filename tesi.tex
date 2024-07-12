@@ -11,6 +11,7 @@
 \usepackage{tikz}
 \usepackage{xcolor}
 \usepackage{eqparbox}
+\usepackage{svg}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{3d}
 \usetikzlibrary{positioning}
@@ -51,9 +52,16 @@
 
 \author{Marco Caputo}%
 \advisor{Prof.ssa Emanuela Merelli}%
+
 %\coadvisor{Dott. Michele Russo}%
 \academicyear{2023/2024}%
-\matricola{119136}%
+\matricola{119136
+\begin{flushright}
+    \vspace{-36pt}
+\includesvg[width=0.3\textwidth]{Immagini/firma_merelli}
+    \hspace{1cm}
+\end{flushright}
+}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FINE DATI FRONTESPIZIO
@@ -76,7 +84,7 @@
 
 \newcommand{\nlparagraph}[1]{\paragraph{#1}\mbox{}\nobreak\vspace{1em}}
 
-\renewcommand{\listalgorithmname}{Lista degli Algoritmi}
+\renewcommand{\listalgorithmname}{Elenco degli Algoritmi}
 
 \graphicspath{Immagini/}
 
