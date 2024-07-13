@@ -59,6 +59,7 @@
 \RequirePackage{times}%
 \RequirePackage{longtable}%
 \RequirePackage{fancyhdr}%
+\RequirePackage{svg}%
 \pagestyle{fancy}%
 
 \setlength{\headheight}{15pt}
@@ -198,7 +199,7 @@
     \setlength{\parskip}{0mm}
 
     \begin{center}
-        \includegraphics[width=15mm]{Immagini/logo_unicam}\par%
+        \includesvg[width=15mm]{Immagini/stemma_unicam}\par%
         \vspace{0.15cm}%
         {\rmfamily \Large \bfseries \@theuniversity \par}%
         \vspace{0.15cm}%
