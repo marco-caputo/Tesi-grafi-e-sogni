@@ -39,7 +39,7 @@
 % -----------------------------------------------------------------------------
 
 % set page geometry
-\RequirePackage[top=3cm, bottom=3cm, inner=3cm, outer=3cm]{geometry}%
+\RequirePackage[top=1.5cm, bottom=1.5cm, inner=1.5cm, outer=1.5cm]{geometry}%
 
 % italian character set
 \RequirePackage[utf8]{inputenc}%
@@ -199,32 +199,32 @@
     \setlength{\parskip}{0mm}
 
     \begin{center}
-        {\rmfamily \LARGE \bfseries \@theuniversity \par}%
-        \vspace{0.6cm}%
+        {\rmfamily \huge \bfseries \@theuniversity \par}%
+        \vspace{0.8cm}%
         \hrule\hrule\hrule
         \vspace{0.1cm}%
         \hrule\hrule\hrule\hrule\hrule\hrule
 
-        \vspace{0.6cm}%
-        {\rmfamily \LARGE \scshape Scuola di \@theschool \par}%
-        \vspace{0.25cm}%
-        {\rmfamily \Large Corso di \@thecourse \par}%
+        \vspace{0.8cm}%
+        {\rmfamily \huge \scshape Scuola di \@theschool \par}%
+        \vspace{0.3cm}%
+        {\rmfamily \LARGE Corso di \@thecourse \par}%
         \vspace*{\stretch{3}}%
-        \includesvg[width=3.5cm]{stemma_nero}\par%
+        \includesvg[width=4.25cm]{stemma_nero}\par%
         \vspace*{\stretch{4}}%
-        {\rmfamily \huge \bfseries \@thetitle \par}%
-        \vspace*{\stretch{17}}%
-        {\large Laureando \hfill Relatore \par}
+        {\rmfamily \Huge \bfseries \@thetitle \par}%
+        \vspace*{\stretch{12}}%
+        {\Large Laureando \hfill Relatore \par}
         %{\large \quad \>\>\> Laureando: \hfill Relatore: \>\quad\quad\quad\quad\quad\quad\par}%
-        {\bfseries \Large \@theauthor \hfill \@theadvisor \par}%
+        {\bfseries \LARGE \@theauthor \hfill \@theadvisor \par}%
     \end{center}
     \begin{center}
         %{\hfill Correlatore \par}%
         %{\bfseries \hfill \large \@thecoadvisor \par}% Uncomment if you have a co-advisor
         \vspace*{\stretch{7}}%
         \hrule\hrule\hrule%
-        \vspace{0.3cm}%
-        {\Large Anno Accademico \@theacademicyear}%
+        \vspace{0.4cm}%
+        {\LARGE Anno Accademico \@theacademicyear}%
     \end{center}
 
     \newpage
