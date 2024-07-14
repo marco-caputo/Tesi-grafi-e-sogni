@@ -1,0 +1,48 @@
+\begin{tikzpicture}
+[mynode/.style={draw, thick, circle, size=0.3mm}, ->,shorten >=1pt,auto,node distance=2cm, thick,
+  main node/.style={circle,draw}, little node/.style={circle,draw, minimum size=7.5mm, inner sep=0mm}]
+
+% Nodes
+  \node[main node] (A) {$v_1$};
+  \node[main node, bluUnicam] (B) [right of=A] {$v_2$};
+  \node[main node, bluUnicam] (C) [below right of=B] {$v_3$};
+  \node[main node] (D) [below left of=C] {$v_4$};
+
+  % Edges
+  \path[every node/.style={font=\sffamily\small}]
+    (A) edge node [above] {$e_1$} (B)
+    (B) edge[bluUnicam] node [right, name=e2] {$e_2$} (C)
+    (C) edge node [below] {$e_3$} (D)
+    (B) edge node [left] {$e_4$} (D);
+
+  % G_v2 graph
+  \begin{scope}[shift={(6,1)}]
+    \draw[bluUnicam] (0,0) circle (1.5cm);
+    \node[little node, bluUnicam] (X) at (-0.5,0.5) {$a_1$};
+    \node[little node, bluUnicam] (Y) at (1,0) {$a_2$};
+    \node[little node, bluUnicam] (Z) at (0,-1) {$a_3$};
+    \path[every node/.style={font=\sffamily\small}]
+      (X) edge[bluUnicam] (Y)
+      (Y) edge[bluUnicam] (Z)
+      (Z) edge[bluUnicam] (X);
+  \end{scope}
+
+  % Link
+  \draw[dashed, line width=1.5pt, red] (B) to[out=65, in=145] node[midway, above, sloped, red] {$dec_{V}(v_2)$} (4.5,1);
+
+% G_v3 graph
+  \begin{scope}[shift={(8,-2.5)}]
+    \draw[blue] (0,0) circle (1.5cm);
+    \node[little node, blue] (T) at (-0.5,0.5) {$a_4$};
+    \node[little node, blue] (U) at (1,0) {$a_5$};
+    \node[little node, blue] (V) at (0.25,-1) {$a_6$};
+    \node[little node, blue] (W) at (-0.5,-0.5) {$a_7$};
+    \path[every node/.style={font=\sffamily\small}]
+      (U) edge[blue] (T)
+      (U) edge[blue] (W)
+      (U) edge[blue] (V);
+  \end{scope}
+
+  % Link
+\draw[dashed, line width=1.5pt, red] (C) to[out=300, in=145] node[midway, below, sloped, red] {$dec_{V}(v_3)$} (6.5,-2);
+  \end{tikzpicture}

@@ -3,6 +3,7 @@
 %% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
 \usepackage{svg}
+\usepackage{amsfonts}
 \usepackage{tikz}
 \usetikzlibrary{decorations.fractals}
 \usetikzlibrary{arrows.meta}
@@ -84,50 +85,80 @@
 \section{\scshape Definizioni}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{
+\begin{frame}[t]{Contrazione di Grafi}
+    \begin{minipage}[t]{\textwidth}
+        \input{minipages/edge_contraction}
+    \end{minipage}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]{Contrazione di Grafi}
+    \vspace*{-0.65cm}
+    \begin{minipage}[t]{\textwidth}
+        \input{minipages/edge_contraction}
+        \hfill
+        \input{minipages/subgraph_contraction}
+    \end{minipage}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]{Contrazione di Grafi}
+    \vspace*{-0.65cm}
+    \begin{minipage}[t]{\textwidth}
+        \input{minipages/edge_contraction}
+        \hfill
+        \input{minipages/subgraph_contraction}
+    \end{minipage}
+    \input{minipages/quotient_graph}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[t]{Grafo multi-livello}
     \vspace{-0.5cm}
     \input{minipages/gml_definition}
 \end{frame}
-}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{
 \begin{frame}[t]{Grafo multi-livello}
     \vspace{-0.5cm}
     \input{minipages/gml_definition}
     \input{minipages/gml_figure}
 \end{frame}
-}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Outline}
-\tableofcontents
+\begin{frame}[t]{Grafo decontraibile}
+    \vspace{-0.5cm}
+    \input{minipages/grafo_decontraibile_def}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Complex Networks, Topological Data Analysis and Biology}
-\begin{frame}{Complex Networks}
-Complex networks are one of the most used tool for studying complex systems, weighted networks are becoming a more and more important tool to detect either the presence and the intensity of relations among groups of nodes in a network.
-
-\centering{
-%\includegraphics[width=0.50\textwidth]{immagini/complex}
-}
-
+\begin{frame}[t]{Grafo decontraibile}
+    \vspace{-0.5cm}
+    \input{minipages/grafo_decontraibile_def}
+    \input{minipages/dec_graph_stage_2}
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]{Grafo decontraibile}
+    \vspace{-0.5cm}
+    \input{minipages/grafo_decontraibile_def}
+    \input{minipages/dec_graph_stage_3}
+\end{frame}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgements}
 \begin{frame}{Acknowledgements}
 \begin{center}
 \includegraphics[width=6.5cm]{./immagini/thanks}
 \end{center}
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}

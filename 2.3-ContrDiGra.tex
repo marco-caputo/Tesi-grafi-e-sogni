@@ -124,12 +124,12 @@ Se intuitivamente si potrebbe dire che il grafo quoziente permette di accorpare 
 per formare un nuovo grafo, una descrizione pi\`u formale utilizzerebbe il concetto di contrazione di sottografi,
 definendo il grafo quoziente come il risultato delle contrazioni dei sottografi indotti dalla data partizione di nodi.
 
-\begin{definition}[Grafo Quoziente]
+\begin{definition}[Grafo quoziente]
 Sia $G = (V, E)$ un grafo orientato, sia $P \subseteq \mathcal{P}(V)$ una partizione di $V$, sia $R$ la relazione
-d'equivalenza su $V$ indotta dalla partizione $P$.
-Il grafo quoziente di $G$ rispetto a $P$ \`e il grafo $G' = (V', E')$ dove:
+d'equivalenza su $V$ indotta dalla partizione $P$. \\
+Il \textbf{grafo quoziente} di $G$ rispetto a $P$ \`e il grafo $G' = (V', E')$ dove:
     \begin{itemize}
-        \item $V'$ \`e l'insieme quoziente $V/R$, ovvero l'insieme delle classi di equivalenza di $R$ su $V$.
+        \item $V'$ \`e l'insieme quoziente $V/R$, ovvero l'insieme delle classi di equivalenza di $R$ su $V$;
         \item $E' = \{([u]_R, [v]_R) \mid (u, v) \in E\}$, dove $[u]_R$ e $[v]_R$ sono rispettivamente le classi di
         equivalenza dei nodi $u$ e $v$ rispetto a $R$.
     \end{itemize}
