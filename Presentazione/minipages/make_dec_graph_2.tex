@@ -1,0 +1,77 @@
+\begin{minipage}[t]{\textwidth}
+    \begin{columns}
+    \begin{column}{0.33\textwidth}
+    \begin{tabularx}{0.9\linewidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X | }
+        \multicolumn{2}{>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X}{\center$T$} \\
+        \hline
+        $v_1$ & $\{C_1\}$\\
+        \hline
+        $v_2$ & $\{C_1\}$\\
+        \hline
+        $v_3$ & $\{C_1, C_2\}$\\
+        \hline
+        $v_4$ & $\{C_2\}$\\
+        \hline
+        $v_5$ & $\{C_2\}$\\
+        \hline
+    \end{tabularx}
+\end{column}
+\begin{column}{0.33\textwidth}
+    \hspace{-0.35cm}
+    \begin{tabularx}{0.9\linewidth} {
+        | >{\raggedright\arraybackslash}X
+        | >{\centering\arraybackslash}X | }
+        \multicolumn{2}{>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X}{\center$T'$} \\
+        \hline
+        $\{C_1\}$ & $\alpha_1$\\
+        \hline
+        $\{C_1, C_2\}$ & $\alpha_2$\\
+        \hline
+        $\{C_2\}$ & $\alpha_3$\\
+        \hline
+    \end{tabularx}
+\end{column}
+\hspace{-0.85cm}
+\begin{column}{0.33\textwidth}
+    \vspace{0.5cm}
+    \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}
+        \node[circle, draw] (A) {$v_1$};
+        \node[circle, draw] (B) [above of=A, node distance=1.4cm] {$v_2$};
+        \node[circle, draw] (C) [right=0cm and 1cm of B] {$v_3$};
+        \node[circle, draw] (D) [right=0cm and 1cm of C] {$v_4$};
+        \node[circle, draw] (E) [below of=D, node distance=1.4cm] {$v_5$};
+        \begin{pgfonlayer}{background}
+            \node[orangeUnicam,
+            circle,
+            draw,
+            fit=(A)(B)(C),
+            label={[align=center, orangeUnicam]above:{$C_1$}}] (set1) {};
+        \node[orangeUnicam,
+            circle,
+            draw,
+            fit=(C)(D)(E),
+            label={[align=center, orangeUnicam]above:{$C_2$}}] (set2) {};
+
+        \end{pgfonlayer}
+        \draw[myarrow] (A) -- (B);
+        \draw[myarrow] (B) -- (C);
+        \draw[myarrow] (A) -- (C);
+        \draw[myarrow] (C) -- (D);
+        \draw[myarrow] (D) -- (E);
+        \draw[myarrow] (C) -- (E);
+    \end{tikzpicture}} \\
+    \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}
+        \node[circle, draw, orangeUnicam] (a1) {$\alpha_1$};
+        \node[circle, draw, orangeUnicam, right of=a1, node distance=2.4cm] (a2) {$\alpha_2$};
+        \node[circle, draw, orangeUnicam, right of=a2, node distance=2.4cm] (a3) {$\alpha_3$};
+
+        \draw[myarrow] (a1) -- (a2);
+        \draw[myarrow] (a2) -- (a3);
+    \end{tikzpicture}}
+    \end{column}
+    \end{columns}
+\end{minipage}

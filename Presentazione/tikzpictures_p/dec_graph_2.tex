@@ -4,8 +4,8 @@
 
 % Nodes
   \node[main node] (A) {$v_1$};
-  \node[main node, bluUnicam] (B) [right of=A] {$v_2$};
-  \node[main node, bluUnicam] (C) [below right of=B] {$v_3$};
+  \node[main node, orangeUnicam] (B) [right of=A] {$v_2$};
+  \node[main node, orangeUnicam] (C) [below right of=B] {$v_3$};
   \node[main node] (D) [below left of=C] {$v_4$};
 
   % Edges
@@ -17,14 +17,14 @@
 
   % G_v2 graph
   \begin{scope}[shift={(6,1)}]
-    \draw[bluUnicam] (0,0) circle (1.5cm);
-    \node[little node, bluUnicam] (X) at (-0.5,0.5) {$a_1$};
-    \node[little node, bluUnicam] (Y) at (1,0) {$a_2$};
-    \node[little node, bluUnicam] (Z) at (0,-1) {$a_3$};
+    \draw[orangeUnicam] (0,0) circle (1.5cm);
+    \node[little node] (X) at (-0.5,0.5) {$a_1$};
+    \node[little node] (Y) at (1,0) {$a_2$};
+    \node[little node] (Z) at (0,-1) {$a_3$};
     \path[every node/.style={font=\sffamily\small}]
-      (X) edge[bluUnicam] (Y)
-      (Y) edge[bluUnicam] (Z)
-      (Z) edge[bluUnicam] (X);
+      (X) edge[black] (Y)
+      (Y) edge[black] (Z)
+      (Z) edge[black] (X);
   \end{scope}
 
   % Link
@@ -32,15 +32,15 @@
 
 % G_v3 graph
   \begin{scope}[shift={(8,-2.5)}]
-    \draw[blue] (0,0) circle (1.5cm);
-    \node[little node, blue] (T) at (-0.5,0.5) {$a_4$};
-    \node[little node, blue] (U) at (1,0) {$a_5$};
-    \node[little node, blue] (V) at (0.25,-1) {$a_6$};
-    \node[little node, blue] (W) at (-0.5,-0.5) {$a_7$};
+    \draw[orangeUnicam] (0,0) circle (1.5cm);
+    \node[little node] (T) at (-0.5,0.5) {$a_4$};
+    \node[little node] (U) at (1,0) {$a_5$};
+    \node[little node] (V) at (0.25,-1) {$a_6$};
+    \node[little node] (W) at (-0.5,-0.5) {$a_7$};
     \path[every node/.style={font=\sffamily\small}]
-      (U) edge[blue] (T)
-      (U) edge[blue] (W)
-      (U) edge[blue] (V);
+      (U) edge[black] (T)
+      (U) edge[black] (W)
+      (U) edge[black] (V);
   \end{scope}
 
   % Link
