@@ -23,9 +23,9 @@
                 \State $E_{\alpha} \coloneqq E_{\alpha} \cup \{(v,w)\}$
             \Else
                 \If {$(\alpha , \beta)$ $\notin$ $\mathfrak{E}$}
-                    \State $\mathfrak{E}$ $\coloneqq$ $\mathfrak{E}$ $\cup$ $(\alpha , \beta)$
+                    \State $\mathfrak{E}$ $\coloneqq$ $\mathfrak{E}$ $\cup$ $\{(\alpha , \beta)\}$
                 \EndIf
-                \State $(\alpha , \beta).dec$ $\coloneqq$ $(\alpha , \beta).dec$ $\cup$ $(v, w)$
+                \State $(\alpha , \beta).dec$ $\coloneqq$ $(\alpha , \beta).dec$ $\cup$ $\{(v, w)\}$
             \EndIf
         \EndFor
         \State \Return $G'$

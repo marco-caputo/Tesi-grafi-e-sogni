@@ -2,7 +2,7 @@
     \caption{JHONSON-ALGORITHM($G$)}\label{alg:jhonson-algorithm}
     \begin{algorithmic}[1]
         \State Sia $S$ una pila di nodi vuota
-        \State $s \coloneqq v_1$
+        \State $i \coloneqq 1$
         \While {$i < n$}
             \State $K \coloneqq$ componente fortemente connessa contenente il vertice $v_i$
             nel sottografo indotto $G[\{v_i, v_{i+1}, \ldots, v_n\}]$

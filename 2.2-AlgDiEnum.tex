@@ -193,7 +193,7 @@ a $v$ tramite un arco non orientato.
 Nel corso della sua esecuzione, quindi, l'algoritmo manipola tre insiemi di nodi disgiunti che vengono passati
 alle procedure ricorsive, che sono:
 \begin{itemize}
-    \item $R$: cricca correntemente in costruzione
+    \item $R$: cricca correntemente in costruzione.
     \item $P$: insieme di nodi adiacenti a ogni nodo in $R$, ovvero i nodi candidati a far parte della cricca corrente
     non ancora considerati nella costruzione di una cricca massimale che includa $R$.
     \item $X$: insieme di nodi adiacenti a ogni nodo in $R$, gi\`a considerati nella costruzione di una cricca
@@ -331,10 +331,10 @@ ma ricorsivamente anche tutti i nodi eventualmente presenti in $v.B$.
 
 I parametri passati alla procedura ricorsiva CIRCUIT includono
 \begin{itemize}
-    \item il nodo da visitare $v$
-    \item il nodo origine del circuito $s$
-    \item il grafo indotto attuale $K$ su cui avviene la ricerca
-    \item lo stack dei nodi attualmente in corso di visita $S$
+    \item il nodo da visitare $v$;
+    \item il nodo origine del circuito $s$;
+    \item il grafo indotto attuale $K$ su cui avviene la ricerca;
+    \item lo stack dei nodi attualmente in corso di visita $S$.
 \end{itemize}
 
 \input{Algoritmi/5.2-circuit}
@@ -373,7 +373,7 @@ complessit\`a computazionale nel caso peggiore (ovvero quello di un grafo comple
 esponenziale, dovuto al numero di circuiti semplici presenti, che in tal caso \`e pari a
 
 \begin{equation*}
-    c \quad = \quad \sum_{i = 1}^{n-1} \binom{n}{n-i+1} (n-1)!
+    c \quad = \quad \sum_{i = 1}^{n-1} \binom{n}{n-i+1} (n-i)!
 \end{equation*}
 
 
