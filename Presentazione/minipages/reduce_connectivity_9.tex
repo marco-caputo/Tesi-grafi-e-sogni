@@ -1,0 +1,66 @@
+\begin{minipage}[t]{\textwidth}
+    \begin{columns}
+        \begin{column}{0.42\textwidth}
+    \begin{tikzpicture}
+            \node at (0,0) [rectangle,draw] (phone) {\scriptsize \color{orangeUnicam} \bf phone};
+            \node[rectangle,draw] (call) [right of=phone, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf call};
+            \node[rectangle,draw] (hug) [below of=phone, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf hug};
+            \node[rectangle,draw] (kiss) [right of=hug, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf kiss};
+            \node[rectangle,draw] (goodbye) [below of=hug, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
+            \node[rectangle,draw] (kiss2) [right of=goodbye, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf kiss};
+            \node[rectangle,draw] (talk2) [below of=goodbye, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf talk};
+            \node[rectangle,draw] (phone2) [right of=talk2, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf phone};
+            \node[rectangle,draw] (call2) [below of=talk2, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf call};
+            \node[rectangle,draw] (explain) [right of=call2, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf explain};
+            \node[rectangle,draw] (talk3) [below of=call2, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf talk};
+            \node[rectangle,draw] (hug2) [right of=talk3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf hug};
+            \node[rectangle,draw] (kiss3) [below of=talk3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf kiss};
+            \node[rectangle,draw] (talk4) [right of=kiss3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf talk};
+            \node[rectangle,draw] (hug3) [below of=kiss3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf hug};
+            \node[rectangle,draw] (goodbye2) [right of=hug3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
+            \node[rectangle,draw, orangeUnicam] (phone3) [below of=hug3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf phone};
+            \node[rectangle,draw, orangeUnicam] (explain2) [right of=phone3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf explain};
+            \node[rectangle,draw] (goodbye3) [below of=phone3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
+            \node[rectangle,draw] (phone4) [right of=goodbye3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf phone};
+
+            \draw[->, thick]  (phone) -- node[midway, above] {\tiny $3,745$} (call);
+            \draw[->, thick]  (hug) -- node[midway, above] {\tiny $3,984$} (kiss);
+            \draw[->, thick] (goodbye) -- node[midway, above] {\tiny $5,216$} (kiss2);
+            \draw[->, thick] (talk2) -- node[midway, above] {\tiny $5,652$} (phone2);
+            \draw[->, thick] (call2) -- node[midway, above] {\tiny $5,957$} (explain);
+            \draw[->, thick] (talk3) -- node[midway, above] {\tiny $7,091$} (hug2);
+            \draw[->, thick] (kiss3) -- node[midway, above] {\tiny $7,978$} (talk4);
+            \draw[->, thick] (hug3) -- node[midway, above] {\tiny $9,643$} (goodbye2);
+            \draw[->, thick, orangeUnicam] (phone3) -- node[midway, above] {\tiny $10,302$} (explain2);
+            \draw[->, thick] (goodbye3) -- node[midway, above] (lastedge) {\tiny $10,455$} (phone4);
+
+            \node (dots) [below of=lastedge, node distance=1cm] {\small \bf \ldots};
+
+        \end{tikzpicture}
+        \end{column}
+        \begin{column}{0.58\textwidth}
+            \begin{tikzpicture}[graph node/.style={circle, draw, minimum size=20pt, inner sep=1pt}, >={Stealth}]
+
+            \node (thr) at (0.6,3.3) {\scriptsize \bf $threshold = 12.5$};
+
+            \node[graph node] (talk) at (0,0) {\tiny \bf talk};
+            \node[graph node] (phone) at (2,-1) {\tiny \bf phone};
+            \node[graph node] (call) at (3.5,-2.5) {\tiny \bf call};
+            \node[graph node] (hug) at (2.5, 2.5) {\tiny \bf hug};
+            \node[graph node] (kiss) at (2,0.5) {\tiny \bf kiss};
+            \node[graph node] (goodbye) at (4.5,1.25) {\tiny \bf goodbye};
+            \node[graph node] (explain) at (5,-1) {\tiny \bf explain};
+
+            \draw[->, thick, Green]  (phone) -- node[midway, right] {\tiny $3,745$} (call);
+            \draw[->, thick]  (hug) -- node[midway, right] {\tiny $3,984$} (kiss);
+            \draw[->, thick] (goodbye) -- node[midway, below] {\tiny $5,216$} (kiss);
+            \draw[->, thick] (talk) -- node[midway, above] {\tiny $5,652$} (phone);
+            \draw[->, thick, Green] (call) -- node[midway, right] {\tiny $5,957$} (explain);
+            \draw[->, thick] (talk) -- node[midway, left] {\tiny $7,091$} (hug);
+            \draw[->, thick] (kiss) -- node[midway, above] {\tiny $7,978$} (talk);
+            \draw[->, thick] (hug) -- node[midway, above] {\tiny $9,643$} (goodbye);
+            \draw[->, thick, orangeUnicam] (phone) -- node[midway, above] {\tiny $10,302$} (explain);
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+\end{minipage}
