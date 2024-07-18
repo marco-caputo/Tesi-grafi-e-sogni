@@ -2,26 +2,26 @@
     \begin{columns}
         \begin{column}{0.42\textwidth}
     \begin{tikzpicture}
-            \node at (0,0) [rectangle,draw] (phone) {\scriptsize \color{orangeUnicam} \bf phone};
-            \node[rectangle,draw] (call) [right of=phone, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf call};
-            \node[rectangle,draw] (hug) [below of=phone, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf hug};
-            \node[rectangle,draw] (kiss) [right of=hug, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf kiss};
-            \node[rectangle,draw, orangeUnicam] (goodbye) [below of=hug, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
-            \node[rectangle,draw, orangeUnicam] (kiss2) [right of=goodbye, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf kiss};
-            \node[rectangle,draw] (talk2) [below of=goodbye, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf talk};
-            \node[rectangle,draw] (phone2) [right of=talk2, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf phone};
-            \node[rectangle,draw] (call2) [below of=talk2, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf call};
-            \node[rectangle,draw] (explain) [right of=call2, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf explain};
-            \node[rectangle,draw] (talk3) [below of=call2, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf talk};
-            \node[rectangle,draw] (hug2) [right of=talk3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf hug};
-            \node[rectangle,draw] (kiss3) [below of=talk3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf kiss};
-            \node[rectangle,draw] (talk4) [right of=kiss3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf talk};
-            \node[rectangle,draw] (hug3) [below of=kiss3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf hug};
-            \node[rectangle,draw] (goodbye2) [right of=hug3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
-            \node[rectangle,draw] (phone3) [below of=hug3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf phone};
-            \node[rectangle,draw] (explain2) [right of=phone3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf explain};
-            \node[rectangle,draw] (goodbye3) [below of=phone3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
-            \node[rectangle,draw] (phone4) [right of=goodbye3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf phone};
+            \node at (0,0) [rectangle,draw,fill=white] (phone) {\scriptsize \color{orangeUnicam} \bf phone};
+            \node[rectangle,draw,fill=white] (call) [right of=phone, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf call};
+            \node[rectangle,draw,fill=white] (hug) [below of=phone, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf hug};
+            \node[rectangle,draw,fill=white] (kiss) [right of=hug, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf kiss};
+            \node[rectangle,draw=orangeUnicam,fill=white] (goodbye) [below of=hug, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
+            \node[rectangle,draw=orangeUnicam,fill=white] (kiss2) [right of=goodbye, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf kiss};
+            \node[rectangle,draw,fill=white] (talk2) [below of=goodbye, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf talk};
+            \node[rectangle,draw,fill=white] (phone2) [right of=talk2, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf phone};
+            \node[rectangle,draw,fill=white] (call2) [below of=talk2, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf call};
+            \node[rectangle,draw,fill=white] (explain) [right of=call2, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf explain};
+            \node[rectangle,draw,fill=white] (talk3) [below of=call2, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf talk};
+            \node[rectangle,draw,fill=white] (hug2) [right of=talk3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf hug};
+            \node[rectangle,draw,fill=white] (kiss3) [below of=talk3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf kiss};
+            \node[rectangle,draw,fill=white] (talk4) [right of=kiss3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf talk};
+            \node[rectangle,draw,fill=white] (hug3) [below of=kiss3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf hug};
+            \node[rectangle,draw,fill=white] (goodbye2) [right of=hug3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
+            \node[rectangle,draw,fill=white] (phone3) [below of=hug3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf phone};
+            \node[rectangle,draw,fill=white] (explain2) [right of=phone3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf explain};
+            \node[rectangle,draw,fill=white] (goodbye3) [below of=phone3, node distance=0.6cm] {\scriptsize \color{orangeUnicam} \bf goodbye};
+            \node[rectangle,draw,fill=white] (phone4) [right of=goodbye3, node distance=2.5cm] {\scriptsize \color{orangeUnicam} \bf phone};
 
             \draw[->, thick]  (phone) -- node[midway, above] {\tiny $3,745$} (call);
             \draw[->, thick]  (hug) -- node[midway, above] {\tiny $3,984$} (kiss);

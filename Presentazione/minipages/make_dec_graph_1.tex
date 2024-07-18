@@ -1,6 +1,6 @@
 \begin{minipage}[t]{\textwidth}
     \begin{columns}
-    \begin{column}{0.33\textwidth}
+    \begin{column}{0.33\textwidth} \arrayrulecolor{black}
     \begin{tabularx}{0.9\linewidth} {
         | >{\raggedright\arraybackslash}X
         | >{\centering\arraybackslash}X | }
@@ -27,11 +27,11 @@
     \vspace{0.5cm}
     \resizebox{\textwidth}{!}{
     \begin{tikzpicture}
-        \node[circle, draw] (A) {$v_1$};
-        \node[circle, draw] (B) [above of=A, node distance=1.4cm] {$v_2$};
-        \node[circle, draw] (C) [right=0cm and 1cm of B] {$v_3$};
-        \node[circle, draw] (D) [right=0cm and 1cm of C] {$v_4$};
-        \node[circle, draw] (E) [below of=D, node distance=1.4cm] {$v_5$};
+        \node[circle, draw, fill=white] (A) {$v_1$};
+        \node[circle, draw, fill=white] (B) [above of=A, node distance=1.4cm] {$v_2$};
+        \node[circle, draw, fill=white] (C) [right=0cm and 1cm of B] {$v_3$};
+        \node[circle, draw, fill=white] (D) [right=0cm and 1cm of C] {$v_4$};
+        \node[circle, draw, fill=white] (E) [below of=D, node distance=1.4cm] {$v_5$};
         \begin{pgfonlayer}{background}
             \node[orangeUnicam,
             circle,
@@ -47,10 +47,10 @@
         \end{pgfonlayer}
         \draw[myarrow] (A) -- (B);
         \draw[myarrow] (B) -- (C);
-        \draw[myarrow] (A) -- (C);
+        \draw[myarrow] (C) -- (A);
         \draw[myarrow] (C) -- (D);
         \draw[myarrow] (D) -- (E);
-        \draw[myarrow] (C) -- (E);
+        \draw[myarrow] (E) -- (C);
     \end{tikzpicture}}
     \vspace{0.15cm}
     \end{column}

@@ -4,9 +4,9 @@
   \tikzstyle{edge} = [->, >={Stealth[round]}, thick]
 
   % Left Graph
-  \node[vertex, label=left:$u$] (u) at (0, 1) {};
+  \node[vertex, line width=1.9pt, draw=orangeUnicam, label=left:$u$] (u) at (0, 1) {};
   \node[] (u2) at (-0.2, 0.8) {};
-  \node[vertex, label=left:$v$] (v) at (0, -1) {};
+  \node[vertex, line width=1.9pt, draw=orangeUnicam, label=left:$v$] (v) at (0, -1) {};
   \node[] (v2) at (-0.2, -0.8) {};
 
   \node[vertex] (a) at (-1.5, 0.5) {};
@@ -30,12 +30,12 @@
   \draw[edge] (v) -- (g);
   \draw[edge] (g) -- (e);
 
-  \draw[edge] (u) -- (v);
+  \draw[edge, line width=1.7pt, draw=orangeUnicam] (u) -- (v);
   \draw[->, red] (u2) -- ++( 0, -0.5);
   \draw[->, red] (v2) -- ++( 0, 0.5);
 
   % Right Graph
-  \node[vertex, label=left:$w$] (w) at (6, 0) {};
+  \node[vertex, line width=1.9pt, draw=orangeUnicam, label=left:$w$] (w) at (6, 0) {};
 
   \node[vertex] (a2) at (4.5, 0.5) {};
   \node[vertex] (b2) at (7.5, 0.5) {};
