@@ -1,0 +1,20 @@
+\begin{minipage}[t]{\textwidth}
+    \begin{tikzpicture}
+        \node at (0,0) [rectangle,draw,fill=white] (lake) {\scriptsize \color{orangeUnicam} \bf lake};
+        \node[rectangle,draw,fill=white] (hometown) [right of=lake, node distance=1.6cm] {\scriptsize \color{orangeUnicam} \bf hometown};
+        \node[rectangle,draw,fill=white] (something) [right of=hometown, node distance=2cm] {\scriptsize \color{orangeUnicam} \bf something};
+        \node[rectangle,draw,fill=white] (go) [right of=something, node distance=1.5cm] {\scriptsize \color{orangeUnicam} \bf go};
+        \node[rectangle,draw,fill=white] (hurry) [right of=go, node distance=1.2cm] {\scriptsize \color{orangeUnicam} \bf hurry};
+        \node[rectangle,draw,fill=white] (get) [right of=hurry, node distance=1.3cm] {\scriptsize \color{orangeUnicam} \bf get};
+        \node[rectangle,draw,fill=white] (away) [right of=get, node distance=1.2cm] {\scriptsize \color{orangeUnicam} \bf away};
+        \node (dots) [right of=away, node distance=1.2cm] {\small \bf \ldots};
+
+        \draw[->, thick] (lake) -- (hometown);
+        \draw[->, thick] (hometown) -- (something);
+        \draw[->, thick] (something) -- (go);
+        \draw[->, thick] (go) -- (hurry);
+        \draw[->, thick] (hurry) -- (get);
+        \draw[->, thick] (get) -- (away);
+        \draw[->, thick] (away) -- (dots);
+    \end{tikzpicture}
+\end{minipage}

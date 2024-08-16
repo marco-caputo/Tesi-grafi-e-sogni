@@ -1,0 +1,101 @@
+\section{}
+\begin{frame}{}
+\begin{center}
+Background slides
+\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{BP:details 1}
+\begin{itemize}
+\item The activation function of the artificial neurons in ANNs implementing the backpropagation algorithm is a weighted sum:
+\begin{equation}
+A_{j}(\vec x,\vec w)=\Sigma_{i=0}^{n}x_{i}w_{ji} 
+\end{equation}
+\item The most common output function is the sigmoidal:
+\begin{equation}
+O_{j}(\vec x,\vec w)=\frac{1}{1+e^{A_{j}(\vec x,\vec w)}}
+\end{equation}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{BP: details 2}
+\begin{itemize}
+\item  Since the error is the difference between the actual and the desired output, the errors depends on the weights, and we need to adjust the weights in order to minimize the errors. The error function is:
+\begin{equation}
+E_{j}(\vec x,\vec w,d)=(O_{j}(\vec x,\vec w)-d_{j})^2
+\end{equation}
+\item We can adjust the weights using the method of gradient descendent
+\begin{equation}
+\vartriangle w_{ji}=\eta\frac{\partial E}{\partial w_{ji}}
+\end{equation}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{BP: details 3}
+So, we need to find the derivative of E in respect to $w_{ji}$. This is the goal of the backpropagation algorithm, since we need to achieve this backwards. 
+\begin{itemize}
+\item First, we need to calculate how much the error depends on the output, which is the derivative of E in respect to $O_{j}$ and then, how much the output depends on the activation: 
+\begin{equation}
+\frac{\partial E}{\partial w_{ji}}=\frac{\partial O_{j}}{\partial A_{j}}\frac{\partial A_{j}}{\partial w_{ji}} 
+\end{equation}
+\item And finally for a networks with one more layer (call the weight $v_{ik}$)
+\begin{equation}
+\vartriangle v_{jk}=\eta\frac{\partial E}{\partial v_{jk}}=-\eta\frac{\partial E}{\partial x_{i}}\frac{\partial x_{i}}{\partial v_{ik}}
+\end{equation}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Levenberg-Marquardt: details 1}
+The \textit{Jacobian} is a matrix of all first-order partial derivatives of a vector-valued function. In the neural network case, it is a $N \times W$ matrix, where N is the number of entries in our training set and W is the total number of parameters:
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{./immagini/jacobian}
+\end{center}
+Where $F(x_{i}, w)$ is the network function evaluated for the i-th input vector of the training set using the weight vector w and $w_{j}$ is the j-th element of the weight vector w of the network.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Levenberg-Marquardt: details 2}
+\begin{itemize}
+\item  The $J^{t}J$ matrix can also be known as the approximated hessian (is the square matrix of second-order partial derivatives of a function, it describes the local curvature of a function). 
+\item It is is a very good approximation of the Hessian if the residual errors at the solution are "small". If the residuals are not sufficiently small at the solution, this approach may result in slow convergence (long computational time). 
+\item The Hessian can also be used to apply regularization to the learning process. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Levenberg-Marquardt: details 3}
+\begin{itemize}
+\item The damping factor $\lambda$ is summed to every member of the approximate Hessian diagonal before the system is solved for the gradient (initial value of $\lambda$ is 0.1).
+\item Then, the L-M equation is solved. After the wieights w are updated using $\delta$ and network errors for each entry in the training are recalculated.
+\item If the new sum of squared errors has decreased, $\lambda$ is decreased and the iteration ends, otherwise the new wieghts are discarded and the method is reapeated with a higher value for $\lambda$ multiplied by 10.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Process Calculus some concepts}
+\begin{itemize}
+\item<1->"There is nothing canonical about the choice of the basic combinators, even though they were chosen with great attention to economy. What characterises our calculus is not the exact choice of combinators, but rather the choice of interpretation and of mathematical framework"  R. Milner.\\
+\item<2->{\color{redUnicam}{CCS: Calculus of Comunicating Systems}}
+\begin{center}
+P::=$\emptyset $\textbar $a.P_{1}$ \textbar A \textbar $ P_{1} + P_{2} $ \textbar  $P_{1}$\textbar$P_{2}$ \textbar$ P_{1}[b/a] $\textbar $P_{1}$\textbackslash a
+\end{center}
+\item<3->Evolution: $\pi-calculus$ allows channel names to be communicated along the channels themselves, and in this way it is able to describe concurrent computations whose network configuration may change during the computation.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Introduction to Agent Theory}
+\begin{itemize}
+\item An agent is a computer system situated in some environment and capable of autonomous, self-directed, self-contained, flexible(reactive, adaptive, proactive) actions in that environment in order to meet its design goals. 
+\item An agent moves from one environment to another through its actuators. 
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{./immagini/actuator}
+\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
