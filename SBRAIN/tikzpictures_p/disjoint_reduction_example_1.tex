@@ -1,0 +1,22 @@
+ \begin{tikzpicture}[state/.style ={circle, draw, color=black , fill=black, text=white, inner sep=0cm,
+    minimum size=0.1cm}]
+        \node[state] (1) [label=left:$v_1$] at (-0.3, 0) {};
+        \node[state] (2) [label=left:$v_2$] at (1, 0.5) {};
+        \node[state] (3) [label=left:$v_3$] at (0, -0.6) {};
+        \node[state] (4) [label=right:$v_4$] at (-0.4, 0.8) {};
+        \node[state] (5) [label=right:$v_5$] at (0.8, 1.7) {};
+        \node[state] (6) [label=left:$v_6$] at (1.9, 2.3) {};
+        \node[state] (7) [label=left:$v_7$] at (4, 0) {};
+        \node[state] (8) [label=left:$v_8$] at (3.2, -0.8) {};
+        \node[state] (9) [label=right:$v_9$] at (3.6, -0.8) {};
+        \node[state] (10) [label=right:$v_{10}$] at (2.5, 0.5) {};
+        \node[state] (11) [label=below:$v_{11}$] at (4, 1.5) {};
+        \node[state] (12) [label=above:$v_{12}$] at (4.5, 1.2) {};
+
+        \node[fit={(1)(2)(3)(4)}, draw, circle, orangeUnicam, label=left:{\color{orangeUnicam}$C_1$}]{};
+        \node[fit={(5)(6)}, draw, circle, orangeUnicam, label=left:{\color{orangeUnicam}$C_5$}]{};
+        \node[fit={(7)(10)},draw, ellipse, orangeUnicam, label=right:{\color{orangeUnicam}$C_4$}, minimum width = 2.7cm]{};
+        \node[fit={(2)(10)},draw, ellipse, orangeUnicam, label=below:{\color{orangeUnicam}$C_3$}, minimum width = 2.7cm, minimum height = 1cm]{};
+        \node[fit={(7)(8)(9)(10)(11)(12)}, orangeUnicam, draw, circle, label=above:{\color{orangeUnicam}$C_2$}]{};
+        \node[fit={(11)(12)}, draw, circle, orangeUnicam, label=left:{\color{orangeUnicam}$C_6$}]{};
+    \end{tikzpicture}

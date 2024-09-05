@@ -1,0 +1,54 @@
+\begin{tikzpicture}[scale=1.5]
+
+% Define the styles for the nodes and edges
+\tikzstyle{vertex} = [draw, circle, inner sep=2pt, minimum size=18pt]
+\tikzstyle{edge} = [->, >={Stealth[round]}, thick]
+\tikzset{thick vertex/.style = {draw=orangeUnicam, circle, inner sep=2pt, minimum size=18pt, line width=2pt}}]
+\tikzset{thick edge/.style = {->, >={Stealth[round]}, draw=orangeUnicam, line width=2pt}}
+
+\node[thick vertex] (v1) at (0,0) {$v_1$};
+\node[thick vertex] (v2) at (0,2) {$v_2$};
+\node[thick vertex] (v3) at (0.75,1) {$v_3$};
+\node[thick vertex] (v4) at (1.5,0) {$v_4$};
+\node[vertex] (v5) at (1.5,2) {};
+\node[vertex] (v6) at (2.5,0) {};
+\node[vertex] (v7) at (2.5,2) {};
+\node[vertex] (v8) at (3.2,1) {};
+
+% Draw edges for left graph
+\draw[thick edge] (v1) -- (v2);
+\draw[thick edge] (v1) -- (v3);
+\draw[thick edge] (v2) -- (v3);
+\draw[thick edge] (v3) -- (v4);
+\draw[thick edge] (v4) -- (v1);
+\draw[edge] (v2) -- (v5);
+\draw[edge] (v3) -- (v5);
+\draw[edge] (v4) -- (v5);
+\draw[edge] (v4) -- (v6);
+\draw[edge] (v5) -- (v7);
+\draw[edge] (v6) -- (v7);
+\draw[edge] (v6) -- (v8);
+\draw[edge] (v7) -- (v4);
+\draw[edge] (v7) -- (v8);
+\draw[edge] (v6) -- (v8);
+
+\node[thick vertex] (w) at (5.5,0.7) {$w$};
+\node[vertex] (v5) at (6.2,2) {};
+\node[vertex] (v6) at (7.2,0) {};
+\node[vertex] (v7) at (7.2,2) {};
+\node[vertex] (v8) at (7.9,1) {};
+
+% Draw edges for right graph
+\draw[edge] (w) -- (v5);
+\draw[edge] (w) -- (v6);
+\draw[edge] (v5) -- (v7);
+\draw[edge] (v6) -- (v7);
+\draw[edge] (v6) -- (v8);
+\draw[edge] (v7) -- (w);
+\draw[edge] (v7) -- (v8);
+\draw[edge] (v6) -- (v8);
+
+% Draw the arrow
+\draw[-{Stealth[length=3mm, width=2mm]}, orangeUnicam, thick, dashed] (4,1.1) -- (4.8,1.1);
+
+\end{tikzpicture}
