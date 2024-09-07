@@ -1,0 +1,10 @@
+\begin{tikzpicture}
+    \node[circle, draw=orangeUnicam, fill=white] (a1) {\color{orangeUnicam}$\alpha_1$};
+    \node[circle, draw=orangeUnicam, fill=white, right of=a1, node distance=2.4cm] (a2) {\color{orangeUnicam}$\alpha_2$};
+    \node[circle, draw=orangeUnicam, fill=white, right of=a2, node distance=2.4cm] (a3) {\color{orangeUnicam}$\alpha_3$};
+
+    \draw[myarrow] (a1) -- (a2);
+    \draw[myarrow] (a2) -- (a3);
+    \draw[myarrow] (a2) -- (a1);
+    \draw[myarrow] (a3) -- (a2);
+\end{tikzpicture}

@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{svg}
 \usepackage{amsfonts}
+\usepackage{amsmath}
 \usepackage{multicol}
 \usepackage{tabularx}
 \usepackage[normalem]{ulem}
@@ -33,21 +34,11 @@
 \usepackage{setspace,textcomp,soul}
 \usepackage{beamerprosper}
 
-\setbeamerfont{title like}{shape=\scshape}
-\setbeamerfont{frametitle}{shape=\scshape}
-\definecolor{bluUnicam}{RGB}{27,43,74}
-\definecolor{redUnicam}{RGB}{219,0,36}
-\definecolor{orangeUnicam}{RGB}{234,114,40}
-\setbeamercolor*{lower separation line head}{bg=redUnicam}
-\setbeamercolor*{normal text}{fg=bluUnicam,bg=white}
-\setbeamercolor*{alerted text}{fg=red}
-\setbeamercolor*{example text}{fg=black}
-\setbeamercolor*{structure}{fg=orangeUnicam}
-\setbeamercolor*{frametitle}{fg=redUnicam}
+\usetheme{Singapore}
 
-\setbeamercolor*{palette secondary}{fg=orangeUnicam,bg=bluUnicam}
-\setbeamercolor*{palette tertiary}{fg=orangeUnicam,bg=bluUnicam}
-\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+\definecolor{bluUnicam}{RGB}{27,43,74}
+\definecolor{redUnicam}{RGB}{158,36,56} %{redUnicam!30}
+\definecolor{orangeUnicam}{RGB}{51, 51, 178}
 
 
 % Add navigation symbols at the bottom
@@ -61,7 +52,7 @@
 }
 
 \newtheorem{esempio}{Example}\theoremstyle{definition}
-\newtheorem{definizione}{Definition} \theoremstyle{plain}
+\newtheorem{definizione}{Definition}\theoremstyle{definition}
 \newtheorem{teorema}{Theorem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,6 +181,18 @@
     \end{frame}}
 
 \section{\scshape Definitions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_frame_3}}
+    \begin{frame}[c]{Graphs}
+        \vspace*{-0.65cm}
+        \begin{minipage}[t]{\textwidth}
+            \centering
+            \input{tikzpictures_p/abc_graph}
+        \end{minipage}
+    \end{frame}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_frame_3}}
@@ -277,40 +280,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_frame_3}}
 \begin{frame}[t]{Subsets contraction}
-    \vspace{-0.4725cm}
-    \input{minipages/disjoint_reduction_1}
-\end{frame}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_frame_3}}
-\begin{frame}[t]{Subsets contraction}
-    \vspace{-0.5cm}
-    \input{minipages/disjoint_reduction_2}
-\end{frame}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_frame_3}}
-\begin{frame}[t]{Subsets contraction}
-    \vspace{-0.5cm}
-    \input{minipages/disjoint_reduction_2}
-    \begin{minipage}[t]{\textwidth}
+    \centering
+    \vspace{1cm}
+    \input{tikzpictures_p/hourglass_example_1}
+    \begin{overlayarea}{\textwidth}{3cm}
         \centering
-        \input{minipages/make_dec_graph_1}
-    \end{minipage}
-\end{frame}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_frame_3}}
-\begin{frame}[t]{Subsets contraction}
-    \vspace{-0.5cm}
-    \input{minipages/disjoint_reduction_2}
-    \begin{minipage}[t]{\textwidth}
-        \centering
-        \input{minipages/make_dec_graph_2}
-    \end{minipage}
+        \only<1>{}
+        \only<2>{\input{tikzpictures_p/hourglass_example_2}}
+    \end{overlayarea}
 \end{frame}}
 
 \section{\scshape Syntactic dream analysis}

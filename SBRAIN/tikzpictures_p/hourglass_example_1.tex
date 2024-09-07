@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+    \node[circle, draw] (A) {$v_1$};
+    \node[circle, draw] (B) [above of=A, node distance=1.4cm] {$v_2$};
+    \node[circle, draw] (C) [right=0cm and 1cm of B] {$v_3$};
+    \node[circle, draw] (D) [right=0cm and 1cm of C] {$v_4$};
+    \node[circle, draw] (E) [below of=D, node distance=1.4cm] {$v_5$};
+    \begin{pgfonlayer}{background}
+        \node[orangeUnicam,
+            circle,
+            draw,
+            fit=(A)(B)(C),
+            label={[align=center, orangeUnicam]above:{$C_1$}}] (set1) {};
+        \node[orangeUnicam,
+            circle,
+            draw,
+            fit=(C)(D)(E),
+            label={[align=center, orangeUnicam]above:{$C_2$}}] (set2) {};
+
+    \end{pgfonlayer}
+    \draw[myarrow] (A) -- (B);
+    \draw[myarrow] (B) -- (C);
+    \draw[myarrow] (C) -- (A);
+    \draw[myarrow] (C) -- (D);
+    \draw[myarrow] (D) -- (E);
+    \draw[myarrow] (E) -- (C);
+\end{tikzpicture}

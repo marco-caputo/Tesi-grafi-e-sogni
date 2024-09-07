@@ -97,12 +97,10 @@
 \draw (217,168.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor{bluUnicam}{\mathbf{C}}$};
 
 
-% Define nodes in the condensed graph
 \node[graph node, fill=bluUnicam!20, draw=black] (A) at (340,100) {A};
 \node[graph node, fill=bluUnicam!20, draw=black] (B) at (400,50) {B};
 \node[graph node, fill=bluUnicam!20, draw=black] (C) at (400,150) {C};
 
-% Draw edges in the quotient graph
 \draw[->, thick] (A) to[out=0, in=90] (B);
 \draw[->, thick] (B) to[out=180, in=270] (A);
 \draw[->, thick] (C) -- (A);
