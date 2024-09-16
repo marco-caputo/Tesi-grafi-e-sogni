@@ -32,22 +32,14 @@
 \usepackage{palatino}
 \usepackage{setspace,textcomp,soul}
 \usepackage{beamerprosper}
+\usepackage{scalefnt}
 
-\setbeamerfont{title like}{shape=\scshape}
-\setbeamerfont{frametitle}{shape=\scshape}
+
+\usetheme{Singapore}
+
 \definecolor{bluUnicam}{RGB}{27,43,74}
-\definecolor{redUnicam}{RGB}{219,0,36}
-\definecolor{orangeUnicam}{RGB}{234,114,40}
-\setbeamercolor*{lower separation line head}{bg=redUnicam}
-\setbeamercolor*{normal text}{fg=bluUnicam,bg=white}
-\setbeamercolor*{alerted text}{fg=red}
-\setbeamercolor*{example text}{fg=black}
-\setbeamercolor*{structure}{fg=orangeUnicam}
-\setbeamercolor*{frametitle}{fg=redUnicam}
-
-\setbeamercolor*{palette secondary}{fg=orangeUnicam,bg=bluUnicam}
-\setbeamercolor*{palette tertiary}{fg=orangeUnicam,bg=bluUnicam}
-\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+\definecolor{redUnicam}{RGB}{158,36,56} %{redUnicam!30}
+\definecolor{orangeUnicam}{RGB}{51, 51, 178}
 
 
 % Add navigation symbols at the bottom
@@ -260,8 +252,8 @@
 \begin{frame}[c]{}
     \centering
     {\scshape \LARGE \color{redUnicam} Syntactic analysis of dreams} \newline \newline
-    {The aim is to examine the typical syntactic structure of individual dreams of a particular dreamer,
-    with possible implications related to mental health.}
+    {We applied {\it MGA} to examine the typical syntactic structure of dreams of particular dreamers in relation
+    with the average, with possible implications related to mental health.}
 \end{frame}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -277,14 +269,6 @@
 {\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_data_space_frame}}
 \begin{frame}[t]{An Arlie's dream}
     \vspace{-0.2cm}
-    \input{minipages/dream_no_stopwords}
-\end{frame}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{immagini/bg_data_space_frame}}
-\begin{frame}[t]{An Arlie's dream}
-    \vspace{-0.2cm}
     \input{minipages/dream_lemmas}
 \end{frame}}
 
@@ -294,7 +278,6 @@
 \begin{frame}[t]{An Arlie's dream}
     \vspace{-0.2cm}
     \input{minipages/dream_lemmas}
-    \input{minipages/vertical_arrow}
     \input {minipages/chain_of_words}
 \end{frame}}
 
@@ -304,9 +287,9 @@
 \begin{frame}[t]{An Arlie's dream}
     \vspace{-0.2cm}
     \input{minipages/dream_lemmas}
-    \input{minipages/vertical_arrow}
     \input {minipages/chain_of_words}
-    \input{minipages/vertical_arrow}
+
+    \vspace{-0.1cm}
     \begin{minipage}[t]{\textwidth}
         \hspace{-0.715cm}
         \includegraphics[width=0.25355637513\textwidth]{immagini/arlie_80_lv0}
@@ -319,9 +302,16 @@
 \begin{frame}[t]{An Arlie's dream}
     \vspace{-0.2cm}
     \input{minipages/dream_lemmas}
-    \input{minipages/vertical_arrow}
     \input {minipages/chain_of_words}
-    \input{minipages/vertical_arrow}
+
+    \vspace{-0.5cm}
+    \begin{minipage}[t]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[align=left] at (5, 0.6) {\bf Feature detection};
+        \end{tikzpicture}
+    \end{minipage}
+
     \begin{minipage}[t]{\textwidth}
         \hspace{-0.7cm}
         \includegraphics[width=1.1\textwidth]{immagini/arlie_80_ml}
